@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_fff">
+
+    <RelativeLayout
+        android:id="@+id/left_layout"
+        android:layout_width="50dip"
+        android:layout_height="@dimen/main_header_height"
+        android:background="@drawable/selected_bg"
+        android:clickable="true"
+        android:onClick="back"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="@dimen/layout_23"
+            android:layout_height="@dimen/layout_23"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/public_arrow_left" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/top_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_header_height"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/layout_100"
+        android:layout_marginRight="@dimen/layout_100"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="@string/app_name"
+        android:textColor="@color/color_484848"
+        android:textSize="@dimen/text_18" />
+
+    <RelativeLayout
+        android:id="@+id/right_layout_send"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/main_header_height"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/selected_bg"
+        android:clickable="true"
+        android:onClick="save"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="@dimen/layout_10"
+            android:paddingRight="@dimen/layout_10"
+            android:text="@string/main_right"
+            android:textColor="@color/coloe_58ad2c"
+            android:textSize="@dimen/text_14" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_below="@+id/top_title"
+        android:background="@color/line_bg" />
+
+</RelativeLayout>

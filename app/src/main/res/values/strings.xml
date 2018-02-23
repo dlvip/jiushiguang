@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">旧时光</string>
+    <string name="main_right">保存</string>
+    <string name="loading_show_empty">暂无数据</string>
+    <string name="viewpager_indicator">%1$d/%2$d</string>
+    <string name="main_tab_home">首页</string>
+    <string name="main_tab_mine">我的</string>
+    <string name="please_wait">请稍后...</string>
+
+    <string name="permissions_again_easy_photos">请点击并允许相关权限</string>
+
+    <string name="permissions_die_easy_photos">请点击并在设置中允许相关权限</string>
+</resources>
