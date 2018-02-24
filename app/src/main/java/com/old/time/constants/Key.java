@@ -1,4 +1,4 @@
-package com.old.time;
+package com.old.time.constants;
 
 /**
  * key的常量
@@ -6,6 +6,8 @@ package com.old.time;
  */
 
 public class Key {
+    //线程名称
+    public static final String IMAGEDOWNLOAD_THREAD_NAME = "ImageDownLoad";
     //预览图片的当前角标
     public static final String PREVIEW_PHOTO_INDEX = "keyOfPreviewPhotoIndex";
     //当前预览界面的专辑index

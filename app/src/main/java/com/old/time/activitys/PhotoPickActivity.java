@@ -187,11 +187,10 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
 
                 }
                 break;
-
             case TO_PRIVIEW_PHOTO:
                 selectDone();
-                break;
 
+                break;
             case TO_TAKE_PHOTO:
                 String url = UriUtil.getAbsolutePathFromUri(this, mUri);
                 if (!TextUtils.isEmpty(url)) {

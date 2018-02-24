@@ -7,7 +7,7 @@ import android.os.Environment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
-import com.old.time.Constant;
+import com.old.time.constants.Key;
 import com.old.time.MyApplication;
 import com.old.time.R;
 import com.old.time.interfaces.ImageDownLoadCallBack;
@@ -27,8 +27,8 @@ public class GlideDealUtils {
      * 使用glide读取缓存图片 并保存到本地
      */
     public static void onDownLoad(final String imgUrl, final ImageDownLoadCallBack downLoadCallBack) {
-        MyApplication.getInstance().getTaskManager().delTask(Constant.IMAGEDOWNLOAD_THREAD_NAME);
-        MyApplication.getClient().getTaskManager().addTask(new CallBackTask(Constant.IMAGEDOWNLOAD_THREAD_NAME) {
+        MyApplication.getInstance().getTaskManager().delTask(Key.IMAGEDOWNLOAD_THREAD_NAME);
+        MyApplication.getClient().getTaskManager().addTask(new CallBackTask(Key.IMAGEDOWNLOAD_THREAD_NAME) {
             @Override
             protected void doTask() {
                 Bitmap bitmap = null;//glide的缓存图片

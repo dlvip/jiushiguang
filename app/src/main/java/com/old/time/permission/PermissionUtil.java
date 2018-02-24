@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.PermissionChecker;
 
-import com.old.time.Code;
+import com.old.time.constants.Code;
 
 import java.util.ArrayList;
 import java.util.List;

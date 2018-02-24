@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 图片查看器
  */
-public class ImagePagerActivity extends FragmentActivity {
+public class PhotoPagerActivity extends FragmentActivity {
     private static final String STATE_POSITION = "STATE_POSITION";
     public static final String EXTRA_IMAGE_INDEX = "image_index";
     public static final String EXTRA_IMAGE_URLS = "image_urls";

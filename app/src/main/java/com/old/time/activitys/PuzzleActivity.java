@@ -24,14 +24,13 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.old.time.Code;
-import com.old.time.Key;
+import com.old.time.constants.Code;
+import com.old.time.constants.Key;
 import com.old.time.R;
-import com.old.time.Setting;
+import com.old.time.constants.Setting;
 import com.old.time.adapters.PuzzleAdapter;
 import com.old.time.adapters.TextStickerAdapter;
 import com.old.time.interfaces.SaveBitmapCallBack;
-import com.old.time.models.ImageEngine;
 import com.old.time.models.Photo;
 import com.old.time.models.StickerModel;
 import com.old.time.permission.PermissionUtil;
@@ -46,6 +45,7 @@ import com.old.time.utils.EasyPhotos;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,6 +60,7 @@ import java.util.Locale;
 public class PuzzleActivity extends AppCompatActivity implements View.OnClickListener, PuzzleAdapter.OnItemClickListener, TextStickerAdapter.OnItemClickListener {
 
     private static WeakReference<Class<? extends Activity>> toClass;
+    private static int PIC_COUNT_SIZE = 1;
 
 
     public static void startWithPhotos(Activity act, ArrayList<Photo> photos, String puzzleSaveDirPath, String puzzleSaveNamePrefix, int requestCode, boolean replaceCustom) {
@@ -94,11 +95,11 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
         act.startActivityForResult(intent, requestCode);
     }
 
-    ArrayList<Photo> photos = null;
-    ArrayList<String> paths = null;
-    ArrayList<Bitmap> bitmaps = new ArrayList<>();
-    boolean fileTypeIsPhoto;
-    String saveDirPath, saveNamePrefix;
+    private ArrayList<Photo> photos = null;
+    private ArrayList<String> paths = null;
+    private ArrayList<Bitmap> bitmaps = new ArrayList<>();
+    private boolean fileTypeIsPhoto;
+    private String saveDirPath, saveNamePrefix;
 
     private PuzzleView puzzleView;
     private RecyclerView rvPuzzleTemplet;
@@ -187,6 +188,7 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                     case FLAG_CONTROL_CORNER:
                         if (currentDegrees < 0) {
                             currentDegrees = 0;
+
                         }
                         puzzleView.setPieceRadian(currentDegrees);
                         break;
@@ -310,8 +312,6 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                     });
                 }
             }).start();
-
-
         }
     }
 
@@ -335,14 +335,17 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
         } else if (R.id.tv_done == id) {
             if (PermissionUtil.checkAndRequestPermissionsInActivity(this, getNeedPermissions())) {
                 savePhoto();
-            }
 
+            }
         } else if (R.id.iv_replace == id) {
             controlFlag = -1;
             degreeSeekBar.setVisibility(View.GONE);
             toggleIvMenu(R.id.iv_replace);
             if (null == toClass) {
-//                EasyPhotos.createAlbum(this, true, Setting.imageEngine).setCount(1).start(91);
+                Intent intent = new Intent(this, PhotoPickActivity.class);
+                intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, true);
+                intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, PIC_COUNT_SIZE);
+                ActivityUtils.startActivityForResult(this, intent, Code.REQUEST_CODE_30);
 
             } else {
                 Intent intent = new Intent(this, toClass.get());
@@ -389,7 +392,6 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
         } else if (R.id.tv_template == id) {
             tvTemplate.setTextColor(ContextCompat.getColor(this, R.color.easy_photos_fg_accent));
             tvTextSticker.setTextColor(ContextCompat.getColor(this, R.color.easy_photos_fg_primary));
-
             rvPuzzleTemplet.setAdapter(puzzleAdapter);
 
         } else if (R.id.tv_text_sticker == id) {
@@ -500,12 +502,12 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
         if (requestCode == Code.REQUEST_SETTING_APP_DETAILS) {
             if (PermissionUtil.checkAndRequestPermissionsInActivity(this, getNeedPermissions())) {
                 savePhoto();
+
             }
             return;
         }
         switch (resultCode) {
             case RESULT_OK:
-
                 degrees.remove(degreeIndex);
                 degrees.add(degreeIndex, 0);
 
@@ -516,9 +518,9 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                     tempPath = photo.path;
 
                 } else {
-                    tempPath = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS).get(0);
-                }
+                    tempPath = data.getStringArrayListExtra(PhotoPickActivity.SELECT_PHOTO_LIST).get(0);
 
+                }
                 final String path = tempPath;
                 new Thread(new Runnable() {
                     @Override
@@ -528,6 +530,7 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void run() {
                                 puzzleView.replace(bitmap);
+
                             }
                         });
                     }
@@ -535,8 +538,10 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case RESULT_CANCELED:
+
                 break;
             default:
+
                 break;
         }
     }

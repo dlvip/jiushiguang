@@ -22,8 +22,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.old.time.Code;
-import com.old.time.Constant;
+import com.old.time.constants.Code;
 import com.old.time.R;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.permission.PermissionUtil;
@@ -41,7 +40,7 @@ import java.util.List;
 
 public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Callback {
 
-    private static final int PIC_COUNT_SIZE = 20;
+    private static final int PIC_COUNT_SIZE = 9;
 
     private RecyclerView recycler_view_pics;
     private List<String> picPaths = new ArrayList<>();
@@ -54,7 +53,7 @@ public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Cal
     private ImageView img_btn_lights, img_btn_reverse, img_take_pic;
     private TextView tv_pic_upload;
 
-    public static void startCamerActivity(Activity mContext) {
+    public static void startCamerActivity(Activity mContext,int requestCode) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA
                 , Manifest.permission.WRITE_EXTERNAL_STORAGE
                 , Manifest.permission.READ_EXTERNAL_STORAGE})) {
@@ -62,7 +61,7 @@ public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Cal
             return;
         }
         Intent intent = new Intent(mContext, CamerTakeActivity.class);
-        ActivityUtils.startActivityForResult(mContext, intent, Code.REQUEST_CODE_30);
+        ActivityUtils.startActivityForResult(mContext, intent, requestCode);
 
     }
 
@@ -118,9 +117,9 @@ public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Cal
                     @Override
                     public void onClick(View v) {
                         int position = helper.getLayoutPosition();
-                        Intent intent = new Intent(mContext, ImagePagerActivity.class);
-                        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_URLS, (ArrayList) picPaths);
-                        intent.putExtra(ImagePagerActivity.EXTRA_IMAGE_INDEX, position);
+                        Intent intent = new Intent(mContext, PhotoPagerActivity.class);
+                        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_URLS, (ArrayList) picPaths);
+                        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_INDEX, position);
                         ActivityUtils.startPicActivity((Activity) mContext, intent);
 
                     }

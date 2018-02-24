@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.ImagePagerActivity"/>
+        <activity android:name=".activitys.PhotoPagerActivity"/>
         <activity android:name=".activitys.CamerTakeActivity"/>
         <activity android:name=".activitys.PhotoPickActivity"/>
         <activity android:name=".activitys.ClipImageActivity"/>

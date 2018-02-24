@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 
-import com.old.time.Code;
+import com.old.time.constants.Code;
 import com.old.time.R;
 
 import java.util.HashSet;
