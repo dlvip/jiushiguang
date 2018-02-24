@@ -1,10 +1,7 @@
 package com.old.time.activitys;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,7 +9,6 @@ import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.adapters.ImagePagerAdapter;
-import com.old.time.fragments.ImageDetailFragment;
 import com.old.time.views.HackyViewPager;
 
 import java.util.List;

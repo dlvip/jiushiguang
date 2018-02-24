@@ -28,6 +28,7 @@
         <activity android:name=".activitys.ClipImageActivity"/>
         <activity android:name=".activitys.PhotoAlbumActivity"/>
         <activity android:name=".activitys.PhotoPreviewActivity"/>
+        <activity android:name=".activitys.PuzzleActivity"/>
     </application>
 
 </manifest>

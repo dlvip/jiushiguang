@@ -1,20 +1,15 @@
 package com.old.time.activitys;
 
 import android.app.ActionBar;
-import android.content.Context;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.old.time.R;
-import com.old.time.adapters.DisplayImageViewAdapter;
 import com.old.time.adapters.ImagePagerAdapter;
 import com.old.time.adapters.PhotoGalleyAdapter;
-import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AlbumController;
 import com.old.time.utils.PhotoSelectorHelper;

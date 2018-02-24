@@ -29,6 +29,7 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.CameraUtil;
+import com.old.time.utils.EasyPhotos;
 import com.old.time.utils.SaveTakePicAsyncTask;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
@@ -175,7 +176,7 @@ public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Cal
             return;
         }
         Intent intent = new Intent();
-        intent.putExtra("picPaths", (Serializable) picPaths);
+        intent.putExtra(EasyPhotos.RESULT_PHOTOS, (Serializable) picPaths);
         setResult(Activity.RESULT_OK, intent);
         ActivityUtils.finishActivity(mContext);
     }
