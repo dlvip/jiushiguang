@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/layout_80"
+    android:layout_marginRight="@dimen/layout_80"
+    android:background="@drawable/shape_ffffff_10"
+    android:minHeight="@dimen/layout_140"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_prompt_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minHeight="@dimen/layout_94"
+        android:padding="@dimen/layout_20"
+        android:text="确认删除此资源吗？"
+        android:textColor="#FF000000"
+        android:textSize="13sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line_bg" />
+
+    <LinearLayout
+        android:id="@+id/bottom_bt_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/dialog_cancel"
+            android:textColor="#FF0066CC"
+            android:textSize="13sp" />
+
+        <View
+            android:id="@+id/lay_line"
+            android:layout_width="@dimen/line_height"
+            android:layout_height="match_parent"
+            android:background="@color/line_bg" />
+
+        <TextView
+            android:id="@+id/tv_true"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/dialog_true"
+            android:textColor="#FF0066CC"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+</LinearLayout>

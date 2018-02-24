@@ -7,6 +7,13 @@
     <string name="main_tab_mine">我的</string>
     <string name="please_wait">请稍后...</string>
 
+    <string name="dialog_title">对话框标题</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_true">确定</string>
+    
+    <string name="permissions_apply_fail">申请相关权限失败</string>
+    <string name="permissions_apply_success">申请相关权限成功</string>
+
     <string name="permissions_again_easy_photos">请点击并允许相关权限</string>
 
     <string name="permissions_die_easy_photos">请点击并在设置中允许相关权限</string>

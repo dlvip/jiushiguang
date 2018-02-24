@@ -1,5 +1,6 @@
 package com.old.time.activitys;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,9 +22,11 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.old.time.Code;
 import com.old.time.Constant;
 import com.old.time.R;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.CameraUtil;
 import com.old.time.utils.SaveTakePicAsyncTask;
@@ -49,6 +52,18 @@ public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Cal
     private SurfaceHolder holder;
     private ImageView img_btn_lights, img_btn_reverse, img_take_pic;
     private TextView tv_pic_upload;
+
+    public static void startCamerActivity(Activity mContext) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA
+                , Manifest.permission.WRITE_EXTERNAL_STORAGE
+                , Manifest.permission.READ_EXTERNAL_STORAGE})) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, CamerTakeActivity.class);
+        ActivityUtils.startActivityForResult(mContext, intent, Code.REQUEST_CODE_30);
+
+    }
 
 
     @Override
@@ -129,7 +144,7 @@ public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Cal
                 intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, false);
                 intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, PIC_COUNT_SIZE);
                 intent.putExtra(PhotoPickActivity.SELECT_PHOTO_LIST, (Serializable) picPaths);
-                ActivityUtils.startActivityForResult(mContext, intent, Constant.REQUEST_CODE_30);
+                ActivityUtils.startActivityForResult(mContext, intent, Code.REQUEST_CODE_30);
 
                 break;
             case R.id.img_btn_lights:
@@ -272,7 +287,7 @@ public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Cal
             return;
         }
         switch (requestCode) {
-            case Constant.REQUEST_CODE_30:
+            case Code.REQUEST_CODE_30:
                 List<String> pathStrs = data.getStringArrayListExtra(PhotoPickActivity.SELECT_PHOTO_LIST);
                 picPaths.clear();
                 picPaths.addAll(pathStrs);

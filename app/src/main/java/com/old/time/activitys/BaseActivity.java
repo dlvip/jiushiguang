@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.old.time.R;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DebugLog;
+import com.old.time.utils.UIHelper;
 
 /**
  * Created by NING on 2018/2/23.
@@ -22,9 +24,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public Activity mContext;
     public String TAG;
-
-    private RelativeLayout permissionView;
-    private TextView tvPermission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +57,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         PermissionUtil.onPermissionResult(this, permissions, grantResults, new PermissionUtil.PermissionCallBack() {
             @Override
             public void onSuccess() {
-
+                UIHelper.ToastMessage(mContext,getString(R.string.permissions_apply_success));
             }
 
             @Override
             public void onShouldShow() {
 
-
             }
 
             @Override
             public void onFailed() {
-
+                UIHelper.ToastMessage(mContext,getString(R.string.permissions_apply_fail));
 
             }
         });
