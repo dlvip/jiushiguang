@@ -124,7 +124,8 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
         mLastAlbumName = AlbumController.RECENT_PHOTO;
         mHelper = new PhotoSelectorHelper(this);
         mHelper.getReccentPhotoList(this);
-        mGridView.setAdapter(mGalleyAdapter = new PhotoGalleyAdapter(this, null, isShowCamera, maxPickCount));
+        mGalleyAdapter = new PhotoGalleyAdapter(this, null, isShowCamera, maxPickCount);
+        mGridView.setAdapter(mGalleyAdapter);
 
         if (maxPickCount > 1) {
             mCountText.setVisibility(View.VISIBLE);

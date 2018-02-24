@@ -12,10 +12,13 @@
 
     <ImageView
         android:id="@+id/ic_check_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:padding="8dp"
+        android:paddingBottom="@dimen/layout_15"
+        android:paddingLeft="@dimen/layout_15"
+        android:paddingRight="@dimen/layout_10"
+        android:paddingTop="@dimen/layout_10"
         android:src="@drawable/selector_checkbox_photo" />
 
 </com.old.time.views.SquareRelativeLayout>
