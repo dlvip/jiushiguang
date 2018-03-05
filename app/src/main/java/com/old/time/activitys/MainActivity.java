@@ -16,7 +16,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         findViewById(R.id.relative_layout_take).setOnClickListener(this);
-        findViewById(R.id.tv_xfyun).setOnClickListener(this);
 
     }
 
@@ -31,9 +30,6 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.relative_layout_take:
                 CamerTakeActivity.startCamerActivity(mContext, Code.REQUEST_CODE_30);
-
-                break;
-            case R.id.tv_xfyun:
 
                 break;
         }

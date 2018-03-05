@@ -15,22 +15,6 @@
         android:layout_below="@+id/header_main"
         android:layout_marginBottom="@dimen/layout_50" />
 
-    <TextView
-        android:id="@+id/tv_xfyun"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_50"
-        android:layout_below="@+id/header_main"
-        android:gravity="center"
-        android:text="开启识别"
-        android:textColor="@color/color_000"
-        android:textSize="@dimen/layout_12" />
-
-    <TextView
-        android:id="@+id/isr_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_xfyun" />
-
     <include layout="@layout/tab_bottom" />
 
 </RelativeLayout>

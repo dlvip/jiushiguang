@@ -7,13 +7,11 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DebugLog;
 import com.old.time.utils.UIHelper;
 
 /**
@@ -38,12 +36,22 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    /**
+     * 设置title
+     *
+     * @param text
+     */
     public void setTitleText(int text) {
         TextView tv_title = findViewById(R.id.top_title);
         if (tv_title != null)
             tv_title.setText(text);
     }
 
+    /**
+     * 设置title
+     *
+     * @param text
+     */
     public void setTitleText(String text) {
         TextView tv_title = (TextView) findViewById(R.id.top_title);
         if (tv_title != null)
@@ -57,7 +65,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         PermissionUtil.onPermissionResult(this, permissions, grantResults, new PermissionUtil.PermissionCallBack() {
             @Override
             public void onSuccess() {
-                UIHelper.ToastMessage(mContext,getString(R.string.permissions_apply_success));
+                UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_success));
             }
 
             @Override
@@ -67,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onFailed() {
-                UIHelper.ToastMessage(mContext,getString(R.string.permissions_apply_fail));
+                UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_fail));
 
             }
         });
