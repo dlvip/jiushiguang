@@ -19,6 +19,8 @@ public class Code {
     //拼图选择activity请求吗
     public static final int REQUEST_PUZZLE_SELECTOR = 16;
 
+    public static final int HIDE_LOADING = 202;
+
     //页面跳转用
     public static final int REQUEST_CODE_20 = 20;
     public static final int REQUEST_CODE_30 = 30;
