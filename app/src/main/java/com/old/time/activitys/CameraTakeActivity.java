@@ -38,7 +38,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Callback {
+public class CameraTakeActivity extends BaseActivity implements SurfaceHolder.Callback {
 
     private static final int PIC_COUNT_SIZE = 9;
 
@@ -53,14 +53,14 @@ public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Cal
     private ImageView img_btn_lights, img_btn_reverse, img_take_pic;
     private TextView tv_pic_upload;
 
-    public static void startCamerActivity(Activity mContext,int requestCode) {
+    public static void startCameraActivity(Activity mContext,int requestCode) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA
                 , Manifest.permission.WRITE_EXTERNAL_STORAGE
                 , Manifest.permission.READ_EXTERNAL_STORAGE})) {
 
             return;
         }
-        Intent intent = new Intent(mContext, CamerTakeActivity.class);
+        Intent intent = new Intent(mContext, CameraTakeActivity.class);
         ActivityUtils.startActivityForResult(mContext, intent, requestCode);
 
     }
@@ -425,6 +425,7 @@ public class CamerTakeActivity extends BaseActivity implements SurfaceHolder.Cal
             mCamera.setParameters(parameters);
             autoFocus();
         } catch (Exception e) {
+
 
         }
     }
