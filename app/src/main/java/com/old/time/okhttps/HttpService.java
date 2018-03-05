@@ -1,7 +1,6 @@
 package com.old.time.okhttps;
 
 
-import com.old.time.beans.BaseHttpResult;
 import com.old.time.beans.LoginBean;
 
 import java.util.Map;

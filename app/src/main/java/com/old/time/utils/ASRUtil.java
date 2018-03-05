@@ -18,6 +18,8 @@ import com.old.time.constants.Key;
 /**
  * 讯飞语音工具类
  * Created by NING on 2018/2/27.
+ * <p>
+ * http://mscdoc.xfyun.cn/android/api/
  */
 
 public class ASRUtil {
@@ -41,16 +43,6 @@ public class ASRUtil {
         mASRUtil = new ASRUtil();
 
         return mASRUtil;
-    }
-
-    /**
-     * 讯飞语音初始化
-     *
-     * @param mContext
-     */
-    public static void setAppID(Context mContext) {
-        SpeechUtility.createUtility(mContext, SpeechConstant.APPID + "=" + Key.XFYUN_APP_ID);
-
     }
 
     /**
@@ -82,10 +74,31 @@ public class ASRUtil {
 
             return;
         }
-        mAsr.stopListening();
         ret = mAsr.startListening(mRecognizerListener);
         if (ret != ErrorCode.SUCCESS) {
             mOnStartAsrCallBack.onClickRankManagerCallBack(ASRUtil_CONDE_INIT_ERROR, "识别失败,错误码: " + ret);
+
+        }
+    }
+
+    /**
+     * 停止录制
+     */
+    private void stopAsr() {
+        if (mAsr == null) {
+
+            return;
+        }
+        mAsr.stopListening();
+    }
+
+    /**
+     * 退出时释放连接
+     */
+    public void destroyASRUtil() {
+        if (null != mAsr) {
+            mAsr.cancel();
+            mAsr.destroy();
 
         }
     }
@@ -100,17 +113,19 @@ public class ASRUtil {
 
             return;
         }
-        //设置识别引擎
-        mAsr.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
+        //设置语音会话时长：一次客户端与服务的会话最长可以保持60S
+        mAsr.setParameter(SpeechConstant.KEY_SPEECH_TIMEOUT, "60000");
+
+        // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理  最大设为10秒
+        mAsr.setParameter(SpeechConstant.VAD_BOS, "10000");
+
+        // 设置语音后端点:后端点静音检测时间，即用户停止说话多长时间内即认为不再输入， 自动停止录音  最大设为10秒
+        mAsr.setParameter(SpeechConstant.VAD_EOS, "10000");
+
         //设置返回结果为json格式
         mAsr.setParameter(SpeechConstant.RESULT_TYPE, "json");
-        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
-        mAsr.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
 
     }
-
-    private String mEngineType = null;
 
     /**
      * 识别监听器。
@@ -130,14 +145,7 @@ public class ASRUtil {
                 return;
             }
             if (null != result) {
-                String text;
-                if ("cloud".equalsIgnoreCase(mEngineType)) {
-                    text = JsonParser.parseGrammarResult(result.getResultString());
-
-                } else {
-                    text = JsonParser.parseLocalGrammarResult(result.getResultString());
-
-                }
+                String text = JsonParser.parseLocalGrammarResult(result.getResultString());
                 if (TextUtils.isEmpty(text)) {
                     mOnStartAsrCallBack.onClickRankManagerCallBack(ASRUtil_CONDE_INIT_ERROR, "没有识别出结果");
 
@@ -153,14 +161,14 @@ public class ASRUtil {
         }
 
         @Override
-        public void onEndOfSpeech() {
-            mOnStartAsrCallBack.onClickRankManagerCallBack(ASRUtil_CONDE_END_OF_SPEECH, "结束说话");
+        public void onBeginOfSpeech() {
+            mOnStartAsrCallBack.onClickRankManagerCallBack(ASRUtil_CONDE_BEGIN_Of_SPEECH, "可以开始说话");
 
         }
 
         @Override
-        public void onBeginOfSpeech() {
-            mOnStartAsrCallBack.onClickRankManagerCallBack(ASRUtil_CONDE_BEGIN_Of_SPEECH, "可以开始说话");
+        public void onEndOfSpeech() {
+            mOnStartAsrCallBack.onClickRankManagerCallBack(ASRUtil_CONDE_END_OF_SPEECH, "结束说话");
 
         }
 
@@ -175,32 +183,20 @@ public class ASRUtil {
             // 以下代码用于获取与云端的会话id，当业务出错时将会话id提供给技术支持人员，可用于查询会话日志，定位出错原因
             if (SpeechEvent.EVENT_SESSION_ID == eventType) {
                 String sid = obj.getString(SpeechEvent.KEY_EVENT_SESSION_ID);
-                showDebugLog("onError Code：" + sid);
+                DebugLog.e(TAG, sid);
 
             }
         }
     };
 
     /**
-     * 打印log
+     * 设置讯飞语音 app_id
      *
-     * @param s
+     * @param mContext
      */
-    private void showDebugLog(String s) {
-        DebugLog.i(TAG, s);
+    public static void setAppID(Context mContext) {
+        SpeechUtility.createUtility(mContext, SpeechConstant.APPID + "=" + Key.XFYUN_APP_ID);
 
-    }
-
-
-    /**
-     * 退出时释放连接
-     */
-    public void destroyASRUtil() {
-        if (null != mAsr) {
-            mAsr.cancel();
-            mAsr.destroy();
-
-        }
     }
 
     /**

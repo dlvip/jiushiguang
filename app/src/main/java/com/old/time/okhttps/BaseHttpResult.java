@@ -1,4 +1,4 @@
-package com.old.time.beans;
+package com.old.time.okhttps;
 
 /**
  * Created by GaoSheng on 2016/10/21.

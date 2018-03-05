@@ -1,6 +1,6 @@
 package com.old.time.okhttps.transformer;
 
-import com.old.time.beans.BaseHttpResult;
+import com.old.time.okhttps.BaseHttpResult;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

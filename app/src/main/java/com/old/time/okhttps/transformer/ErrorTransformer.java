@@ -1,6 +1,6 @@
 package com.old.time.okhttps.transformer;
 
-import com.old.time.beans.BaseHttpResult;
+import com.old.time.okhttps.BaseHttpResult;
 import com.old.time.okhttps.exception.ErrorType;
 import com.old.time.okhttps.exception.ExceptionEngine;
 import com.old.time.okhttps.exception.ServerException;
