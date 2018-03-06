@@ -22,6 +22,5 @@
             <enum name="LinearySnapHelper" value="0" />
             <enum name="PagerSnapHelper" value="1" />
         </attr>
-
     </declare-styleable>
 </resources>

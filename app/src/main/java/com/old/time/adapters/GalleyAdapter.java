@@ -15,12 +15,12 @@ import java.util.List;
  * Created by RyanLee on 2017/12/7.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHolder> {
+public class GalleyAdapter extends RecyclerView.Adapter<GalleyAdapter.MyHolder> {
     private Context mContext;
     private List<Integer> mDatas;
 
 
-    public RecyclerAdapter(Context mContext, List<Integer> mDatas) {
+    public GalleyAdapter(Context mContext, List<Integer> mDatas) {
         this.mContext = mContext;
         this.mDatas = mDatas;
     }
@@ -47,11 +47,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
+
         public final ImageView mView;
 
         public MyHolder(View itemView) {
             super(itemView);
             mView = itemView.findViewById(R.id.iv_photo);
+
         }
     }
 

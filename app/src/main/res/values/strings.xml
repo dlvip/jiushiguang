@@ -3,8 +3,11 @@
     <string name="main_right">保存</string>
     <string name="loading_show_empty">暂无数据</string>
     <string name="viewpager_indicator">%1$d/%2$d</string>
+
     <string name="main_tab_home">首页</string>
+    <string name="main_tab_circle">发现</string>
     <string name="main_tab_mine">我的</string>
+
     <string name="please_wait">请稍后...</string>
 
     <string name="dialog_title">对话框标题</string>

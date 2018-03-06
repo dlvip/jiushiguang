@@ -45,11 +45,31 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/relative_layout_take"
+        android:id="@+id/relative_layout_find"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:padding="3dp">
+
+        <ImageView
+            android:id="@+id/main_img_find"
+            android:layout_width="@dimen/layout_25"
+            android:layout_height="@dimen/layout_25"
+            android:layout_centerHorizontal="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/tab_home_normal" />
+
+        <TextView
+            android:id="@+id/tv_main_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/main_img_find"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/layout_3"
+            android:singleLine="true"
+            android:text="@string/main_tab_circle"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/text_10" />
 
         <ImageView
             android:layout_width="34dp"
