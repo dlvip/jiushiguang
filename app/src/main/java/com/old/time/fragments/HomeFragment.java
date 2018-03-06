@@ -4,7 +4,6 @@ import android.content.res.TypedArray;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -24,7 +23,6 @@ import java.util.List;
 
 public class HomeFragment extends CBaseFragment implements GalleryRecyclerView.OnItemClickListener {
 
-    private ImageView img_gallery_bg;
     private GalleyAdapter mGalleyAdapter;
     private GalleryRecyclerView rv_galley_list;
 
@@ -34,11 +32,9 @@ public class HomeFragment extends CBaseFragment implements GalleryRecyclerView.O
     protected void lazyLoad() {
         super.lazyLoad();
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
-        img_gallery_bg = headerView.findViewById(R.id.img_gallery_bg);
         rv_galley_list = headerView.findViewById(R.id.rv_galley_list);
 
         mGalleyAdapter = new GalleyAdapter(mContext, getDatas());
-
         rv_galley_list.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         rv_galley_list.setAdapter(mGalleyAdapter);
         rv_galley_list.initFlingSpeed(9000)                             // 设置滑动速度（像素/s）
