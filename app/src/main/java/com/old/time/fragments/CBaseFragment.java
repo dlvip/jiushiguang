@@ -44,6 +44,8 @@ public abstract class CBaseFragment extends BaseFragment {
         }
     };
 
+    public static String picUrl = "http://www.baidu.com/baidu.php?url=K00000jjAivt4-iQGnRI8d9h-XjsEBEhIA1yk9Ixhn6KLcQkSpcbjDqHNUPBzVQXRoYSFvrD8pAJLkShkWQ_2QkQBpAZTsAndhtJQUBK20sbbqqbhaLw2rEcKKpXI29VaO1vZjPik3IpTINDr87KVh392jx0iaIPe75PtH9E_tWz5L9DZf.7Y_ig4x2qd7YHlmrA9Kb_ovyTTMuKLWI6h9ikgdWI6h9HbmOxOeZlZOm4T5M33xU43I-hZ1tT5oeT5VlT5M_sSLW9vU_5Mvmxgl3xU4JglyIiUr2s1f_UVh1IyC.U1Yz0ZDqE5QRE0KY5U1zdQ1g_PjX0A-V5HnvPsKM5g93nfKdpHY0TA-b5HD0mv-b5Hn3nsKVIjYznj640AVG5H00TMfqrHTk0ANGujY0mhbqn0KVm1Ys0Z7spyfqn0Kkmv-b5H00ThIYmyTqn0KEIhsq0AdGujYs0A-kIjYs0A7B5HKxn0K-ThTqn0KsTjYs0A4vTjYsQW0snj0snj0s0AdYTjYs0AwbUL0qn0KzpWYs0AuY5H00TA6qn0KET1Ys0AFL5H00UMfqn0K1XWY0ThNkIjYkPHcsn10Ln1m1rHbY0ZPGujdWPj0vnjIbryc3m179uH--0A7W5HD0XMfqn0KVmdqhThqV5H00mLFW5HRzPWfL";
+
     @Override
     protected int setContentView() {
 
