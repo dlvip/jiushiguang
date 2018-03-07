@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/main_bg">
+
+    <ImageView
+        android:id="@+id/img_phone_pic"
+        android:layout_width="@dimen/layout_0"
+        android:layout_height="@dimen/layout_0"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_photo_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_fff"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingTop="@dimen/layout_10"
+        android:text="@string/app_name"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintTop_toBottomOf="@+id/img_phone_pic" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_fff"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/layout_10"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingTop="@dimen/layout_10"
+        app:layout_constraintTop_toBottomOf="@+id/tv_photo_name">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥ "
+            android:textColor="@color/color_ff7400"
+            android:textSize="@dimen/text_10" />
+
+        <TextView
+            android:id="@+id/tv_photo_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="198"
+            android:textColor="@color/color_ff7400"
+            android:textSize="@dimen/text_16"
+            app:layout_constraintTop_toBottomOf="@+id/tv_photo_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_10"
+            android:text="120人购买"
+            android:textColor="@color/color_aaa"
+            android:textSize="@dimen/text_12"
+            app:layout_constraintLeft_toRightOf="@+id/tv_photo_money"
+            app:layout_constraintTop_toBottomOf="@+id/tv_photo_name" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

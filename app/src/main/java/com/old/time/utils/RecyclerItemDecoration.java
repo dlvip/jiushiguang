@@ -1,11 +1,11 @@
 package com.old.time.utils;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,49 +17,48 @@ import com.old.time.R;
  */
 public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
 
-    private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
-
     public static final int HORIZONTAL_LIST = LinearLayoutManager.HORIZONTAL;
 
     public static final int VERTICAL_LIST = LinearLayoutManager.VERTICAL;
 
-    private Drawable mDivider;
-
     private int mOrientation;
     private int spacing;
+    private Paint mPaint;
 
     public RecyclerItemDecoration(Context context) {
-        TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = new ColorDrawable(context.getResources().getColor(R.color.line_bg));
-        a.recycle();
         setOrientation(LinearLayoutManager.VERTICAL);
         this.spacing = UIHelper.dip2px(1);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setColor(context.getResources().getColor(R.color.line_bg));
+        mPaint.setStyle(Paint.Style.FILL);
 
     }
 
     public RecyclerItemDecoration(Context context, int orientation) {
-        TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = new ColorDrawable(context.getResources().getColor(R.color.line_bg));
-        a.recycle();
         setOrientation(orientation);
         this.spacing = UIHelper.dip2px(1);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setColor(context.getResources().getColor(R.color.line_bg));
+        mPaint.setStyle(Paint.Style.FILL);
 
     }
 
     public RecyclerItemDecoration(Context context, int orientation, int spacing) {
-        TypedArray a = context.obtainStyledAttributes(ATTRS);
-        this.mDivider = new ColorDrawable(context.getResources().getColor(R.color.line_bg));
-        a.recycle();
         setOrientation(orientation);
         this.spacing = UIHelper.dip2px(spacing);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setColor(context.getResources().getColor(R.color.line_bg));
+        mPaint.setStyle(Paint.Style.FILL);
+
     }
 
-    public RecyclerItemDecoration(Context context, int orientation, int spacing, int resId) {
-        TypedArray a = context.obtainStyledAttributes(ATTRS);
-        this.mDivider = new ColorDrawable(context.getResources().getColor(resId));
-        a.recycle();
+    public RecyclerItemDecoration(Context context, int orientation, int spacing, @ColorRes int resId) {
         setOrientation(orientation);
         this.spacing = UIHelper.dip2px(spacing);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setColor(context.getResources().getColor(resId));
+        mPaint.setStyle(Paint.Style.FILL);
+
     }
 
     /**
@@ -81,12 +80,10 @@ public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
-                    .getLayoutParams();
+            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             int top = child.getBottom() + params.bottomMargin;
-            int bottom = top + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.draw(c);
+            int bottom = top;
+            c.drawRect(left, top, right, bottom, mPaint);
 
         }
     }
@@ -94,16 +91,13 @@ public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
     public void drawHorizontal(Canvas c, RecyclerView parent) {
         int top = parent.getPaddingTop();
         int bottom = parent.getHeight() - parent.getPaddingBottom();
-
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = parent.getChildAt(i);
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
-                    .getLayoutParams();
+            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
             int left = child.getRight() + params.rightMargin;
-            int right = left + mDivider.getIntrinsicHeight();
-            mDivider.setBounds(left, top, right, bottom);
-            mDivider.draw(c);
+            int right = left;
+            c.drawRect(left, top, right, bottom, mPaint);
 
         }
     }

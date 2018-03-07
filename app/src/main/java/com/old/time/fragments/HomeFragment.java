@@ -1,17 +1,22 @@
 package com.old.time.fragments;
 
 import android.content.res.TypedArray;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.adapters.GalleyAdapter;
+import com.old.time.constants.Constant;
+import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.Gallerys.AnimManager;
 import com.old.time.utils.Gallerys.GalleryRecyclerView;
 import com.old.time.utils.MyLinearLayoutManager;
+import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 
 import java.util.ArrayList;
@@ -25,12 +30,14 @@ public class HomeFragment extends CBaseFragment implements GalleryRecyclerView.O
 
     private GalleyAdapter mGalleyAdapter;
     private GalleryRecyclerView rv_galley_list;
+    private int width;
 
     private BaseQuickAdapter<String, BaseViewHolder> mAdapter;
 
     @Override
     protected void lazyLoad() {
         super.lazyLoad();
+        width = getWindowWidth();
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         rv_galley_list = headerView.findViewById(R.id.rv_galley_list);
 
@@ -52,10 +59,34 @@ public class HomeFragment extends CBaseFragment implements GalleryRecyclerView.O
             }
         });
 
-        mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.activity_camer_take, strings) {
+        strings.clear();
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 5));
+        mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_home, strings) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
+                if (helper.getLayoutPosition() % 2 != 0) {
+                    helper.getConvertView().setPadding(0, 0, UIHelper.dip2px(5), 0);
 
+                } else {
+                    helper.getConvertView().setPadding(UIHelper.dip2px(5), 0, 0, 0);
+
+                }
+                ImageView img_phone_pic = helper.getView(R.id.img_phone_pic);
+                GlideUtils.getInstance().setImageViewWH(mContext, item, img_phone_pic, width / 2);
 
             }
         };

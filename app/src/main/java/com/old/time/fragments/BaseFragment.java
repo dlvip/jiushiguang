@@ -2,6 +2,8 @@ package com.old.time.fragments;
 
 import android.content.Context;
 
+import com.old.time.utils.ScreenTools;
+
 /**
  * Created by NING on 2018/2/23.
  */
@@ -24,4 +26,14 @@ public abstract class BaseFragment extends LazyLoadFragment {
      * @param isRefresh
      */
     public abstract void getDataFromNet(boolean isRefresh);
+
+    /**
+     * 获取屏幕宽度
+     *
+     * @return
+     */
+    public int getWindowWidth() {
+
+        return ScreenTools.instance(mContext).getScreenWidth();
+    }
 }
