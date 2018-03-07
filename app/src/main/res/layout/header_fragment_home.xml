@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/img_gallery_bg"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="@color/color_2e6cd3"/>
+        android:background="@color/color_2e6cd3" />
 
-    <com.old.time.utils.Gallerys.GalleryRecyclerView
-        android:id="@+id/rv_galley_list"
+    <com.old.time.views.banner.BannerLayout
+        android:id="@+id/recycler_banner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:helper="PagerSnapHelper" />
+        app:showIndicator="false" />
 
 </FrameLayout>
