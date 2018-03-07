@@ -52,7 +52,6 @@ public class MzBannerAdapter extends RecyclerView.Adapter<MzBannerAdapter.MzView
                 if (onBannerItemClickListener != null) {
                     onBannerItemClickListener.onItemClick(P);
                 }
-
             }
         });
     }

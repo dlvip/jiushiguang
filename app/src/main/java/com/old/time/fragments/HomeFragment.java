@@ -13,7 +13,6 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.banner.BannerLayout;
-import com.old.time.views.banner.layoutmanager.BannerLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +21,8 @@ import java.util.List;
  * Created by NING on 2018/3/5.
  */
 
-public class HomeFragment extends CBaseFragment implements BannerLayout.OnBannerItemClickListener, BannerLayoutManager.OnPageChangeListener {
+public class HomeFragment extends CBaseFragment implements BannerLayout.OnBannerItemClickListener {
 
-    private ImageView img_gallery_bg;
     private BannerLayout recycler_banner;
     private int width;
 
@@ -36,7 +34,6 @@ public class HomeFragment extends CBaseFragment implements BannerLayout.OnBanner
         width = getWindowWidth();
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
-        img_gallery_bg = headerView.findViewById(R.id.img_gallery_bg);
 
         //解决recyclerView嵌套问题
         strings.clear();
@@ -56,7 +53,6 @@ public class HomeFragment extends CBaseFragment implements BannerLayout.OnBanner
 
         recycler_banner.initBannerImageView(strings);
         recycler_banner.setOnBannerItemClickListener(this);
-        recycler_banner.setOnPageChangeListener(this);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 5));
@@ -108,20 +104,6 @@ public class HomeFragment extends CBaseFragment implements BannerLayout.OnBanner
     @Override
     public void onItemClick(int position) {
         UIHelper.ToastMessage(mContext, TAG + position);
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        if (strings != null && strings.size() != 0 && position < strings.size() && img_gallery_bg != null) {
-            GlideUtils.getInstance().setImageViewTransRadius(mContext, strings.get(position), img_gallery_bg, getWindowWidth(), UIHelper.dip2px(200), 20);
-
-
-        }
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
 
     }
 }

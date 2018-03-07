@@ -4,12 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/img_gallery_bg"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/color_2e6cd3" />
-
     <com.old.time.views.banner.BannerLayout
         android:id="@+id/recycler_banner"
         android:layout_width="match_parent"

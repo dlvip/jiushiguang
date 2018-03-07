@@ -197,13 +197,6 @@ public class BannerLayout extends FrameLayout {
         }
     }
 
-    public void setOnPageChangeListener(BannerLayoutManager.OnPageChangeListener mOnPageChangeListener) {
-        if (mOnPageChangeListener != null && mLayoutManager != null) {
-            mLayoutManager.setOnPageChangeListener(mOnPageChangeListener);
-
-        }
-    }
-
     public void setOnBannerItemClickListener(OnBannerItemClickListener onBannerItemClickListener) {
         if (mMzBannerAdapter != null) {
             mMzBannerAdapter.setOnBannerItemClickListener(onBannerItemClickListener);
@@ -213,7 +206,7 @@ public class BannerLayout extends FrameLayout {
     /**
      * 设置轮播数据集
      */
-    public void initBannerImageView(List<String> list) {
+    public void initBannerImageView(final List<String> list) {
         mMzBannerAdapter = new MzBannerAdapter(getContext(), list);
         mRecyclerView.setAdapter(mMzBannerAdapter);
         currentIndex = 10000;
@@ -233,8 +226,8 @@ public class BannerLayout extends FrameLayout {
                 int first = mLayoutManager.getCurrentPosition();
                 if (currentIndex != first) {
                     currentIndex = first;
-                }
 
+                }
             }
         });
     }
