@@ -1,5 +1,7 @@
 package com.old.time.fragments;
 
+import android.widget.TextView;
+
 import com.old.time.R;
 
 /**
@@ -15,11 +17,13 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected int setContentView() {
-        return R.layout.activity_puzzle_m;
+        return R.layout.fragment_mine;
     }
 
     @Override
     protected void lazyLoad() {
+        TextView top_title = findViewById(R.id.top_title);
+        top_title.setText(getString(R.string.main_tab_mine));
 
     }
 }

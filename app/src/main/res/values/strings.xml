@@ -37,5 +37,12 @@
     <string name="title_detail">每天10分钟，牢记小学600个单词，破解最强大脑记忆密码，孩子有成就更爱学</string>
 
     <string name="mine_message">消息中心</string>
+    <string name="mine_orders">我的订单</string>
+    <string name="mine_photos">图片管理</string>
+    <string name="mine_clear">清理缓存</string>
+    <string name="mine_version">版本更新</string>
+    <string name="mine_feedback">意见反馈</string>
+    <string name="mine_about">关于我们</string>
+    <string name="mine_setting">设置</string>
 
 </resources>
