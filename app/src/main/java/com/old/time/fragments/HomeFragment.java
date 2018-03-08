@@ -1,6 +1,5 @@
 package com.old.time.fragments;
 
-import android.content.res.TypedArray;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,9 +12,6 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.banner.BannerLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by NING on 2018/3/5.
@@ -75,24 +71,6 @@ public class HomeFragment extends CBaseFragment implements BannerLayout.OnBanner
         mAdapter.removeAllHeaderView();
         mAdapter.addHeaderView(headerView);
         mAdapter.setHeaderAndEmpty(true);
-    }
-
-    /***
-     * 测试数据
-     * @return
-     */
-    public List<Integer> getDatas() {
-        TypedArray ar = getResources().obtainTypedArray(R.array.test_arr);
-        final int[] resIds = new int[ar.length()];
-        for (int i = 0; i < ar.length(); i++) {
-            resIds[i] = ar.getResourceId(i, 0);
-        }
-        ar.recycle();
-        List<Integer> tDatas = new ArrayList<>();
-        for (int resId : resIds) {
-            tDatas.add(resId);
-        }
-        return tDatas;
     }
 
     @Override
