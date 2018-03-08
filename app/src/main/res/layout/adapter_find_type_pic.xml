@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/layout_5"
+    android:layout_marginRight="@dimen/layout_5"
+    android:background="@color/color_fff"
+    app:cardCornerRadius="@dimen/layout_5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/layout_10">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/card_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_find_pic"
+                android:layout_width="@dimen/layout_0"
+                android:layout_height="@dimen/layout_0"
+                android:background="@color/color_999"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="7:3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:background="@color/line_bg" />
+
+        <TextView
+            android:id="@+id/tv_topic_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_44"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/layout_10"
+            android:text="@string/title"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_18" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/layout_5"
+            android:maxLines="2"
+            android:minLines="2"
+            android:paddingLeft="@dimen/layout_10"
+            android:text="@string/title_detail"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/text_12" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_44"
+            android:paddingLeft="@dimen/layout_10"
+            android:paddingRight="@dimen/layout_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="￥ 128"
+                android:textColor="@color/color_ff9441"
+                android:textSize="@dimen/text_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:text="立即参与"
+                android:textColor="@color/color_ff9441"
+                android:textSize="@dimen/text_14" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

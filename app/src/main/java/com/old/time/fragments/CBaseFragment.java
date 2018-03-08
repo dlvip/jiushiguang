@@ -9,6 +9,7 @@ import android.support.v7.widget.SimpleItemAnimator;
 
 import com.old.time.R;
 import com.old.time.constants.Code;
+import com.old.time.constants.Constant;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyLinearLayoutManager;
 
@@ -52,6 +53,20 @@ public abstract class CBaseFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
+        strings.clear();
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
+        strings.add(Constant.PHOTO_PIC_URL);
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         mRecyclerView = findViewById(R.id.c_recycler_view);
         mLayoutManager = new MyLinearLayoutManager(mContext);

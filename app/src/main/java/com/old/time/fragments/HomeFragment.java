@@ -31,22 +31,6 @@ public class HomeFragment extends CBaseFragment implements BannerLayout.OnBanner
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
 
-        //解决recyclerView嵌套问题
-        strings.clear();
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-
         recycler_banner.initBannerImageView(strings);
         recycler_banner.setOnBannerItemClickListener(this);
 

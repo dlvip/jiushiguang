@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.old.time.R;
-import com.old.time.fragments.CircleFragment;
+import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
 
@@ -13,6 +13,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        selectFragment(0);
 
     }
 
@@ -30,6 +31,26 @@ public class MainActivity extends BaseActivity {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.relative_layout_home:
+                selectFragment(0);
+
+                break;
+            case R.id.relative_layout_find:
+                selectFragment(1);
+
+                break;
+            case R.id.relative_layout_mine:
+                selectFragment(2);
+
+                break;
+        }
+    }
+
+    /**
+     * 选中那个
+     */
+    private void selectFragment(int position) {
+        switch (position) {
+            case 0:
                 if (mHomeFragment == null) {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     mHomeFragment = new HomeFragment();
@@ -38,20 +59,19 @@ public class MainActivity extends BaseActivity {
 
                 }
                 switchConent(mHomeFragment);
-
                 break;
-            case R.id.relative_layout_find:
-                if (mCircleFragment == null) {
+            case 1:
+                if (mFindFragment == null) {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    mCircleFragment = new CircleFragment();
-                    fragmentTransaction.add(R.id.fl_content, mCircleFragment);
+                    mFindFragment = new FindFragment();
+                    fragmentTransaction.add(R.id.fl_content, mFindFragment);
                     fragmentTransaction.commit();
 
                 }
-                switchConent(mCircleFragment);
+                switchConent(mFindFragment);
 
                 break;
-            case R.id.relative_layout_mine:
+            case 2:
                 if (mMineFragment == null) {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     mMineFragment = new MineFragment();
@@ -68,7 +88,7 @@ public class MainActivity extends BaseActivity {
 
     private HomeFragment mHomeFragment;
     private MineFragment mMineFragment;
-    private CircleFragment mCircleFragment;
+    private FindFragment mFindFragment;
     private FragmentTransaction fragmentTransaction;
 
     /**
@@ -82,8 +102,8 @@ public class MainActivity extends BaseActivity {
             fragmentTransaction.hide(mHomeFragment);
 
         }
-        if (mCircleFragment != null) {
-            fragmentTransaction.hide(mCircleFragment);
+        if (mFindFragment != null) {
+            fragmentTransaction.hide(mFindFragment);
 
         }
         if (mMineFragment != null) {
