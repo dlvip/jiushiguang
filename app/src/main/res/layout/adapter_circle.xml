@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/color_fff"
     android:padding="@dimen/layout_10">
 
@@ -29,48 +30,56 @@
         android:textColor="@color/color_969696"
         android:textSize="@dimen/text_14" />
 
-    <TextView
-        android:id="@+id/tv_circle_content"
+    <com.old.time.views.ExpandableTextView
+        android:id="@+id/expand_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_user_name"
-        android:layout_marginTop="@dimen/layout_12"
+        android:layout_marginTop="@dimen/layout_7"
         android:layout_toRightOf="@+id/img_user_header"
-        android:lineSpacingExtra="@dimen/layout_3"
-        android:text="@string/circle_content"
-        android:textColor="@color/color_4a4a4a"
-        android:textSize="@dimen/text_14" />
+        android:background="@color/color_fff"
+        app:animDuration="200"
+        app:collapseExpandGrarity="right"
+        app:collapseExpandTextColor="@color/color_005abc"
+        app:collapseExpandTextSize="@dimen/text_12"
+        app:contentTextColor="@color/color_4a4a4a"
+        app:contentTextSize="@dimen/text_14"
+        app:maxCollapsedLines="5"
+        app:textCollapse="@string/collapse"
+        app:textExpand="@string/expand" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_pics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_circle_content"
-        android:layout_marginTop="@dimen/layout_12"
-        android:layout_toRightOf="@+id/img_user_header">
+        android:layout_below="@+id/expand_text_view"
+        android:layout_toRightOf="@+id/img_user_header" />
 
-
-    </android.support.v7.widget.RecyclerView>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/recycler_view_pics"
-        android:layout_marginTop="@dimen/layout_13"
         android:layout_toRightOf="@+id/img_user_header"
-        android:text="北京 海淀"
-        android:textColor="@color/color_969696"
-        android:textSize="@dimen/text_12" />
+        android:orientation="horizontal"
+        android:paddingRight="@dimen/layout_10"
+        android:paddingTop="@dimen/layout_10">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/recycler_view_pics"
-        android:layout_marginRight="@dimen/layout_10"
-        android:layout_marginTop="@dimen/layout_13"
-        android:text="评论"
-        android:textColor="@color/color_969696"
-        android:textSize="@dimen/text_12" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="北京 海淀"
+            android:textColor="@color/color_969696"
+            android:textSize="@dimen/text_12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评论"
+            android:textColor="@color/color_969696"
+            android:textSize="@dimen/text_12" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

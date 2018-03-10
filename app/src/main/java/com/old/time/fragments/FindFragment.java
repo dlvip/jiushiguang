@@ -1,14 +1,17 @@
 package com.old.time.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
+import com.old.time.activitys.CircleActivity;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
-import com.old.time.utils.UIHelper;
 
 /**
  * Created by NING on 2018/3/5.
@@ -33,6 +36,14 @@ public class FindFragment extends CBaseFragment {
         mAdapter.addHeaderView(headerView);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mAdapter);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, CircleActivity.class);
+                ActivityUtils.startActivity((Activity) mContext, intent);
+
+            }
+        });
 
     }
 

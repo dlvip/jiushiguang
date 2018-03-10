@@ -13,6 +13,9 @@ import com.old.time.constants.Code;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.UIHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class CBaseActivity extends BaseActivity {
 
     public BaseActivity mContext;
@@ -39,6 +42,8 @@ public abstract class CBaseActivity extends BaseActivity {
             }
         }
     };
+
+    public List<String> strings = new ArrayList<>();
 
     @Override
     protected int getLayoutID() {

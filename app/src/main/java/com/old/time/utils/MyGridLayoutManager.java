@@ -16,6 +16,8 @@ public class MyGridLayoutManager extends GridLayoutManager {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+
+
     public MyGridLayoutManager(Context context, int spanCount) {
         super(context, spanCount);
     }

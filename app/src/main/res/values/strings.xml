@@ -10,6 +10,9 @@
 
     <string name="please_wait">请稍后...</string>
 
+    <string name="expand">展开</string>
+    <string name="collapse">收起</string>
+
     <string name="dialog_title">对话框标题</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_true">确定</string>
