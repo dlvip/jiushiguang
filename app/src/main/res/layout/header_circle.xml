@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img_circle_header_pic"
+        android:layout_width="@dimen/layout_0"
+        android:layout_height="@dimen/layout_0"
+        android:background="@color/color_999"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_70"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/layout_20"
+        android:paddingRight="@dimen/layout_10">
+
+        <ImageView
+            android:layout_width="@dimen/layout_60"
+            android:layout_height="@dimen/layout_60"
+            android:src="@mipmap/head_circle" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_fff"
+            android:textSize="@dimen/text_16" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center"
+        android:text="@string/circle_title"
+        android:textColor="@color/color_999"
+        android:textSize="@dimen/text_12"
+        app:layout_constraintTop_toBottomOf="@+id/img_circle_header_pic" />
+
+
+</android.support.constraint.ConstraintLayout>

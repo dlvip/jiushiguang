@@ -50,7 +50,8 @@
         <activity android:name=".activitys.PhotoPreviewActivity" />
         <activity android:name=".activitys.PuzzleActivity" />
         <activity android:name=".activitys.PuzzleMActivity" />
-        <activity android:name=".activitys.SettingActivity"></activity>
+        <activity android:name=".activitys.SettingActivity" />
+        <activity android:name=".activitys.CircleActivity"></activity>
     </application>
 
 </manifest>
