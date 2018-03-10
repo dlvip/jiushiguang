@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.old.time.R;
+import com.old.time.activitys.PicsManageActivity;
 import com.old.time.activitys.SettingActivity;
 import com.old.time.utils.ActivityUtils;
 
@@ -37,12 +38,20 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        Intent intent = null;
         switch (view.getId()) {
-            case R.id.relative_layout_setting:
-                Intent intent = new Intent(mContext, SettingActivity.class);
-                ActivityUtils.startActivity((Activity) mContext, intent);
+            case R.id.relative_layout_pics:
+                intent = new Intent(mContext, PicsManageActivity.class);
 
                 break;
+            case R.id.relative_layout_setting:
+                intent = new Intent(mContext, SettingActivity.class);
+
+                break;
+        }
+        if (intent != null) {
+            ActivityUtils.startActivity((Activity) mContext, intent);
+
         }
     }
 }

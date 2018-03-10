@@ -135,6 +135,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relative_layout_pics"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/color_fff">

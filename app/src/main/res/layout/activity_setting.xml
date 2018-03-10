@@ -160,7 +160,7 @@
         android:layout_marginLeft="@dimen/layout_20"
         android:layout_marginRight="@dimen/layout_20"
         android:layout_marginTop="@dimen/layout_30"
-        android:background="@drawable/shape_ffffff_10"
+        android:background="@drawable/shape_radius10_bgfff"
         android:gravity="center"
         android:text="退出"
         android:textColor="@color/color_ff2a27"

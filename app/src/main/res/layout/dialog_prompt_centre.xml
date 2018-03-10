@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/layout_80"
     android:layout_marginRight="@dimen/layout_80"
-    android:background="@drawable/shape_ffffff_10"
+    android:background="@drawable/shape_radius10_bgfff"
     android:minHeight="@dimen/layout_140"
     android:orientation="vertical">
 
