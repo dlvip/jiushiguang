@@ -1,14 +1,12 @@
 package com.old.time.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.constants.Constant;
 import com.old.time.utils.MyGridLayoutManager;
-import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.views.ExpandableTextView;
 
 import java.util.ArrayList;
@@ -40,8 +38,6 @@ public class CircleAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         RecyclerView recycler_view_pics = helper.getView(R.id.recycler_view_pics);
         myGridLayoutManager = new MyGridLayoutManager(mContext, 2);
         mPicAdapter = new CirclePicAdapter(picUrls);
-
-        recycler_view_pics.setVisibility(View.VISIBLE);
         if (picUrls.size() > 2 && picUrls.size() != 4) {
             myGridLayoutManager.setSpanCount(3);
 

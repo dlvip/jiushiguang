@@ -32,6 +32,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         top_title.setText(getString(R.string.main_tab_mine));
 
         findViewById(R.id.relative_layout_setting).setOnClickListener(this);
+        findViewById(R.id.relative_layout_pics).setOnClickListener(this);
 
 
     }
