@@ -52,7 +52,8 @@
         <activity android:name=".activitys.PuzzleMActivity" />
         <activity android:name=".activitys.SettingActivity" />
         <activity android:name=".activitys.CircleActivity" />
-        <activity android:name=".activitys.PicsManageActivity"></activity>
+        <activity android:name=".activitys.PicsManageActivity" />
+        <activity android:name=".activitys.UserMesgActivity"></activity>
     </application>
 
 </manifest>
