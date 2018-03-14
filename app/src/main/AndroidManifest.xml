@@ -35,13 +35,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activitys.MainActivity">
+        <activity android:name=".activitys.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activitys.MainActivity"/>
         <activity android:name=".activitys.PhotoPagerActivity" />
         <activity android:name=".activitys.CameraTakeActivity" />
         <activity android:name=".activitys.PhotoPickActivity" />
@@ -54,7 +55,7 @@
         <activity android:name=".activitys.CircleActivity" />
         <activity android:name=".activitys.PicsManageActivity" />
         <activity android:name=".activitys.UserMesgActivity" />
-        <activity android:name=".activitys.LoginActivity"></activity>
+
     </application>
 
 </manifest>
