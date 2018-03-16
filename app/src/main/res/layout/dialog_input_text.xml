@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@color/color_fff"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:paddingBottom="@dimen/line_height">
+
+    <EditText
+        android:id="@+id/edt_input_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/layout_10"
+        android:layout_marginRight="@dimen/layout_10"
+        android:layout_toLeftOf="@+id/tv_send_true"
+        android:background="@color/color_fff"
+        android:drawableBottom="@drawable/shape_edt_bottom_bg"
+        android:drawablePadding="@dimen/layout_5"
+        android:gravity="center_vertical"
+        android:hint="请输入内容..."
+        android:imeOptions="actionDone"
+        android:lineSpacingExtra="@dimen/line_height"
+        android:maxLength="200"
+        android:maxLines="4"
+        android:paddingBottom="@dimen/layout_5"
+        android:paddingTop="@dimen/layout_10"
+        android:textColor="@color/color_000"
+        android:textColorHint="@color/color_aaa"
+        android:textCursorDrawable="@drawable/shape_edittext_cursor"
+        android:textSize="@dimen/text_14" />
+
+    <TextView
+        android:id="@+id/tv_send_true"
+        android:layout_width="@dimen/layout_60"
+        android:layout_height="@dimen/layout_30"
+        android:layout_alignBottom="@+id/edt_input_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/line_height"
+        android:layout_marginRight="@dimen/layout_10"
+        android:background="@drawable/shape_rdius5_58ad2c"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/color_fff"
+        android:textSize="@dimen/text_14" />
+
+</RelativeLayout>

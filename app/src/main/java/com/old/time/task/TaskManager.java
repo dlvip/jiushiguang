@@ -3,12 +3,10 @@ package com.old.time.task;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class TaskManager {
     private ScheduledExecutorService mThreadPool;
     private HashMap<String, Task> mMapTask;
-    private HashMap<String, Task> examMapTask;//考试任务
 
     private static final int THREAD_COUNT = 20;
 
@@ -21,7 +19,6 @@ public class TaskManager {
             mThreadPool = Executors.newScheduledThreadPool(nThreadNum);
         }
         mMapTask = new HashMap<String, Task>();
-        examMapTask = new HashMap<String, Task>();
 
     }
 
@@ -72,56 +69,4 @@ public class TaskManager {
 
         mMapTask.clear();
     }
-// ---------------------------------------------------
-    synchronized public boolean addExamTask(Task task) {
-        if (mThreadPool.isShutdown()) {
-            return false;
-        }
-
-        if (null != examMapTask.get(task.getTaskName())) {
-            return false;
-        }
-//        task.setTaskManager(this);
-        examMapTask.put(task.getTaskName(), task);
-        mThreadPool.execute(task);
-        return true;
-    }
-    /**
-     * 延迟任务
-     * @param task
-     * @param secondTime :几秒延时
-     * @return
-     */
-    synchronized public boolean addExamTask(Task task,int secondTime) {
-        if (mThreadPool.isShutdown()) {
-            return false;
-        }
-
-        if (null != examMapTask.get(task.getTaskName())) {
-            return false;
-        }
-
-//        task.setTaskManager(this);
-        examMapTask.put(task.getTaskName(), task);
-        mThreadPool.schedule(task,secondTime, TimeUnit.SECONDS);
-        return true;
-    }
-    synchronized public void delExamTask(String strTaskName) {
-        Task task = examMapTask.get(strTaskName);
-        if (null != task) {
-            task.cancelTask();
-            examMapTask.remove(strTaskName);
-        }
-    }
-
-    /**
-     * 是否有考试的任务
-     */
-    synchronized public boolean hasExamTask() {
-        if (examMapTask.size() > 0){
-            return true;
-        }
-        return false;
-    }
-
 }

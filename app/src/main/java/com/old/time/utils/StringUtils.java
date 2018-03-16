@@ -1,5 +1,11 @@
 package com.old.time.utils;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
+import com.old.time.R;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,6 +48,22 @@ public class StringUtils {
         Matcher mc = pattern.matcher(email);
         return mc.matches();
 
+    }
+
+    /**
+     * 获取当前应用程序的版本号
+     */
+    public static String getVersion(Context context) {
+        String st = context.getResources().getString(R.string.Version_number_is_wrong);
+        PackageManager pm = context.getPackageManager();
+        try {
+            PackageInfo packinfo = pm.getPackageInfo(context.getPackageName(), 0);
+            String version = packinfo.versionName;
+            return version;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return st;
+        }
     }
 
 

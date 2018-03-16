@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -34,6 +35,7 @@ public abstract class BaseDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setCanceledOnTouchOutside(true);
         view = View.inflate(getContext(), setContentView(), null);
+        Window window;
         switch (dialog_location) {
             case R.style.dialog_setting://中间显示
                 setContentView(view);
@@ -43,9 +45,8 @@ public abstract class BaseDialog extends Dialog {
 
                 break;
             case R.style.transparentFrameWindowStyle://底部弹出
-                setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
-                Window window = getWindow();
+                setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                window = getWindow();
                 window.setWindowAnimations(R.style.main_menu_animstyle);
                 WindowManager.LayoutParams wl = window.getAttributes();
                 wl.x = 0;
@@ -55,6 +56,19 @@ public abstract class BaseDialog extends Dialog {
 
                 onWindowAttributesChanged(wl);
                 view.requestFocus();
+
+                break;
+            case R.style.dialog_setting_edt:
+                setCanceledOnTouchOutside(true);
+                setContentView(view);
+                window = getWindow();//设置dialog的显示位置
+                WindowManager.LayoutParams wlp = window.getAttributes();
+                wlp.gravity = Gravity.BOTTOM;
+                wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                wlp.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;//显示dialog的时候,就显示软键盘
+                wlp.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;//就是这个属性导致不能获取焦点,默认的是FLAG_NOT_FOCUSABLE,故名思义不能获取输入焦点,
+                wlp.dimAmount = 0.5f;//设置对话框的透明程度背景(非布局的透明度)
+                window.setAttributes(wlp);
 
                 break;
         }

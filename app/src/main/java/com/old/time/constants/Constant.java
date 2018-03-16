@@ -6,6 +6,9 @@ package com.old.time.constants;
 
 public class Constant {
 
+    //线程名称
+    public static final String IMAGEDOWNLOAD_THREAD_NAME = "ImageDownLoad";
+
     public static String BASE_URL = "http://zealer.s1.natapp.cc/";
 
     public static String USER_LOGIN = "demo/login";

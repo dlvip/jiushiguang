@@ -46,8 +46,15 @@
     <string name="mine_photos">图片管理</string>
     <string name="mine_clear">清理缓存</string>
     <string name="mine_version">版本更新</string>
+    <string name="Version_number_is_wrong">版本号错误</string>
     <string name="mine_feedback">意见反馈</string>
     <string name="mine_about">关于我们</string>
     <string name="mine_setting">设置</string>
+    <string name="user_phone_number">手机号</string>
+    <string name="nickname_tishi">昵称 </string>
+    <string name="edt_nickname">编辑昵称</string>
+    <string name="user_set_address">所在地</string>
+    <string name="please_select">请选择</string>
+    <string name="user_set_brief">个性签名</string>
 
 </resources>

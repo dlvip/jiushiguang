@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:src="@mipmap/splish" />
+        android:src="@mipmap/splish_pic" />
 
     <LinearLayout
         android:id="@+id/name_ll"
@@ -82,7 +82,7 @@
             android:layout_height="@dimen/layout_30"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/layout_10"
-            android:background="@drawable/shape_radius10_bgfff_strok_efefef"
+            android:background="@drawable/shape_radius20_bg3c4_strokefff"
             android:gravity="center"
             android:text="跳过(1s)"
             android:textColor="@color/color_fff"

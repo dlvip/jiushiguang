@@ -13,6 +13,7 @@ import com.old.time.constants.Constant;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.ComputeUtils;
+import com.old.time.utils.StringUtils;
 
 public class SplishActivity extends BaseActivity {
 
@@ -25,21 +26,20 @@ public class SplishActivity extends BaseActivity {
     @Override
     protected void initView() {
         WH = ComputeUtils.computeImageHeight_135_197(this);
-        rootLayout = (RelativeLayout) findViewById(R.id.header_mainr);
-        relative_layout_next = (RelativeLayout) findViewById(R.id.relative_layout_next);
+        rootLayout = findViewById(R.id.header_mainr);
+        relative_layout_next = findViewById(R.id.relative_layout_next);
         relative_layout_next.setPadding(0, getStatusBarHeight(), 0, 0);
-        versionText = (TextView) findViewById(R.id.tv_version);
-        tv_time_next = (TextView) findViewById(R.id.tv_time_next);
-        tv_detail = (TextView) findViewById(R.id.tv_detail);
-        img_splish = (ImageView) findViewById(R.id.img_splish);
-        img_logo = (ImageView) findViewById(R.id.img_logo);
+        versionText = findViewById(R.id.tv_version);
+        tv_time_next = findViewById(R.id.tv_time_next);
+        tv_detail = findViewById(R.id.tv_detail);
+        img_splish = findViewById(R.id.img_splish);
+        img_logo = findViewById(R.id.img_logo);
 
-//        versionText.setText("V" + StringUtil.getVersion(this));
+        versionText.setText("V" + StringUtils.getVersion(this));
         rootLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
-//                NetWorkUtils.getInstance().appSystemInit();
-//                systemUpGrade();
+                systemUpGrade();
 
             }
         }, 1000);
@@ -53,7 +53,7 @@ public class SplishActivity extends BaseActivity {
         img_splish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity();
 
             }
         });
@@ -65,36 +65,26 @@ public class SplishActivity extends BaseActivity {
         countDownTimer.start();
     }
 
-//    private void systemUpGrade() {
-//        new UpdateManager(this, UpdateManager.AUTOMATIC_UPDATE, new UpdateManager.OnCheckUpDateListener() {
-//            @Override
-//            public void onCallBackListener() {
-//                showAndDownSplash();
-//
-//            }
-//        }).checkUpdate();
-//    }
+    private void systemUpGrade() {
+
+
+    }
 
     /**
      * 启动应用
      */
     private void startActivity() {
         cancelDownTimer();
-        Intent intent = new Intent(SplishActivity.this, MainActivity.class);
-        ActivityUtils.startActivity(SplishActivity.this, intent);
-        ActivityUtils.finishActivity(SplishActivity.this);
-//        MyApplication.getInstance().getTaskManager().delTask(Constant.IMAGEDOWNLOAD_THREAD_NAME);
-//        MyApplication.getClient().getTaskManager().addTask(new CallBackTask(Constant.IMAGEDOWNLOAD_THREAD_NAME) {
-//            @Override
-//            protected void doTask() {
-//                Intent intent = new Intent(SplishActivity.this, MainActivity.class);
-//                ActivityUtils.startActivity(SplishActivity.this, intent);
-//                ActivityUtils.finishActivity(SplishActivity.this);
-//
-//            }
-//        });
-//        //获取坐标
-//        AmapUtil.getThis().getPhoneLocation();
+        MyApplication.getInstance().getTaskManager().delTask(Constant.IMAGEDOWNLOAD_THREAD_NAME);
+        MyApplication.getClient().getTaskManager().addTask(new CallBackTask(Constant.IMAGEDOWNLOAD_THREAD_NAME) {
+            @Override
+            protected void doTask() {
+                Intent intent = new Intent(SplishActivity.this, MainActivity.class);
+                ActivityUtils.startActivity(SplishActivity.this, intent);
+                ActivityUtils.finishActivity(SplishActivity.this);
+
+            }
+        });
     }
 
     /**
@@ -121,6 +111,7 @@ public class SplishActivity extends BaseActivity {
         public void onFinish() {
             tv_time_next.setText("跳过(" + 0 + "s)");
             startActivity();
+
         }
     };
 
@@ -134,6 +125,6 @@ public class SplishActivity extends BaseActivity {
         super.onDestroy();
         ActivityUtils.removeActivity(this);
         cancelDownTimer();
-//        MyApplication.getInstance().getTaskManager().delTask(Constant.IMAGEDOWNLOAD_THREAD_NAME);
+        MyApplication.getInstance().getTaskManager().delTask(Constant.IMAGEDOWNLOAD_THREAD_NAME);
     }
 }
