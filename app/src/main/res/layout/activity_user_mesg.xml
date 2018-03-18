@@ -67,6 +67,7 @@
         android:background="@color/line_bg" />
 
     <LinearLayout
+        android:id="@+id/linear_layout_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_44"
         android:background="@color/color_fff"
@@ -102,6 +103,7 @@
         android:background="@color/line_bg" />
 
     <LinearLayout
+        android:id="@+id/linear_layout_address"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_44"
         android:background="@color/color_fff"
@@ -137,6 +139,7 @@
         android:background="@color/line_bg" />
 
     <LinearLayout
+        android:id="@+id/linear_layout_brief"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/layout_20"

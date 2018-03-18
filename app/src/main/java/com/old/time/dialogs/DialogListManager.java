@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
-import com.old.time.interfaces.OnClickRankManagerCallBack;
+import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 
@@ -23,11 +23,11 @@ import java.util.List;
 
 public class DialogListManager extends BaseDialog {
 
-    private OnClickRankManagerCallBack onClickRankManagerCallBack;
+    private OnClickManagerCallBack onClickManagerCallBack;
 
-    public DialogListManager(@NonNull Context context, OnClickRankManagerCallBack onClickRankManagerCallBack) {
+    public DialogListManager(@NonNull Context context, OnClickManagerCallBack onClickManagerCallBack) {
         super((Activity) context, R.style.transparentFrameWindowStyle);
-        this.onClickRankManagerCallBack = onClickRankManagerCallBack;
+        this.onClickManagerCallBack = onClickManagerCallBack;
 
     }
 
@@ -75,11 +75,11 @@ public class DialogListManager extends BaseDialog {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 MyTypeItem myTypeItem = (MyTypeItem) adapter.getItem(position);
-                if (myTypeItem == null || onClickRankManagerCallBack == null) {
+                if (myTypeItem == null || onClickManagerCallBack == null) {
 
                     return;
                 }
-                onClickRankManagerCallBack.onClickRankManagerCallBack(myTypeItem.typeId, myTypeItem.typeName);
+                onClickManagerCallBack.onClickRankManagerCallBack(myTypeItem.typeId, myTypeItem.typeName);
                 dismiss();
             }
         });
