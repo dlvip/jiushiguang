@@ -56,5 +56,6 @@
     <string name="user_set_address">所在地</string>
     <string name="please_select">请选择</string>
     <string name="user_set_brief">个性签名</string>
+    <string name="choose_citys">选择地址</string>
 
 </resources>
