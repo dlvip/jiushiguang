@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.old.time.R;
 import com.old.time.activitys.PicsManageActivity;
 import com.old.time.activitys.SettingActivity;
+import com.old.time.activitys.UserDressActivity;
 import com.old.time.activitys.UserMesgActivity;
 import com.old.time.utils.ActivityUtils;
 
@@ -34,6 +35,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
         findViewById(R.id.relative_layout_header).setOnClickListener(this);
         findViewById(R.id.relative_layout_setting).setOnClickListener(this);
+        findViewById(R.id.relative_layout_dress).setOnClickListener(this);
         findViewById(R.id.relative_layout_pics).setOnClickListener(this);
 
 
@@ -49,6 +51,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.relative_layout_pics:
                 intent = new Intent(mContext, PicsManageActivity.class);
+
+                break;
+            case R.id.relative_layout_dress:
+                intent = new Intent(mContext,UserDressActivity.class);
 
                 break;
             case R.id.relative_layout_setting:

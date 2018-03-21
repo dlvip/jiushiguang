@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="main_header_height">40dp</dimen>
     <dimen name="line_height">0.5dp</dimen>
+    <dimen name="line_height2">0.3dp</dimen>
     <dimen name="layout_0">0dp</dimen>
     <dimen name="layout_1">1dp</dimen>
     <dimen name="layout_2">2dp</dimen>

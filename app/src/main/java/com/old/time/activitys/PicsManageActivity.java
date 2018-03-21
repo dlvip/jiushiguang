@@ -46,7 +46,7 @@ public class PicsManageActivity extends CBaseActivity {
         });
         mRecyclerView.setAdapter(mAdapter);
 
-        View view = View.inflate(this, R.layout.bottom_creat_dress, null);
+        View view = View.inflate(this, R.layout.bottom_layout_view, null);
         view.findViewById(R.id.relative_layout_creat).setBackgroundResource(R.drawable.shape_radius0_stroke_line_bgfff);
         TextView tv_crest_address = (TextView) view.findViewById(R.id.tv_crest_address);
         tv_crest_address.setText("删除");

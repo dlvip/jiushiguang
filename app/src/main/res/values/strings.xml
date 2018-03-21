@@ -44,6 +44,7 @@
     <string name="mine_message">消息中心</string>
     <string name="mine_orders">我的订单</string>
     <string name="mine_photos">图片管理</string>
+    <string name="mine_dress">地址管理</string>
     <string name="mine_clear">清理缓存</string>
     <string name="mine_version">版本更新</string>
     <string name="Version_number_is_wrong">版本号错误</string>

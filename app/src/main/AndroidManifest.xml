@@ -42,7 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activitys.LoginActivity" />
         <activity android:name=".activitys.MainActivity" />
         <activity android:name=".activitys.PhotoPagerActivity" />
@@ -57,6 +56,8 @@
         <activity android:name=".activitys.CircleActivity" />
         <activity android:name=".activitys.PicsManageActivity" />
         <activity android:name=".activitys.UserMesgActivity" />
+        <activity android:name=".activitys.UserDressActivity" />
+        <activity android:name=".activitys.CreateDressActivity"></activity>
     </application>
 
 </manifest>

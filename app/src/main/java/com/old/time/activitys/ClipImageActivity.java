@@ -11,7 +11,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.media.ExifInterface;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
@@ -21,11 +20,13 @@ import android.widget.Toast;
 import com.old.time.R;
 import com.old.time.cutpic.ClipImageView;
 import com.old.time.cutpic.IOUtils;
+import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.UIHelper;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ClipImageActivity extends Activity implements View.OnClickListener {
+public class ClipImageActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String OUT_PUT_PATH = "outputPath";
     private ClipImageView mClipImageView;
@@ -44,30 +45,6 @@ public class ClipImageActivity extends Activity implements View.OnClickListener 
     private int mSourceHeight;
 
     private ProgressDialog mDialog;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_clip_image);
-        mClipImageView = (ClipImageView) findViewById(R.id.clip_image_view);
-        mCancel = (TextView) findViewById(R.id.cancel);
-        mClip = (TextView) findViewById(R.id.clip);
-
-        mCancel.setOnClickListener(this);
-        mClip.setOnClickListener(this);
-
-        ClipOptions clipOptions = ClipOptions.createFromBundle(getIntent());
-        mOutput = clipOptions.getOutputPath();
-        mInput = clipOptions.getInputPath();
-        mMaxWidth = clipOptions.getMaxWidth();
-        mClipImageView.setAspect(clipOptions.getAspectX(), clipOptions.getAspectY());
-        mClipImageView.setTip(clipOptions.getTip());
-        mClipImageView.setMaxOutputWidth(mMaxWidth);
-
-        setImageAndClipParams(); //大图裁剪
-        mDialog = new ProgressDialog(this);
-        mDialog.setMessage("裁剪中...");
-    }
 
     private void setImageAndClipParams() {
         mClipImageView.post(new Runnable() {
@@ -168,6 +145,33 @@ public class ClipImageActivity extends Activity implements View.OnClickListener 
         }
     }
 
+    @Override
+    protected void initView() {
+        mClipImageView = (ClipImageView) findViewById(R.id.clip_image_view);
+        mCancel = (TextView) findViewById(R.id.cancel);
+        mClip = (TextView) findViewById(R.id.clip);
+
+        mCancel.setOnClickListener(this);
+        mClip.setOnClickListener(this);
+
+        ClipOptions clipOptions = ClipOptions.createFromBundle(getIntent());
+        mOutput = clipOptions.getOutputPath();
+        mInput = clipOptions.getInputPath();
+        mMaxWidth = clipOptions.getMaxWidth();
+        mClipImageView.setAspect(clipOptions.getAspectX(), clipOptions.getAspectY());
+        mClipImageView.setTip(clipOptions.getTip());
+        mClipImageView.setMaxOutputWidth(mMaxWidth);
+
+        setImageAndClipParams(); //大图裁剪
+        mDialog = new ProgressDialog(this);
+        mDialog.setMessage("裁剪中...");
+    }
+
+    @Override
+    protected int getLayoutID() {
+        return R.layout.activity_clip_image;
+    }
+
     private void clipImage() {
         if (mOutput != null) {
             mDialog.show();
@@ -184,9 +188,11 @@ public class ClipImageActivity extends Activity implements View.OnClickListener 
                         }
                         setResult(Activity.RESULT_OK, getIntent());
                     } catch (Exception e) {
-                        Toast.makeText(ClipImageActivity.this, "图片保存失败", Toast.LENGTH_SHORT).show();
+                        UIHelper.ToastMessage(mContext, "图片保存失败");
+
                     } finally {
                         IOUtils.close(fos);
+
                     }
                     return null;
                 }
@@ -194,12 +200,14 @@ public class ClipImageActivity extends Activity implements View.OnClickListener 
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     mDialog.dismiss();
-                    finish();
+                    ActivityUtils.finishActivity(mContext);
+
                 }
             };
             task.execute();
         } else {
-            finish();
+            ActivityUtils.finishActivity(mContext);
+
         }
     }
 
@@ -359,7 +367,7 @@ public class ClipImageActivity extends Activity implements View.OnClickListener 
             activity.startActivityForResult(intent, requestCode);
         }
 
-       public void startForResult(Fragment activity, int requestCode) {
+        public void startForResult(Fragment activity, int requestCode) {
             checkValues();
             Intent intent = new Intent(activity.getActivity(), ClipImageActivity.class);
             intent.putExtra("aspectX", aspectX);
