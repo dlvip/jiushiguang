@@ -2,6 +2,7 @@ package com.old.time.dialogs;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.TextView;
 
 import com.old.time.R;
@@ -32,10 +33,17 @@ public class DialogChoseAddress extends BaseDialog {
     private TextView btCancel;
     private TextView btOk;
 
-    public DialogChoseAddress(@NonNull Activity context) {
+    private OnChooseListener mOnChooseListener;
+
+    public DialogChoseAddress(@NonNull Activity context,OnChooseListener mOnChooseListener) {
         super(context, R.style.transparentFrameWindowStyle);
+        this.mOnChooseListener = mOnChooseListener;
         addressDao = new AddressDao(getContext());
 
+    }
+
+    public void showDialog(){
+        show();
 
     }
 
@@ -73,6 +81,94 @@ public class DialogChoseAddress extends BaseDialog {
 
         tvTitle.setText(getContext().getString(R.string.choose_citys));
 
+        wvProvinces.setOnSelectListener(new WheelView.OnSelectListener() {
+            @Override
+            public void endSelect(int id, String text) {
+                cityDatas = addressDao.getAddressesByFId(String.valueOf(provinceDatas.get(id).zoneId));
+
+                if (cityDatas != null && cityDatas.size() > 0) {
+
+                    districtDatas = addressDao.getAddressesByFId(String.valueOf(cityDatas.get(0).zoneId));
+
+                    if (districtDatas != null && districtDatas.size() <= 0) {
+                        districtDatas.clear();
+                        districtDatas.add(provinceDatas.get(id));
+                    }
+
+                } else {
+                    cityDatas.clear();
+                    cityDatas.add(provinceDatas.get(id));
+                    districtDatas.clear();
+                    districtDatas.add(provinceDatas.get(id));
+                }
+
+                wvCitys.setData(getAddressDatas(cityDatas));
+                wvCitys.setDefault(0);
+                wvDistricts.setData(getAddressDatas(districtDatas));
+                wvDistricts.setDefault(0);
+            }
+
+            @Override
+            public void selecting(int id, String text) {
+
+            }
+        });
+
+        wvCitys.setOnSelectListener(new WheelView.OnSelectListener() {
+            @Override
+            public void endSelect(int id, String text) {
+                districtDatas = addressDao.getAddressesByFId(String.valueOf(cityDatas.get(id).zoneId));
+                if (districtDatas != null && districtDatas.size() <= 0) {
+                    districtDatas = cityDatas;
+
+                }
+
+                wvDistricts.setData(getAddressDatas(districtDatas));
+                wvDistricts.setDefault(0);
+            }
+
+            @Override
+            public void selecting(int id, String text) {
+
+            }
+        });
+
+        wvDistricts.setOnSelectListener(new WheelView.OnSelectListener() {
+            @Override
+            public void endSelect(int id, String text) {
+
+            }
+
+            @Override
+            public void selecting(int id, String text) {
+
+            }
+        });
+
+        btCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+
+            }
+        });
+
+        /**
+         * 点击确定，回调监听回调方法
+         */
+        btOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnChooseListener != null) {
+                    AddressBean province = provinceDatas.get(wvProvinces.getSelected());
+                    AddressBean city = cityDatas.get(wvCitys.getSelected());
+                    AddressBean district = districtDatas.get(wvDistricts.getSelected());
+                    mOnChooseListener.endSelect(new CityInfo(province, city, district));
+
+                }
+                dismiss();
+            }
+        });
     }
 
     /**
@@ -90,6 +186,15 @@ public class DialogChoseAddress extends BaseDialog {
         return datas;
     }
 
+    /**
+     * 选择完成后回调
+     */
+    public interface OnChooseListener {
+        void endSelect(CityInfo cityInfo);
+
+    }
+
+
     public class CityInfo {
         public AddressBean province;
         public AddressBean city;
@@ -101,7 +206,6 @@ public class DialogChoseAddress extends BaseDialog {
             this.district = district;
         }
     }
-
 
     @Override
     protected int setContentView() {

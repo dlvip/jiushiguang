@@ -45,7 +45,6 @@ import com.old.time.utils.EasyPhotos;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -342,10 +341,7 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
             degreeSeekBar.setVisibility(View.GONE);
             toggleIvMenu(R.id.iv_replace);
             if (null == toClass) {
-                Intent intent = new Intent(this, PhotoPickActivity.class);
-                intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, true);
-                intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, PIC_COUNT_SIZE);
-                ActivityUtils.startActivityForResult(this, intent, Code.REQUEST_CODE_30);
+                PhotoPickActivity.startPhotoPickActivity(this,true,PIC_COUNT_SIZE,Code.REQUEST_CODE_30);
 
             } else {
                 Intent intent = new Intent(this, toClass.get());

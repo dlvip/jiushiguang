@@ -53,10 +53,8 @@ public class CameraTakeActivity extends BaseActivity implements SurfaceHolder.Ca
     private ImageView img_btn_lights, img_btn_reverse, img_take_pic;
     private TextView tv_pic_upload;
 
-    public static void startCameraActivity(Activity mContext,int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA
-                , Manifest.permission.WRITE_EXTERNAL_STORAGE
-                , Manifest.permission.READ_EXTERNAL_STORAGE})) {
+    public static void startCameraActivity(Activity mContext, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
 
             return;
         }
@@ -140,11 +138,7 @@ public class CameraTakeActivity extends BaseActivity implements SurfaceHolder.Ca
 
                 break;
             case R.id.tv_btn_pics:
-                Intent intent = new Intent(mContext, PhotoPickActivity.class);
-                intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, false);
-                intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, PIC_COUNT_SIZE);
-                intent.putExtra(PhotoPickActivity.SELECT_PHOTO_LIST, (Serializable) picPaths);
-                ActivityUtils.startActivityForResult(mContext, intent, Code.REQUEST_CODE_30);
+                PhotoPickActivity.startPhotoPickActivity(mContext, false, PIC_COUNT_SIZE, (Serializable) picPaths, Code.REQUEST_CODE_30);
 
                 break;
             case R.id.img_btn_lights:
@@ -379,8 +373,7 @@ public class CameraTakeActivity extends BaseActivity implements SurfaceHolder.Ca
      * 设置
      */
     private void setupCamera(Camera camera, SurfaceView mSurfaceView) {
-        if (camera == null)
-            return;
+        if (camera == null) return;
         Camera.Parameters parameters = camera.getParameters();
 
         List<String> focusModes = parameters.getSupportedFocusModes();

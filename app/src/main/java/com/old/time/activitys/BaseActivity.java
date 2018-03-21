@@ -1,15 +1,22 @@
 package com.old.time.activitys;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.old.time.R;
+import com.old.time.dialogs.DialogPromptCentre;
+import com.old.time.interfaces.OnClickViewCallBack;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.UIHelper;
@@ -43,8 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     public void setTitleText(int text) {
         TextView tv_title = findViewById(R.id.top_title);
-        if (tv_title != null)
-            tv_title.setText(text);
+        if (tv_title != null) tv_title.setText(text);
     }
 
     /**
@@ -54,10 +60,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     public void setTitleText(String text) {
         TextView tv_title = (TextView) findViewById(R.id.top_title);
-        if (tv_title != null)
-            tv_title.setText(text);
+        if (tv_title != null) tv_title.setText(text);
 
     }
+
+    private DialogPromptCentre mDialogPromptCentre;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull final String[] permissions, @NonNull int[] grantResults) {
@@ -66,6 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onSuccess() {
                 UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_success));
+
             }
 
             @Override
@@ -75,10 +83,44 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onFailed() {
+                showDialogPermission();
                 UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_fail));
 
             }
         });
+    }
+
+    /**
+     * 申请权限的弹框
+     */
+    private void showDialogPermission() {
+        if (mDialogPromptCentre == null) {
+            mDialogPromptCentre = new DialogPromptCentre(mContext, new OnClickViewCallBack() {
+                @Override
+                public void onClickTrueView() {
+                    Intent localIntent = new Intent();
+                    localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (Build.VERSION.SDK_INT >= 9) {
+                        localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                        localIntent.setData(Uri.fromParts("package", getPackageName(), null));
+
+                    } else if (Build.VERSION.SDK_INT <= 8) {
+                        localIntent.setAction(Intent.ACTION_VIEW);
+                        localIntent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+                        localIntent.putExtra("com.android.settings.ApplicationPkgName", getPackageName());
+
+                    }
+                    ActivityUtils.startActivity(mContext, localIntent);
+
+                }
+
+                @Override
+                public void onClickCancelView() {
+
+                }
+            });
+        }
+        mDialogPromptCentre.showDialog("申请权限失败，请手动开启相关权限");
     }
 
     /**

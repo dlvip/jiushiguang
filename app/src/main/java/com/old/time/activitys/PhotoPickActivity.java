@@ -1,5 +1,7 @@
 package com.old.time.activitys;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,8 +16,10 @@ import android.widget.TextView;
 import com.old.time.R;
 import com.old.time.adapters.DisplayImageViewAdapter;
 import com.old.time.adapters.PhotoGalleyAdapter;
+import com.old.time.constants.Code;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.models.ImageSize;
+import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AlbumController;
 import com.old.time.utils.PhotoSelectorHelper;
@@ -24,6 +28,7 @@ import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UriUtil;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +54,52 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
 
     private int width;
     private ImageSize imageSize;
+
+    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount, Serializable picPaths, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, PhotoPickActivity.class);
+        intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, isShowCamera);
+        intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, maxPickCount);
+        intent.putExtra(PhotoPickActivity.SELECT_PHOTO_LIST, picPaths);
+        ActivityUtils.startActivityForResult(mContext, intent, requestCode);
+
+    }
+
+    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, PhotoPickActivity.class);
+        intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, isShowCamera);
+        intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, maxPickCount);
+        ActivityUtils.startActivityForResult(mContext, intent, requestCode);
+
+    }
+
+    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, PhotoPickActivity.class);
+        intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, isShowCamera);
+        ActivityUtils.startActivityForResult(mContext, intent, requestCode);
+
+    }
+
+    public static void startPhotoPickActivity(Activity mContext, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, PhotoPickActivity.class);
+        ActivityUtils.startActivityForResult(mContext, intent, requestCode);
+
+    }
 
     @Override
     protected void initEvent() {
@@ -221,6 +272,7 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
         String path = mGalleyAdapter.getItem(position);
         if (PhotoGalleyAdapter.mSelectedImage.size() >= maxPickCount) {
             UIHelper.ToastMessage("已经选满" + maxPickCount + "张");
+
             return;
         }
         if (TextUtils.isEmpty(path)) {
@@ -232,7 +284,6 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
 
         }
     }
-
 
     private void selectDone() {
         ArrayList<String> list = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.old.time.utils;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.old.time.activitys.ClipImageActivity;
+import com.old.time.permission.PermissionUtil;
 
 import java.io.File;
 
