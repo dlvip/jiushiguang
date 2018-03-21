@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_main" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44"
+        android:background="@color/color_fff"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="收  货  人："
+            android:textColor="@color/color_000"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/edt_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/tv_user_name"
+            android:background="@color/color_fff"
+            android:gravity="center_vertical"
+            android:maxLength="6"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_fff">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/layout_10"
+            android:background="@color/line_bg" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44"
+        android:background="@color/color_fff"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="联系电话："
+            android:textColor="@color/color_000"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/edt_user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/tv_user_phone"
+            android:background="@color/color_fff"
+            android:gravity="center_vertical"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_fff">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/layout_10"
+            android:background="@color/line_bg" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_choice_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44"
+        android:background="@color/color_fff"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="所在区域："
+            android:textColor="@color/color_000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_select_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/tv_address"
+            android:background="@color/color_fff"
+            android:gravity="center_vertical"
+            android:hint="北京 海淀"
+            android:maxLength="16"
+            android:textColor="@color/color_000"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/layout_12"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/right_arrow" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_fff">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/layout_10"
+            android:background="@color/line_bg" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44"
+        android:background="@color/color_fff"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_address_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="详细地址："
+            android:textColor="@color/color_000"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/edt_address_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/tv_address_detail"
+            android:background="@color/color_fff"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:hint="街道、门牌等"
+            android:maxLength="26"
+            android:singleLine="true"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_fff">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/layout_10"
+            android:background="@color/line_bg" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44"
+        android:background="@color/color_fff"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_address_default"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="设为默认地址"
+            android:textColor="@color/color_000"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/img_is_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/layout_10"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

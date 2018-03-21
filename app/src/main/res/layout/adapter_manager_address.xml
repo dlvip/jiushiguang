@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radius0_stroke_line_bgfff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        android:paddingTop="@dimen/layout_10">
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wang_小明"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_14" />
+
+        <TextView
+            android:id="@+id/tv_user_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="15093073252"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_14" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_user_address_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        android:text="北京海淀区五环到六环之间上地嘉华大厦B座B905室"
+        android:textColor="@color/color_999"
+        android:textSize="@dimen/text_12" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_fff">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:layout_marginLeft="@dimen/layout_10"
+            android:layout_marginRight="@dimen/layout_10"
+            android:background="@color/line_bg" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_10"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+
+
+        <LinearLayout
+            android:id="@+id/linear_layout_img_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/layout_10">
+
+            <ImageView
+                android:id="@+id/img_is_select"
+                android:layout_width="@dimen/layout_20"
+                android:layout_height="@dimen/layout_20"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/radio_default" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="默认地址"
+                android:textColor="@color/color_666"
+                android:textSize="@dimen/text_14" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_address_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/tv_address_delete"
+            android:drawableLeft="@mipmap/shop_address_modify"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/color_666"
+            android:text="编辑"
+            android:textSize="@dimen/text_14" />
+
+        <TextView
+            android:id="@+id/tv_address_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@mipmap/shop_address_del"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/layout_10"
+            android:text="删除"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/text_14" />
+    </RelativeLayout>
+
+</LinearLayout>
