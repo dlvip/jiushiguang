@@ -115,10 +115,7 @@ public class CameraTakeActivity extends BaseActivity implements SurfaceHolder.Ca
                     @Override
                     public void onClick(View v) {
                         int position = helper.getLayoutPosition();
-                        Intent intent = new Intent(mContext, PhotoPagerActivity.class);
-                        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_URLS, (ArrayList) picPaths);
-                        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_INDEX, position);
-                        ActivityUtils.startPicActivity((Activity) mContext, intent);
+                        PhotoPagerActivity.startPhotoPagerActivity((Activity) mContext, (Serializable) picPaths, position);
 
                     }
                 });

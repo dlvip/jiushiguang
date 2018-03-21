@@ -1,5 +1,7 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -9,8 +11,11 @@ import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.adapters.ImagePagerAdapter;
+import com.old.time.utils.ActivityUtils;
 import com.old.time.views.HackyViewPager;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,13 +31,20 @@ public class PhotoPagerActivity extends FragmentActivity {
     private TextView indicator;
     private List<String> urls;
 
+    public static void startPhotoPagerActivity(Activity mContext, Serializable picPaths, int position) {
+        Intent intent = new Intent(mContext, PhotoPagerActivity.class);
+        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_URLS, picPaths);
+        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_INDEX, position);
+        ActivityUtils.startPicActivity(mContext, intent);
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_image_detail_pager);
 

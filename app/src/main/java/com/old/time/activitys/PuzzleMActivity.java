@@ -10,6 +10,7 @@ import com.old.time.constants.Code;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.EasyPhotos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PuzzleMActivity extends BaseActivity {
@@ -64,10 +65,7 @@ public class PuzzleMActivity extends BaseActivity {
             case Code.REQUEST_CODE_40:
                 selectedPhotoList.clear();
                 selectedPhotoList.add(data.getStringExtra(EasyPhotos.RESULT_PATHS));
-                Intent intent = new Intent(mContext, PhotoPagerActivity.class);
-                intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_URLS, selectedPhotoList);
-                intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_INDEX, 0);
-                ActivityUtils.startPicActivity(mContext, intent);
+                PhotoPagerActivity.startPhotoPagerActivity(mContext, selectedPhotoList, 0);
 
                 break;
         }
