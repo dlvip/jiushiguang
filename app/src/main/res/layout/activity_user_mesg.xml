@@ -6,11 +6,15 @@
     android:orientation="vertical"
     tools:context="com.old.time.activitys.UserMesgActivity">
 
+    <include layout="@layout/header_main"/>
+
     <FrameLayout
-        android:id="@+id/header_fl"
+        android:id="@+id/frame_layout_header"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/layout_120"
-        android:layout_gravity="center_horizontal">
+        android:layout_height="@dimen/layout_80"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/layout_30"
+        android:layout_marginTop="@dimen/layout_20">
 
         <ImageView
             android:id="@+id/header_iv"
@@ -19,8 +23,8 @@
             android:layout_gravity="center"
             android:src="@mipmap/head_circle" />
 
-
         <ImageView
+            android:id="@+id/img_user_header"
             android:layout_width="@dimen/layout_80"
             android:layout_height="@dimen/layout_80"
             android:layout_gravity="center"

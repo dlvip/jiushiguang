@@ -1,23 +1,36 @@
 package com.old.time.activitys;
 
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.old.time.R;
+import com.old.time.constants.Code;
 import com.old.time.dialogs.DialogInputBottom;
+import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.OnClickManagerCallBack;
+import com.old.time.utils.ActivityUtils;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class UserMesgActivity extends BaseActivity {
 
     private TextView tv_edt_phone, tv_edt_nick, tv_edt_address, tv_edt_brief;
+    private ImageView img_user_header;
+    private int PIC_COUNT_SIZE = 1;
 
     @Override
     protected void initView() {
+        findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
+        setTitleText("资料信息");
+        img_user_header = findViewById(R.id.img_user_header);
         tv_edt_phone = findViewById(R.id.tv_edt_phone);
         tv_edt_nick = findViewById(R.id.tv_edt_nick);
         tv_edt_address = findViewById(R.id.tv_edt_address);
         tv_edt_brief = findViewById(R.id.tv_edt_brief);
-
 
     }
 
@@ -27,6 +40,7 @@ public class UserMesgActivity extends BaseActivity {
         findViewById(R.id.linear_layout_phone).setOnClickListener(this);
         findViewById(R.id.linear_layout_address).setOnClickListener(this);
         findViewById(R.id.linear_layout_brief).setOnClickListener(this);
+        findViewById(R.id.frame_layout_header).setOnClickListener(this);
 
     }
 
@@ -37,6 +51,10 @@ public class UserMesgActivity extends BaseActivity {
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
+            case R.id.frame_layout_header:
+                selectHeaderPic();
+
+                break;
             case R.id.linear_layout_phone:
                 getmDialogInputBottom(0);
                 mDialogInputBottom.showDialog(R.string.edt_nickname, R.string.dialog_true);
@@ -52,6 +70,17 @@ public class UserMesgActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    /**
+     * 选择头像照片
+     */
+    private void selectHeaderPic() {
+        Intent intent = new Intent(mContext, PhotoPickActivity.class);
+        intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, true);
+        intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, PIC_COUNT_SIZE);
+        ActivityUtils.startActivityForResult(mContext, intent, Code.REQUEST_CODE_30);
+
     }
 
     /**
@@ -83,6 +112,25 @@ public class UserMesgActivity extends BaseActivity {
                     }
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+
+            return;
+        }
+        switch (requestCode) {
+            case Code.REQUEST_CODE_30:
+                List<String> pathStrs = data.getStringArrayListExtra(PhotoPickActivity.SELECT_PHOTO_LIST);
+                if (pathStrs == null || pathStrs.size() == 0 || TextUtils.isEmpty(pathStrs.get(0)))
+
+                    return;
+                GlideUtils.getInstance().setRoundImageView(mContext, pathStrs.get(0), img_user_header);
+
+                break;
         }
     }
 
