@@ -27,10 +27,6 @@
             android:padding="@dimen/layout_10"
             app:layout_constraintTop_toBottomOf="@+id/img_circle_header_pic">
 
-            <View
-                android:layout_width="@dimen/layout_70"
-                android:layout_height="@dimen/line_height"
-                android:background="@color/line_bg" />
 
             <TextView
                 android:layout_width="wrap_content"

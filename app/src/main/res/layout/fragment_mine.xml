@@ -61,6 +61,7 @@
         android:background="@color/line_bg" />
 
     <RelativeLayout
+        android:id="@+id/relative_layout_message"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="@dimen/layout_15"

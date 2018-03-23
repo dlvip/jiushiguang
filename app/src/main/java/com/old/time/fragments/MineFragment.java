@@ -10,6 +10,7 @@ import com.old.time.activitys.PicsManageActivity;
 import com.old.time.activitys.SettingActivity;
 import com.old.time.activitys.UserDressActivity;
 import com.old.time.activitys.UserMesgActivity;
+import com.old.time.activitys.WebViewActivity;
 import com.old.time.utils.ActivityUtils;
 
 /**
@@ -34,6 +35,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         top_title.setText(getString(R.string.main_tab_mine));
 
         findViewById(R.id.relative_layout_header).setOnClickListener(this);
+        findViewById(R.id.relative_layout_message).setOnClickListener(this);
         findViewById(R.id.relative_layout_setting).setOnClickListener(this);
         findViewById(R.id.relative_layout_dress).setOnClickListener(this);
         findViewById(R.id.relative_layout_pics).setOnClickListener(this);
@@ -47,6 +49,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.relative_layout_header:
                 intent = new Intent(mContext, UserMesgActivity.class);
+
+                break;
+            case R.id.relative_layout_message:
+                intent = new Intent(mContext, WebViewActivity.class);
 
                 break;
             case R.id.relative_layout_pics:

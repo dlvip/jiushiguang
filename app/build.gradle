@@ -48,7 +48,6 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:1.2.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     implementation files('libs/Msc.jar')
-
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'io.reactivex:rxjava:1.1.9'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -57,4 +56,5 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.retrofit2:retrofit-converters:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    implementation files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
 }
