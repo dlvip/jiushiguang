@@ -23,50 +23,37 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/img_logo"
-                android:layout_width="80dp"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="bottom"
-                android:layout_marginTop="20dp"
                 android:scaleType="centerInside"
                 android:src="@mipmap/ic_launcher" />
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_detail"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/tv_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/img_logo"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:text="@string/app_name"
-                android:textColor="@color/color_aaa"
-                android:textSize="@dimen/text_13"
-                android:typeface="normal" />
-        </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/app_name"
+            android:textColor="@color/color_aaa"
+            android:textSize="@dimen/text_13"
+            android:typeface="normal" />
 
         <TextView
             android:id="@+id/tv_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/img_logo"
-            android:layout_marginTop="@dimen/layout_10"
-            android:layout_toRightOf="@+id/img_logo"
-            android:gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/layout_20"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text=""
             android:textColor="@color/color_aaa"
-            android:textSize="@dimen/text_10"
-            android:visibility="gone" />
+            android:textSize="@dimen/text_10" />
     </LinearLayout>
 
     <RelativeLayout
