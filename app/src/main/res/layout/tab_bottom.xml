@@ -19,7 +19,7 @@
             android:layout_height="@dimen/layout_25"
             android:layout_centerHorizontal="true"
             android:scaleType="fitCenter"
-            android:src="@mipmap/tab_usercenter" />
+            android:src="@mipmap/tab_home_normal" />
 
         <TextView
             android:id="@+id/tv_main_home"
@@ -57,7 +57,7 @@
             android:layout_height="@dimen/layout_25"
             android:layout_centerHorizontal="true"
             android:scaleType="fitCenter"
-            android:src="@mipmap/tab_home_normal" />
+            android:src="@mipmap/tab_find_normal" />
 
         <TextView
             android:id="@+id/tv_main_find"

@@ -3,6 +3,8 @@ package com.old.time.activitys;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.fragments.FindFragment;
@@ -11,8 +13,17 @@ import com.old.time.fragments.MineFragment;
 
 public class MainActivity extends BaseActivity {
 
+    private ImageView main_img_home, main_img_find, main_img_mine;
+    private TextView tv_main_home, tv_main_find, tv_main_mine;
+
     @Override
     protected void initView() {
+        main_img_home = findViewById(R.id.main_img_home);
+        main_img_find = findViewById(R.id.main_img_find);
+        main_img_mine = findViewById(R.id.main_img_mine);
+        tv_main_home = findViewById(R.id.tv_main_home);
+        tv_main_find = findViewById(R.id.tv_main_find);
+        tv_main_mine = findViewById(R.id.tv_main_mine);
         selectFragment(0);
 
     }
@@ -49,6 +60,7 @@ public class MainActivity extends BaseActivity {
      * 选中那个
      */
     private void selectFragment(int position) {
+        resetTabButton(position);
         switch (position) {
             case 0:
                 if (mHomeFragment == null) {
@@ -80,6 +92,35 @@ public class MainActivity extends BaseActivity {
 
                 }
                 switchConent(mMineFragment);
+
+                break;
+        }
+    }
+
+    /**
+     * 修改按钮状态
+     */
+    private void resetTabButton(int tabIndex) {
+        main_img_home.setImageResource(R.mipmap.tab_home_normal);
+        main_img_find.setImageResource(R.mipmap.tab_find_normal);
+        main_img_mine.setImageResource(R.mipmap.tab_my_normal);
+        tv_main_home.setTextColor(getResources().getColor(R.color.color_666));
+        tv_main_find.setTextColor(getResources().getColor(R.color.color_666));
+        tv_main_mine.setTextColor(getResources().getColor(R.color.color_666));
+        switch (tabIndex) {
+            case 0:
+                main_img_home.setImageResource(R.mipmap.tab_home_active);
+                tv_main_home.setTextColor(getResources().getColor(R.color.coloe_58ad2c));
+
+                break;
+            case 1:
+                main_img_find.setImageResource(R.mipmap.tab_find_active);
+                tv_main_find.setTextColor(getResources().getColor(R.color.coloe_58ad2c));
+
+                break;
+            case 2:
+                main_img_mine.setImageResource(R.mipmap.tab_my_active);
+                tv_main_mine.setTextColor(getResources().getColor(R.color.coloe_58ad2c));
 
                 break;
         }

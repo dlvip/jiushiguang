@@ -1,15 +1,16 @@
 package com.old.time.activitys;
 
-import android.os.Handler;
-import android.os.Message;
+import android.graphics.PixelFormat;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.old.time.R;
-import com.old.time.constants.Code;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.webUtils.WebViewJavaScriptFunction;
 import com.old.time.utils.webUtils.X5WebView;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
@@ -26,25 +27,10 @@ public class WebViewActivity extends BaseActivity {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener;
     public SwipeRefreshLayout mSwipeRefreshLayout;
 
-    public Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case Code.HIDE_LOADING:
-                    mSwipeRefreshLayout.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mSwipeRefreshLayout.setRefreshing(false);
-                        }
-                    });
-                    break;
-            }
-        }
-    };
-
     @Override
     protected void initView() {
+        getWindow().setFormat(PixelFormat.TRANSLUCENT);
+
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
 
         linear_layout_more = findViewById(R.id.linear_layout_more);
@@ -56,10 +42,41 @@ public class WebViewActivity extends BaseActivity {
         mWebView.setWebViewClient(new MyWebViewClient());
         mWebView.setWebChromeClient(new MyWebChromeClient());
         mWebView.loadUrl(mHomeUrl);
+        mWebView.getView().setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+        mWebView.addJavascriptInterface(new WebViewJavaScriptFunction() {
+
+            @Override
+            public void onJsFunctionCalled(String tag) {
+
+            }
+
+            @JavascriptInterface
+            public void onX5ButtonClicked() {
+                enableX5FullscreenFunc();
+
+            }
+
+            @JavascriptInterface
+            public void onCustomButtonClicked() {
+                disableX5FullscreenFunc();
+
+            }
+
+            @JavascriptInterface
+            public void onLiteWndButtonClicked() {
+                enableLiteWndFunc();
+
+            }
+
+            @JavascriptInterface
+            public void onPageVideoClicked() {
+                enablePageVideoFunc();
+
+            }
+        }, "Android");
 
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright
-                , R.color.holo_green_light, R.color.holo_orange_light, R.color.holo_red_light);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light, R.color.holo_orange_light, R.color.holo_red_light);
         onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -68,6 +85,63 @@ public class WebViewActivity extends BaseActivity {
             }
         };
         mSwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+    }
+
+    // 向webview发出信息
+    private void enableX5FullscreenFunc() {
+        if (mWebView.getX5WebViewExtension() != null) {
+            Bundle data = new Bundle();
+
+            data.putBoolean("standardFullScreen", false);// true表示标准全屏，false表示X5全屏；不设置默认false，
+
+            data.putBoolean("supportLiteWnd", false);// false：关闭小窗；true：开启小窗；不设置默认true，
+
+            data.putInt("DefaultVideoScreen", 2);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
+
+            mWebView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
+        }
+    }
+
+    private void disableX5FullscreenFunc() {
+        if (mWebView.getX5WebViewExtension() != null) {
+            Bundle data = new Bundle();
+
+            data.putBoolean("standardFullScreen", true);// true表示标准全屏，会调起onShowCustomView()，false表示X5全屏；不设置默认false，
+
+            data.putBoolean("supportLiteWnd", false);// false：关闭小窗；true：开启小窗；不设置默认true，
+
+            data.putInt("DefaultVideoScreen", 2);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
+
+            mWebView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
+        }
+    }
+
+    private void enableLiteWndFunc() {
+        if (mWebView.getX5WebViewExtension() != null) {
+            Bundle data = new Bundle();
+
+            data.putBoolean("standardFullScreen", false);// true表示标准全屏，会调起onShowCustomView()，false表示X5全屏；不设置默认false，
+
+            data.putBoolean("supportLiteWnd", true);// false：关闭小窗；true：开启小窗；不设置默认true，
+
+            data.putInt("DefaultVideoScreen", 2);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
+
+            mWebView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
+        }
+    }
+
+    private void enablePageVideoFunc() {
+        if (mWebView.getX5WebViewExtension() != null) {
+            Bundle data = new Bundle();
+
+            data.putBoolean("standardFullScreen", false);// true表示标准全屏，会调起onShowCustomView()，false表示X5全屏；不设置默认false，
+
+            data.putBoolean("supportLiteWnd", false);// false：关闭小窗；true：开启小窗；不设置默认true，
+
+            data.putInt("DefaultVideoScreen", 1);// 1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
+
+            mWebView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data);
+        }
     }
 
     private class MyWebViewClient extends WebViewClient {
