@@ -155,6 +155,7 @@
         android:background="@color/line_bg" />
 
     <TextView
+        android:id="@+id/tv_user_logout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_44"
         android:layout_marginLeft="@dimen/layout_20"
