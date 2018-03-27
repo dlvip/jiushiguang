@@ -1,5 +1,6 @@
 package com.old.time.utils;
 
+import android.content.Context;
 import android.os.Environment;
 
 import com.old.time.MyApplication;
@@ -71,5 +72,37 @@ public class FileUtils {
         }
         return file;
     }
+
+    public static String getSDPath(Context mContext) {
+        String mCacheRoot = "";
+        File dir = mContext.getExternalFilesDir("cache");
+        if (dir == null) {
+            mCacheRoot = mContext.getFilesDir().toString() + "/cache";
+
+        } else {
+            mCacheRoot = dir.toString();
+
+        }
+        return mCacheRoot;
+    }
+
+    /**
+     * 获取sd卡下的data/data/包名/cache
+     *
+     * @return
+     */
+    public static String getSDdataCachePath(Context mContext) {
+        String mCacheRoot = "";
+        File dir = mContext.getExternalCacheDir();
+        if (dir == null) {
+            mCacheRoot = mContext.getCacheDir().toString();
+
+        } else {
+            mCacheRoot = dir.toString();
+
+        }
+        return mCacheRoot;
+    }
+
 
 }

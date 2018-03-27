@@ -1,5 +1,7 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.old.time.R;
+import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.webUtils.WebViewJavaScriptFunction;
 import com.old.time.utils.webUtils.X5WebView;
@@ -26,6 +29,17 @@ public class WebViewActivity extends BaseActivity {
 
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener;
     public SwipeRefreshLayout mSwipeRefreshLayout;
+
+    /**
+     * H5页面
+     *
+     * @param mContext
+     */
+    public static void startWebViewActivity(Activity mContext) {
+        Intent intent = new Intent(mContext, WebViewActivity.class);
+        ActivityUtils.startActivity(mContext, intent);
+
+    }
 
     @Override
     protected void initView() {
