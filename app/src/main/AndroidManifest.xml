@@ -62,7 +62,8 @@
         <activity
             android:name=".activitys.UserRegisterActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activitys.SystemMsgActivity"></activity>
+        <activity android:name=".activitys.SystemMsgActivity" />
+        <activity android:name=".activitys.UserOrderActivity"></activity>
     </application>
 
 </manifest>

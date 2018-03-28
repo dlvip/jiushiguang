@@ -191,9 +191,9 @@ public class PhotoGalleyAdapter extends BaseAdapter {
     }
 
 
-    private DisplayImageViewAdapter<String> mDisplayAdapter;
+    private DisplayImgAdapter<String> mDisplayAdapter;
 
-    public void setOnDisplayImageAdapter(DisplayImageViewAdapter<String> adapter) {
+    public void setOnDisplayImageAdapter(DisplayImgAdapter<String> adapter) {
         this.mDisplayAdapter = adapter;
 
     }

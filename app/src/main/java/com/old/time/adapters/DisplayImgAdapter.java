@@ -11,7 +11,7 @@ import java.util.List;
  * Email: chjie.jaeger@gamil.com
  * GitHub: https://github.com/laobie
  */
-public abstract class DisplayImageViewAdapter<T> {
+public abstract class DisplayImgAdapter<T> {
     public abstract void onDisplayImage(Context context, ImageView imageView, T t);
 
     public void onItemImageClick(Context context, int index, List<T> list) {

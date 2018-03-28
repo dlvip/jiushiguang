@@ -10,9 +10,9 @@ import java.util.List;
  * Created by NING on 2018/3/28.
  */
 
-public class MsgAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class SystemMsgAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public MsgAdapter(List<String> data) {
+    public SystemMsgAdapter(List<String> data) {
         super(R.layout.adapter_msg, data);
 
     }

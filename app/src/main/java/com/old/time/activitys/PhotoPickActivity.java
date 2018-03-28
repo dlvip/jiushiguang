@@ -14,9 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.old.time.R;
-import com.old.time.adapters.DisplayImageViewAdapter;
+import com.old.time.adapters.DisplayImgAdapter;
 import com.old.time.adapters.PhotoGalleyAdapter;
-import com.old.time.constants.Code;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.models.ImageSize;
 import com.old.time.permission.PermissionUtil;
@@ -112,7 +111,7 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
             }
         });
 
-        mGalleyAdapter.setOnDisplayImageAdapter(new DisplayImageViewAdapter<String>() {
+        mGalleyAdapter.setOnDisplayImageAdapter(new DisplayImgAdapter<String>() {
             @Override
             public void onDisplayImage(Context context, ImageView imageView, String path) {
                 GlideUtils.getInstance().setImageViewWH(mContext, path, imageView, imageSize.getWidth());
