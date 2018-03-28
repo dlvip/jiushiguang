@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -118,7 +117,7 @@ public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         if (mOrientation == VERTICAL_LIST) {
-            outRect.set(0, 0, 0, spacing);
+            outRect.set(0, spacing, 0, 0);
 
         } else {
             outRect.set(spacing, 0, 0, 0);

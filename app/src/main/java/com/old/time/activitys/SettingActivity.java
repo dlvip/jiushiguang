@@ -5,13 +5,9 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.old.time.MyApplication;
 import com.old.time.R;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DataCleanManager;
-import com.old.time.utils.FileUtils;
-
-import java.io.File;
 
 public class SettingActivity extends BaseActivity {
 

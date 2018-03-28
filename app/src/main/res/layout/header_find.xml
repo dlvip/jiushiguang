@@ -7,14 +7,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
-        android:layout_marginTop="@dimen/layout_10"
         android:background="@color/line_bg"
         android:visibility="gone" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_44"
-        android:layout_marginTop="@dimen/layout_10"
         android:background="@color/color_fff"
         android:drawableRight="@mipmap/right_arrow"
         android:gravity="center_vertical"

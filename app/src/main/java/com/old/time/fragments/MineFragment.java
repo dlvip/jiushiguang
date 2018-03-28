@@ -10,7 +10,7 @@ import com.old.time.activitys.PicsManageActivity;
 import com.old.time.activitys.SettingActivity;
 import com.old.time.activitys.UserDressActivity;
 import com.old.time.activitys.UserMesgActivity;
-import com.old.time.activitys.WebViewActivity;
+import com.old.time.activitys.SystemMsgActivity;
 import com.old.time.utils.ActivityUtils;
 
 /**
@@ -52,7 +52,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.relative_layout_message:
-                intent = new Intent(mContext, WebViewActivity.class);
+                intent = new Intent(mContext, SystemMsgActivity.class);
 
                 break;
             case R.id.relative_layout_pics:
