@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.old.time.R;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DataCleanManager;
+import com.old.time.utils.StringUtils;
 
 public class SettingActivity extends BaseActivity {
 
@@ -17,21 +18,25 @@ public class SettingActivity extends BaseActivity {
 
     }
 
-    private TextView tv_clear_num;
+    private TextView tv_clear_num, tv_app_version;
 
     @Override
     protected void initView() {
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         setTitleText("设置");
 
+        tv_app_version = findViewById(R.id.tv_app_version);
+        tv_app_version.setText("V " + StringUtils.getVersion(this));
         tv_clear_num = findViewById(R.id.tv_clear_num);
         String cacheText = DataCleanManager.getFormatSize(mContext);
         tv_clear_num.setText(cacheText);
+
     }
 
     @Override
     protected void initEvent() {
         super.initEvent();
+        findViewById(R.id.relative_layout_memory).setOnClickListener(this);
         findViewById(R.id.relative_layout_about).setOnClickListener(this);
         findViewById(R.id.tv_user_logout).setOnClickListener(this);
 

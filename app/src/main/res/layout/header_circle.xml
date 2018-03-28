@@ -27,6 +27,10 @@
             android:padding="@dimen/layout_10"
             app:layout_constraintTop_toBottomOf="@+id/img_circle_header_pic">
 
+            <View
+                android:layout_width="@dimen/layout_70"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_bg" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -34,14 +38,11 @@
                 android:layout_marginLeft="@dimen/layout_15"
                 android:layout_marginRight="@dimen/layout_15"
                 android:gravity="center"
+                android:paddingRight="@dimen/layout_20"
                 android:text="@string/circle_title"
                 android:textColor="@color/color_999"
                 android:textSize="@dimen/text_12" />
 
-            <View
-                android:layout_width="@dimen/layout_70"
-                android:layout_height="@dimen/line_height"
-                android:background="@color/line_bg" />
         </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
@@ -53,12 +54,8 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="@dimen/layout_30"
         android:gravity="center_vertical|right"
+        android:orientation="horizontal"
         android:padding="@dimen/layout_10">
-
-        <ImageView
-            android:layout_width="@dimen/layout_60"
-            android:layout_height="@dimen/layout_60"
-            android:src="@mipmap/head_circle" />
 
         <TextView
             android:layout_width="match_parent"
@@ -66,6 +63,11 @@
             android:textColor="@color/color_fff"
             android:textSize="@dimen/text_16" />
 
+        <ImageView
+            android:layout_width="@dimen/layout_60"
+            android:layout_height="@dimen/layout_60"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/splish_pic" />
     </LinearLayout>
 
 </FrameLayout>

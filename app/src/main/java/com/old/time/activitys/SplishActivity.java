@@ -34,8 +34,7 @@ public class SplishActivity extends BaseActivity {
         img_splish = findViewById(R.id.img_splish);
         img_logo = findViewById(R.id.img_logo);
 
-        versionText.setText(getString(R.string.app_name)
-                + "：v." + StringUtils.getVersion(this));
+        versionText.setText(getString(R.string.app_name) + " V：" + StringUtils.getVersion(this));
         rootLayout.postDelayed(new Runnable() {
             @Override
             public void run() {
