@@ -18,7 +18,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"
         android:drawablePadding="10dp"
-        android:drawableRight="@mipmap/right_arrow"
+        android:drawableRight="@mipmap/public_arrow_right"
         android:ellipsize="end"
         android:singleLine="true"
         android:textColor="#000000"

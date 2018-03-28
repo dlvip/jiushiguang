@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_44"
         android:background="@color/color_fff"
-        android:drawableRight="@mipmap/right_arrow"
+        android:drawableRight="@mipmap/public_arrow_right"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/layout_10"
         android:paddingRight="@dimen/layout_10"

@@ -42,7 +42,7 @@
             android:paddingBottom="@dimen/layout_10"
             android:paddingLeft="@dimen/layout_20"
             android:paddingTop="@dimen/layout_10"
-            android:src="@mipmap/public_list_more" />
+            android:src="@mipmap/btn_more" />
 
     </LinearLayout>
 
