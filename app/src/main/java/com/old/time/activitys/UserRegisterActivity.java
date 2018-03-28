@@ -51,11 +51,12 @@ public class UserRegisterActivity extends BaseActivity {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.tv_pass_word:
-
+                String phoneStr = input_phone.getText().toString().trim();
+                startUserRegisterActivity(mContext, "1", phoneStr);
 
                 break;
             case R.id.tv_user_register:
-
+                ActivityUtils.finishActivity(mContext);
 
                 break;
         }

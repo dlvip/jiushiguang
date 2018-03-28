@@ -59,7 +59,9 @@
         <activity android:name=".activitys.UserDressActivity" />
         <activity android:name=".activitys.CreateDressActivity" />
         <activity android:name=".activitys.WebViewActivity" />
-        <activity android:name=".activitys.UserRegisterActivity"></activity>
+        <activity
+            android:name=".activitys.UserRegisterActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

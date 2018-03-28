@@ -19,7 +19,7 @@ public class SplishActivity extends BaseActivity {
 
     private RelativeLayout rootLayout, relative_layout_next;
     private String TAG = "SplishActivity";
-    private TextView versionText, tv_time_next, tv_detail;
+    private TextView versionText, tv_time_next;
     private ImageView img_splish, img_logo;
     private int[] WH;
 
@@ -31,11 +31,11 @@ public class SplishActivity extends BaseActivity {
         relative_layout_next.setPadding(0, getStatusBarHeight(), 0, 0);
         versionText = findViewById(R.id.tv_version);
         tv_time_next = findViewById(R.id.tv_time_next);
-        tv_detail = findViewById(R.id.tv_detail);
         img_splish = findViewById(R.id.img_splish);
         img_logo = findViewById(R.id.img_logo);
 
-        versionText.setText("V" + StringUtils.getVersion(this));
+        versionText.setText(getString(R.string.app_name)
+                + "：v." + StringUtils.getVersion(this));
         rootLayout.postDelayed(new Runnable() {
             @Override
             public void run() {

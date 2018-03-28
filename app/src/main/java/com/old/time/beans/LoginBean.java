@@ -8,6 +8,8 @@ package com.old.time.beans;
 
 public class LoginBean {
 
+
+
     /**
      * userId : admin
      * token : success
