@@ -13,7 +13,7 @@ import com.old.time.R;
 
 public class CustomDialog extends ProgressDialog {
     public CustomDialog(Context context) {
-        super(context);
+        super(context, R.style.CustomDialog);
     }
 
     public CustomDialog(Context context, int theme) {
