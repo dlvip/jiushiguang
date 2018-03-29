@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.old.time.MyApplication;
+import com.old.time.views.CustomDialog;
 
 import java.lang.reflect.Field;
 
@@ -19,8 +20,7 @@ public class UIHelper {
      * dip转换px
      */
     public static int dip2px(int dip) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip,
-                MyApplication.getInstance().getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, MyApplication.getInstance().getResources().getDisplayMetrics());
     }
 
     /**
@@ -55,8 +55,7 @@ public class UIHelper {
      * @param msg
      */
     public static void ToastCenterMessage(String msg) {
-        Toast toast = Toast.makeText(MyApplication.getInstance(),
-                msg, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(MyApplication.getInstance(), msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
@@ -65,12 +64,12 @@ public class UIHelper {
      * 显示进度框
      */
     public static ProgressDialog showProgressMessageDialog(Context context, String Message) {
-        ProgressDialog pdDialog = new ProgressDialog(context);
-        pdDialog.setMessage(Message);
-        pdDialog.setCancelable(true);
-        pdDialog.setIndeterminate(false);
-        pdDialog.setCanceledOnTouchOutside(false);
-        pdDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        CustomDialog pdDialog = new CustomDialog(context);
+//        pdDialog.setMessage(Message);
+//        pdDialog.setCancelable(true);
+//        pdDialog.setIndeterminate(false);
+//        pdDialog.setCanceledOnTouchOutside(false);
+//        pdDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         pdDialog.show();
         return pdDialog;
     }
@@ -112,10 +111,8 @@ public class UIHelper {
         if (window != null) {
             try {
                 WindowManager.LayoutParams lp = window.getAttributes();
-                Field darkFlag = WindowManager.LayoutParams.class
-                        .getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");
-                Field meizuFlags = WindowManager.LayoutParams.class
-                        .getDeclaredField("meizuFlags");
+                Field darkFlag = WindowManager.LayoutParams.class.getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");
+                Field meizuFlags = WindowManager.LayoutParams.class.getDeclaredField("meizuFlags");
                 darkFlag.setAccessible(true);
                 meizuFlags.setAccessible(true);
                 int bit = darkFlag.getInt(null);

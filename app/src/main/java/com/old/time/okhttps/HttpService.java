@@ -19,7 +19,7 @@ public interface HttpService {
     //登录接口
     @FormUrlEncoded
     @POST("{apiUrl}")
-    Observable<BaseHttpResult<LoginBean>> login(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
+    Observable<BaseHttpResult<Object>> login(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
 
 
 }
