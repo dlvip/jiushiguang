@@ -3,6 +3,7 @@ package com.old.time.utils;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 
 import com.old.time.R;
 
@@ -32,6 +33,10 @@ public class StringUtils {
      * @param mobiles 手机号
      */
     public static boolean isMobileNO(String mobiles) {
+        if (TextUtils.isEmpty(mobiles)) {
+
+            return false;
+        }
         String regExp = "^((13[0-9])|(15[^4,\\D])|(18[0,0-9])|17[0-9]|14[0-9])\\d{8}$";
 
         Pattern p = Pattern.compile(regExp);

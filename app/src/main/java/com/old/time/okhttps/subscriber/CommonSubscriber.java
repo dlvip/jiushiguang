@@ -1,6 +1,5 @@
 package com.old.time.okhttps.subscriber;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 
 import com.old.time.okhttps.BaseSubscriber;
@@ -8,6 +7,7 @@ import com.old.time.okhttps.exception.ApiException;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.NetworkUtil;
 import com.old.time.utils.UIHelper;
+import com.old.time.views.ProgressCDialog;
 
 /**
  * Created by gaosheng on 2016/11/6.
@@ -17,43 +17,47 @@ import com.old.time.utils.UIHelper;
 
 public abstract class CommonSubscriber<T> extends BaseSubscriber<T> {
 
+    private static final String TAG = "CommonSubscriber";
+
     private Context context;
 
     public CommonSubscriber(Context context) {
         this.context = context;
+
     }
 
-    private static final String TAG = "CommonSubscriber";
-
-    private ProgressDialog pd;
+    private ProgressCDialog mProgressCDialog;
 
     @Override
     public void onStart() {
-        if (pd == null) {
-            pd = UIHelper.showProgressMessageDialog(context, "请稍后...");
-
-        }
         if (!NetworkUtil.isNetworkAvailable(context)) {
-            DebugLog.e(TAG, "网络不可用");
+            UIHelper.ToastMessage(context, "网络不可用");
 
-        } else {
-            DebugLog.e(TAG, "网络可用");
+            return;
+        }
+        if (mProgressCDialog == null) {
+            mProgressCDialog = new ProgressCDialog(context);
 
         }
+        mProgressCDialog.showProgressDialog();
     }
 
     @Override
     protected void onError(ApiException e) {
-        UIHelper.dissmissProgressDialog(pd);
-        DebugLog.e(TAG, "错误信息为 " + "code:" + e.code + "   message:" + e.message);
+        if (mProgressCDialog != null && mProgressCDialog.isShowing()) {
+            mProgressCDialog.dismiss();
 
+        }
+        UIHelper.ToastMessage(context, e.message);
     }
 
     @Override
     public void onCompleted() {
-        UIHelper.dissmissProgressDialog(pd);
+        if (mProgressCDialog != null && mProgressCDialog.isShowing()) {
+            mProgressCDialog.dismiss();
+
+        }
         DebugLog.e(TAG, "成功了");
 
     }
-
 }

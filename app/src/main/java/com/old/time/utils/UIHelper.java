@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.old.time.MyApplication;
-import com.old.time.views.CustomDialog;
+import com.old.time.views.ProgressCDialog;
 
 import java.lang.reflect.Field;
 
@@ -64,13 +64,13 @@ public class UIHelper {
      * 显示进度框
      */
     public static ProgressDialog showProgressMessageDialog(Context context, String Message) {
-        CustomDialog pdDialog = new CustomDialog(context);
+        ProgressCDialog pdDialog = new ProgressCDialog(context);
 //        pdDialog.setMessage(Message);
 //        pdDialog.setCancelable(true);
 //        pdDialog.setIndeterminate(false);
 //        pdDialog.setCanceledOnTouchOutside(false);
 //        pdDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pdDialog.show();
+        pdDialog.showProgressDialog();
         return pdDialog;
     }
 

@@ -15,8 +15,14 @@ public class Constant {
      */
     public static String BASE_URL = "http://120.76.72.60/webconsole/wap/";
 
-    //登陆
+    //用户登陆
     public static final String USER_LOGIN = "loginByPhone";
+
+    //获取验证码
+    public static final String GET_PHONE_CODE = "getVerification";
+
+    //用户注册
+    public static final String USER_REGISTER = "regedit";
 
 
     public static String PHOTO_PIC_URL = "http://o.longbeidata.com/sns/2018-3/1126215204005466940.jpg";

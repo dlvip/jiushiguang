@@ -11,7 +11,7 @@ public interface ErrorType {
     /**
      * 请求成功
      */
-    int SUCCESS = 1;
+    int SUCCESS = 0;
     /**
      * 未知错误
      */

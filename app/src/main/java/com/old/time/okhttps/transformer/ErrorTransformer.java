@@ -26,20 +26,20 @@ public class ErrorTransformer<T> implements Observable.Transformer<BaseHttpResul
         return responseObservable.map(new Func1<BaseHttpResult<T>, T>() {
             @Override
             public T call(BaseHttpResult<T> httpResult) {
-
-                if (httpResult == null)
+                if (httpResult == null) {
                     throw new ServerException(ErrorType.EMPTY_BEAN, "解析对象为空");
 
+                }
                 DebugLog.e(TAG, httpResult.toString());
-
-                if (httpResult.getStatus() != ErrorType.SUCCESS)
+                if (httpResult.getStatus() != ErrorType.SUCCESS) {
                     throw new ServerException(httpResult.getStatus(), httpResult.getMessage());
+
+                }
                 return httpResult.getData();
             }
         }).onErrorResumeNext(new Func1<Throwable, Observable<? extends T>>() {
             @Override
             public Observable<? extends T> call(Throwable throwable) {
-                //ExceptionEngine为处理异常的驱动器throwable
                 throwable.printStackTrace();
                 return Observable.error(ExceptionEngine.handleException(throwable));
             }

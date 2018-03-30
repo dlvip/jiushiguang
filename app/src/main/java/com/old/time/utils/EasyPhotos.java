@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.old.time.activitys.PuzzleActivity;
 import com.old.time.interfaces.SaveBitmapCallBack;
-import com.old.time.models.ImageEngine;
 import com.old.time.models.Photo;
 import com.old.time.models.StickerModel;
 import com.old.time.models.TextStickerData;

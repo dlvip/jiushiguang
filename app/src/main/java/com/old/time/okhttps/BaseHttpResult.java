@@ -7,7 +7,7 @@ package com.old.time.okhttps;
 
 public class BaseHttpResult<T> {
     private int status;
-    private String message;
+    private String msg;
     private T data;
 
     public int getStatus() {
@@ -19,11 +19,11 @@ public class BaseHttpResult<T> {
     }
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.msg = message;
     }
 
     public T getData() {
@@ -38,7 +38,7 @@ public class BaseHttpResult<T> {
     public String toString() {
         return "BaseHttpResult{" +
                 "status=" + status +
-                ", message='" + message + '\'' +
+                ", message='" + msg + '\'' +
                 ", data=" + data +
                 '}';
     }
