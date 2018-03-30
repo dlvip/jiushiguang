@@ -3,8 +3,6 @@ package com.old.time.models;
 public class ImageSize {
 	private int width;
 	private int height;
-	public ImageSize() {
-	}
 
 	public ImageSize(int width, int height) {
 		this.width = width;

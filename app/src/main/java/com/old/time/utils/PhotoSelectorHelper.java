@@ -20,7 +20,6 @@ public class PhotoSelectorHelper {
 	}
 
 	public void getReccentPhotoList(final OnLoadPhotoListener listener) {
-
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -38,7 +37,6 @@ public class PhotoSelectorHelper {
 
 	/** 获取相册列表 */
 	public void getAlbumList(final OnLoadAlbumListener listener) {
-
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
