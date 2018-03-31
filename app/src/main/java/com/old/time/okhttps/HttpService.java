@@ -1,5 +1,7 @@
 package com.old.time.okhttps;
 
+import com.old.time.beans.UserInfoBean;
+
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -17,6 +19,12 @@ public interface HttpService {
     @FormUrlEncoded
     @POST("{apiUrl}")
     Observable<BaseHttpResult<Object>> login(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
+
+
+    //获取用户信息
+    @FormUrlEncoded
+    @POST("{apiUrl}")
+    Observable<BaseHttpResult<UserInfoBean>> getUserInfo(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
 
 
 }

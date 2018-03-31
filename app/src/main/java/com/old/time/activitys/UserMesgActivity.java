@@ -8,13 +8,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.old.time.R;
+import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
+import com.old.time.constants.Key;
 import com.old.time.dialogs.DialogChoseAddress;
 import com.old.time.dialogs.DialogInputBottom;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.utils.FileUtils;
 import com.old.time.utils.PictureUtil;
+import com.old.time.utils.SpUtils;
 
 import java.util.List;
 
@@ -23,9 +26,11 @@ public class UserMesgActivity extends BaseActivity {
     private TextView tv_edt_phone, tv_edt_nick, tv_edt_address, tv_edt_brief;
     private ImageView img_user_header;
     private int PIC_COUNT_SIZE = 1;
+    private UserInfoBean mUserInfoBean;
 
     @Override
     protected void initView() {
+        mUserInfoBean = SpUtils.getObject(Key.GET_USER_INFO_BEAN);
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         setTitleText("资料信息");
         img_user_header = findViewById(R.id.img_user_header);
@@ -33,7 +38,13 @@ public class UserMesgActivity extends BaseActivity {
         tv_edt_nick = findViewById(R.id.tv_edt_nick);
         tv_edt_address = findViewById(R.id.tv_edt_address);
         tv_edt_brief = findViewById(R.id.tv_edt_brief);
+        if (mUserInfoBean == null) {
 
+            return;
+        }
+        GlideUtils.getInstance().setRoundImageView(mContext, mUserInfoBean.getLogopath(), img_user_header);
+        tv_edt_nick.setText(mUserInfoBean.getNickName());
+        tv_edt_brief.setText(mUserInfoBean.getSign());
     }
 
     @Override

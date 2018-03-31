@@ -9,12 +9,6 @@
 
     <include layout="@layout/header_main" />
 
-    <View
-        android:id="@+id/tab_bottom_line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        android:background="@color/line_bg" />
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"
         android:layout_width="match_parent"

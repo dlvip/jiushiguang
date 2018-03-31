@@ -17,14 +17,14 @@
         android:layout_marginTop="@dimen/layout_20">
 
         <ImageView
-            android:id="@+id/header_iv"
+            android:id="@+id/img_user_header"
             android:layout_width="@dimen/layout_80"
             android:layout_height="@dimen/layout_80"
             android:layout_gravity="center"
             android:src="@mipmap/head_circle" />
 
         <ImageView
-            android:id="@+id/img_user_header"
+            android:id="@+id/header_iv"
             android:layout_width="@dimen/layout_80"
             android:layout_height="@dimen/layout_80"
             android:layout_gravity="center"

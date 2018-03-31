@@ -112,7 +112,6 @@ public class SpUtils {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream out = null;
         try {
-
             out = new ObjectOutputStream(baos);
             out.writeObject(object);
             String objectVal = new String(Base64.encode(baos.toByteArray(), Base64.DEFAULT));
@@ -137,10 +136,8 @@ public class SpUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T getObject(String key, Class<T> clazz) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
-
+    public static <T> T getObject(String key) {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         if (sp.contains(key)) {
             String objectVal = sp.getString(key, null);
             byte[] buffer = Base64.decode(objectVal, Base64.DEFAULT);

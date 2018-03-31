@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.signature.StringSignature;
 import com.old.time.R;
+import com.old.time.constants.Constant;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.ScreenTools;
 
@@ -504,23 +505,24 @@ public class GlideUtils {
         if (!TextUtils.isEmpty(url) && url.contains("storage")) {//手机图片
             if (!url.startsWith("file:///")) {
                 url = "file:///" + url;
+
             }
         } else if (!TextUtils.isEmpty(url) && url.contains("http")) {//网络图片
 
 
         } else {//图片路径为空  或 只有图片key
-//            if (!TextUtils.isEmpty(url) && "x-oss-process=image/resize".contains(url)) {//防止二次拼接后缀
-//                url = AppSyetemInit.getInstance().getOssUrl() + url;
-//
-//            } else {
-//                if (width == 0 || height == 0) {
-//                    url = AppSyetemInit.getInstance().getOssUrl() + url;
-//
-//                } else {
-//                    url = AppSyetemInit.getInstance().getOssUrl() + url + "?x-oss-process=image/resize,m_fill,w_" + width + ",h_" + height;
-//
-//                }
-//            }
+            if (!TextUtils.isEmpty(url) && "x-oss-process=image/resize".contains(url)) {//防止二次拼接后缀
+                url = Constant.OSSURL + url;
+
+            } else {
+                if (width == 0 || height == 0) {
+                    url = Constant.OSSURL + url;
+
+                } else {
+                    url = Constant.OSSURL + url + "?x-oss-process=image/resize,m_fill,w_" + width + ",h_" + height;
+
+                }
+            }
         }
         return url;
     }

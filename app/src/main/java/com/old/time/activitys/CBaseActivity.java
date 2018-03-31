@@ -69,8 +69,7 @@ public abstract class CBaseActivity extends BaseActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.c_recycler_view);
         mLayoutManager = new MyLinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
-                R.color.holo_orange_light, R.color.holo_red_light);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light, R.color.holo_orange_light, R.color.holo_red_light);
         onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

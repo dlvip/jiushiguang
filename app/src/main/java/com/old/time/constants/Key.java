@@ -7,6 +7,11 @@ package com.old.time.constants;
 
 public class Key {
 
+    /**
+     * 保存用户信息的key
+     */
+    public static final String GET_USER_INFO_BEAN = "mUserInfoBean";
+
     //讯飞语音识别APPID
     public static final String XFYUN_APP_ID = "5a93babf";
 
