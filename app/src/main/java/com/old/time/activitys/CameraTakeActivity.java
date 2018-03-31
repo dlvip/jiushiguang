@@ -63,6 +63,17 @@ public class CameraTakeActivity extends BaseActivity implements SurfaceHolder.Ca
 
     }
 
+    public static void startCameraActivity(Activity mContext, List<String> picPaths, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, CameraTakeActivity.class);
+        intent.putExtra(PhotoPickActivity.SELECT_PHOTO_LIST, (Serializable) picPaths);
+        ActivityUtils.startActivityForResult(mContext, intent, requestCode);
+
+    }
+
 
     @Override
     protected void initView() {
@@ -91,6 +102,11 @@ public class CameraTakeActivity extends BaseActivity implements SurfaceHolder.Ca
         linear_layout_pics.setLayoutParams(params);
         recycler_view_pics = (RecyclerView) findViewById(R.id.recycler_view_pics);
         recycler_view_pics.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        List<String> pics = (List<String>) getIntent().getSerializableExtra(PhotoPickActivity.SELECT_PHOTO_LIST);
+        if (pics != null) {
+            picPaths.addAll(pics);
+
+        }
         mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_record_pic_video, picPaths) {
             @Override
             protected void convert(final BaseViewHolder helper, final String item) {

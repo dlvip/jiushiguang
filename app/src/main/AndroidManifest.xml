@@ -63,7 +63,8 @@
             android:name=".activitys.UserRegisterActivity"
             android:launchMode="singleTask" />
         <activity android:name=".activitys.SystemMsgActivity" />
-        <activity android:name=".activitys.UserOrderActivity"></activity>
+        <activity android:name=".activitys.UserOrderActivity" />
+        <activity android:name=".activitys.SendCircleActivity"></activity>
     </application>
 
 </manifest>

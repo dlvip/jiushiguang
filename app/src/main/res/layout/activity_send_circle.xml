@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.old.time.activitys.SendCircleActivity">
+
+    <include layout="@layout/header_main" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/layout_30"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/input_send_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_fff"
+                android:gravity="top"
+                android:hint="@string/title"
+                android:minLines="7"
+                android:padding="@dimen/layout_10"
+                android:textColor="@color/color_000"
+                android:textSize="@dimen/text_14" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_fff"
+                android:gravity="center_vertical"
+                android:minHeight="@dimen/layout_44"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10">
+
+                <ImageView
+                    android:id="@+id/img_take_pic"
+                    android:layout_width="@dimen/layout_40"
+                    android:layout_height="@dimen/layout_40"
+                    android:padding="@dimen/layout_10"
+                    android:src="@mipmap/ic_camera_n" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_pics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/line_height"
+                android:background="@color/color_fff" />
+
+            <TextView
+                android:id="@+id/tv_user_location"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/color_fff"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLength="20"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10"
+                android:textColor="@color/color_005abc"
+                android:textSize="@dimen/text_14"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

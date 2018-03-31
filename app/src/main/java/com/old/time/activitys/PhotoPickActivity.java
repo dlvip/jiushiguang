@@ -49,8 +49,6 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
     private int maxPickCount;
     private String mLastAlbumName;
 
-    private boolean isOpenCamera;
-
     private int width;
     private ImageSize imageSize;
 
@@ -166,7 +164,6 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
         }
         maxPickCount = getIntent().getIntExtra(MAX_PICK_COUNT, 1);
         isShowCamera = getIntent().getBooleanExtra(IS_SHOW_CAMERA, false);
-        isOpenCamera = getIntent().getBooleanExtra(IS_OPEN_CAMERA, false);
         mGridView = (GridView) findViewById(R.id.mp_galley_gridView);
         mGridView.setOnItemClickListener(this);
         mCountText = (TextView) findViewById(R.id.tv_to_confirm);
