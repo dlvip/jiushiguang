@@ -98,7 +98,7 @@ public class GlideUtils {
      * @paramcontext
      */
     public void setImageView(Context context, String url, ImageView imageView) {
-        setImageView(context, url, imageView, R.mipmap.ic_launcher);
+        setImageView(context, url, imageView, R.drawable.shape_radius_666);
 
     }
 
@@ -112,7 +112,7 @@ public class GlideUtils {
     public void setImageViewBack(Context context, String url, ImageView imageView) {
 
         if (TextUtils.isEmpty(url)) {
-            setImageView(context, imageView, R.mipmap.ic_launcher);
+            setImageView(context, imageView, R.drawable.shape_radius_666);
             return;
         }
         url = getPicUrl(url);
@@ -156,7 +156,7 @@ public class GlideUtils {
      * @param imageView
      */
     public void setImgTransRes(Context context, String url, ImageView imageView, int W, int H) {
-        setImageViewTrans(context, url, imageView, W, H, R.mipmap.ic_launcher);
+        setImageViewTrans(context, url, imageView, W, H, R.drawable.shape_radius_666);
 
     }
 
@@ -170,7 +170,7 @@ public class GlideUtils {
      * @paramcontext
      */
     public void setImageView(Context context, String url, ImageView imageView, int width, int height) {
-        setImageView(context, url, imageView, width, height, R.mipmap.ic_launcher);
+        setImageView(context, url, imageView, width, height, R.drawable.shape_radius_666);
 
     }
 
@@ -183,7 +183,7 @@ public class GlideUtils {
      * @paramcontext
      */
     public void setImageViewWH(Context context, String url, ImageView imageView, int wh) {
-        setImageView(context, url, imageView, wh, wh, R.mipmap.ic_launcher);
+        setImageView(context, url, imageView, wh, wh, R.drawable.shape_radius_666);
 
     }
 
@@ -210,7 +210,7 @@ public class GlideUtils {
      * @param h
      */
     public void setimageView(Context context, String url, ImageView imageView, int w, int h) {
-        setImageView(context, url, imageView, w, h, R.mipmap.ic_launcher);
+        setImageView(context, url, imageView, w, h, R.drawable.shape_radius_666);
 
     }
 
@@ -287,7 +287,7 @@ public class GlideUtils {
                 .skipMemoryCache(false)//是否将图片放到内存中
                 .diskCacheStrategy(DiskCacheStrategy.ALL)//磁盘图片缓存策略
                 .crossFade(500)// 默认淡入淡出动画500ms
-                .error(R.mipmap.ic_launcher)
+                .error(R.drawable.shape_radius_666)
                 .thumbnail(0.1f)// 占位图片
                 .centerCrop()
                 .bitmapTransform(new BlurTransformation(context, radius)
@@ -455,7 +455,7 @@ public class GlideUtils {
      * @param imageView
      */
     public void setVideoToImageView(Context context, String url, ImageView imageView) {
-        setVideoToImageView(context, url, imageView, R.mipmap.ic_launcher);
+        setVideoToImageView(context, url, imageView, R.drawable.shape_radius_666);
     }
 
     /**
