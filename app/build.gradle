@@ -57,4 +57,5 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit-converters:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     implementation files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
+    implementation files('libs/AMap_Location_V3.8.0_20180201.jar')
 }

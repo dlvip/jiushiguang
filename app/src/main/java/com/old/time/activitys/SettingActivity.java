@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.old.time.R;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DataCleanManager;
+import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
 
 public class SettingActivity extends BaseActivity {
@@ -56,6 +57,7 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.tv_user_logout:
+                SpUtils.clear();
                 UserLoginActivity.startUserLoginActivity(mContext);
 
                 break;

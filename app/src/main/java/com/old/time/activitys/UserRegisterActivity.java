@@ -169,6 +169,7 @@ public class UserRegisterActivity extends BaseActivity {
             public void onNext(Object loginBean) {
                 Intent intent = new Intent(mContext, MainActivity.class);
                 ActivityUtils.startActivity(mContext, intent);
+                ActivityUtils.finishActivity(mContext);
 
             }
 
