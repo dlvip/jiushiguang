@@ -14,8 +14,8 @@
 
         <ProgressBar
             android:id="@+id/pb_load"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_centerInParent="true" />
 
     </RelativeLayout>
@@ -25,8 +25,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/layout_10"
         android:text="@string/loading"
-        android:textColor="#9a9b98"
+        android:textColor="@color/color_cb5278"
         android:textSize="12sp" />
 
 </LinearLayout>

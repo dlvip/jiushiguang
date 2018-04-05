@@ -26,6 +26,14 @@ public abstract class CommonSubscriber<T> extends BaseSubscriber<T> {
 
     }
 
+    public CommonSubscriber(Context context, boolean isShowProgress) {
+        this.context = context;
+        if (mProgressCDialog == null) {
+            mProgressCDialog = new ProgressCDialog(context);
+
+        }
+    }
+
     private ProgressCDialog mProgressCDialog;
 
     @Override
@@ -35,11 +43,10 @@ public abstract class CommonSubscriber<T> extends BaseSubscriber<T> {
 
             return;
         }
-        if (mProgressCDialog == null) {
-            mProgressCDialog = new ProgressCDialog(context);
+        if (mProgressCDialog != null) {
+            mProgressCDialog.showProgressDialog();
 
         }
-        mProgressCDialog.showProgressDialog();
     }
 
     @Override

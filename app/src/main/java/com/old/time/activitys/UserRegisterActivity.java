@@ -113,7 +113,7 @@ public class UserRegisterActivity extends BaseActivity {
         }
         MapParams mMapParams = new MapParams();
         mMapParams.putParams("phone", phoneStr);
-        Http.getHttpService().login(Constant.GET_PHONE_CODE, mMapParams.getParamString()).compose(new CommonTransformer<>()).subscribe(new CommonSubscriber<Object>(mContext) {
+        Http.getHttpService().login(Constant.GET_PHONE_CODE, mMapParams.getParamString()).compose(new CommonTransformer<>()).subscribe(new CommonSubscriber<Object>(mContext, true) {
             @Override
             public void onNext(Object loginBean) {
                 timer = new Timer();// 开启计时器
@@ -164,7 +164,7 @@ public class UserRegisterActivity extends BaseActivity {
         mMapParams.putParams("usename", phoneStr);
         mMapParams.putParams("password", passWordStr);
         mMapParams.putParams("code", codeStr);
-        Http.getHttpService().login(Constant.USER_REGISTER, mMapParams.getParamString()).compose(new CommonTransformer<>()).subscribe(new CommonSubscriber<Object>(mContext) {
+        Http.getHttpService().login(Constant.USER_REGISTER, mMapParams.getParamString()).compose(new CommonTransformer<>()).subscribe(new CommonSubscriber<Object>(mContext, true) {
             @Override
             public void onNext(Object loginBean) {
                 Intent intent = new Intent(mContext, MainActivity.class);

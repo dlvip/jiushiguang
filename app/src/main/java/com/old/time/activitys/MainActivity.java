@@ -1,5 +1,7 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -10,11 +12,24 @@ import com.old.time.R;
 import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
+import com.old.time.utils.ActivityUtils;
 
 public class MainActivity extends BaseActivity {
 
     private ImageView main_img_home, main_img_find, main_img_mine;
     private TextView tv_main_home, tv_main_find, tv_main_mine;
+
+    /**
+     * mainActivity
+     *
+     * @param mContext
+     */
+    public static void startMainActivity(Activity mContext) {
+        Intent intent = new Intent(mContext, MainActivity.class);
+        ActivityUtils.startActivity(mContext, intent);
+        ActivityUtils.finishActivity(mContext);
+
+    }
 
     @Override
     protected void initView() {
@@ -154,6 +169,12 @@ public class MainActivity extends BaseActivity {
 
         fragmentTransaction.show(fragment);
         fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ActivityUtils.clearLoginList();
     }
 
     @Override

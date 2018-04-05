@@ -27,16 +27,16 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!--用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!--用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <!--用于写入缓存数据到扩展存储卡-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--用于申请调用A-GPS模块-->
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <!--用于申请获取蓝牙信息进行室内定位-->
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:name=".MyApplication"
@@ -47,10 +47,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--定位配置开始-->
-        <service android:name="com.amap.api.location.APSService"/>
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="您申请的key"/>
+        <service android:name="com.amap.api.location.APSService" />
+        <!--<meta-data-->
+        <!--android:name="com.amap.api.v2.apikey"-->
+        <!--android:value="您申请的key"/>-->
         <!--定位配置结束-->
 
         <activity android:name=".activitys.SplishActivity">
@@ -60,8 +60,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.UserLoginActivity" />
-        <activity android:name=".activitys.MainActivity" />
+        <activity
+            android:name=".activitys.UserLoginActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activitys.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity android:name=".activitys.PhotoPagerActivity" />
         <activity android:name=".activitys.CameraTakeActivity" />
         <activity android:name=".activitys.PhotoPickActivity" />

@@ -19,6 +19,43 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/linear_layout_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/layout_15"
+                android:background="@color/color_fff"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/layout_10"
+                android:paddingLeft="@dimen/layout_20"
+                android:paddingRight="@dimen/layout_10"
+                android:paddingTop="@dimen/layout_10"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/layout_60"
+                    android:layout_height="@dimen/layout_60"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/layout_25"
+                    android:src="@mipmap/head_circle" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/img_user_header"
+                    android:layout_gravity="center_vertical"
+                    android:layout_toRightOf="@+id/img_user_header"
+                    android:layout_weight="1"
+                    android:text="@string/user_login_register"
+                    android:textColor="@color/color_000"
+                    android:textSize="@dimen/text_18" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/public_arrow_right" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/relative_layout_header"
@@ -56,8 +93,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/img_user_header"
                     android:layout_toRightOf="@+id/img_user_header"
-                    android:maxLines="1"
                     android:ellipsize="end"
+                    android:maxLines="1"
                     android:paddingBottom="@dimen/layout_5"
                     android:text="@string/title"
                     android:textColor="@color/color_666"

@@ -1,5 +1,6 @@
 package com.old.time.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.old.time.utils.ScreenTools;
@@ -11,7 +12,7 @@ import com.old.time.utils.ScreenTools;
 public abstract class BaseFragment extends LazyLoadFragment {
 
     public String TAG;
-    public Context mContext;
+    public Activity mContext;
 
     @Override
     public void onAttach(Context context) {

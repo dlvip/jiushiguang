@@ -1,5 +1,6 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import com.old.time.dialogs.DialogChoseAddress;
 import com.old.time.dialogs.DialogInputBottom;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.OnClickManagerCallBack;
+import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.FileUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.SpUtils;
@@ -27,6 +29,17 @@ public class UserMesgActivity extends BaseActivity {
     private ImageView img_user_header;
     private int PIC_COUNT_SIZE = 1;
     private UserInfoBean mUserInfoBean;
+
+    /**
+     * 消息通知
+     *
+     * @param mContext
+     */
+    public static void startUserMesgActivity(Activity mContext) {
+        Intent intent = new Intent(mContext, UserMesgActivity.class);
+        ActivityUtils.startActivity(mContext, intent);
+
+    }
 
     @Override
     protected void initView() {

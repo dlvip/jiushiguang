@@ -1,6 +1,5 @@
 package com.old.time.activitys;
 
-import android.content.Intent;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,29 +8,19 @@ import android.widget.TextView;
 
 import com.old.time.MyApplication;
 import com.old.time.R;
-import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Constant;
-import com.old.time.constants.Key;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.ComputeUtils;
-import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
 
 public class SplishActivity extends BaseActivity {
 
     private RelativeLayout rootLayout, relative_layout_next;
-    private String TAG = "SplishActivity";
     private TextView versionText, tv_time_next;
     private ImageView img_splish, img_logo;
-    private int[] WH;
-
-    private UserInfoBean mUserInfoBean;
 
     @Override
     protected void initView() {
-        mUserInfoBean = SpUtils.getObject(Key.GET_USER_INFO_BEAN);
-        WH = ComputeUtils.computeImageHeight_135_197(this);
         rootLayout = findViewById(R.id.header_mainr);
         relative_layout_next = findViewById(R.id.relative_layout_next);
         relative_layout_next.setPadding(0, getStatusBarHeight(), 0, 0);
@@ -50,8 +39,8 @@ public class SplishActivity extends BaseActivity {
         }, 1000);
         tv_time_next.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivity();
+            public void onClick(View view) {
+                MainActivity.startMainActivity(mContext);
 
             }
         });
@@ -84,17 +73,7 @@ public class SplishActivity extends BaseActivity {
         MyApplication.getClient().getTaskManager().addTask(new CallBackTask(Constant.IMAGEDOWNLOAD_THREAD_NAME) {
             @Override
             protected void doTask() {
-                Intent intent;
-                if (mUserInfoBean == null) {
-                    intent = new Intent(mContext, UserLoginActivity.class);
-                    ActivityUtils.startActivity(mContext, intent);
-                    ActivityUtils.finishActivity(mContext);
-
-                    return;
-                }
-                intent = new Intent(mContext, MainActivity.class);
-                ActivityUtils.startActivity(mContext, intent);
-                ActivityUtils.finishActivity(mContext);
+                MainActivity.startMainActivity(mContext);
 
             }
         });

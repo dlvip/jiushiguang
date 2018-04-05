@@ -57,8 +57,8 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.tv_user_logout:
-                SpUtils.clear();
                 UserLoginActivity.startUserLoginActivity(mContext);
+                ActivityUtils.finishActivity(mContext);
 
                 break;
 
