@@ -89,7 +89,7 @@ public class SendCircleActivity extends BaseActivity {
         img_rich_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getUserAddress();
+                LocationMapActivity.startLocationMapActivity(mContext);
 
             }
         });
@@ -149,6 +149,13 @@ public class SendCircleActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AMapLocationUtils.getmAMapLocationUtils().stopLocation();
+        AMapLocationUtils.getmAMapLocationUtils().onDestroyLocation();
     }
 
     @Override

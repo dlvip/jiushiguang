@@ -91,7 +91,7 @@
         <activity android:name=".activitys.SystemMsgActivity" />
         <activity android:name=".activitys.UserOrderActivity" />
         <activity android:name=".activitys.SendCircleActivity" />
-        <activity android:name=".activitys.MapLocationActivity"></activity>
+        <activity android:name=".activitys.LocationMapActivity"></activity>
     </application>
 
 </manifest>
