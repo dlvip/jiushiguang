@@ -146,6 +146,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    public void save(View view){
+
+    }
+
     public void setOrientation(int orientation) {
         setRequestedOrientation(orientation);
 

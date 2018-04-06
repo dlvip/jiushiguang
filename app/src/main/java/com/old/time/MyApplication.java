@@ -3,9 +3,6 @@ package com.old.time;
 import android.app.Application;
 import android.content.Context;
 
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechUtility;
-import com.old.time.constants.Key;
 import com.old.time.loadsirs.core.LoadSir;
 import com.old.time.loadsirs.customs.EmptyCallback;
 import com.old.time.loadsirs.customs.ErrorCallback;
