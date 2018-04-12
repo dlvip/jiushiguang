@@ -102,9 +102,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void getDataFromNet(boolean isRefresh) {
+        if(!UserLocalInfoUtils.instance().isUserLogin()){
+            mSwipeRefreshLayout.setRefreshing(false);
+
+            return;
+        }
         MapParams mMapParams = new MapParams();
-        mMapParams.putParams("userid", "d01bbb7c-9f8e-4669-9bbb-7c9f8e1669f0");
-        mMapParams.putParams("current_userid", "d01bbb7c-9f8e-4669-9bbb-7c9f8e1669f0");
+        mMapParams.putParams("userid", UserLocalInfoUtils.instance().getUserId());
+        mMapParams.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());
         Http.getHttpService().getUserInfo(Constant.GET_USER_INFO, mMapParams.getParamString()).compose(new CommonTransformer<UserInfoBean>()).subscribe(new CommonSubscriber<UserInfoBean>(mContext) {
             @Override
             public void onNext(UserInfoBean mUserInfoBean) {

@@ -10,10 +10,6 @@ import java.io.Serializable;
 
 public class LoginBean implements Serializable{
 
-//            "userid": "d01bbb7c-9f8e-4669-9bbb-7c9f8e1669f0",
-//            "logopath": "2f362f4da7a4634da090bb8a568e59d7.jpg",
-//            "nickname": "Akity"
-
     /**
      * userId : admin
      * token : success

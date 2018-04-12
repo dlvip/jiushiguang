@@ -38,6 +38,19 @@ public class UserLocalInfoUtils {
     }
 
     /**
+     * 获取用户心id
+     *
+     * @return
+     */
+    public String getUserId() {
+        if (mUserInfoBean == null) {
+
+            return "-1";
+        }
+        return mUserInfoBean.getId();
+    }
+
+    /**
      * 设置用户信息
      *
      * @param mUserInfoBean
