@@ -10,6 +10,8 @@ public class BaseHttpResult<T> {
     private String msg;
     private T data;
 
+
+
     public int getStatus() {
         return status;
     }

@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class UserInfoBean implements Serializable {
 
 
+
     /**
      * sign :
      * id : d01bbb7c-9f8e-4669-9bbb-7c9f8e1669f0
@@ -24,6 +25,8 @@ public class UserInfoBean implements Serializable {
      * bindingTime : 2018-03-06 14:12:34.0
      * focusflag : false
      */
+
+
 
     private String sign;
     private String id;

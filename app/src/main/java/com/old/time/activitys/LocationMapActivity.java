@@ -53,6 +53,10 @@ public class LocationMapActivity extends BaseActivity {
         //设置定位蓝点的Style
         aMap.setMyLocationStyle(myLocationStyle);
 
+//        PoiSearch.Query query = new PoiSearch.Query("建筑", "", "");
+//        query.setPageSize(10);// 设置每页最多返回多少条poiitem
+//        query.setPageNum(currentPage);//设置查询页码
+
 
     }
 

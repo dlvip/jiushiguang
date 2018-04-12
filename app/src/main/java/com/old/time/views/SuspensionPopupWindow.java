@@ -20,7 +20,7 @@ public class SuspensionPopupWindow extends PopupWindow {
 
     public SuspensionPopupWindow(Context mContext, View.OnClickListener onClickListener) {
         View view = View.inflate(mContext, R.layout.popup_windiw_suspens, null);
-        iv_menu = (TextView) view.findViewById(R.id.iv_menu);
+        iv_menu = view.findViewById(R.id.iv_menu);
         iv_menu.setOnClickListener(onClickListener);
         setContentView(view);
         setWidth(UIHelper.dip2px(48));
@@ -42,6 +42,7 @@ public class SuspensionPopupWindow extends PopupWindow {
         }
         iv_menu.setText(typeStr);
     }
+
     /**
      * 设置文本内容
      */

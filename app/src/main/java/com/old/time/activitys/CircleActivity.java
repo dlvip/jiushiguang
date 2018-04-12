@@ -6,9 +6,15 @@ import android.widget.ImageView;
 
 import com.old.time.R;
 import com.old.time.adapters.CircleAdapter;
+import com.old.time.beans.LoginBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.okhttps.Http;
+import com.old.time.okhttps.exception.ApiException;
+import com.old.time.okhttps.subscriber.CommonSubscriber;
+import com.old.time.okhttps.transformer.CommonTransformer;
+import com.old.time.utils.MapParams;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
@@ -43,8 +49,23 @@ public class CircleActivity extends SBaseActivity {
 
     @Override
     public void getDataFromNet(boolean isRefresh) {
-        mSwipeRefreshLayout.setRefreshing(false);
+        MapParams params = new MapParams();
+        params.putParams("userid",Constant.USER_ID);
+        params.putParams("current_userid",Constant.USER_ID);
+        Http.getHttpService().login(Constant.GET_LIST_CONTENT, params.getParamString()).compose(new CommonTransformer<LoginBean>()).subscribe(new CommonSubscriber<LoginBean>(mContext) {
+            @Override
+            public void onNext(LoginBean loginBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
 
+            }
+
+            @Override
+            protected void onError(ApiException e) {
+                super.onError(e);
+                mSwipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
     }
 
     private int W, H;
@@ -66,7 +87,7 @@ public class CircleActivity extends SBaseActivity {
                 }
             });
         }
-        mSuspensionPopupWindow.showAtLocationXY(getWindow().getDecorView(), Gravity.TOP, showX, showY);
+        mSuspensionPopupWindow.showAtLocation("+", getWindow().getDecorView(), Gravity.TOP, showX, showY);
 
     }
 

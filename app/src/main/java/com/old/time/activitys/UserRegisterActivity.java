@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.old.time.R;
+import com.old.time.beans.LoginBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.Http;
 import com.old.time.okhttps.exception.ApiException;
@@ -113,9 +114,9 @@ public class UserRegisterActivity extends BaseActivity {
         }
         MapParams mMapParams = new MapParams();
         mMapParams.putParams("phone", phoneStr);
-        Http.getHttpService().login(Constant.GET_PHONE_CODE, mMapParams.getParamString()).compose(new CommonTransformer<>()).subscribe(new CommonSubscriber<Object>(mContext, true) {
+        Http.getHttpService().login(Constant.GET_PHONE_CODE, mMapParams.getParamString()).compose(new CommonTransformer<LoginBean>()).subscribe(new CommonSubscriber<LoginBean>(mContext, true) {
             @Override
-            public void onNext(Object loginBean) {
+            public void onNext(LoginBean loginBean) {
                 timer = new Timer();// 开启计时器
                 timer.schedule(new TimerTask() {
                     int i = 60;// 倒数60秒
@@ -164,9 +165,9 @@ public class UserRegisterActivity extends BaseActivity {
         mMapParams.putParams("usename", phoneStr);
         mMapParams.putParams("password", passWordStr);
         mMapParams.putParams("code", codeStr);
-        Http.getHttpService().login(Constant.USER_REGISTER, mMapParams.getParamString()).compose(new CommonTransformer<>()).subscribe(new CommonSubscriber<Object>(mContext, true) {
+        Http.getHttpService().login(Constant.USER_REGISTER, mMapParams.getParamString()).compose(new CommonTransformer<LoginBean>()).subscribe(new CommonSubscriber<LoginBean>(mContext, true) {
             @Override
-            public void onNext(Object loginBean) {
+            public void onNext(LoginBean loginBean) {
                 Intent intent = new Intent(mContext, MainActivity.class);
                 ActivityUtils.startActivity(mContext, intent);
                 ActivityUtils.finishActivity(mContext);

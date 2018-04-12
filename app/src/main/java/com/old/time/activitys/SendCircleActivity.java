@@ -67,6 +67,7 @@ public class SendCircleActivity extends BaseActivity {
         mPicAdapter = new CirclePicAdapter(picUrls);
         recycler_view_pics.setAdapter(mPicAdapter);
 
+        getUserAddress();
     }
 
     @Override
@@ -99,6 +100,10 @@ public class SendCircleActivity extends BaseActivity {
      * 获取用户信息
      */
     private void getUserAddress() {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION})) {
+
+            return;
+        }
         AMapLocationUtils mAMapLocationUtils = AMapLocationUtils.getmAMapLocationUtils();
         mAMapLocationUtils.startLocation(new AMapLocationListener() {
             @Override
@@ -114,7 +119,6 @@ public class SendCircleActivity extends BaseActivity {
                     String City = aMapLocation.getCity();//城市信息
                     String District = aMapLocation.getDistrict();//城区信息
                     String Street = aMapLocation.getStreet();//街道信息
-                    String StreetNum = aMapLocation.getStreetNum();//街道门牌号信息
                     String addressStr = Province + City + District + Street;
                     DebugLog.e("addressStr::", addressStr);
                     if (TextUtils.isEmpty(addressStr)) {
@@ -128,7 +132,7 @@ public class SendCircleActivity extends BaseActivity {
 
                 } else {
                     String ErrorInfo = aMapLocation.getErrorInfo();
-                    UIHelper.ToastMessage(mContext, "定位失败，ErrCode:::" + ErrorCode + ", errInfo:" + ErrorInfo);
+                    DebugLog.e("定位失败，ErrCode:::", +ErrorCode + ", errInfo:" + ErrorInfo);
 
                 }
             }
