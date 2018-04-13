@@ -1,12 +1,16 @@
 package com.old.time.activitys;
 
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.old.time.R;
 import com.old.time.adapters.CircleAdapter;
 import com.old.time.beans.LoginBean;
+import com.old.time.beans.PhotoInfoBean;
+import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
@@ -14,11 +18,16 @@ import com.old.time.okhttps.Http;
 import com.old.time.okhttps.exception.ApiException;
 import com.old.time.okhttps.subscriber.CommonSubscriber;
 import com.old.time.okhttps.transformer.CommonTransformer;
+import com.old.time.utils.DebugLog;
 import com.old.time.utils.MapParams;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.SuspensionPopupWindow;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CircleActivity extends SBaseActivity {
 
@@ -50,12 +59,13 @@ public class CircleActivity extends SBaseActivity {
     @Override
     public void getDataFromNet(boolean isRefresh) {
         MapParams params = new MapParams();
-        params.putParams("userid",Constant.USER_ID);
-        params.putParams("current_userid",Constant.USER_ID);
-        Http.getHttpService().login(Constant.GET_LIST_CONTENT, params.getParamString()).compose(new CommonTransformer<LoginBean>()).subscribe(new CommonSubscriber<LoginBean>(mContext) {
+        params.putParams("userid", UserLocalInfoUtils.instance().getUserId());
+        params.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());
+        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString()).compose(new CommonTransformer<List<LoginBean>>()).subscribe(new CommonSubscriber<List<LoginBean>>(mContext) {
             @Override
-            public void onNext(LoginBean loginBean) {
+            public void onNext(List<LoginBean> loginBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
+                sendCircleContent();
 
             }
 
@@ -89,6 +99,60 @@ public class CircleActivity extends SBaseActivity {
         }
         mSuspensionPopupWindow.showAtLocation("+", getWindow().getDecorView(), Gravity.TOP, showX, showY);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+
+            return;
+        }
+        switch (requestCode) {
+            case Code.REQUEST_CODE_30:
+
+
+                break;
+        }
+    }
+
+    private List<PhotoInfoBean> photoInfoBeans = new ArrayList<>();
+
+
+    /**
+     * 发送圈子内容
+     */
+    private void sendCircleContent() {
+        photoInfoBeans.clear();
+        for (int i = 0; i < 9; i++) {
+            PhotoInfoBean photoInfoBean = new PhotoInfoBean();
+            photoInfoBean.picKey = Constant.PHOTO_PIC_URL;
+            photoInfoBean.with = 500;
+            photoInfoBean.height = 500;
+            photoInfoBeans.add(photoInfoBean);
+
+        }
+        Gson gson = new Gson();
+        String ssonStr = gson.toJson(photoInfoBeans);
+        DebugLog.e("photoInfoBeansJson:::", ssonStr);
+        MapParams params = new MapParams();
+        params.putParams("userid", UserLocalInfoUtils.instance().getUserId());
+        params.putParams("content", getString(R.string.circle_content2));
+        params.putParams("conetentimages", ssonStr);
+        Http.getHttpService().sendContent(Constant.SEND_CONTENT, params.getParamString()).compose(new CommonTransformer<UserInfoBean>()).subscribe(new CommonSubscriber<UserInfoBean>(mContext) {
+            @Override
+            public void onNext(UserInfoBean mUserInfoBean) {
+                UserLocalInfoUtils.instance().setmUserInfoBean(mUserInfoBean);
+                MainActivity.startMainActivity(mContext);
+
+            }
+
+            @Override
+            protected void onError(ApiException e) {
+                super.onError(e);
+
+            }
+        });
     }
 
     @Override

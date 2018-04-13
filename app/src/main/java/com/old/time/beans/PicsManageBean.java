@@ -13,11 +13,12 @@ public class PicsManageBean implements MultiItemEntity, Serializable {
     public static final int PICS = 1;
     public static final int TEXT = 0;
 
-    public boolean isSelected;
-
-    private int itemType = 0;
     private String createtime;
     private String pickey;
+
+
+    public boolean isSelected;
+    private int itemType = 0;
 
     public String getPickey() {
         return pickey;

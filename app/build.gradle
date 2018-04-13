@@ -74,4 +74,5 @@ dependencies {
     implementation files('libs/AMap_Location_V3.8.0_20180201.jar')
     implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1183_43604_sharewithdownload_withoutGame_obfs_20180211_105126.jar')
     implementation files('libs/Android_Map3D_SDK_V6.1.0_20180330.jar')
+    implementation files('libs/alipaySdk-20160825.jar')
 }

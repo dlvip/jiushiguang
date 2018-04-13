@@ -3,6 +3,7 @@ package com.old.time.activitys;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,14 +16,18 @@ import com.amap.api.location.AMapLocationListener;
 import com.old.time.R;
 import com.old.time.adapters.CirclePicAdapter;
 import com.old.time.constants.Code;
+import com.old.time.interfaces.UploadImagesCallBack;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.AMapLocationUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.EasyPhotos;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +44,17 @@ public class SendCircleActivity extends BaseActivity {
 
             return;
         }
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UserLoginActivity.startUserLoginActivity(mContext);
+
+            return;
+        }
         Intent intent = new Intent(mContext, SendCircleActivity.class);
         ActivityUtils.startActivityForResult(mContext, intent, requestCode);
 
     }
+
+    public static final String CONTENT_STR = "contentStr";
 
     private TextView tv_user_location;
     private EditText input_send_text;
@@ -94,6 +106,27 @@ public class SendCircleActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void save(View view) {
+        super.save(view);
+        String contentStr = input_send_text.getText().toString().trim();
+        if (TextUtils.isEmpty(contentStr) && (mPicAdapter.getData() == null || mPicAdapter.getData().size() == 0)) {
+
+            UIHelper.ToastMessage(mContext, "请编辑您的时光记录");
+        }
+        Intent intent = new Intent();
+        if (!TextUtils.isEmpty(contentStr)) {
+            intent.putExtra(CONTENT_STR, contentStr);
+
+        }
+        if (mPicAdapter.getData() != null || mPicAdapter.getData().size() != 0) {
+            intent.putExtra(EasyPhotos.RESULT_PHOTOS, (Serializable) mPicAdapter.getData());
+
+        }
+        setResult(Activity.RESULT_OK, intent);
+        ActivityUtils.finishActivity(mContext);
     }
 
     /**
@@ -150,9 +183,25 @@ public class SendCircleActivity extends BaseActivity {
             case Code.REQUEST_CODE_30:
                 ArrayList<String> resultPhotos = data.getStringArrayListExtra(EasyPhotos.RESULT_PHOTOS);
                 mPicAdapter.setNewData(resultPhotos);
+                sendPicToAliYun(resultPhotos);
 
                 break;
         }
+    }
+
+    /**
+     * 上传图片到阿里云
+     *
+     * @param picUrls
+     */
+    private void sendPicToAliYun(List<String> picUrls) {
+        AliyPostUtil.getInstance(mContext).uploadCompresImgsToAliyun(picUrls, new UploadImagesCallBack() {
+            @Override
+            public void getImagesPath(List<String> onlineFileName) {
+                DebugLog.e("onlineFileName:::", onlineFileName.toString());
+
+            }
+        });
     }
 
     @Override
@@ -160,6 +209,7 @@ public class SendCircleActivity extends BaseActivity {
         super.onDestroy();
         AMapLocationUtils.getmAMapLocationUtils().stopLocation();
         AMapLocationUtils.getmAMapLocationUtils().onDestroyLocation();
+
     }
 
     @Override

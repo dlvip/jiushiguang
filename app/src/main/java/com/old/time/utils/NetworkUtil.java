@@ -21,7 +21,6 @@ public class NetworkUtil {
     public static int NET_ERROR = 4; //net error
     private static int TIMEOUT = 3000; // TIMEOUT
 
-
     /**
      * check NetworkAvailable
      *
@@ -56,6 +55,7 @@ public class NetworkUtil {
                     InetAddress inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
                         ret = inetAddress.getHostAddress().toString();
+
                     }
                 }
             }
@@ -73,17 +73,20 @@ public class NetworkUtil {
      */
     public static int getNetState(Context context) {
         try {
-            ConnectivityManager connectivity = (ConnectivityManager) context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             if (connectivity != null) {
                 NetworkInfo networkinfo = connectivity.getActiveNetworkInfo();
                 if (networkinfo != null) {
                     if (networkinfo.isAvailable() && networkinfo.isConnected()) {
-                        if (!connectionNetwork())
+                        if (!connectionNetwork()) {
+
                             return NET_CNNT_BAIDU_TIMEOUT;
-                        else
+                        } else {
+
                             return NET_CNNT_BAIDU_OK;
+                        }
                     } else {
+
                         return NET_NOT_PREPARE;
                     }
                 }
@@ -103,17 +106,17 @@ public class NetworkUtil {
         boolean result = false;
         HttpURLConnection httpUrl = null;
         try {
-            httpUrl = (HttpURLConnection) new URL("http://www.baidu.com")
-                    .openConnection();
+            httpUrl = (HttpURLConnection) new URL("http://www.baidu.com").openConnection();
             httpUrl.setConnectTimeout(TIMEOUT);
             httpUrl.connect();
             result = true;
         } catch (IOException e) {
+
         } finally {
             if (null != httpUrl) {
                 httpUrl.disconnect();
+
             }
-            httpUrl = null;
         }
         return result;
     }
@@ -125,11 +128,10 @@ public class NetworkUtil {
      * @return boolean
      */
     public static boolean is3G(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-        if (activeNetInfo != null
-                && activeNetInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+        if (activeNetInfo != null && activeNetInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+
             return true;
         }
         return false;
@@ -142,30 +144,10 @@ public class NetworkUtil {
      * @return boolean
      */
     public static boolean isWifi(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-        if (activeNetInfo != null
-                && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-            return true;
-        }
-        return false;
-    }
+        if (activeNetInfo != null && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
 
-    /**
-     * is2G
-     *
-     * @param context
-     * @return boolean
-     */
-    public static boolean is2G(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-        if (activeNetInfo != null
-                && (activeNetInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_EDGE
-                || activeNetInfo.getSubtype() == TelephonyManager.NETWORK_TYPE_GPRS || activeNetInfo
-                .getSubtype() == TelephonyManager.NETWORK_TYPE_CDMA)) {
             return true;
         }
         return false;
@@ -175,13 +157,11 @@ public class NetworkUtil {
      * is wifi on
      */
     public static boolean isWifiEnabled(Context context) {
-        ConnectivityManager mgrConn = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        TelephonyManager mgrTel = (TelephonyManager) context
-                .getSystemService(Context.TELEPHONY_SERVICE);
-        return ((mgrConn.getActiveNetworkInfo() != null && mgrConn
-                .getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED) || mgrTel
-                .getNetworkType() == TelephonyManager.NETWORK_TYPE_UMTS);
+        ConnectivityManager mgrConn = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        TelephonyManager mgrTel = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
+        return ((mgrConn.getActiveNetworkInfo() != null && mgrConn.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED) || mgrTel.getNetworkType() == TelephonyManager.NETWORK_TYPE_UMTS);
     }
+
 
 } 

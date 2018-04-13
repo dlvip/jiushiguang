@@ -65,13 +65,10 @@ public abstract class SBaseActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
+        for(int i = 0;i<20;i++){
+            strings.add(TAG);
+
+        }
         height = ScreenTools.instance(mContext).getScreenWidth();
         header_main = findViewById(R.id.header_main);
         view_line = findViewById(R.id.view_line);

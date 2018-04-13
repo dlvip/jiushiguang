@@ -6,15 +6,24 @@ package com.old.time.constants;
 
 public class Constant {
 
+    //阿里云环境配置
+    public static final String accessKeyId = "LTAIZI9pk9HdFbtB";
+    public static final String accessKeySecret = "rGH6Ug2QEJOt3T7Ple9qTgn7XRLqP8";
+    public static final String endpoint = "oss-cn-beijing.aliyuncs.com";
+    public static final String bucketNameOut = "jsguang";
+    public static final int ALIYPHOTO_CALLBACK_SUCCESS = 0x000009; //阿里照片上传返回码：成功
+    public static final int ALIYPHOTO_CALLBACK_FILED = 0x000010; //阿里照片上传返回码:失败
+
     //线程名称
     public static final String IMAGEDOWNLOAD_THREAD_NAME = "ImageDownLoad";
 
-    public static final String USER_ID = "d01bbb7c-9f8e-4669-9bbb-7c9f8e1669f0";
-
-    public static final String OSSURL = "http://dizhulaocai2.oss-cn-beijing.aliyuncs.com/";
+    /**
+     * 阿里云图片访问路径
+     */
+    public static final String OSSURL = "http://jsguang.oss-cn-beijing.aliyuncs.com/";
 
     /**
-     *
+     *服务器baseUrl
      */
     public static String BASE_URL = "http://120.76.72.60/webconsole/wap/";
 
@@ -30,9 +39,11 @@ public class Constant {
     //获取用户信息
     public static final String GET_USER_INFO = "getUserInfo";
 
-    //获取圈子列表
-    public static final String GET_LIST_CONTENT = "wap/listContent";
+    // 发布动态
+    public static final String SEND_CONTENT = "saveContent";
 
+    //获取圈子列表
+    public static final String GET_LIST_CONTENT = "listContent";
 
     public static String PHOTO_PIC_URL = "http://o.longbeidata.com/sns/2018-3/1126215204005466940.jpg";
 }

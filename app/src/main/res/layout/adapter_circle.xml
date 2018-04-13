@@ -48,17 +48,17 @@
         app:textCollapse="@string/collapse"
         app:textExpand="@string/expand" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_pics"
-        android:layout_width="match_parent"
+    <com.old.time.views.MultiImageView
+        android:id="@+id/multiImagView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/expand_text_view"
-        android:layout_toRightOf="@+id/img_user_header" />
+        android:layout_toRightOf="@+id/img_user_header"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/recycler_view_pics"
+        android:layout_below="@+id/multiImagView"
         android:layout_toRightOf="@+id/img_user_header"
         android:orientation="horizontal"
         android:paddingRight="@dimen/layout_10"

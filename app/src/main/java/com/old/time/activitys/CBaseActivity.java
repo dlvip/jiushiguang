@@ -36,6 +36,7 @@ public abstract class CBaseActivity extends BaseActivity {
                         @Override
                         public void run() {
                             mSwipeRefreshLayout.setRefreshing(false);
+
                         }
                     });
                     break;

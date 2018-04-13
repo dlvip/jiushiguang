@@ -1,8 +1,9 @@
 package com.old.time.utils;
 
-/*  * 文 件 名:  DataCleanManager.java  
- * * 描    述:  主要功能有清除内/外缓存，清除数据库，清除sharedPreference，清除files和清除自定义目录  
- * */
+/**
+ * 文 件 名:  DataCleanManager.java
+ * 描述:  主要功能有清除内/外缓存，清除数据库，清除sharedPreference，清除files和清除自定义目录
+ */
 
 import android.content.Context;
 import android.os.Environment;
@@ -114,9 +115,6 @@ public class DataCleanManager {
         }
     }
 
-    // 获取文件
-    //Context.getExternalFilesDir() --> SDCard/Android/data/你的应用的包名/files/ 目录，一般放一些长时间保存的数据
-    //Context.getExternalCacheDir() --> SDCard/Android/data/你的应用包名/cache/目录，一般存放临时缓存数据
     public static long getFolderSize(File file) throws Exception {
         long size = 0;
         try {
@@ -154,6 +152,7 @@ public class DataCleanManager {
                     File files[] = file.listFiles();
                     for (int i = 0; i < files.length; i++) {
                         deleteFolderFile(files[i].getAbsolutePath(), true);
+
                     }
                 }
                 if (deleteThisPath) {
@@ -162,12 +161,13 @@ public class DataCleanManager {
                     } else {// 目录
                         if (file.listFiles().length == 0) {// 目录下没有文件或者目录，删除
                             file.delete();
+
                         }
                     }
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
+
             }
         }
     }
@@ -195,10 +195,7 @@ public class DataCleanManager {
         try {
             File fileFile = new File(FileUtils.getSDdataCachePath(mContext));
             File cacheFile = new File(FileUtils.getSDPath(mContext));
-            size = DataCleanManager.getFolderSize(
-                    new File(pathWebCache))
-                    + DataCleanManager.getFolderSize(cacheFile)
-                    + DataCleanManager.getFolderSize(fileFile);
+            size = DataCleanManager.getFolderSize(new File(pathWebCache)) + DataCleanManager.getFolderSize(cacheFile) + DataCleanManager.getFolderSize(fileFile);
 
         } catch (Exception e) {
 
@@ -212,32 +209,36 @@ public class DataCleanManager {
         double megaByte = kiloByte / 1024;
         if (megaByte < 1) {
             BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
+
             return result1.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB";
         }
 
         double gigaByte = megaByte / 1024;
         if (gigaByte < 1) {
             BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
+
             return result2.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB";
         }
 
         double teraBytes = gigaByte / 1024;
         if (teraBytes < 1) {
             BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));
+
             return result3.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB";
         }
         BigDecimal result4 = new BigDecimal(teraBytes);
         return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
     }
 
-
     public static String getDiskCacheDir(Context context) {
         String cachePath = null;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
             cachePath = context.getExternalCacheDir().getPath();
             DebugLog.e("cachepath>>>>>>>>>>", cachePath);
+
         } else {
             cachePath = context.getCacheDir().getPath();
+
         }
         return cachePath;
     }
