@@ -1,6 +1,8 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,9 +10,8 @@ import android.widget.ImageView;
 import com.google.gson.Gson;
 import com.old.time.R;
 import com.old.time.adapters.CircleAdapter;
-import com.old.time.beans.LoginBean;
+import com.old.time.beans.CircleBean;
 import com.old.time.beans.PhotoInfoBean;
-import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
@@ -18,6 +19,7 @@ import com.old.time.okhttps.Http;
 import com.old.time.okhttps.exception.ApiException;
 import com.old.time.okhttps.subscriber.CommonSubscriber;
 import com.old.time.okhttps.transformer.CommonTransformer;
+import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.MapParams;
 import com.old.time.utils.RecyclerItemDecoration;
@@ -31,15 +33,43 @@ import java.util.List;
 
 public class CircleActivity extends SBaseActivity {
 
+    private List<CircleBean> mCircleBeans = new ArrayList<>();
     private CircleAdapter mAdapter;
+    private String userid;
+
+    public static String USER_ID = "userId";
+
+    /**
+     * 旧时光圈子
+     *
+     * @param mContext
+     * @param userId
+     */
+    public static void startCircleActivity(Activity mContext, String userId) {
+        if(!UserLocalInfoUtils.instance().isUserLogin()){
+            UserLoginActivity.startUserLoginActivity(mContext);
+
+            return;
+        }
+        if(TextUtils.isEmpty(userId)){
+            userId = UserLocalInfoUtils.instance().getUserId();
+
+        }
+        Intent intent = new Intent(mContext, CircleActivity.class);
+        intent.putExtra(USER_ID, userId);
+        ActivityUtils.startActivity(mContext, intent);
+
+    }
 
     @Override
     protected void initView() {
+        userid = getIntent().getStringExtra(USER_ID);
         super.initView();
         ScreenTools mScreenTools = ScreenTools.instance(this);
         W = mScreenTools.getScreenWidth();
         H = mScreenTools.getScreenHeight();
-        mAdapter = new CircleAdapter(strings);
+        mCircleBeans.clear();
+        mAdapter = new CircleAdapter(mCircleBeans);
         View headerView = View.inflate(mContext, R.layout.header_circle, null);
         ImageView img_circle_header_pic = headerView.findViewById(R.id.img_circle_header_pic);
         GlideUtils.getInstance().setImageView(mContext, Constant.PHOTO_PIC_URL, img_circle_header_pic);
@@ -57,16 +87,20 @@ public class CircleActivity extends SBaseActivity {
     }
 
     @Override
-    public void getDataFromNet(boolean isRefresh) {
+    public void getDataFromNet(final boolean isRefresh) {
         MapParams params = new MapParams();
-        params.putParams("userid", UserLocalInfoUtils.instance().getUserId());
+        params.putParams("userid", userid);
         params.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());
-        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString()).compose(new CommonTransformer<List<LoginBean>>()).subscribe(new CommonSubscriber<List<LoginBean>>(mContext) {
+        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString()).compose(new CommonTransformer<List<CircleBean>>()).subscribe(new CommonSubscriber<List<CircleBean>>(mContext) {
             @Override
-            public void onNext(List<LoginBean> loginBean) {
+            public void onNext(List<CircleBean> circleBeans) {
                 mSwipeRefreshLayout.setRefreshing(false);
-                sendCircleContent();
+                if (isRefresh) {
+                    mCircleBeans.clear();
+                    mAdapter.setNewData(mCircleBeans);
 
+                }
+                mAdapter.addData(circleBeans);
             }
 
             @Override
@@ -110,7 +144,7 @@ public class CircleActivity extends SBaseActivity {
         }
         switch (requestCode) {
             case Code.REQUEST_CODE_30:
-
+                sendCircleContent();
 
                 break;
         }
@@ -139,11 +173,9 @@ public class CircleActivity extends SBaseActivity {
         params.putParams("userid", UserLocalInfoUtils.instance().getUserId());
         params.putParams("content", getString(R.string.circle_content2));
         params.putParams("conetentimages", ssonStr);
-        Http.getHttpService().sendContent(Constant.SEND_CONTENT, params.getParamString()).compose(new CommonTransformer<UserInfoBean>()).subscribe(new CommonSubscriber<UserInfoBean>(mContext) {
+        Http.getHttpService().sendContent(Constant.SEND_CONTENT, params.getParamString()).compose(new CommonTransformer<String>()).subscribe(new CommonSubscriber<String>(mContext) {
             @Override
-            public void onNext(UserInfoBean mUserInfoBean) {
-                UserLocalInfoUtils.instance().setmUserInfoBean(mUserInfoBean);
-                MainActivity.startMainActivity(mContext);
+            public void onNext(String string) {
 
             }
 
