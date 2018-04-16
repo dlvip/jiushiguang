@@ -39,8 +39,7 @@ public class FindFragment extends CBaseFragment {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, CircleActivity.class);
-                ActivityUtils.startActivity((Activity) mContext, intent);
+                CircleActivity.startCircleActivity(mContext,"");
 
             }
         });

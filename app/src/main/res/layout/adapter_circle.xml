@@ -23,6 +23,7 @@
         android:textSize="@dimen/text_14" />
 
     <TextView
+        android:id="@+id/tv_content_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -52,6 +53,7 @@
         android:id="@+id/multiImagView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_7"
         android:layout_below="@+id/expand_text_view"
         android:layout_toRightOf="@+id/img_user_header"/>
 
@@ -65,6 +67,7 @@
         android:paddingTop="@dimen/layout_10">
 
         <TextView
+            android:id="@+id/tv_circle_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

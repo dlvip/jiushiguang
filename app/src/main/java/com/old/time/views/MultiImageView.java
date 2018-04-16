@@ -2,7 +2,6 @@ package com.old.time.views;
 
 import android.app.Activity;
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,12 +10,10 @@ import android.widget.LinearLayout;
 
 import com.old.time.R;
 import com.old.time.activitys.PhotoPagerActivity;
+import com.old.time.beans.PhotoInfoBean;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,8 +30,7 @@ public class MultiImageView extends LinearLayout {
     public static int MAX_WIDTH = 0;
 
     // 照片的Url列表
-    private List<String> imagesList;
-    private List<PhotoWHBean> photoWHBeans = new ArrayList<>();
+    private List<PhotoInfoBean> imagesList;
 
     /**
      * 长度 单位为Pixel
@@ -50,7 +46,6 @@ public class MultiImageView extends LinearLayout {
     private LayoutParams rowPara;
 
     private int weightW = ScreenTools.instance(getContext()).getScreenWidth();
-    private int hidthW = ScreenTools.instance(getContext()).getScreenHeight();
 
     public MultiImageView(Context context) {
         super(context);
@@ -62,29 +57,11 @@ public class MultiImageView extends LinearLayout {
 
     /**
      * @param lists
-     * @param picattribute 图片宽高信息
      * @throws IllegalArgumentException
      */
-    public void setList(List<String> lists, String picattribute) throws IllegalArgumentException {
+    public void setList(List<PhotoInfoBean> lists) throws IllegalArgumentException {
         if (lists == null) {
             throw new IllegalArgumentException("imageList is null...");
-        }
-        photoWHBeans.clear();
-        if (!TextUtils.isEmpty(picattribute)) {
-            JSONArray jsonArray;
-            try {
-                jsonArray = new JSONArray(picattribute);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    PhotoWHBean photoWHBean = new PhotoWHBean();
-                    photoWHBean.width = jsonArray.getJSONObject(i).getInt("width");
-                    photoWHBean.height = jsonArray.getJSONObject(i).getInt("height");
-                    photoWHBeans.add(photoWHBean);
-
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-
-            }
         }
         imagesList = lists;
         if (MAX_WIDTH > 0) {
@@ -97,7 +74,7 @@ public class MultiImageView extends LinearLayout {
         initView();
     }
 
-    public void setListSelf(List<String> lists) throws IllegalArgumentException {
+    public void setListSelf(List<PhotoInfoBean> lists) throws IllegalArgumentException {
         if (lists == null) {
 
             throw new IllegalArgumentException("imageList is null...");
@@ -218,22 +195,24 @@ public class MultiImageView extends LinearLayout {
         }
     }
 
+    private List<String> picKeys = new ArrayList<>();
+
     private ImageView createImageView(final int position, final boolean isMultiImage) {
-        final String photoInfo = imagesList.get(position);
+        final PhotoInfoBean photoInfo = imagesList.get(position);
         final ImageView imageView = new ImageView(getContext());
         if (isMultiImage) {//多张图片
             imageView.setScaleType(ScaleType.CENTER_CROP);
             imageView.setLayoutParams(position % MAX_PER_ROW_COUNT == 0 ? moreParaColumnFirst : morePara);
-            GlideUtils.getInstance().setImageViewWH(getContext(), photoInfo, imageView, pxMoreWandH, R.drawable.shape_666_bg);
+            GlideUtils.getInstance().setImageViewWH(getContext(), photoInfo.picKey, imageView, pxMoreWandH, R.drawable.shape_666_bg);
 
         } else {//单张图片
             imageView.setAdjustViewBounds(true);
             LinearLayout.LayoutParams params;
             int imgW;
             int imgH;
-            if (photoWHBeans != null && photoWHBeans.size() == 1) {//一张图片的宽高
-                int wrap = photoWHBeans.get(0).width;
-                int match = photoWHBeans.get(0).height;
+            if (imagesList != null && imagesList.size() == 1) {//一张图片的宽高
+                int wrap = imagesList.get(0).with;
+                int match = imagesList.get(0).height;
                 int maxW = 360 * weightW / 750;
                 if (wrap > match * 3) {//特款图
                     imageView.setScaleType(ScaleType.CENTER);
@@ -270,30 +249,24 @@ public class MultiImageView extends LinearLayout {
 
             }
             imageView.setLayoutParams(params);
-            GlideUtils.getInstance().setImageView(getContext(), photoInfo, imageView, imgW, imgH, R.drawable.shape_666_bg);
+            GlideUtils.getInstance().setImageView(getContext(), photoInfo.picKey, imageView, imgW, imgH, R.drawable.shape_666_bg);
         }
 
         imageView.setId(photoInfo.hashCode());
         imageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoPagerActivity.startPhotoPagerActivity((Activity) getContext(), (Serializable) imagesList, position);
+                picKeys.clear();
+                for (PhotoInfoBean photoInfoBean : imagesList) {
+                    picKeys.add(photoInfoBean.picKey);
+
+                }
+                PhotoPagerActivity.startPhotoPagerActivity((Activity) getContext(), (Serializable) picKeys, position);
 
             }
         });
         imageView.setBackgroundColor(getResources().getColor(R.color.color_666));
 
         return imageView;
-    }
-
-    public class PhotoWHBean implements Serializable {
-        public int width;
-        public int height;
-
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-
     }
 }
