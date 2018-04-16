@@ -14,10 +14,12 @@ import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.interfaces.UploadImagesCallBack;
 import com.old.time.okhttps.Http;
 import com.old.time.okhttps.exception.ApiException;
 import com.old.time.okhttps.subscriber.CommonSubscriber;
 import com.old.time.okhttps.transformer.CommonTransformer;
+import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.MapParams;
 import com.old.time.utils.RecyclerItemDecoration;
@@ -117,6 +119,21 @@ public class CircleActivity extends SBaseActivity {
     }
 
     private List<PhotoInfoBean> photoInfoBeans = new ArrayList<>();
+
+    /**
+     * 上传图片到阿里云
+     *
+     * @param picUrls
+     */
+    private void sendPicToAliYun(List<String> picUrls) {
+        AliyPostUtil.getInstance(mContext).uploadCompresImgsToAliyun(picUrls, new UploadImagesCallBack() {
+            @Override
+            public void getImagesPath(List<String> onlineFileName) {
+                DebugLog.e("onlineFileName:::", onlineFileName.toString());
+
+            }
+        });
+    }
 
 
     /**
