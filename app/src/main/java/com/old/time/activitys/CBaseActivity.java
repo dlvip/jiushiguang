@@ -54,13 +54,10 @@ public abstract class CBaseActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
-        strings.add(TAG);
+        for (int i = 0; i < 10; i++) {
+            strings.add(TAG);
+
+        }
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         linear_layout_more = (LinearLayout) findViewById(R.id.linear_layout_more);
         layoutParams = (LinearLayout.LayoutParams) linear_layout_more.getLayoutParams();

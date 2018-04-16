@@ -1,6 +1,6 @@
 package com.old.time.okhttps;
 
-import com.old.time.beans.CircleBean;
+import com.old.time.beans.DynamicBean;
 import com.old.time.beans.LoginBean;
 import com.old.time.beans.UserInfoBean;
 
@@ -37,7 +37,7 @@ public interface HttpService {
     //获取内容列表
     @FormUrlEncoded
     @POST("{apiUrl}")
-    Observable<BaseHttpResult<List<CircleBean>>> getListContent(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
+    Observable<BaseHttpResult<List<DynamicBean>>> getListContent(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
 
 
 

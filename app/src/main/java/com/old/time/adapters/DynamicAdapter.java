@@ -8,7 +8,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.activitys.DynamicActivity;
-import com.old.time.beans.CircleBean;
+import com.old.time.activitys.DynamicDetailActivity;
+import com.old.time.beans.DynamicBean;
 import com.old.time.views.ExpandableTextView;
 import com.old.time.views.MultiImageView;
 
@@ -18,15 +19,15 @@ import java.util.List;
  * Created by wcl on 2018/3/9.
  */
 
-public class DynamicAdapter extends BaseQuickAdapter<CircleBean, BaseViewHolder> {
+public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, BaseViewHolder> {
 
-    public DynamicAdapter(List<CircleBean> data) {
+    public DynamicAdapter(List<DynamicBean> data) {
         super(R.layout.adapter_dynamic, data);
 
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CircleBean item) {
+    protected void convert(BaseViewHolder helper, final DynamicBean item) {
         helper.setText(R.id.tv_content_time, item.createTimeStr.substring(0, 10));
         ExpandableTextView expand_text_view = helper.getView(R.id.expand_text_view);
         if (TextUtils.isEmpty(item.conetent)) {
@@ -49,14 +50,14 @@ public class DynamicAdapter extends BaseQuickAdapter<CircleBean, BaseViewHolder>
         helper.getView(R.id.img_user_header).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DynamicActivity.startDynamicActivity((Activity) mContext,"");
+                DynamicActivity.startDynamicActivity((Activity) mContext, "");
 
             }
         });
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                DynamicDetailActivity.startDynamicDetailActivity((Activity) mContext, item);
 
             }
         });

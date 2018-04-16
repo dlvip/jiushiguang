@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.google.gson.Gson;
 import com.old.time.R;
 import com.old.time.adapters.DynamicAdapter;
-import com.old.time.beans.CircleBean;
+import com.old.time.beans.DynamicBean;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
@@ -36,7 +36,7 @@ import java.util.List;
 
 public class DynamicActivity extends SBaseActivity {
 
-    private List<CircleBean> mCircleBeans = new ArrayList<>();
+    private List<DynamicBean> mDynamicBeans = new ArrayList<>();
     private DynamicAdapter mAdapter;
     private String userid;
 
@@ -71,8 +71,8 @@ public class DynamicActivity extends SBaseActivity {
         ScreenTools mScreenTools = ScreenTools.instance(this);
         W = mScreenTools.getScreenWidth();
         H = mScreenTools.getScreenHeight();
-        mCircleBeans.clear();
-        mAdapter = new DynamicAdapter(mCircleBeans);
+        mDynamicBeans.clear();
+        mAdapter = new DynamicAdapter(mDynamicBeans);
         View headerView = View.inflate(mContext, R.layout.header_circle, null);
         ImageView img_circle_header_pic = headerView.findViewById(R.id.img_circle_header_pic);
         GlideUtils.getInstance().setImageView(mContext, Constant.PHOTO_PIC_URL, img_circle_header_pic);
@@ -94,16 +94,16 @@ public class DynamicActivity extends SBaseActivity {
         MapParams params = new MapParams();
         params.putParams("userid", userid);
         params.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());
-        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString()).compose(new CommonTransformer<List<CircleBean>>()).subscribe(new CommonSubscriber<List<CircleBean>>(mContext) {
+        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString()).compose(new CommonTransformer<List<DynamicBean>>()).subscribe(new CommonSubscriber<List<DynamicBean>>(mContext) {
             @Override
-            public void onNext(List<CircleBean> circleBeans) {
+            public void onNext(List<DynamicBean> dynamicBeans) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (isRefresh) {
-                    mCircleBeans.clear();
-                    mAdapter.setNewData(mCircleBeans);
+                    mDynamicBeans.clear();
+                    mAdapter.setNewData(mDynamicBeans);
 
                 }
-                mAdapter.addData(circleBeans);
+                mAdapter.addData(dynamicBeans);
             }
 
             @Override

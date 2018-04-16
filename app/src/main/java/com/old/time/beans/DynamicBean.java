@@ -7,7 +7,7 @@ import java.util.List;
  * Created by wcl on 2018/4/14.
  */
 
-public class CircleBean implements Serializable {
+public class DynamicBean implements Serializable {
     public String id;
     public String conetentTitle;
     public String conetent;
