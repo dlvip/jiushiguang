@@ -15,7 +15,6 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.views.HackyViewPager;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

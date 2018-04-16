@@ -1,5 +1,7 @@
 package com.old.time.interfaces;
 
+import com.old.time.beans.PhotoInfoBean;
+
 import java.util.List;
 
 /**
@@ -8,5 +10,5 @@ import java.util.List;
 
 public interface UploadImagesCallBack {
 
-    void getImagesPath(List<String> onlineFileName);
+    void getImagesPath(List<PhotoInfoBean> onlineFileName);
 }

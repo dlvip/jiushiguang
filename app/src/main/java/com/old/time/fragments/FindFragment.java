@@ -1,16 +1,13 @@
 package com.old.time.fragments;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
-import com.old.time.activitys.CircleActivity;
+import com.old.time.activitys.DynamicActivity;
 import com.old.time.glideUtils.GlideUtils;
-import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
 /**
@@ -39,7 +36,7 @@ public class FindFragment extends CBaseFragment {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CircleActivity.startCircleActivity(mContext,"");
+                DynamicActivity.startDynamicActivity(mContext,"");
 
             }
         });

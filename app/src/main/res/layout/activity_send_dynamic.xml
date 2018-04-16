@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.old.time.activitys.SendCircleActivity">
+    tools:context="com.old.time.activitys.SendDynamiceActivity">
 
     <include layout="@layout/header_main" />
 

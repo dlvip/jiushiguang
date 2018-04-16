@@ -1,11 +1,13 @@
 package com.old.time.adapters;
 
+import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
+import com.old.time.activitys.DynamicActivity;
 import com.old.time.beans.CircleBean;
 import com.old.time.views.ExpandableTextView;
 import com.old.time.views.MultiImageView;
@@ -16,10 +18,10 @@ import java.util.List;
  * Created by wcl on 2018/3/9.
  */
 
-public class CircleAdapter extends BaseQuickAdapter<CircleBean, BaseViewHolder> {
+public class DynamicAdapter extends BaseQuickAdapter<CircleBean, BaseViewHolder> {
 
-    public CircleAdapter(List<CircleBean> data) {
-        super(R.layout.adapter_circle, data);
+    public DynamicAdapter(List<CircleBean> data) {
+        super(R.layout.adapter_dynamic, data);
 
     }
 
@@ -44,5 +46,19 @@ public class CircleAdapter extends BaseQuickAdapter<CircleBean, BaseViewHolder> 
             mMultiImageView.setList(item.conetentImages);
 
         }
+        helper.getView(R.id.img_user_header).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DynamicActivity.startDynamicActivity((Activity) mContext,"");
+
+            }
+        });
+        helper.getConvertView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
     }
 }

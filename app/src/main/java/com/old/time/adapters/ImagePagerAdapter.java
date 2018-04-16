@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.old.time.fragments.ImageDetailFragment;
+import com.old.time.glideUtils.GlideUtils;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        String url = fileList.get(position);
+        String url = GlideUtils.getPicUrl(fileList.get(position));
         return ImageDetailFragment.newInstance(url);
     }
 }

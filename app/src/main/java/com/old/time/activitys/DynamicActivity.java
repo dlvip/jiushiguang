@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.old.time.R;
-import com.old.time.adapters.CircleAdapter;
+import com.old.time.adapters.DynamicAdapter;
 import com.old.time.beans.CircleBean;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.constants.Code;
@@ -23,6 +23,7 @@ import com.old.time.okhttps.transformer.CommonTransformer;
 import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DebugLog;
+import com.old.time.utils.EasyPhotos;
 import com.old.time.utils.MapParams;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
@@ -33,10 +34,10 @@ import com.old.time.views.SuspensionPopupWindow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CircleActivity extends SBaseActivity {
+public class DynamicActivity extends SBaseActivity {
 
     private List<CircleBean> mCircleBeans = new ArrayList<>();
-    private CircleAdapter mAdapter;
+    private DynamicAdapter mAdapter;
     private String userid;
 
     public static String USER_ID = "userId";
@@ -47,17 +48,17 @@ public class CircleActivity extends SBaseActivity {
      * @param mContext
      * @param userId
      */
-    public static void startCircleActivity(Activity mContext, String userId) {
-        if(!UserLocalInfoUtils.instance().isUserLogin()){
+    public static void startDynamicActivity(Activity mContext, String userId) {
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
             UserLoginActivity.startUserLoginActivity(mContext);
 
             return;
         }
-        if(TextUtils.isEmpty(userId)){
+        if (TextUtils.isEmpty(userId)) {
             userId = UserLocalInfoUtils.instance().getUserId();
 
         }
-        Intent intent = new Intent(mContext, CircleActivity.class);
+        Intent intent = new Intent(mContext, DynamicActivity.class);
         intent.putExtra(USER_ID, userId);
         ActivityUtils.startActivity(mContext, intent);
 
@@ -71,7 +72,7 @@ public class CircleActivity extends SBaseActivity {
         W = mScreenTools.getScreenWidth();
         H = mScreenTools.getScreenHeight();
         mCircleBeans.clear();
-        mAdapter = new CircleAdapter(mCircleBeans);
+        mAdapter = new DynamicAdapter(mCircleBeans);
         View headerView = View.inflate(mContext, R.layout.header_circle, null);
         ImageView img_circle_header_pic = headerView.findViewById(R.id.img_circle_header_pic);
         GlideUtils.getInstance().setImageView(mContext, Constant.PHOTO_PIC_URL, img_circle_header_pic);
@@ -128,7 +129,7 @@ public class CircleActivity extends SBaseActivity {
             mSuspensionPopupWindow = new SuspensionPopupWindow(this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SendCircleActivity.startSendCircleActivity(mContext, Code.REQUEST_CODE_30);
+                    SendDynamiceActivity.startSendCircleActivity(mContext, Code.REQUEST_CODE_30);
 
                 }
             });
@@ -146,25 +147,37 @@ public class CircleActivity extends SBaseActivity {
         }
         switch (requestCode) {
             case Code.REQUEST_CODE_30:
-                sendCircleContent();
+                List<String> picUrls = data.getStringArrayListExtra(EasyPhotos.RESULT_PHOTOS);
+                String contentStr = data.getStringExtra(SendDynamiceActivity.CONTENT_STR);
+                sendPicToAliYun(contentStr, picUrls);
 
                 break;
         }
     }
-
-    private List<PhotoInfoBean> photoInfoBeans = new ArrayList<>();
 
     /**
      * 上传图片到阿里云
      *
      * @param picUrls
      */
-    private void sendPicToAliYun(List<String> picUrls) {
+    private void sendPicToAliYun(final String conStr, List<String> picUrls) {
+        if (picUrls == null || picUrls.size() == 0) {
+            sendCircleContent(conStr, "");
+
+            return;
+        }
         AliyPostUtil.getInstance(mContext).uploadCompresImgsToAliyun(picUrls, new UploadImagesCallBack() {
             @Override
-            public void getImagesPath(List<String> onlineFileName) {
-                DebugLog.e("onlineFileName:::", onlineFileName.toString());
+            public void getImagesPath(List<PhotoInfoBean> mPhotoInfoBeans) {
+                if (mPhotoInfoBeans == null || mPhotoInfoBeans.size() == 0) {
 
+                    return;
+                }
+                Gson gson = new Gson();
+                String ssonStr = gson.toJson(mPhotoInfoBeans);
+                sendCircleContent(conStr, ssonStr);
+
+                DebugLog.e("onlineFileName:::", mPhotoInfoBeans.toString());
             }
         });
     }
@@ -173,23 +186,17 @@ public class CircleActivity extends SBaseActivity {
     /**
      * 发送圈子内容
      */
-    private void sendCircleContent() {
-        photoInfoBeans.clear();
-        for (int i = 0; i < 9; i++) {
-            PhotoInfoBean photoInfoBean = new PhotoInfoBean();
-            photoInfoBean.picKey = Constant.PHOTO_PIC_URL;
-            photoInfoBean.with = 500;
-            photoInfoBean.height = 500;
-            photoInfoBeans.add(photoInfoBean);
-
-        }
-        Gson gson = new Gson();
-        String ssonStr = gson.toJson(photoInfoBeans);
-        DebugLog.e("photoInfoBeansJson:::", ssonStr);
+    private void sendCircleContent(String content, String mPhotoInfoBeanStr) {
         MapParams params = new MapParams();
         params.putParams("userid", UserLocalInfoUtils.instance().getUserId());
-        params.putParams("content", getString(R.string.circle_content2));
-        params.putParams("conetentimages", ssonStr);
+        if (!TextUtils.isEmpty(content)) {
+            params.putParams("content", content);
+
+        }
+        if (!TextUtils.isEmpty(mPhotoInfoBeanStr)) {
+            params.putParams("conetentimages", mPhotoInfoBeanStr);
+
+        }
         Http.getHttpService().sendContent(Constant.SEND_CONTENT, params.getParamString()).compose(new CommonTransformer<String>()).subscribe(new CommonSubscriber<String>(mContext) {
             @Override
             public void onNext(String string) {

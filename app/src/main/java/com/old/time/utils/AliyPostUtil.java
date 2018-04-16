@@ -1,6 +1,8 @@
 package com.old.time.utils;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
@@ -12,6 +14,7 @@ import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvide
 import com.alibaba.sdk.android.oss.model.ObjectMetadata;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.old.time.beans.PhotoInfoBean;
 import com.old.time.constants.Constant;
 import com.old.time.interfaces.AliyPhotoCallbackInterface;
 import com.old.time.interfaces.UploadImagesCallBack;
@@ -116,12 +119,20 @@ public class AliyPostUtil {
      * @param imagesCallBack
      */
     public void uploadCompresImgsToAliyun(final List<String> dirs, final UploadImagesCallBack imagesCallBack) {
-        final List<String> paths = new ArrayList<>();
-        paths.clear();
+        final List<PhotoInfoBean> mPhotoInfoBeans = new ArrayList<>();
+        mPhotoInfoBeans.clear();
         sucessNum = 0;
         for (int i = 0; i < dirs.size(); i++) {
             String onlineFileName = aliyPostUtil.getAliyPicName(false, i, UserLocalInfoUtils.instance().getUserId());
-            paths.add(onlineFileName);
+            // 计算sampleSize  获取图片信息
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(dirs.get(i), options);
+            PhotoInfoBean photoWHBean = new PhotoInfoBean();
+            photoWHBean.picKey = onlineFileName;
+            photoWHBean.with = options.outWidth;
+            photoWHBean.height = options.outHeight;
+            mPhotoInfoBeans.add(photoWHBean);
             aliyPostUtil.postFileonAliy(dirs.get(i), onlineFileName, new AliyPhotoCallbackInterface() {
 
                 @Override
@@ -133,8 +144,8 @@ public class AliyPostUtil {
 
                         }
                         if (sucessNum >= dirs.size()) {
-                            DebugLog.e("图片上传阿里云完毕:::", paths.toString());
-                            imagesCallBack.getImagesPath(paths);
+                            DebugLog.e("图片上传阿里云完毕:::", mPhotoInfoBeans.toString());
+                            imagesCallBack.getImagesPath(mPhotoInfoBeans);
 
                         }
                     } else {
