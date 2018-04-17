@@ -3,16 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     android:orientation="vertical"
     tools:context="com.old.time.activitys.LocationMapActivity">
 
-    <include layout="@layout/header_main" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_fff"
+        android:orientation="horizontal">
+
+        <com.old.time.views.SearchEditText
+            android:id="@+id/edt_rank_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/layout_5"
+            android:layout_marginTop="@dimen/layout_5"
+            android:layout_weight="1"
+            android:background="@drawable/shape_gary_f5"
+            android:hint="请输入搜索内容"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="@dimen/layout_5"
+            android:paddingRight="@dimen/layout_5"
+            android:singleLine="true"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_14" />
+
+        <TextView
+            android:id="@+id/tv_btn_back"
+            android:layout_width="@dimen/layout_60"
+            android:layout_height="@dimen/layout_40"
+            android:gravity="center"
+            android:text="@string/dialog_cancel"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_14" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line_bg" />
 
     <com.amap.api.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="200dp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line_bg" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

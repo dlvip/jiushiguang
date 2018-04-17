@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.old.time.R;
+import com.old.time.glideUtils.GlideUtils;
 import com.old.time.views.banner.BannerLayout;
 
 import java.util.List;
@@ -40,12 +40,11 @@ public class MzBannerAdapter extends RecyclerView.Adapter<MzBannerAdapter.MzView
 
     @Override
     public void onBindViewHolder(MzBannerAdapter.MzViewHolder holder, final int position) {
-        if (urlList == null || urlList.isEmpty())
-            return;
+        if (urlList == null || urlList.isEmpty()) return;
         final int P = position % urlList.size();
         String url = urlList.get(P);
-        ImageView img = (ImageView) holder.imageView;
-        Glide.with(context).load(url).into(img);
+        ImageView img = holder.imageView;
+        GlideUtils.getInstance().setImageView(context, url, img);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

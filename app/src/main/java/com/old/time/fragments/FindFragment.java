@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.activitys.DynamicActivity;
+import com.old.time.activitys.LocationMapActivity;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
@@ -36,8 +37,8 @@ public class FindFragment extends CBaseFragment {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DynamicActivity.startDynamicActivity(mContext,"");
-
+//                DynamicActivity.startDynamicActivity(mContext,"");
+                LocationMapActivity.startLocationMapActivity(mContext);
             }
         });
 
