@@ -37,8 +37,8 @@ public class FindFragment extends CBaseFragment {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                DynamicActivity.startDynamicActivity(mContext,"");
-                LocationMapActivity.startLocationMapActivity(mContext);
+                DynamicActivity.startDynamicActivity(mContext,"");
+//                LocationMapActivity.startLocationMapActivity(mContext);
             }
         });
 

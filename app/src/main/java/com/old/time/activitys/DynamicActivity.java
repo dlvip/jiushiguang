@@ -14,6 +14,7 @@ import com.old.time.beans.DynamicBean;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
+import com.old.time.constants.Key;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.UploadImagesCallBack;
 import com.old.time.okhttps.Http;
@@ -49,11 +50,11 @@ public class DynamicActivity extends SBaseActivity {
      * @param userId
      */
     public static void startDynamicActivity(Activity mContext, String userId) {
-        if (!UserLocalInfoUtils.instance().isUserLogin()) {
-            UserLoginActivity.startUserLoginActivity(mContext);
-
-            return;
-        }
+//        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+//            UserLoginActivity.startUserLoginActivity(mContext);
+//
+//            return;
+//        }
         if (TextUtils.isEmpty(userId)) {
             userId = UserLocalInfoUtils.instance().getUserId();
 
@@ -79,6 +80,27 @@ public class DynamicActivity extends SBaseActivity {
         mAdapter.addHeaderView(headerView);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext));
         mRecyclerView.setAdapter(mAdapter);
+        mDynamicBeans.clear();
+        for (int i = 0; i < 20; i++) {
+            DynamicBean mDynamicBean = new DynamicBean();
+            mDynamicBean.conetent = getString(R.string.circle_content);
+            mDynamicBean.createTimeStr = "2016/12/21 12:32";
+            List<PhotoInfoBean> photoInfoBeans = new ArrayList<>();
+            photoInfoBeans.clear();
+            for (int j = 0; j < (i > 9 ? 9 : i); j++) {
+                PhotoInfoBean mPhotoInfoBean = new PhotoInfoBean();
+                mPhotoInfoBean.picKey = Constant.PHOTO_PIC_URL;
+                mPhotoInfoBean.height = 500;
+                mPhotoInfoBean.with = 500;
+                photoInfoBeans.add(mPhotoInfoBean);
+
+            }
+
+            mDynamicBean.conetentImages = photoInfoBeans;
+            mDynamicBeans.add(mDynamicBean);
+        }
+        mAdapter.notifyDataSetChanged();
+
 
         mRecyclerView.post(new Runnable() {
             @Override
