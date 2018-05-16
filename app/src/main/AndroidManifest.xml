@@ -91,7 +91,9 @@
         <activity android:name=".activitys.SystemMsgActivity" />
         <activity android:name=".activitys.UserOrderActivity" />
         <activity android:name=".activitys.SendDynamiceActivity" />
-        <activity android:name=".activitys.LocationMapActivity" />
+        <activity
+            android:name=".activitys.LocationMapActivity"
+            android:imeOptions="actionSearch" />
         <activity android:name=".activitys.DynamicDetailActivity"></activity>
     </application>
 

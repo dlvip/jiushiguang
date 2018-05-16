@@ -26,6 +26,7 @@
         android:textSize="@dimen/text_12" />
 
     <ImageView
+        android:id="@+id/img_select"
         android:layout_width="@dimen/layout_25"
         android:layout_height="@dimen/layout_25"
         android:layout_alignParentRight="true"

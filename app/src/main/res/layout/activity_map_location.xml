@@ -11,10 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_fff"
+        android:paddingLeft="@dimen/layout_10"
         android:orientation="horizontal">
 
         <com.old.time.views.SearchEditText
-            android:id="@+id/edt_rank_name"
+            android:id="@+id/edt_search_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="@dimen/layout_5"
