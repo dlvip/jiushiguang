@@ -12,7 +12,7 @@ import com.old.time.beans.DynamicBean;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.views.ExpandableTextView;
-import com.old.time.views.MultiImageView;
+import com.old.time.views.NineImageView;
 
 public class DynamicDetailActivity extends CBaseActivity {
 
@@ -50,13 +50,13 @@ public class DynamicDetailActivity extends CBaseActivity {
             expand_text_view.setText(mDynamicBean.conetent);
 
         }
-        MultiImageView mMultiImageView = headerView.findViewById(R.id.multiImagView);
+        NineImageView mMultiImageView = headerView.findViewById(R.id.multiImagView);
         if (mDynamicBean.conetentImages == null || mDynamicBean.conetentImages.size() == 0) {
             mMultiImageView.setVisibility(View.GONE);
 
         } else {
             mMultiImageView.setVisibility(View.VISIBLE);
-            mMultiImageView.setList(mDynamicBean.conetentImages);
+            mMultiImageView.setDataForView(mDynamicBean.conetentImages);
 
         }
         mAdapter = new CommentAdapter(strings);

@@ -12,9 +12,6 @@ import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.services.core.PoiItem;
-import com.amap.api.services.poisearch.PoiResult;
-import com.amap.api.services.poisearch.PoiSearch;
 import com.old.time.R;
 import com.old.time.adapters.CirclePicAdapter;
 import com.old.time.constants.Code;

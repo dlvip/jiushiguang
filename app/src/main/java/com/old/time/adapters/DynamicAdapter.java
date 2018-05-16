@@ -11,7 +11,7 @@ import com.old.time.activitys.DynamicActivity;
 import com.old.time.activitys.DynamicDetailActivity;
 import com.old.time.beans.DynamicBean;
 import com.old.time.views.ExpandableTextView;
-import com.old.time.views.MultiImageView;
+import com.old.time.views.NineImageView;
 
 import java.util.List;
 
@@ -38,13 +38,13 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, BaseViewHolder
             expand_text_view.setText(item.conetent);
 
         }
-        MultiImageView mMultiImageView = helper.getView(R.id.multiImagView);
+        NineImageView mMultiImageView = helper.getView(R.id.multiImagView);
         if (item.conetentImages == null || item.conetentImages.size() == 0) {
             mMultiImageView.setVisibility(View.GONE);
 
         } else {
             mMultiImageView.setVisibility(View.VISIBLE);
-            mMultiImageView.setList(item.conetentImages);
+            mMultiImageView.setDataForView(item.conetentImages);
 
         }
         helper.getView(R.id.img_user_header).setOnClickListener(new View.OnClickListener() {
