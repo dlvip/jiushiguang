@@ -113,6 +113,7 @@ public class DynamicActivity extends SBaseActivity {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
+        mSwipeRefreshLayout.setRefreshing(false);
         MapParams params = new MapParams();
         params.putParams("userid", userid);
         params.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());

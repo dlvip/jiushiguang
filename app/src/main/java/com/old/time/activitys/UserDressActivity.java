@@ -1,12 +1,10 @@
 package com.old.time.activitys;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.adapters.UserDressAdapter;
-import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
 public class UserDressActivity extends CBaseActivity {
@@ -37,8 +35,7 @@ public class UserDressActivity extends CBaseActivity {
         linear_layout_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, CreateDressActivity.class);
-                ActivityUtils.startActivity(mContext, intent);
+                CreateDressActivity.startCreateDressActivity(mContext);
 
             }
         });

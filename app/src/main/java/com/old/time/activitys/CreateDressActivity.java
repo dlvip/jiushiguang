@@ -1,12 +1,27 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.dialogs.DialogChoseAddress;
+import com.old.time.utils.ActivityUtils;
 
 public class CreateDressActivity extends BaseActivity {
+
+    /**
+     * 创建地址
+     *
+     * @param mContext
+     */
+    public static void startCreateDressActivity(Context mContext) {
+        Intent intent = new Intent(mContext, CreateDressActivity.class);
+        ActivityUtils.startActivity((Activity) mContext, intent);
+
+    }
 
     private TextView tv_select_address;
 
@@ -15,7 +30,6 @@ public class CreateDressActivity extends BaseActivity {
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         setTitleText("添加地址");
         tv_select_address = findViewById(R.id.tv_select_address);
-
 
     }
 
