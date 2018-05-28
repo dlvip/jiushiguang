@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/recycler_view_more_pic"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_fff" />
+    android:background="@color/color_fff">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_more_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_fff" />
+
+</FrameLayout>
+
+

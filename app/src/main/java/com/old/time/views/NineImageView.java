@@ -3,22 +3,15 @@ package com.old.time.views;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.old.time.R;
 import com.old.time.activitys.PhotoPagerActivity;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.glideUtils.GlideUtils;
-import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 
@@ -32,23 +25,35 @@ import java.util.List;
 
 public class NineImageView extends LinearLayout {
 
-    public static final String TAG = "NineImageView";
-
     public NineImageView(Context context) {
         super(context);
-        initNineImageView();
-
+        initMultiImageView();
     }
 
     public NineImageView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initNineImageView();
+        initMultiImageView();
 
     }
 
-    public NineImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initNineImageView();
+    private static int MAX_PER_ROW_COUNT = 3;// 每行显示最大数
+
+    private Context mContext;
+
+    private List<String> picKeys;
+
+    // 图片间距
+    private int pxImagePadding;
+    private int pxMultiImageViewWidth;
+
+    /**
+     * 数据初始化
+     */
+    private void initMultiImageView() {
+        mContext = getContext();
+        picKeys = new ArrayList<>();
+        pxImagePadding = UIHelper.dip2px(3);
+        pxMultiImageViewWidth = ScreenTools.instance(mContext).getScreenWidth() - UIHelper.dip2px(90);
 
     }
 
@@ -59,53 +64,148 @@ public class NineImageView extends LinearLayout {
 
     }
 
-    private BaseQuickAdapter<PhotoInfoBean, BaseViewHolder> adapter;
-    private MyGridLayoutManager myGridLayoutManager;
-    private RecyclerView mRecyclerView;
-    private LayoutParams oneParams;
-    private List<PhotoInfoBean> picPaths = new ArrayList<>();
+    private List<PhotoInfoBean> photoInfoBeans;
 
-    private void initNineImageView() {
-        weightW = ScreenTools.instance(getContext()).getScreenWidth();
-        maxW = 3 * weightW / 5;
-        View view = View.inflate(getContext(), R.layout.nine_image_view, this);
-        oneParams = new LayoutParams(0, 0);
+    /**
+     * 设置数据
+     *
+     * @param photoInfoBeans
+     */
+    public void setDataForView(List<PhotoInfoBean> photoInfoBeans) {
+        if (photoInfoBeans == null || photoInfoBeans.size() == 0) {
 
-        mRecyclerView = view.findViewById(R.id.recycler_view_more_pic);
-        ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-        mRecyclerView.getItemAnimator().setChangeDuration(0);
-        myGridLayoutManager = new MyGridLayoutManager(getContext(), 2);
-        myGridLayoutManager.setAutoMeasureEnabled(true);
-        mRecyclerView.setLayoutManager(myGridLayoutManager);
-        adapter = new BaseQuickAdapter<PhotoInfoBean, BaseViewHolder>(R.layout.img_view_item, picPaths) {
+            return;
+        }
+        this.photoInfoBeans = photoInfoBeans;
+        addChildMultiImageView();
 
-            @Override
-            protected void convert(final BaseViewHolder helper, PhotoInfoBean item) {
-                FrameLayout frame_layout = helper.getView(R.id.frame_layout_one_pic);
-                oneParams.width = imgW;
-                oneParams.height = imgH;
-                frame_layout.setLayoutParams(oneParams);
-                ImageView imageView = helper.getView(R.id.img_pic);
-                imageView.setPadding(pxOneMaxWandH, 0, 0, pxOneMaxWandH);
-                imageView.setScaleType(mScaleType);
-                if (isScrolling) {
-                    imageView.setImageResource(R.drawable.shape_666_bg);
+    }
 
-                } else {
-                    GlideUtils.getInstance().setImageView(getContext(), item.picKey, imageView, imgW, imgH, R.drawable.shape_666_bg);
+    /**
+     * 图片宽高
+     */
+    private int imgViewW, imgViewH;
+
+    /**
+     * 图片显示形式
+     */
+    private ImageView.ScaleType imageScaleType;
+
+    /**
+     * 添加图片
+     */
+    private void addChildMultiImageView() {
+        this.setOrientation(VERTICAL);
+        this.removeAllViews();
+        imageScaleType = ImageView.ScaleType.CENTER;
+        if (photoInfoBeans.size() == 1) {
+            int[] imageWH = getOneImageViewWH();
+            imgViewW = imageWH[0];
+            imgViewH = imageWH[1];
+            addView(createImageView(0));
+
+        } else {
+            int allCount = photoInfoBeans.size();
+            if (allCount == 4 || allCount == 2) {
+                MAX_PER_ROW_COUNT = 2;
+                imgViewW = (pxMultiImageViewWidth * 2 / 3 - pxImagePadding) / 2;
+                imgViewH = imgViewW;
+
+            } else {
+                MAX_PER_ROW_COUNT = 3;
+                imgViewW = (pxMultiImageViewWidth - pxImagePadding * 2) / 3;
+                imgViewH = imgViewW;
+
+            }
+            int layoutW = imgViewW * MAX_PER_ROW_COUNT + pxImagePadding * (MAX_PER_ROW_COUNT - 1);
+            LayoutParams rowParams = new LayoutParams(layoutW, imgViewH);
+            int rowCount = allCount / MAX_PER_ROW_COUNT + (allCount % MAX_PER_ROW_COUNT > 0 ? 1 : 0);//行数
+            for (int rowCursor = 0; rowCursor < rowCount; rowCursor++) {
+                LinearLayout rowLayout = new LinearLayout(getContext());
+                rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+                rowParams.setMargins(0, rowCursor == 0 ? 0 : pxImagePadding, 0, 0);
+                rowLayout.setLayoutParams(rowParams);
+                addView(rowLayout);
+
+                int columnCount = allCount % MAX_PER_ROW_COUNT == 0 ? MAX_PER_ROW_COUNT : allCount % MAX_PER_ROW_COUNT;//列数
+                if (rowCursor != rowCount - 1) {
+                    columnCount = MAX_PER_ROW_COUNT;
+
+                }
+                int rowOffset = rowCursor * MAX_PER_ROW_COUNT;// 行偏移
+                for (int columnCursor = 0; columnCursor < columnCount; columnCursor++) {
+                    int position = columnCursor + rowOffset;
+                    rowLayout.addView(createImageView(position));
 
                 }
             }
-        };
-        if (mRecyclerView.getAdapter() == null) {
-            mRecyclerView.setAdapter(adapter);
+        }
+    }
+
+    /**
+     * 计算单张图片的宽高
+     */
+    private int[] getOneImageViewWH() {
+        int imgViewW, imgViewH;
+        int wrap = photoInfoBeans.get(0).with;
+        int match = photoInfoBeans.get(0).height;
+        int maxW = 360 * pxMultiImageViewWidth / 750;
+        if (wrap > match * 3) {//特款图
+            imageScaleType = ImageView.ScaleType.CENTER;
+            imgViewW = maxW;
+            imgViewH = maxW / 3;
+
+        } else if (match > wrap * 3) {//特高图
+            imageScaleType = ImageView.ScaleType.CENTER;
+            imgViewW = maxW / 3;
+            imgViewH = maxW;
+
+        } else {
+            imageScaleType = ImageView.ScaleType.FIT_XY;
+            if (wrap > match) {//宽大于高
+                imgViewW = maxW;
+                imgViewH = imgViewW * match / wrap;
+
+            } else if (match > wrap) {//高大于宽
+                imgViewH = maxW;
+                imgViewW = wrap * imgViewH / match;
+
+            } else {
+                imgViewW = maxW;
+                imgViewH = maxW;
+
+            }
+        }
+
+        return new int[]{imgViewW, imgViewH};
+    }
+
+    /**
+     * 图片
+     *
+     * @param position
+     * @return
+     */
+    private ImageView createImageView(final int position) {
+        PhotoInfoBean photoInfo = photoInfoBeans.get(position);
+        ImageView imageView = new ImageView(mContext);
+        imageView.setScaleType(imageScaleType);
+        imageView.setId(photoInfo.hashCode());
+        LayoutParams imgParams = new LayoutParams(imgViewW, imgViewH);
+        imgParams.setMargins(0, 0, (position + 1) % MAX_PER_ROW_COUNT != 0 ? pxImagePadding : 0, 0);
+        imageView.setLayoutParams(imgParams);
+        if (isScrolling) {
+            imageView.setImageResource(R.drawable.shape_666_bg);
+
+        } else {
+            GlideUtils.getInstance().setImageView(getContext(), photoInfo.picKey, imageView, imgViewW, imgViewH, R.drawable.shape_666_bg);
 
         }
-        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+        imageView.setOnClickListener(new OnClickListener() {
             @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onClick(View v) {
                 picKeys.clear();
-                for (PhotoInfoBean photoInfoBean : picPaths) {
+                for (PhotoInfoBean photoInfoBean : photoInfoBeans) {
                     picKeys.add(photoInfoBean.picKey);
 
                 }
@@ -113,87 +213,7 @@ public class NineImageView extends LinearLayout {
 
             }
         });
-    }
 
-    private List<String> picKeys = new ArrayList<>();
-
-    private int imgW, imgH, pxOneMaxWandH;
-
-    /**
-     * 设置数据
-     *
-     * @param photoInfoBeans 图片路径
-     */
-    public void setDataForView(List<PhotoInfoBean> photoInfoBeans) {
-        if (photoInfoBeans == null || photoInfoBeans.size() == 0) {
-            setVisibility(GONE);
-
-            return;
-        }
-        this.picPaths.clear();
-        this.picPaths.addAll(photoInfoBeans);
-        this.setVisibility(VISIBLE);
-        pxOneMaxWandH = UIHelper.dip2px(2);
-        if (picPaths.size() == 1) {
-            pxOneMaxWandH = 0;
-            PhotoInfoBean photoInfoBean = picPaths.get(0);
-            setOneImageView(photoInfoBean.with, photoInfoBean.height);
-            myGridLayoutManager.setSpanCount(1);
-
-        } else if (picPaths.size() == 2 || picPaths.size() == 4) {
-            mScaleType = ImageView.ScaleType.CENTER_CROP;
-            int paramsWH = (weightW - UIHelper.dip2px(90)) * 3 / 4;
-            imgW = paramsWH / 2;
-            imgH = imgW;
-            myGridLayoutManager.setSpanCount(2);
-
-        } else {
-            mScaleType = ImageView.ScaleType.CENTER_CROP;
-            int paramsWH = weightW - UIHelper.dip2px(90);
-            imgW = paramsWH / 3;
-            imgH = imgW;
-            myGridLayoutManager.setSpanCount(3);
-
-        }
-        adapter.setNewData(picPaths);
-    }
-
-
-    private ImageView.ScaleType mScaleType;
-    private int weightW, maxW;
-
-    /**
-     * 设置图片的宽高
-     *
-     * @param picW
-     * @param picH
-     */
-    private void setOneImageView(int picW, int picH) {
-        if (picW > picH * 3) {//特款图
-            mScaleType = ImageView.ScaleType.CENTER;
-            imgW = maxW;
-            imgH = maxW / 3;
-
-        } else if (picH > picW * 3) {//特高图
-            mScaleType = ImageView.ScaleType.CENTER;
-            imgW = maxW / 3;
-            imgH = maxW;
-
-        } else {
-            mScaleType = ImageView.ScaleType.FIT_XY;
-            if (picW > picH) {//宽大于高
-                imgW = maxW;
-                imgH = imgW * picH / picW;
-
-            } else if (picH > picW) {//高大于宽
-                imgH = maxW;
-                imgW = picW * imgH / picH;
-
-            } else {
-                imgW = maxW;
-                imgH = maxW;
-
-            }
-        }
+        return imageView;
     }
 }
