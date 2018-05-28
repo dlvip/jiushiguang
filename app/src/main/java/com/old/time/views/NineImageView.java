@@ -36,7 +36,7 @@ public class NineImageView extends LinearLayout {
 
     }
 
-    private static int MAX_PER_ROW_COUNT = 3;// 每行显示最大数
+    private int MAX_PER_ROW_COUNT = 3;// 每行显示最大数
 
     private Context mContext;
 
