@@ -14,7 +14,6 @@ import com.old.time.beans.DynamicBean;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
-import com.old.time.constants.Key;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.UploadImagesCallBack;
 import com.old.time.okhttps.Http;
@@ -23,7 +22,6 @@ import com.old.time.okhttps.subscriber.CommonSubscriber;
 import com.old.time.okhttps.transformer.CommonTransformer;
 import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DebugLog;
 import com.old.time.utils.EasyPhotos;
 import com.old.time.utils.MapParams;
 import com.old.time.utils.RecyclerItemDecoration;
@@ -99,7 +97,7 @@ public class DynamicActivity extends SBaseActivity {
             mDynamicBean.conetentImages = photoInfoBeans;
             mDynamicBeans.add(mDynamicBean);
         }
-        mAdapter.notifyDataSetChanged();
+        mAdapter.setNewData(mDynamicBeans);
 
 
         mRecyclerView.post(new Runnable() {
@@ -200,7 +198,6 @@ public class DynamicActivity extends SBaseActivity {
                 String ssonStr = gson.toJson(mPhotoInfoBeans);
                 sendCircleContent(conStr, ssonStr);
 
-                DebugLog.e("onlineFileName:::", mPhotoInfoBeans.toString());
             }
         });
     }

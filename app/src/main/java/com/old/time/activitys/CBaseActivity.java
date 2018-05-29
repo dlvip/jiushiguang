@@ -59,12 +59,12 @@ public abstract class CBaseActivity extends BaseActivity {
 
         }
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
-        linear_layout_more = (LinearLayout) findViewById(R.id.linear_layout_more);
+        linear_layout_more = findViewById(R.id.linear_layout_more);
         layoutParams = (LinearLayout.LayoutParams) linear_layout_more.getLayoutParams();
         layoutParams.height = UIHelper.dip2px(50);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
-        mRecyclerView = (RecyclerView) findViewById(R.id.c_recycler_view);
+        mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
+        mRecyclerView = findViewById(R.id.c_recycler_view);
         mLayoutManager = new MyLinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light, R.color.holo_orange_light, R.color.holo_red_light);
@@ -86,6 +86,11 @@ public abstract class CBaseActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 定位显示哪一个item
+     *
+     * @param position
+     */
     public void seleteToPosition(int position) {
         if (mRecyclerView == null) {
 

@@ -50,13 +50,13 @@ public class DynamicDetailActivity extends CBaseActivity {
             expand_text_view.setText(mDynamicBean.conetent);
 
         }
-        NineImageView mMultiImageView = headerView.findViewById(R.id.multiImagView);
+        NineImageView mNineImageView = headerView.findViewById(R.id.nineImageView);
         if (mDynamicBean.conetentImages == null || mDynamicBean.conetentImages.size() == 0) {
-            mMultiImageView.setVisibility(View.GONE);
+            mNineImageView.setVisibility(View.GONE);
 
         } else {
-            mMultiImageView.setVisibility(View.VISIBLE);
-            mMultiImageView.setDataForView(mDynamicBean.conetentImages);
+            mNineImageView.setVisibility(View.VISIBLE);
+            mNineImageView.setDataForView(mDynamicBean.conetentImages);
 
         }
         mAdapter = new CommentAdapter(strings);
