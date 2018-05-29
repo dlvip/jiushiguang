@@ -61,6 +61,7 @@ public class DownLoadActivity extends CBaseActivity {
         }
         manager.setAllTaskListener(new DownloadManagerListener());
         mAdapter = new DownLoadAdapter(mTaskInfos, manager);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

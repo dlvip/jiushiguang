@@ -41,6 +41,7 @@ public class DownLoadAdapter extends BaseQuickAdapter<TaskInfo, BaseViewHolder> 
     }
 
     private class CheckedChangeListener implements CompoundButton.OnCheckedChangeListener {
+
         private int position = 0;
 
         public CheckedChangeListener(int position) {
