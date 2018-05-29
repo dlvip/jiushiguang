@@ -2,7 +2,9 @@ package com.old.time;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
+import com.old.time.downloads.DownLoadService;
 import com.old.time.loadsirs.core.LoadSir;
 import com.old.time.loadsirs.customs.EmptyCallback;
 import com.old.time.loadsirs.customs.ErrorCallback;
@@ -39,6 +41,7 @@ public class MyApplication extends Application {
         client = new ReadClient();//初始化客户端配置信息管理者
         initLoadSirs();
         initQbSdk();
+        startService(new Intent(this, DownLoadService.class));
     }
 
     private TaskManager mTaskMgr;

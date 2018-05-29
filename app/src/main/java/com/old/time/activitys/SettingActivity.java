@@ -38,6 +38,7 @@ public class SettingActivity extends BaseActivity {
     protected void initEvent() {
         super.initEvent();
         findViewById(R.id.relative_layout_memory).setOnClickListener(this);
+        findViewById(R.id.relative_layout_opinion).setOnClickListener(this);
         findViewById(R.id.relative_layout_about).setOnClickListener(this);
         findViewById(R.id.tv_user_logout).setOnClickListener(this);
 
@@ -50,6 +51,10 @@ public class SettingActivity extends BaseActivity {
             case R.id.relative_layout_memory:
                 DataCleanManager.deleteFileMemory(mContext);
                 tv_clear_num.setText(DataCleanManager.getFormatSize(mContext));
+
+                break;
+            case R.id.relative_layout_opinion:
+                DownLoadActivity.startDownLoadActivity(mContext);
 
                 break;
             case R.id.relative_layout_about:

@@ -94,7 +94,8 @@
         <activity
             android:name=".activitys.LocationMapActivity"
             android:imeOptions="actionSearch" />
-        <activity android:name=".activitys.DynamicDetailActivity"></activity>
+        <activity android:name=".activitys.DynamicDetailActivity" />
+        <activity android:name=".activitys.DownLoadActivity"></activity>
     </application>
 
 </manifest>
