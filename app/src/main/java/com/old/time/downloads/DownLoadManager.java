@@ -2,6 +2,7 @@ package com.old.time.downloads;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.old.time.downloads.dbcontrol.DataKeeper;
 import com.old.time.downloads.dbcontrol.FileHelper;
@@ -149,7 +150,15 @@ public class DownLoadManager {
      * @return -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
      */
     public int addTask(String TaskID, String url, String fileName, DownLoadListener listener) {
-        return addTask(TaskID, url, fileName, FileUtils.SDPATH, listener);
+        String filepath = "";
+        if (!TextUtils.isEmpty(url)) {
+            String[] filepaths = url.split("/");
+            if (filepaths != null && filepaths.length > 0) {
+                fileName = filepaths[filepaths.length - 1];
+
+            }
+        }
+        return addTask(TaskID, url, fileName, FileUtils.SDPATH + filepath, listener);
     }
 
     /**
