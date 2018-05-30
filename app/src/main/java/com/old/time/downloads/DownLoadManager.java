@@ -154,11 +154,11 @@ public class DownLoadManager {
         if (!TextUtils.isEmpty(url)) {
             String[] filepaths = url.split("/");
             if (filepaths != null && filepaths.length > 0) {
-                fileName = filepaths[filepaths.length - 1];
+                filepath = FileUtils.SDPATH + filepaths[filepaths.length - 1];
 
             }
         }
-        return addTask(TaskID, url, fileName, FileUtils.SDPATH + filepath, listener);
+        return addTask(TaskID, url, fileName, filepath, listener);
     }
 
     /**
@@ -217,7 +217,6 @@ public class DownLoadManager {
      * @return -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
      */
     private int getAttachmentState(String TaskID, String fileName, String filepath) {
-
         int taskSize = taskList.size();
         for (int i = 0; i < taskSize; i++) {
             DownLoader downloader = taskList.get(i);
@@ -227,7 +226,7 @@ public class DownLoadManager {
         }
         File file = null;
         if (filepath == null) {
-            file = new File(FileHelper.getFileDefaultPath() + "/(" + FileHelper.filterIDChars(TaskID) + ")" + fileName);
+            file = new File(FileHelper.getFileDefaultPath() + "/" + FileHelper.filterIDChars(TaskID) + "/" + fileName);
             if (file.exists()) {
                 return -1;
             }

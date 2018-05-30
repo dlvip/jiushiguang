@@ -312,7 +312,7 @@ public class DownLoader {
             long urlfilesize = urlConn.getContentLength();
             if (urlfilesize > 0) {
                 isFolderExist();
-                localFile = new RandomAccessFile(TEMP_FILEPATH + "/" + FileHelper.filterIDChars(sqlDownLoadInfo.getTaskID()) + "/" + sqlDownLoadInfo.getFileName(), "rwd");
+                localFile = new RandomAccessFile(TEMP_FILEPATH + "/" + FileHelper.filterIDChars(sqlDownLoadInfo.getTaskID()) + sqlDownLoadInfo.getFileName(), "rwd");
                 localFile.setLength(urlfilesize);
                 sqlDownLoadInfo.setFileSize(urlfilesize);
                 fileSize = urlfilesize;

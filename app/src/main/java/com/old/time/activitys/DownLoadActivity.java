@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.old.time.adapters.DownLoadAdapter;
 import com.old.time.downloads.DownLoadListener;
@@ -13,6 +14,7 @@ import com.old.time.downloads.TaskInfo;
 import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +55,18 @@ public class DownLoadActivity extends CBaseActivity {
         mTaskInfos.clear();
         for (int i = 0; i < 20; i++) {
             TaskInfo mTaskInfo = new TaskInfo();
-            mTaskInfo.setFileName("下载管理Item" + i);
-            mTaskInfo.setTaskID("下载管理Item" + i);
-            manager.addTask("下载管理Item" + i, downLoadUrl, "下载管理" + i, new DownloadManagerListener(mTaskInfo));
+            String fileName = "";
+            if (!TextUtils.isEmpty(downLoadUrl)) {
+                String[] filepaths = downLoadUrl.split("/");
+                if (filepaths != null && filepaths.length > 0) {
+                    fileName = filepaths[filepaths.length - 1];
+                    fileName = fileName.replace(".mp4","");
+
+                }
+            }
+            mTaskInfo.setFileName(i + fileName);
+            mTaskInfo.setTaskID(i + fileName);
+            manager.addTask(i + fileName, downLoadUrl, i + fileName, new DownloadManagerListener(mTaskInfo));
             mTaskInfos.add(mTaskInfo);
 
         }
