@@ -1,5 +1,6 @@
 package com.old.time.activitys;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import com.old.time.downloads.DownLoadManager;
 import com.old.time.downloads.DownLoadService;
 import com.old.time.downloads.TaskInfo;
 import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
+import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 
 import java.util.ArrayList;
@@ -18,6 +20,11 @@ import java.util.List;
 public class DownLoadActivity extends CBaseActivity {
 
     public static void startDownLoadActivity(Context mContext) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+
+            return;
+        }
+
         Intent intent = new Intent(mContext, DownLoadActivity.class);
         ActivityUtils.startActivity((Activity) mContext, intent);
 
@@ -27,11 +34,6 @@ public class DownLoadActivity extends CBaseActivity {
      * 下载管理器
      */
     private DownLoadManager manager;
-
-    /**
-     * 用户ID，客户端切换用户时可以显示相应用户的下载任务
-     */
-    private String userId = "123456";
 
     /**
      * 模拟下载地址
@@ -46,21 +48,18 @@ public class DownLoadActivity extends CBaseActivity {
     protected void initView() {
         super.initView();
         manager = DownLoadService.getDownLoadManager();
-        manager.changeUser(userId);
         manager.setSupportBreakpoint(true);
-        manager.getAllTask();
+        manager.deleteAllTask();
         mTaskInfos.clear();
         for (int i = 0; i < 20; i++) {
-            TaskInfo info = new TaskInfo();
-            info.setFileName("下载管理Item" + i);
-            info.setTaskID("下载管理Item" + i);
-            info.setOnDownloading(true);
-            manager.addTask("下载管理Item" + i, downLoadUrl, "下载管理Item" + i);
-            mTaskInfos.add(info);
+            TaskInfo mTaskInfo = new TaskInfo();
+            mTaskInfo.setFileName("下载管理Item" + i);
+            mTaskInfo.setTaskID("下载管理Item" + i);
+            manager.addTask("下载管理Item" + i, downLoadUrl, "下载管理" + i, new DownloadManagerListener(mTaskInfo));
+            mTaskInfos.add(mTaskInfo);
 
         }
-        manager.setAllTaskListener(new DownloadManagerListener());
-        mAdapter = new DownLoadAdapter(mTaskInfos, manager);
+        mAdapter = new DownLoadAdapter(mTaskInfos);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -72,53 +71,69 @@ public class DownLoadActivity extends CBaseActivity {
 
     private class DownloadManagerListener implements DownLoadListener {
 
+        private TaskInfo mTaskInfo;
+
+        public DownloadManagerListener(TaskInfo mTaskInfo) {
+            this.mTaskInfo = mTaskInfo;
+
+        }
+
         @Override
         public void onStart(SQLDownLoadInfo sqlDownLoadInfo) {
+            if (!mTaskInfos.contains(mTaskInfo)) {
+
+                return;
+            }
+            mTaskInfo.setOnDownloading(true);
+            int position = mTaskInfos.indexOf(mTaskInfo);
+            mAdapter.setData(position, mTaskInfo);
 
         }
 
         @Override
         public void onProgress(SQLDownLoadInfo sqlDownLoadInfo, boolean isSupportBreakpoint) {
-            for (int i = 0; i < mTaskInfos.size(); i++) {
-                TaskInfo mTaskInfo = mTaskInfos.get(i);
-                if (mTaskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
-                    mTaskInfo.setDownFileSize(sqlDownLoadInfo.getDownloadSize());
-                    mTaskInfo.setFileSize(sqlDownLoadInfo.getFileSize());
-                    mAdapter.notifyItemChanged(i);
+            if (!mTaskInfos.contains(mTaskInfo)) {
 
-                    break;
-                }
+                return;
             }
+            mTaskInfo.setDownFileSize(sqlDownLoadInfo.getDownloadSize());
+            mTaskInfo.setFileSize(sqlDownLoadInfo.getFileSize());
+            int position = mTaskInfos.indexOf(mTaskInfo);
+            mAdapter.setData(position, mTaskInfo);
+
         }
 
         @Override
         public void onStop(SQLDownLoadInfo sqlDownLoadInfo, boolean isSupportBreakpoint) {
+            if (!mTaskInfos.contains(mTaskInfo)) {
 
+                return;
+            }
+            mTaskInfo.setOnDownloading(false);
+            int position = mTaskInfos.indexOf(mTaskInfo);
+            mAdapter.setData(position, mTaskInfo);
         }
 
         @Override
         public void onSuccess(SQLDownLoadInfo sqlDownLoadInfo) {
-            for (int i = 0; i < mTaskInfos.size(); i++) {
-                TaskInfo mTaskInfo = mTaskInfos.get(i);
-                if (mTaskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
-                    mAdapter.remove(i);
+            if (!mTaskInfos.contains(mTaskInfo)) {
 
-                    break;
-                }
+                return;
             }
+            mTaskInfo.setOnDownloading(false);
+            int position = mTaskInfos.indexOf(mTaskInfo);
+            mAdapter.remove(position);
         }
 
         @Override
         public void onError(SQLDownLoadInfo sqlDownLoadInfo) {
-            for (int i = 0; i < mTaskInfos.size(); i++) {
-                TaskInfo mTaskInfo = mTaskInfos.get(i);
-                if (mTaskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
-                    mTaskInfo.setOnDownloading(false);
-                    mAdapter.remove(i);
+            if (!mTaskInfos.contains(mTaskInfo)) {
 
-                    break;
-                }
+                return;
             }
+            mTaskInfo.setOnDownloading(false);
+            int position = mTaskInfos.indexOf(mTaskInfo);
+            mAdapter.setData(position, mTaskInfo);
         }
     }
 }

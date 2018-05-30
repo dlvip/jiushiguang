@@ -16,10 +16,6 @@ import java.io.IOException;
 public class FileUtils {
 
     public static String SDPATH = Environment.getExternalStorageDirectory() + "/olderTime/";
-    /**
-     * sd卡的根路径
-     */
-    public static String SDCOARDPATH = Environment.getExternalStorageDirectory() + "";
 
     /**
      * sd卡的根目录

@@ -18,11 +18,8 @@ import java.util.List;
 
 public class DownLoadAdapter extends BaseQuickAdapter<TaskInfo, BaseViewHolder> {
 
-    private DownLoadManager downLoadManager;
-
-    public DownLoadAdapter(List<TaskInfo> data, DownLoadManager manager) {
+    public DownLoadAdapter(List<TaskInfo> data) {
         super(R.layout.adapter_download, data);
-        this.downLoadManager = manager;
 
     }
 
@@ -50,18 +47,13 @@ public class DownLoadAdapter extends BaseQuickAdapter<TaskInfo, BaseViewHolder> 
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked) {
-                // 继续下载
+            if (isChecked) {// 继续下载
                 getItem(position).setOnDownloading(true);
-                downLoadManager.startTask(getItem(position).getTaskID());
 
-            } else {
-                //停止下载
+            } else { //停止下载
                 getItem(position).setOnDownloading(false);
-                downLoadManager.stopTask(getItem(position).getTaskID());
 
             }
-            notifyItemChanged(position);
         }
     }
 }
