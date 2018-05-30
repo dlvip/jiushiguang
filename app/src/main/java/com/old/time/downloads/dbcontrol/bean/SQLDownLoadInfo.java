@@ -1,4 +1,7 @@
 package com.old.time.downloads.dbcontrol.bean;
+
+import java.io.Serializable;
+
 /**
  * 类功能描述：下载任务对象</br>
  *
@@ -7,7 +10,7 @@ package com.old.time.downloads.dbcontrol.bean;
  * @version 1.0
  * </p>
  */
-public class SQLDownLoadInfo {
+public class SQLDownLoadInfo implements Serializable {
     private String userID;
     private String taskID;
     private String url;
@@ -48,6 +51,7 @@ public class SQLDownLoadInfo {
         this.filePath = filePath;
     }
     public String getFileName() {
+
         return fileName;
     }
     public void setFileName(String fileName) {

@@ -73,5 +73,5 @@ public class TaskInfo {
     public void setDownFileSize(long downFileSize) {
         this.downFileSize = downFileSize;
     }
-    
+
 }

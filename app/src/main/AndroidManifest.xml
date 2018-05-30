@@ -47,7 +47,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service android:name=".downloads.DownLoadService"/>
+        <service android:name=".downloads.DownLoadService" />
 
         <!-- 定位配置开始 -->
         <meta-data

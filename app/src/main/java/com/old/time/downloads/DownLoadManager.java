@@ -2,10 +2,12 @@ package com.old.time.downloads;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import com.old.time.downloads.dbcontrol.DataKeeper;
 import com.old.time.downloads.dbcontrol.FileHelper;
 import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
+import com.old.time.utils.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class DownLoadManager {
+
     private Context mycontext;
 
     private ArrayList<DownLoader> taskList = new ArrayList<>();
@@ -47,8 +50,6 @@ public class DownLoadManager {
 
     private SharedPreferences sharedPreferences;
 
-    private DownLoadListener alltasklistener;
-
     public DownLoadManager(Context context) {
         mycontext = context;
         init(context);
@@ -65,6 +66,7 @@ public class DownLoadManager {
                     DownLoader deletedownloader = taskList.get(i);
                     if (deletedownloader.getTaskID().equals(TaskID)) {
                         taskList.remove(deletedownloader);
+
                         return;
                     }
                 }
@@ -84,9 +86,9 @@ public class DownLoadManager {
      */
     private void recoverData(Context context, String userID) {
         stopAllTask();
-        taskList = new ArrayList<DownLoader>();
+        taskList = new ArrayList<>();
         DataKeeper datakeeper = new DataKeeper(context);
-        ArrayList<SQLDownLoadInfo> sqlDownloadInfoList = null;
+        ArrayList<SQLDownLoadInfo> sqlDownloadInfoList;
         if (userID == null) {
             sqlDownloadInfoList = datakeeper.getAllDownLoadInfo();
         } else {
@@ -98,7 +100,6 @@ public class DownLoadManager {
                 SQLDownLoadInfo sqlDownLoadInfo = sqlDownloadInfoList.get(i);
                 DownLoader sqlDownLoader = new DownLoader(context, sqlDownLoadInfo, pool, userID, isSupportBreakpoint, false);
                 sqlDownLoader.setDownLodSuccesslistener(downloadsuccessListener);
-                sqlDownLoader.setDownLoadListener("public", alltasklistener);
                 taskList.add(sqlDownLoader);
             }
         }
@@ -116,6 +117,7 @@ public class DownLoadManager {
             for (int i = 0; i < taskSize; i++) {
                 DownLoader downloader = taskList.get(i);
                 downloader.setSupportBreakpoint(true);
+
             }
         }
         this.isSupportBreakpoint = isSupportBreakpoint;
@@ -147,8 +149,16 @@ public class DownLoadManager {
      * @param fileName 文件名
      * @return -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
      */
-    public int addTask(String TaskID, String url, String fileName) {
-        return addTask(TaskID, url, fileName, null);
+    public int addTask(String TaskID, String url, String fileName, DownLoadListener listener) {
+        String filepath = "";
+        if (!TextUtils.isEmpty(url)) {
+            String[] filepaths = url.split("/");
+            if (filepaths != null && filepaths.length > 0) {
+                fileName = filepaths[filepaths.length - 1];
+
+            }
+        }
+        return addTask(TaskID, url, fileName, FileUtils.SDPATH + filepath, listener);
     }
 
     /**
@@ -160,12 +170,13 @@ public class DownLoadManager {
      * @param filepath 下载到本地的路径
      * @return -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
      */
-    public int addTask(String TaskID, String url, String fileName, String filepath) {
+    public int addTask(String TaskID, String url, String fileName, String filepath, DownLoadListener listener) {
         if (TaskID == null) {
             TaskID = fileName;
         }
         int state = getAttachmentState(TaskID, fileName, filepath);
         if (state != 1) {
+
             return state;
         }
 
@@ -177,22 +188,25 @@ public class DownLoadManager {
         downloadinfo.setFileName(fileName);
         downloadinfo.setUrl(url);
         if (filepath == null) {
-            downloadinfo.setFilePath(FileHelper.getFileDefaultPath() + "/(" + FileHelper.filterIDChars(TaskID) + ")" + fileName);
+            downloadinfo.setFilePath(FileHelper.getFileDefaultPath() + "/" + FileHelper.filterIDChars(TaskID) + "/" + fileName);
+
         } else {
             downloadinfo.setFilePath(filepath);
+
         }
         DownLoader taskDownLoader = new DownLoader(mycontext, downloadinfo, pool, userID, isSupportBreakpoint, true);
         taskDownLoader.setDownLodSuccesslistener(downloadsuccessListener);
+        taskDownLoader.setDownLoadListener("public", listener);
         if (isSupportBreakpoint) {
             taskDownLoader.setSupportBreakpoint(true);
         } else {
             taskDownLoader.setSupportBreakpoint(false);
         }
         taskDownLoader.start();
-        taskDownLoader.setDownLoadListener("public", alltasklistener);
         taskList.add(taskDownLoader);
         return 1;
     }
+
 
     /**
      * 获取附件状态
@@ -358,22 +372,9 @@ public class DownLoadManager {
             DownLoader deletedownloader = taskList.get(i);
             if (deletedownloader.getTaskID().equals(taskID)) {
                 deletedownloader.setDownLoadListener("private", listener);
+
                 break;
             }
-        }
-    }
-
-    /**
-     * (将监听器设置到当前任务列表所有任务)
-     *
-     * @param listener
-     */
-    public void setAllTaskListener(DownLoadListener listener) {
-        alltasklistener = listener;
-        int listSize = taskList.size();
-        for (int i = 0; i < listSize; i++) {
-            DownLoader deletedownloader = taskList.get(i);
-            deletedownloader.setDownLoadListener("public", listener);
         }
     }
 
@@ -397,6 +398,7 @@ public class DownLoadManager {
         for (int i = 0; i < listSize; i++) {
             DownLoader deletedownloader = taskList.get(i);
             deletedownloader.removeDownLoadListener("public");
+
         }
     }
 

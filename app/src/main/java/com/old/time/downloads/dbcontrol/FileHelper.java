@@ -1,6 +1,6 @@
 package com.old.time.downloads.dbcontrol;
 
-import android.os.Environment;
+import com.old.time.utils.FileUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,11 +18,10 @@ import java.util.List;
  * </p>
  */
 public class FileHelper {
-    private static String userID = "luffy";
-    private static String baseFilePath = Environment.getExternalStorageDirectory().toString()+ "/filedownloader";
-    private static String dowloadFilePath = baseFilePath + "/" + userID + "/FILETEMP";
+    private static String userID = "jiuSG";
+    private static String dowloadFilePath = FileUtils.SDPATH + userID + "/FILETEMP";
     /**下载文件的临时路径*/
-    private static String tempDirPath = baseFilePath + "/" + userID + "/TEMPDir";
+    private static String tempDirPath = FileUtils.SDPATH + userID + "/TEMPDir";
 
 
 
@@ -47,10 +46,6 @@ public class FileHelper {
             f.mkdirs();
         }
     }
-
-
-
-
 
     // 获取一个文件列表的里的总文件大小
     public static double getSize(List<String> willupload) {
@@ -131,8 +126,8 @@ public class FileHelper {
 
     public static void setUserID(String newUserID){
         userID = newUserID;
-        dowloadFilePath = baseFilePath + "/" + userID + "/FILETEMP";
-        tempDirPath = baseFilePath + "/" + userID + "/TEMPDir";
+        dowloadFilePath = FileUtils.SDPATH + "/" + userID + "/FILETEMP";
+        tempDirPath = FileUtils.SDPATH + "/" + userID + "/TEMPDir";
     }
 
     public static String getUserID(){
