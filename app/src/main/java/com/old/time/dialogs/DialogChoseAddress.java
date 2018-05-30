@@ -100,6 +100,7 @@ public class DialogChoseAddress extends BaseDialog {
                     cityDatas.add(provinceDatas.get(id));
                     districtDatas.clear();
                     districtDatas.add(provinceDatas.get(id));
+
                 }
 
                 wvCitys.setData(getAddressDatas(cityDatas));
@@ -137,10 +138,12 @@ public class DialogChoseAddress extends BaseDialog {
             @Override
             public void endSelect(int id, String text) {
 
+
             }
 
             @Override
             public void selecting(int id, String text) {
+
 
             }
         });
@@ -182,6 +185,7 @@ public class DialogChoseAddress extends BaseDialog {
         List<String> datas = new ArrayList<>();
         for (AddressBean bean : addresses) {
             datas.add(bean.name);
+
         }
         return datas;
     }
