@@ -11,6 +11,7 @@ import com.old.time.downloads.DownLoadService;
 import com.old.time.downloads.TaskInfo;
 import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.RecyclerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,68 +57,16 @@ public class DownLoadActivity extends CBaseActivity {
             info.setTaskID("下载管理Item" + i);
             info.setOnDownloading(true);
             manager.addTask("下载管理Item" + i, downLoadUrl, "下载管理Item" + i);
-            mTaskInfos.add(info);
 
         }
-        manager.setAllTaskListener(new DownloadManagerListener());
-        mAdapter = new DownLoadAdapter(mTaskInfos, manager);
+        mAdapter = new DownLoadAdapter(manager);
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext,RecyclerItemDecoration.VERTICAL_LIST,10));
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     public void getDataFromNet(boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
 
-    }
-
-    private class DownloadManagerListener implements DownLoadListener {
-
-        @Override
-        public void onStart(SQLDownLoadInfo sqlDownLoadInfo) {
-
-        }
-
-        @Override
-        public void onProgress(SQLDownLoadInfo sqlDownLoadInfo, boolean isSupportBreakpoint) {
-            for (int i = 0; i < mTaskInfos.size(); i++) {
-                TaskInfo mTaskInfo = mTaskInfos.get(i);
-                if (mTaskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
-                    mTaskInfo.setDownFileSize(sqlDownLoadInfo.getDownloadSize());
-                    mTaskInfo.setFileSize(sqlDownLoadInfo.getFileSize());
-                    mAdapter.notifyItemChanged(i);
-
-                    break;
-                }
-            }
-        }
-
-        @Override
-        public void onStop(SQLDownLoadInfo sqlDownLoadInfo, boolean isSupportBreakpoint) {
-
-        }
-
-        @Override
-        public void onSuccess(SQLDownLoadInfo sqlDownLoadInfo) {
-            for (int i = 0; i < mTaskInfos.size(); i++) {
-                TaskInfo mTaskInfo = mTaskInfos.get(i);
-                if (mTaskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
-                    mAdapter.remove(i);
-
-                    break;
-                }
-            }
-        }
-
-        @Override
-        public void onError(SQLDownLoadInfo sqlDownLoadInfo) {
-            for (int i = 0; i < mTaskInfos.size(); i++) {
-                TaskInfo mTaskInfo = mTaskInfos.get(i);
-                if (mTaskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
-                    mTaskInfo.setOnDownloading(false);
-                    mAdapter.remove(i);
-
-                    break;
-                }
-            }
-        }
     }
 }

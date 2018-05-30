@@ -28,7 +28,6 @@ public class TaskInfo {
         }else{
             return ((int)(100 * downFileSize/fileSize));
         }
-
     }
 
     public void setFileType(String fileType) {

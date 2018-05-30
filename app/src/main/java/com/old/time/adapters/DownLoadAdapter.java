@@ -7,10 +7,10 @@ import android.widget.ProgressBar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
+import com.old.time.downloads.DownLoadListener;
 import com.old.time.downloads.DownLoadManager;
 import com.old.time.downloads.TaskInfo;
-
-import java.util.List;
+import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
 
 /**
  * Created by NING on 2018/5/29.
@@ -20,9 +20,10 @@ public class DownLoadAdapter extends BaseQuickAdapter<TaskInfo, BaseViewHolder> 
 
     private DownLoadManager downLoadManager;
 
-    public DownLoadAdapter(List<TaskInfo> data, DownLoadManager manager) {
-        super(R.layout.adapter_download, data);
+    public DownLoadAdapter(DownLoadManager manager) {
+        super(R.layout.adapter_download, manager.getAllTask());
         this.downLoadManager = manager;
+        manager.setAllTaskListener(new DownloadManagerListener());
 
     }
 
@@ -49,18 +50,68 @@ public class DownLoadAdapter extends BaseQuickAdapter<TaskInfo, BaseViewHolder> 
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked) {
-                // 继续下载
+            if (isChecked) {// 继续下载
                 getItem(position).setOnDownloading(true);
                 downLoadManager.startTask(getItem(position).getTaskID());
 
-            } else {
-                //停止下载
+            } else {//停止下载
                 getItem(position).setOnDownloading(false);
                 downLoadManager.stopTask(getItem(position).getTaskID());
 
             }
             notifyItemChanged(position);
+        }
+    }
+
+    private class DownloadManagerListener implements DownLoadListener {
+
+        @Override
+        public void onStart(SQLDownLoadInfo sqlDownLoadInfo) {
+
+        }
+
+        @Override
+        public void onProgress(SQLDownLoadInfo sqlDownLoadInfo, boolean isSupportBreakpoint) {
+            for (int i = 0; i < getData().size(); i++) {
+                TaskInfo mTaskInfo = getData().get(i);
+                if (mTaskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
+                    mTaskInfo.setDownFileSize(sqlDownLoadInfo.getDownloadSize());
+                    mTaskInfo.setFileSize(sqlDownLoadInfo.getFileSize());
+                    notifyItemChanged(i);
+
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public void onStop(SQLDownLoadInfo sqlDownLoadInfo, boolean isSupportBreakpoint) {
+
+        }
+
+        @Override
+        public void onSuccess(SQLDownLoadInfo sqlDownLoadInfo) {
+            for (int i = 0; i < getData().size(); i++) {
+                TaskInfo mTaskInfo = getData().get(i);
+                if (mTaskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
+                    remove(i);
+
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public void onError(SQLDownLoadInfo sqlDownLoadInfo) {
+            for (int i = 0; i < getData().size(); i++) {
+                TaskInfo mTaskInfo = getData().get(i);
+                if (mTaskInfo.getTaskID().equals(sqlDownLoadInfo.getTaskID())) {
+                    mTaskInfo.setOnDownloading(false);
+                    notifyItemChanged(i);
+
+                    break;
+                }
+            }
         }
     }
 }
