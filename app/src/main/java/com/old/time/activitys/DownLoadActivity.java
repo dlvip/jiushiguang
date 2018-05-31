@@ -11,6 +11,7 @@ import com.old.time.downloads.DownLoadListener;
 import com.old.time.downloads.DownLoadManager;
 import com.old.time.downloads.DownLoadService;
 import com.old.time.downloads.TaskInfo;
+import com.old.time.downloads.dbcontrol.FileHelper;
 import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
@@ -60,13 +61,12 @@ public class DownLoadActivity extends CBaseActivity {
                 String[] filepaths = downLoadUrl.split("/");
                 if (filepaths != null && filepaths.length > 0) {
                     fileName = filepaths[filepaths.length - 1];
-                    fileName = fileName.replace(".mp4","");
 
                 }
             }
             mTaskInfo.setFileName(i + fileName);
-            mTaskInfo.setTaskID(i + fileName);
-            manager.addTask(i + fileName, downLoadUrl, i + fileName, new DownloadManagerListener(mTaskInfo));
+            mTaskInfo.setTaskID(i + FileHelper.getUserID());
+            manager.addTask(i + FileHelper.getUserID(), downLoadUrl, i + fileName, new DownloadManagerListener(mTaskInfo));
             mTaskInfos.add(mTaskInfo);
 
         }
@@ -97,7 +97,10 @@ public class DownLoadActivity extends CBaseActivity {
             }
             mTaskInfo.setOnDownloading(true);
             int position = mTaskInfos.indexOf(mTaskInfo);
-            mAdapter.setData(position, mTaskInfo);
+            if(position < mAdapter.getItemCount()){
+                mAdapter.setData(position, mTaskInfo);
+
+            }
 
         }
 
@@ -110,8 +113,10 @@ public class DownLoadActivity extends CBaseActivity {
             mTaskInfo.setDownFileSize(sqlDownLoadInfo.getDownloadSize());
             mTaskInfo.setFileSize(sqlDownLoadInfo.getFileSize());
             int position = mTaskInfos.indexOf(mTaskInfo);
-            mAdapter.setData(position, mTaskInfo);
+            if(position < mAdapter.getItemCount()){
+                mAdapter.setData(position, mTaskInfo);
 
+            }
         }
 
         @Override
@@ -122,7 +127,10 @@ public class DownLoadActivity extends CBaseActivity {
             }
             mTaskInfo.setOnDownloading(false);
             int position = mTaskInfos.indexOf(mTaskInfo);
-            mAdapter.setData(position, mTaskInfo);
+            if(position < mAdapter.getItemCount()){
+                mAdapter.setData(position, mTaskInfo);
+
+            }
         }
 
         @Override
@@ -133,7 +141,10 @@ public class DownLoadActivity extends CBaseActivity {
             }
             mTaskInfo.setOnDownloading(false);
             int position = mTaskInfos.indexOf(mTaskInfo);
-            mAdapter.remove(position);
+            if(position < mAdapter.getItemCount()){
+                mAdapter.remove(position);
+
+            }
         }
 
         @Override
@@ -144,7 +155,10 @@ public class DownLoadActivity extends CBaseActivity {
             }
             mTaskInfo.setOnDownloading(false);
             int position = mTaskInfos.indexOf(mTaskInfo);
-            mAdapter.setData(position, mTaskInfo);
+            if(position < mAdapter.getItemCount()){
+                mAdapter.setData(position, mTaskInfo);
+
+            }
         }
     }
 }

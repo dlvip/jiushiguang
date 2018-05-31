@@ -2,12 +2,10 @@ package com.old.time.downloads;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 
 import com.old.time.downloads.dbcontrol.DataKeeper;
 import com.old.time.downloads.dbcontrol.FileHelper;
 import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
-import com.old.time.utils.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -150,15 +148,8 @@ public class DownLoadManager {
      * @return -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
      */
     public int addTask(String TaskID, String url, String fileName, DownLoadListener listener) {
-        String filepath = "";
-        if (!TextUtils.isEmpty(url)) {
-            String[] filepaths = url.split("/");
-            if (filepaths != null && filepaths.length > 0) {
-                filepath = FileUtils.SDPATH + filepaths[filepaths.length - 1];
 
-            }
-        }
-        return addTask(TaskID, url, fileName, filepath, listener);
+        return addTask(TaskID, url, fileName, null, listener);
     }
 
     /**
@@ -221,6 +212,7 @@ public class DownLoadManager {
         for (int i = 0; i < taskSize; i++) {
             DownLoader downloader = taskList.get(i);
             if (downloader.getTaskID().equals(TaskID)) {
+
                 return 0;
             }
         }
@@ -228,11 +220,13 @@ public class DownLoadManager {
         if (filepath == null) {
             file = new File(FileHelper.getFileDefaultPath() + "/" + FileHelper.filterIDChars(TaskID) + "/" + fileName);
             if (file.exists()) {
+
                 return -1;
             }
         } else {
             file = new File(filepath);
             if (file.exists()) {
+
                 return -1;
             }
         }
@@ -251,6 +245,7 @@ public class DownLoadManager {
             if (deletedownloader.getTaskID().equals(taskID)) {
                 deletedownloader.destroy();
                 taskList.remove(deletedownloader);
+
                 break;
             }
         }
@@ -260,9 +255,11 @@ public class DownLoadManager {
      * 移除所有的任务
      */
     public void deleteAllTask() {
-        List<TaskInfo> mTaskInfos = getAllTask();
-        for (TaskInfo mTaskInfo : mTaskInfos) {
-            deleteTask(mTaskInfo.getTaskID());
+        int taskSize = taskList.size();
+        for (int i = 0; i < taskSize; i++) {
+            DownLoader deletedownloader = taskList.get(i);
+            deletedownloader.destroy();
+            taskList.remove(deletedownloader);
 
         }
     }
@@ -288,7 +285,7 @@ public class DownLoadManager {
      * @return
      */
     public ArrayList<TaskInfo> getAllTask() {
-        ArrayList<TaskInfo> taskInfolist = new ArrayList<TaskInfo>();
+        ArrayList<TaskInfo> taskInfolist = new ArrayList<>();
         int listSize = taskList.size();
         for (int i = 0; i < listSize; i++) {
             DownLoader deletedownloader = taskList.get(i);

@@ -3,11 +3,11 @@ package com.old.time.downloads;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 
 import com.old.time.downloads.dbcontrol.DataKeeper;
 import com.old.time.downloads.dbcontrol.FileHelper;
 import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
+import com.old.time.utils.FileUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -138,7 +138,7 @@ public class DownLoader {
             downLoadThread = null;
         }
         datakeeper.deleteDownLoadInfo(userID, sqlDownLoadInfo.getTaskID());
-        File downloadFile = new File(TEMP_FILEPATH + "/" + FileHelper.filterIDChars(sqlDownLoadInfo.getTaskID()) + "/" + sqlDownLoadInfo.getFileName());
+        File downloadFile = new File(getPathName());
         if (downloadFile.exists()) {
             downloadFile.delete();
         }
@@ -199,6 +199,7 @@ public class DownLoader {
                         handler.sendMessage(msg);
                         downloadtimes = maxdownloadtimes;
                         downLoadThread = null;
+
                         return;
                     }
                     url = new URL(sqlDownLoadInfo.getUrl());
@@ -207,16 +208,20 @@ public class DownLoader {
                     urlConn.setReadTimeout(10000);
                     if (fileSize < 1) {//第一次下载，初始化
                         openConnention();
+
                     } else {
-                        if (new File(TEMP_FILEPATH + "/" + FileHelper.filterIDChars(sqlDownLoadInfo.getTaskID()) + "/" + sqlDownLoadInfo.getFileName()).exists()) {
-                            localFile = new RandomAccessFile(TEMP_FILEPATH + "/" + FileHelper.filterIDChars(sqlDownLoadInfo.getTaskID()) + "/" + sqlDownLoadInfo.getFileName(), "rwd");
+                        File file = new File(getPathName());
+                        if (file.exists()) {
+                            localFile = new RandomAccessFile(getPathName(), "rwd");
                             localFile.seek(downFileSize);
                             urlConn.setRequestProperty("Range", "bytes=" + downFileSize + "-");
+
                         } else {
                             fileSize = 0;
                             downFileSize = 0;
                             saveDownloadInfo();
                             openConnention();
+
                         }
                     }
                     inputStream = urlConn.getInputStream();
@@ -236,10 +241,11 @@ public class DownLoader {
                         boolean renameResult = RenameFile();
                         if (renameResult) {
                             handler.sendEmptyMessage(TASK_SUCCESS); //转移文件成功
+
                         } else {
-                            new File(TEMP_FILEPATH + "/" + FileHelper.filterIDChars(sqlDownLoadInfo.getTaskID()) + "/"
-                                    + sqlDownLoadInfo.getFileName()).delete();
+                            new File(getPathName()).delete();
                             handler.sendEmptyMessage(TASK_ERROR);//转移文件失败
+
                         }
                         //清除数据库任务
                         datakeeper.deleteDownLoadInfo(userID, sqlDownLoadInfo.getTaskID());
@@ -312,7 +318,7 @@ public class DownLoader {
             long urlfilesize = urlConn.getContentLength();
             if (urlfilesize > 0) {
                 isFolderExist();
-                localFile = new RandomAccessFile(TEMP_FILEPATH + "/" + FileHelper.filterIDChars(sqlDownLoadInfo.getTaskID()) + sqlDownLoadInfo.getFileName(), "rwd");
+                localFile = new RandomAccessFile(getPathName(), "rwd");
                 localFile.setLength(urlfilesize);
                 sqlDownLoadInfo.setFileSize(urlfilesize);
                 fileSize = urlfilesize;
@@ -321,7 +327,11 @@ public class DownLoader {
                 }
             }
         }
+    }
 
+    private String getPathName() {
+
+        return TEMP_FILEPATH + "/" + FileHelper.filterIDChars(sqlDownLoadInfo.getTaskID()) + sqlDownLoadInfo.getFileName();
     }
 
 
@@ -464,19 +474,19 @@ public class DownLoader {
         }
     };
 
+    /**
+     * 文件转移
+     *
+     * @return
+     */
     public boolean RenameFile() {
-        File newfile = new File(sqlDownLoadInfo.getFilePath());
-        if (newfile.exists()) {
-            newfile.delete();
-        }
-        File olefile = new File(TEMP_FILEPATH + "/" + FileHelper.filterIDChars(sqlDownLoadInfo.getTaskID()) + "/" + sqlDownLoadInfo.getFileName());
-
-        String filepath = sqlDownLoadInfo.getFilePath();
-        filepath = filepath.substring(0, filepath.lastIndexOf("/"));
-        File file = new File(filepath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        return olefile.renameTo(newfile);
+//        File newfile = new File(FileHelper.getFileDefaultPath() + File.separator + sqlDownLoadInfo.getFileName());
+//        if (newfile.exists()) {
+//            newfile.delete();
+//        }
+//        File olefile = new File(getPathName());
+//
+//        return olefile.renameTo(newfile);
+        return true;
     }
 }
