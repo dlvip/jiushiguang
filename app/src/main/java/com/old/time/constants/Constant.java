@@ -45,5 +45,5 @@ public class Constant {
     //获取圈子列表
     public static final String GET_LIST_CONTENT = "listContent";
 
-    public static String PHOTO_PIC_URL = "http://o.longbeidata.com/sns/2018-3/1126215204005466940.jpg";
+    public static String PHOTO_PIC_URL = "http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg";
 }

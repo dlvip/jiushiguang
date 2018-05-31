@@ -59,15 +59,6 @@ public class ExpandableTextView extends LinearLayout implements View.OnClickList
     /*设置内容最大行数，超过隐藏*/
     private int mMaxCollapsedLines;
 
-    /*这个linerlayout容器的高度*/
-    private int mCollapsedHeight;
-
-    /*内容tv真实高度（含padding）*/
-    private int mTextHeightWithMaxLines;
-
-    /*内容tvMarginTopAmndBottom高度*/
-    private int mMarginBetweenTxtAndBottom;
-
     /*内容颜色*/
     private int contentTextColor;
     /*收起展开颜色*/
@@ -199,50 +190,6 @@ public class ExpandableTextView extends LinearLayout implements View.OnClickList
         if (mListener != null) {
             mListener.onExpandStateChanged(mTvContent, mExpandable);
         }
-        // 执行展开/收起动画
-//        mAnimating = true;
-//        ValueAnimator valueAnimator;
-//        if (mExpandable) {
-//            valueAnimator = new ValueAnimator().ofInt(getHeight(), getHeight() +
-//                    mTextHeightWithMaxLines - mTvContent.getHeight());
-//        } else {
-//            valueAnimator = new ValueAnimator().ofInt(getHeight(), mCollapsedHeight);
-//        }
-//        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener(){
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                int animatedValue = (int) valueAnimator.getAnimatedValue();
-//                mTvContent.setMaxHeight(animatedValue - mMarginBetweenTxtAndBottom);
-//                getLayoutParams().height = animatedValue;
-//                requestLayout();
-//            }
-//        });
-//        valueAnimator.addListener(new Animator.AnimatorListener() {
-//            @Override
-//            public void onAnimationStart(Animator animator) {
-//
-//            }
-//            @Override
-//            public void onAnimationEnd(Animator animator) {
-//                // 动画结束后发送结束的信号
-//                /// clear the animation flag
-//                mAnimating = false;
-//                // notify the listener
-//                if (mListener != null) {
-//                    mListener.onExpandStateChanged(mTvContent, mExpandable);
-//                }
-//            }
-//            @Override
-//            public void onAnimationCancel(Animator animator) {
-//
-//            }
-//            @Override
-//            public void onAnimationRepeat(Animator animator) {
-//
-//            }
-//        });
-//        valueAnimator.setDuration(mAnimationDuration);
-//        valueAnimator.start();
     }
 
     @Override
@@ -288,27 +235,6 @@ public class ExpandableTextView extends LinearLayout implements View.OnClickList
         // Re-measure with new setup
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-//        if (!mExpandable) {
-//            // Gets the margin between the TextView's bottom and the ViewGroup's bottom
-//            mTvContent.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mMarginBetweenTxtAndBottom = getHeight() - mTvContent.getHeight();
-//                }
-//            });
-//            // 保存这个容器的测量高度
-//            mCollapsedHeight = getMeasuredHeight();
-//        }
-    }
-    /**
-     * 获取内容tv真实高度（含padding）
-     * @param textView
-     * @return
-     */
-    private static int getRealTextViewHeight( TextView textView) {
-        int textHeight = textView.getLayout().getLineTop(textView.getLineCount());
-        int padding = textView.getCompoundPaddingTop() + textView.getCompoundPaddingBottom();
-        return textHeight + padding;
     }
 
     /**

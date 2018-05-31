@@ -88,8 +88,8 @@ public class DynamicActivity extends SBaseActivity {
             for (int j = 0; j < (i > 9 ? 9 : i); j++) {
                 PhotoInfoBean mPhotoInfoBean = new PhotoInfoBean();
                 mPhotoInfoBean.picKey = Constant.PHOTO_PIC_URL;
-                mPhotoInfoBean.height = 500;
-                mPhotoInfoBean.with = 500;
+                mPhotoInfoBean.height = 1080;
+                mPhotoInfoBean.with = 1920;
                 photoInfoBeans.add(mPhotoInfoBean);
 
             }

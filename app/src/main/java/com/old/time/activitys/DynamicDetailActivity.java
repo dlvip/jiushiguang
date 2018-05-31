@@ -37,11 +37,11 @@ public class DynamicDetailActivity extends CBaseActivity {
     protected void initView() {
         mDynamicBean = (DynamicBean) getIntent().getSerializableExtra("mDynamicBean");
         super.initView();
-        View headerView = View.inflate(mContext, R.layout.adapter_dynamic, null);
+        View headerView = View.inflate(mContext, R.layout.dynamic_detail_header, null);
         TextView tv_content_time = headerView.findViewById(R.id.tv_content_time);
         tv_content_time.setText(mDynamicBean.createTimeStr.substring(0, 10));
 
-        ExpandableTextView expand_text_view = headerView.findViewById(R.id.expand_text_view);
+        TextView expand_text_view = headerView.findViewById(R.id.expand_text_view);
         if (TextUtils.isEmpty(mDynamicBean.conetent)) {
             expand_text_view.setVisibility(View.GONE);
 
