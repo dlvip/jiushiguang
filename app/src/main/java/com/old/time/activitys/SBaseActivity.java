@@ -54,7 +54,7 @@ public abstract class SBaseActivity extends BaseActivity {
     public List<String> strings = new ArrayList<>();
 
     public int height;
-    private View header_main,view_line;
+    private View header_main, view_line;
     private TextView tv_title;
 
     @Override
@@ -65,25 +65,25 @@ public abstract class SBaseActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
-        for(int i = 0;i<20;i++){
+        for (int i = 0; i < 20; i++) {
             strings.add(TAG);
 
         }
         height = ScreenTools.instance(mContext).getScreenWidth();
         header_main = findViewById(R.id.header_main);
         view_line = findViewById(R.id.view_line);
-        tv_title = (TextView) findViewById(R.id.top_title);
+        tv_title = findViewById(R.id.top_title);
         tv_title.setBackgroundResource(R.color.transparent);
         view_line.setBackgroundResource(R.color.transparent);
         header_main.setBackgroundResource(R.color.transparent);
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
-        linear_layout_more = (LinearLayout) findViewById(R.id.linear_layout_more);
+        linear_layout_more = findViewById(R.id.linear_layout_more);
         layoutParams = (RelativeLayout.LayoutParams) linear_layout_more.getLayoutParams();
         layoutParams.height = UIHelper.dip2px(50);
         linear_layout_more.setLayoutParams(layoutParams);
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeLayout);
-        mRecyclerView = (RecyclerView) findViewById(R.id.c_recycler_view);
+        mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
+        mRecyclerView = findViewById(R.id.c_recycler_view);
         mLayoutManager = new MyLinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light, R.color.holo_orange_light, R.color.holo_red_light);

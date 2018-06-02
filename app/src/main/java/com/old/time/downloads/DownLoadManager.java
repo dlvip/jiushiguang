@@ -59,8 +59,7 @@ public class DownLoadManager {
         downloadsuccessListener = new DownLoader.DownLoadSuccess() {
             @Override
             public void onTaskSeccess(String TaskID) {
-                int taskSize = taskList.size();
-                for (int i = 0; i < taskSize; i++) {
+                for (int i = 0; i < taskList.size(); i++) {
                     DownLoader deletedownloader = taskList.get(i);
                     if (deletedownloader.getTaskID().equals(TaskID)) {
                         taskList.remove(deletedownloader);
@@ -111,8 +110,7 @@ public class DownLoadManager {
      */
     public void setSupportBreakpoint(boolean isSupportBreakpoint) {
         if ((!this.isSupportBreakpoint) && isSupportBreakpoint) {
-            int taskSize = taskList.size();
-            for (int i = 0; i < taskSize; i++) {
+            for (int i = 0; i < taskList.size(); i++) {
                 DownLoader downloader = taskList.get(i);
                 downloader.setSupportBreakpoint(true);
 
@@ -208,8 +206,7 @@ public class DownLoadManager {
      * @return -1 : 文件已存在 ，0 ： 已存在任务列表 ， 1 ： 添加进任务列表
      */
     private int getAttachmentState(String TaskID, String fileName, String filepath) {
-        int taskSize = taskList.size();
-        for (int i = 0; i < taskSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader downloader = taskList.get(i);
             if (downloader.getTaskID().equals(TaskID)) {
 
@@ -239,8 +236,7 @@ public class DownLoadManager {
      * @param taskID
      */
     public void deleteTask(String taskID) {
-        int taskSize = taskList.size();
-        for (int i = 0; i < taskSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             if (deletedownloader.getTaskID().equals(taskID)) {
                 deletedownloader.destroy();
@@ -255,8 +251,7 @@ public class DownLoadManager {
      * 移除所有的任务
      */
     public void deleteAllTask() {
-        int taskSize = taskList.size();
-        for (int i = 0; i < taskSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             deletedownloader.destroy();
             taskList.remove(deletedownloader);
@@ -271,8 +266,7 @@ public class DownLoadManager {
      */
     public ArrayList<String> getAllTaskID() {
         ArrayList<String> taskIDlist = new ArrayList<String>();
-        int listSize = taskList.size();
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             taskIDlist.add(deletedownloader.getTaskID());
         }
@@ -286,8 +280,7 @@ public class DownLoadManager {
      */
     public ArrayList<TaskInfo> getAllTask() {
         ArrayList<TaskInfo> taskInfolist = new ArrayList<>();
-        int listSize = taskList.size();
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             SQLDownLoadInfo sqldownloadinfo = deletedownloader.getSQLDownLoadInfo();
             TaskInfo taskinfo = new TaskInfo();
@@ -307,8 +300,7 @@ public class DownLoadManager {
      * @param taskID
      */
     public void startTask(String taskID) {
-        int listSize = taskList.size();
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             if (deletedownloader.getTaskID().equals(taskID)) {
                 deletedownloader.start();
@@ -324,8 +316,7 @@ public class DownLoadManager {
      * @param taskID
      */
     public void stopTask(String taskID) {
-        int listSize = taskList.size();
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             if (deletedownloader.getTaskID().equals(taskID)) {
                 deletedownloader.stop();
@@ -338,8 +329,7 @@ public class DownLoadManager {
      * (开始当前任务列表里的所有任务)
      */
     public void startAllTask() {
-        int listSize = taskList.size();
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             deletedownloader.start();
         }
@@ -349,8 +339,7 @@ public class DownLoadManager {
      * (停止当前任务列表里的所有任务)
      */
     public void stopAllTask() {
-        int listSize = taskList.size();
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             deletedownloader.stop();
         }
@@ -363,8 +352,7 @@ public class DownLoadManager {
      * @param listener
      */
     public void setSingleTaskListener(String taskID, DownLoadListener listener) {
-        int listSize = taskList.size();
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             if (deletedownloader.getTaskID().equals(taskID)) {
                 deletedownloader.setDownLoadListener("private", listener);
@@ -390,8 +378,7 @@ public class DownLoadManager {
      * (删除监听所有任务的监听器)
      */
     public void removeAllDownLoadListener() {
-        int listSize = taskList.size();
-        for (int i = 0; i < listSize; i++) {
+        for (int i = 0; i < taskList.size(); i++) {
             DownLoader deletedownloader = taskList.get(i);
             deletedownloader.removeDownLoadListener("public");
 

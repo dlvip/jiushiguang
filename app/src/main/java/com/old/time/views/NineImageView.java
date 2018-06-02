@@ -108,7 +108,7 @@ public class NineImageView extends LinearLayout {
             int allCount = photoInfoBeans.size();
             if (allCount == 4 || allCount == 2) {
                 MAX_PER_ROW_COUNT = 2;
-                imgViewW = (pxMultiImageViewWidth * 2 / 3 - pxImagePadding) / 2;
+                imgViewW = (pxMultiImageViewWidth * 3 / 4 - pxImagePadding) / 2;
                 imgViewH = imgViewW;
 
             } else {
