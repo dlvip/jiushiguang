@@ -61,7 +61,7 @@ public class SendDynamiceActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        CameraTakeActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
+        TakePicActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
         setTitleText("");
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
@@ -84,7 +84,7 @@ public class SendDynamiceActivity extends BaseActivity {
         img_take_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CameraTakeActivity.startCameraActivity(mContext, mPicAdapter.getData(), Code.REQUEST_CODE_30);
+                TakePicActivity.startCameraActivity(mContext, mPicAdapter.getData(), Code.REQUEST_CODE_30);
 
             }
         });

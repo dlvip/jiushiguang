@@ -16,7 +16,7 @@ import com.old.time.views.banner.BannerLayout;
  * Created by NING on 2018/3/5.
  */
 
-public class HomeFragment extends CBaseFragment implements BannerLayout.OnBannerItemClickListener {
+public class  HomeFragment extends CBaseFragment implements BannerLayout.OnBannerItemClickListener {
 
     private BannerLayout recycler_banner;
     private int width;

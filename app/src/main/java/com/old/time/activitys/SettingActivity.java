@@ -54,7 +54,8 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.relative_layout_opinion:
-                DownLoadActivity.startDownLoadActivity(mContext);
+                RecorderVideoActivity.startRecorderVideoActivity(mContext);
+//                DownLoadActivity.startDownLoadActivity(mContext);
 
                 break;
             case R.id.relative_layout_about:

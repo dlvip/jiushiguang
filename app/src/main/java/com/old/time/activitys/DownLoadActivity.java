@@ -15,7 +15,6 @@ import com.old.time.downloads.dbcontrol.FileHelper;
 import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.List;

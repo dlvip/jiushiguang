@@ -84,7 +84,7 @@ public class PicsManageActivity extends CBaseActivity {
             mSuspensionPopupWindow = new SuspensionPopupWindow(this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    CameraTakeActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
+                    TakePicActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
 
                 }
             });

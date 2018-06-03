@@ -10,7 +10,6 @@ import com.old.time.constants.Code;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.EasyPhotos;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class PuzzleMActivity extends BaseActivity {
@@ -32,7 +31,7 @@ public class PuzzleMActivity extends BaseActivity {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.constraint_layout_parent:
-                CameraTakeActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
+                TakePicActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
 
                 break;
         }

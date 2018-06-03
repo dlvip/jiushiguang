@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class FileUtils {
 
-    public static String SDPATH = Environment.getExternalStorageDirectory().toString()  + "/olderTime/";
+    public static String SDPATH = Environment.getExternalStorageDirectory().toString() + "/olderTime/";
 
     /**
      * sd卡的根目录
@@ -36,6 +36,16 @@ public class FileUtils {
      * 图文详情图片缓存
      */
     private final static String IMAGE_RICHTEXT = "/RichTextImage";
+
+    /**
+     * 获取视频保存的文件
+     *
+     * @return
+     */
+    public static String getVideoFilePath() {
+
+        return SDPATH + "AndroidVideo";
+    }
 
 
     public static String getRichTextImageDirectory() {
