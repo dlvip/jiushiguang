@@ -24,10 +24,6 @@ public class Code {
 //    签名算法名称: SHA256withRSA
 //    版本: 3
 
-
-
-
-
     public static String GAODE_KEY = "9c9c4d9a65971e91f0130fa087d263aa";
 
     //相机请求码

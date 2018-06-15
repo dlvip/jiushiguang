@@ -99,7 +99,9 @@
             android:imeOptions="actionSearch" />
         <activity android:name=".activitys.DynamicDetailActivity" />
         <activity android:name=".activitys.DownLoadActivity" />
-        <activity android:name=".activitys.RecorderVideoActivity"></activity>
+        <activity
+            android:name=".activitys.VideoDetailActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden" />
     </application>
 
 </manifest>

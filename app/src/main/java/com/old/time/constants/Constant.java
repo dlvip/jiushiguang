@@ -46,4 +46,7 @@ public class Constant {
     public static final String GET_LIST_CONTENT = "listContent";
 
     public static String PHOTO_PIC_URL = "http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg";
+
+
+    public static String MP4_PATH_URL = "https://baobab.kaiyanapp.com/api/v1/playUrl?vid=19105&resourceType=video&editionType=normal&source=aliyun";
 }

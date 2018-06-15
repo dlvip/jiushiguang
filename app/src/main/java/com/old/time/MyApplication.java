@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
-import com.aliyun.common.httpfinal.QupaiHttpFinal;
 import com.old.time.downloads.DownLoadService;
 import com.old.time.loadsirs.core.LoadSir;
 import com.old.time.loadsirs.customs.EmptyCallback;
@@ -37,10 +36,6 @@ public class MyApplication extends Application {
     }
 
     private void init() {
-        System.loadLibrary("live-openh264");
-        System.loadLibrary("QuCore-ThirdParty");
-        System.loadLibrary("QuCore");
-        QupaiHttpFinal.getInstance().initOkHttpFinal();
         mTaskMgr = new TaskManager();
         mTaskMgr.init(0);
         client = new ReadClient();//初始化客户端配置信息管理者

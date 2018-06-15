@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.old.time.R;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DataCleanManager;
-import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
 
 public class SettingActivity extends BaseActivity {
@@ -54,12 +53,12 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.relative_layout_opinion:
-                RecorderVideoActivity.startRecorderVideoActivity(mContext);
-//                DownLoadActivity.startDownLoadActivity(mContext);
+                DownLoadActivity.startDownLoadActivity(mContext);
 
                 break;
             case R.id.relative_layout_about:
-                WebViewActivity.startWebViewActivity(mContext);
+                VideoDetailActivity.startVideoDetailActivity(mContext);
+//                WebViewActivity.startWebViewActivity(mContext);
 
                 break;
             case R.id.tv_user_logout:
