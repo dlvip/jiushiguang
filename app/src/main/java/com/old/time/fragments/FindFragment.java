@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.activitys.DynamicActivity;
 import com.old.time.activitys.LocationMapActivity;
+import com.old.time.activitys.VideoDetailActivity;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
@@ -41,7 +42,13 @@ public class FindFragment extends CBaseFragment {
 
             }
         });
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                VideoDetailActivity.startVideoDetailActivity(mContext);
 
+            }
+        });
     }
 
     @Override

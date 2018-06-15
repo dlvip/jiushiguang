@@ -119,6 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/mn_tv_system_time"
             android:layout_toRightOf="@id/mn_iv_back"
             android:ellipsize="end"
             android:singleLine="true"

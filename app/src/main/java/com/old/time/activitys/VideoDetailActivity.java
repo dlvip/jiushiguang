@@ -3,10 +3,8 @@ package com.old.time.activitys;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
+import android.view.View;
 
 import com.old.time.R;
 import com.old.time.constants.Constant;
@@ -21,7 +19,7 @@ public class VideoDetailActivity extends BaseActivity {
 
     public static void startVideoDetailActivity(Context mContext) {
         Intent intent = new Intent(mContext, VideoDetailActivity.class);
-        ActivityUtils.startActivity((Activity) mContext, intent);
+        ActivityUtils.startLoginActivity((Activity) mContext, intent);
 
     }
 
@@ -34,7 +32,7 @@ public class VideoDetailActivity extends BaseActivity {
         mMNVideoPlayer.setWidthAndHeightProportion(16, 9);   //设置宽高比
         mMNVideoPlayer.setIsNeedNetChangeListen(true);       //设置网络监听
         //第一次进来先设置数据
-        mMNVideoPlayer.setDataSource(Constant.MP4_PATH_URL, "标题");
+        mMNVideoPlayer.setDataSource(Constant.MP4_PATH_URL, "我喜欢你是寂静的");
 
         //播放完成监听
         mMNVideoPlayer.setOnCompletionListener(new OnCompletionListener() {
@@ -79,6 +77,12 @@ public class VideoDetailActivity extends BaseActivity {
     }
 
     @Override
+    public void back(View view) {
+        ActivityUtils.finishLoginActivity(mContext);
+
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         mMNVideoPlayer.pauseVideo();
@@ -92,6 +96,7 @@ public class VideoDetailActivity extends BaseActivity {
 
             return;
         }
+        ActivityUtils.finishLoginActivity(mContext);
         super.onBackPressed();
     }
 

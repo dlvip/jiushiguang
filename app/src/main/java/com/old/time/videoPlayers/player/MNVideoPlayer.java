@@ -265,8 +265,10 @@ public class MNVideoPlayer extends FrameLayout implements View.OnClickListener, 
                             if (videoThumbnail != null) {
                                 iv_video_thumbnail.setVisibility(View.VISIBLE);
                                 iv_video_thumbnail.setImageBitmap(videoThumbnail);
+
                             } else {
                                 iv_video_thumbnail.setVisibility(View.GONE);
+
                             }
                         }
                     });

@@ -57,8 +57,7 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.relative_layout_about:
-                VideoDetailActivity.startVideoDetailActivity(mContext);
-//                WebViewActivity.startWebViewActivity(mContext);
+                WebViewActivity.startWebViewActivity(mContext);
 
                 break;
             case R.id.tv_user_logout:
