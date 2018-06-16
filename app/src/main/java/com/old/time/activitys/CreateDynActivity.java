@@ -27,7 +27,7 @@ import com.old.time.utils.UserLocalInfoUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SendDynamiceActivity extends BaseActivity {
+public class CreateDynActivity extends BaseActivity {
 
     /**
      * 发送圈子内容
@@ -35,7 +35,7 @@ public class SendDynamiceActivity extends BaseActivity {
      * @param mContext
      * @param requestCode
      */
-    public static void startSendCircleActivity(Activity mContext, int requestCode) {
+    public static void startCreateDynActivity(Activity mContext, int requestCode) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION})) {
 
             return;
@@ -45,7 +45,7 @@ public class SendDynamiceActivity extends BaseActivity {
 
             return;
         }
-        Intent intent = new Intent(mContext, SendDynamiceActivity.class);
+        Intent intent = new Intent(mContext, CreateDynActivity.class);
         ActivityUtils.startActivityForResult(mContext, intent, requestCode);
 
     }

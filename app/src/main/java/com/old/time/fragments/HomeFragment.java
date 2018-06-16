@@ -29,7 +29,6 @@ public class  HomeFragment extends CBaseFragment implements BannerLayout.OnBanne
         width = getWindowWidth();
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
-
         recycler_banner.initBannerImageView(strings);
         recycler_banner.setOnBannerItemClickListener(this);
 

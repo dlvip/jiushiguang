@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.old.time.R;
@@ -14,9 +16,15 @@ import com.old.time.videoPlayers.listener.OnCompletionListener;
 import com.old.time.videoPlayers.listener.OnNetChangeListener;
 import com.old.time.videoPlayers.listener.OnScreenOrientationListener;
 import com.old.time.videoPlayers.player.MNVideoPlayer;
+import com.old.time.views.WebViewFragment;
 
 public class VideoDetailActivity extends BaseActivity {
 
+    /**
+     * 视频详情页
+     *
+     * @param mContext
+     */
     public static void startVideoDetailActivity(Context mContext) {
         Intent intent = new Intent(mContext, VideoDetailActivity.class);
         ActivityUtils.startLoginActivity((Activity) mContext, intent);
@@ -24,16 +32,29 @@ public class VideoDetailActivity extends BaseActivity {
     }
 
     private MNVideoPlayer mMNVideoPlayer;
+    private WebViewFragment mWebFragment;
+    private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void initView() {
         mMNVideoPlayer = findViewById(R.id.mn_video_player);
-        //初始化相关参数(必须放在Play前面)
-        mMNVideoPlayer.setWidthAndHeightProportion(16, 9);   //设置宽高比
-        mMNVideoPlayer.setIsNeedNetChangeListen(true);       //设置网络监听
-        //第一次进来先设置数据
+        mMNVideoPlayer.setWidthAndHeightProportion(16, 9);//初始化相关参数(必须放在Play前面)设置宽高比
+        mMNVideoPlayer.setIsNeedNetChangeListen(true);//设置网络监听
         mMNVideoPlayer.setDataSource(Constant.MP4_PATH_URL, "我喜欢你是寂静的");
 
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mWebFragment = new WebViewFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(WebViewFragment.WEB_VIEW_URL, Constant.mHomeUrl);
+        mWebFragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.web_layout, mWebFragment);
+        fragmentTransaction.commit();
+
+    }
+
+    @Override
+    protected void initEvent() {
+        super.initEvent();
         //播放完成监听
         mMNVideoPlayer.setOnCompletionListener(new OnCompletionListener() {
             @Override
@@ -43,6 +64,7 @@ public class VideoDetailActivity extends BaseActivity {
             }
         });
 
+        //横竖屏切换监听
         mMNVideoPlayer.setOnScreenOrientationListener(new OnScreenOrientationListener() {
             @Override
             public void orientation_landscape() {

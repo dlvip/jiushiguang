@@ -150,7 +150,7 @@ public class DynamicActivity extends SBaseActivity {
             mSuspensionPopupWindow = new SuspensionPopupWindow(this, new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SendDynamiceActivity.startSendCircleActivity(mContext, Code.REQUEST_CODE_30);
+                    CreateDynActivity.startCreateDynActivity(mContext, Code.REQUEST_CODE_30);
 
                 }
             });
@@ -169,7 +169,7 @@ public class DynamicActivity extends SBaseActivity {
         switch (requestCode) {
             case Code.REQUEST_CODE_30:
                 List<String> picUrls = data.getStringArrayListExtra(EasyPhotos.RESULT_PHOTOS);
-                String contentStr = data.getStringExtra(SendDynamiceActivity.CONTENT_STR);
+                String contentStr = data.getStringExtra(CreateDynActivity.CONTENT_STR);
                 sendPicToAliYun(contentStr, picUrls);
 
                 break;

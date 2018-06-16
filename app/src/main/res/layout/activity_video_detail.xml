@@ -13,70 +13,9 @@
         android:layout_height="200dp"
         android:background="@color/color_252525" />
 
-
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
+        android:id="@+id/web_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/circle_content"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/text_14" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/circle_content"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/text_14" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/circle_content"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/text_14" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/circle_content"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/text_14" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/circle_content"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/text_14" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/circle_content"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/text_14" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/circle_content"
-                android:textColor="@color/color_666"
-                android:textSize="@dimen/text_14" />
-
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-
+        android:layout_height="match_parent" />
 
 </LinearLayout>

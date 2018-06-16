@@ -143,8 +143,7 @@ public class BannerLayout extends FrameLayout {
         indicatorContainer.setLayoutManager(indicatorLayoutManager);
         indicatorAdapter = new IndicatorAdapter();
         indicatorContainer.setAdapter(indicatorAdapter);
-        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.BOTTOM | gravity;
         params.setMargins(marginLeft, 0, marginRight, marginBottom);
         addView(indicatorContainer, params);
@@ -285,12 +284,11 @@ public class BannerLayout extends FrameLayout {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             ImageView bannerPoint = new ImageView(getContext());
-            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.setMargins(indicatorMargin, indicatorMargin, indicatorMargin, indicatorMargin);
+            bannerPoint.setScaleType(ImageView.ScaleType.CENTER_CROP);
             bannerPoint.setLayoutParams(lp);
-            return new RecyclerView.ViewHolder(bannerPoint) {
-            };
+            return new RecyclerView.ViewHolder(bannerPoint) {};
         }
 
         @Override
@@ -307,8 +305,7 @@ public class BannerLayout extends FrameLayout {
     }
 
     protected int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                Resources.getSystem().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
     }
 
     /**

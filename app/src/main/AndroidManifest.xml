@@ -93,7 +93,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".activitys.SystemMsgActivity" />
         <activity android:name=".activitys.UserOrderActivity" />
-        <activity android:name=".activitys.SendDynamiceActivity" />
+        <activity android:name=".activitys.CreateDynActivity" />
         <activity
             android:name=".activitys.LocationMapActivity"
             android:imeOptions="actionSearch" />

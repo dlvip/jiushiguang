@@ -23,7 +23,7 @@ public class Constant {
     public static final String OSSURL = "http://jsguang.oss-cn-beijing.aliyuncs.com/";
 
     /**
-     *服务器baseUrl
+     * 服务器baseUrl
      */
     public static String BASE_URL = "http://120.76.72.60/webconsole/wap/";
 
@@ -45,8 +45,9 @@ public class Constant {
     //获取圈子列表
     public static final String GET_LIST_CONTENT = "listContent";
 
-    public static String PHOTO_PIC_URL = "http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg";
-
+    public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 
     public static String MP4_PATH_URL = "https://baobab.kaiyanapp.com/api/v1/playUrl?vid=19105&resourceType=video&editionType=normal&source=aliyun";
+
+    public static String mHomeUrl = "http://yst.longbei.ren/html/yst/index.html";
 }

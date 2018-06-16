@@ -92,6 +92,7 @@ public abstract class CBaseFragment extends BaseFragment {
             public void run() {
                 mSwipeRefreshLayout.setRefreshing(true); //手动开启小圆圈loading，但是不会执行刷新数据的监听
                 onRefreshListener.onRefresh();           //所有要手动调用回调，
+
             }
         });
 
