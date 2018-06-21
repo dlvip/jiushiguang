@@ -106,7 +106,7 @@
 
         <TextView
             android:id="@+id/tv_order_receiver"
-            android:layout_width="match_parent"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:drawableRight="@mipmap/public_arrow_up"
             android:text="收货人:"
