@@ -1,28 +1,40 @@
 package com.old.time.activitys;
 
 import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.old.time.R;
 import com.old.time.adapters.AlbumListAdapter;
 import com.old.time.models.AlbumModel;
+import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.PhotoSelectorHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class PhotoAlbumActivity extends BaseActivity implements PhotoSelectorHelper.OnLoadAlbumListener, AdapterView.OnItemClickListener {
+public class PhotoAlbumActivity extends BaseActivity implements PhotoSelectorHelper.OnLoadAlbumListener {
+
     private PhotoSelectorHelper mHelper;
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
     private AlbumListAdapter mAdapter;
     public static final String ALBUM_NAME = "album_name";
 
     @Override
     protected void initEvent() {
-        mListView.setOnItemClickListener(this);
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent();
+                intent.putExtra(ALBUM_NAME, mAdapter.getItem(position).getName());
+                setResult(RESULT_OK, intent);
+                ActivityUtils.finishActivity(mContext);
 
+            }
+        });
     }
 
     @Override
@@ -30,8 +42,8 @@ public class PhotoAlbumActivity extends BaseActivity implements PhotoSelectorHel
         setTitleText("选择相册");
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
 
-        mListView = (ListView) this.findViewById(R.id.lv_show_album);
-        mListView.setAdapter(mAdapter = new AlbumListAdapter(this));
+        mRecyclerView = findViewById(R.id.lv_show_album);
+        mRecyclerView.setAdapter(mAdapter = new AlbumListAdapter(new ArrayList<AlbumModel>()));
 
         mHelper = new PhotoSelectorHelper(this);
         mHelper.getAlbumList(this);
@@ -44,23 +56,16 @@ public class PhotoAlbumActivity extends BaseActivity implements PhotoSelectorHel
 
     @Override
     public void onAlbumLoaded(List<AlbumModel> albums) {
-        mAdapter.notifyDataSetChanged(albums, true);
-    }
+        mAdapter.setNewData(albums);
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent();
-        intent.putExtra(ALBUM_NAME, mAdapter.getItem(position).getName());
-        setResult(RESULT_OK, intent);
-        finish();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                ActivityUtils.finishActivity(mContext);
+
                 return true;
 
         }
