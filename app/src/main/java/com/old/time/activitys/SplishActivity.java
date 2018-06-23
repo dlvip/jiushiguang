@@ -2,6 +2,7 @@ package com.old.time.activitys;
 
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.old.time.R;
 import com.old.time.constants.Constant;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.AnimUtil;
 import com.old.time.utils.StringUtils;
 
 public class SplishActivity extends BaseActivity {
@@ -51,6 +53,7 @@ public class SplishActivity extends BaseActivity {
 
             }
         });
+        img_splish.startAnimation(AnimUtil.getAnimSet(null, AnimUtil.getAlphaAnim(), AnimUtil.getScaleAnim()));
 
         startClock();
     }
