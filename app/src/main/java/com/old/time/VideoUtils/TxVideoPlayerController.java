@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.old.time.R;
+import com.old.time.glideUtils.GlideUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -139,6 +140,20 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
         mShare.setOnClickListener(this);
         mSeek.setOnSeekBarChangeListener(this);
         this.setOnClickListener(this);
+    }
+
+    /**
+     * 显示UI数据
+     *
+     * @param imgUrl
+     */
+    public void setResForVideoPlayer(String imgUrl) {
+        if (mImage == null || mContext == null) {
+
+            return;
+        }
+        GlideUtils.getInstance().setImageView(mContext, imgUrl, mImage, R.mipmap.img_default);
+
     }
 
     @Override
@@ -264,6 +279,7 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
                 if (hasRegisterBatteryReceiver) {
                     mContext.unregisterReceiver(mBatterReceiver);
                     hasRegisterBatteryReceiver = false;
+
                 }
                 break;
             case NiceVideoPlayer.MODE_FULL_SCREEN:
@@ -352,12 +368,16 @@ public class TxVideoPlayerController extends NiceVideoPlayerController implement
             if (mNiceVideoPlayer.isIdle()) {
                 mNiceVideoPlayer.start();
             }
+
         } else if (v == mBack) {
             if (mNiceVideoPlayer.isFullScreen()) {
                 mNiceVideoPlayer.exitFullScreen();
+
             } else if (mNiceVideoPlayer.isTinyWindow()) {
                 mNiceVideoPlayer.exitTinyWindow();
+
             }
+
         } else if (v == mRestartPause) {
             if (mNiceVideoPlayer.isPlaying() || mNiceVideoPlayer.isBufferingPlaying()) {
                 mNiceVideoPlayer.pause();

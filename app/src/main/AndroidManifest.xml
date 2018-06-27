@@ -71,6 +71,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activitys.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity android:name=".activitys.PhotoPagerActivity" />

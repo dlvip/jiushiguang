@@ -12,6 +12,7 @@ import com.old.time.R;
 import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
+import com.old.time.fragments.VideoListFragment;
 import com.old.time.utils.ActivityUtils;
 
 public class MainActivity extends BaseActivity {
@@ -90,7 +91,7 @@ public class MainActivity extends BaseActivity {
             case 1:
                 if (mFindFragment == null) {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    mFindFragment = new FindFragment();
+                    mFindFragment = new VideoListFragment();
                     fragmentTransaction.add(R.id.fl_content, mFindFragment);
                     fragmentTransaction.commit();
 
@@ -144,7 +145,7 @@ public class MainActivity extends BaseActivity {
 
     private HomeFragment mHomeFragment;
     private MineFragment mMineFragment;
-    private FindFragment mFindFragment;
+    private VideoListFragment mFindFragment;
     private FragmentTransaction fragmentTransaction;
 
     /**

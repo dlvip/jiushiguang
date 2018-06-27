@@ -122,6 +122,22 @@ public class NiceVideoPlayer extends FrameLayout implements INiceVideoPlayer, Te
         mContainer.setBackgroundColor(Color.BLACK);
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         this.addView(mContainer, params);
+        setController(new TxVideoPlayerController(mContext));
+    }
+
+    /**
+     * 设置数据
+     *
+     * @param videoUrl
+     * @param imgUrl
+     */
+    public void setDataForView(String videoUrl, String imgUrl) {
+        if (mController == null) {
+
+            return;
+        }
+        setUp(videoUrl, null);
+        ((TxVideoPlayerController) mController).setResForVideoPlayer(imgUrl);
     }
 
     public void setUp(String url, Map<String, String> headers) {
@@ -511,10 +527,10 @@ public class NiceVideoPlayer extends FrameLayout implements INiceVideoPlayer, Te
                     mTextureView.setRotation(extra);
                 }
             } else if (what == IMediaPlayer.MEDIA_INFO_NOT_SEEKABLE) {
-                DebugLog.d(TAG,"视频不能seekTo，为直播视频");
+                DebugLog.d(TAG, "视频不能seekTo，为直播视频");
 
             } else {
-                DebugLog.d(TAG,"onInfo ——> what：" + what);
+                DebugLog.d(TAG, "onInfo ——> what：" + what);
 
             }
             return true;

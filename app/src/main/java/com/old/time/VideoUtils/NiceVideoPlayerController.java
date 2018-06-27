@@ -15,8 +15,7 @@ import java.util.TimerTask;
  * Created by XiaoJianjun on 2017/6/21.
  * 控制器抽象类
  */
-public abstract class NiceVideoPlayerController
-        extends FrameLayout implements View.OnTouchListener {
+public abstract class NiceVideoPlayerController extends FrameLayout implements View.OnTouchListener {
 
     private Context mContext;
     protected INiceVideoPlayer mNiceVideoPlayer;
@@ -156,11 +155,7 @@ public abstract class NiceVideoPlayerController
             return false;
         }
         // 只有在播放、暂停、缓冲的时候能够拖动改变位置、亮度和声音
-        if (mNiceVideoPlayer.isIdle()
-                || mNiceVideoPlayer.isError()
-                || mNiceVideoPlayer.isPreparing()
-                || mNiceVideoPlayer.isPrepared()
-                || mNiceVideoPlayer.isCompleted()) {
+        if (mNiceVideoPlayer.isIdle() || mNiceVideoPlayer.isError() || mNiceVideoPlayer.isPreparing() || mNiceVideoPlayer.isPrepared() || mNiceVideoPlayer.isCompleted()) {
             hideChangePosition();
             hideChangeBrightness();
             hideChangeVolume();
@@ -191,8 +186,7 @@ public abstract class NiceVideoPlayerController
                         if (mDownX < getWidth() * 0.5f) {
                             // 左侧改变亮度
                             mNeedChangeBrightness = true;
-                            mGestureDownBrightness = NiceUtil.scanForActivity(mContext)
-                                    .getWindow().getAttributes().screenBrightness;
+                            mGestureDownBrightness = NiceUtil.scanForActivity(mContext).getWindow().getAttributes().screenBrightness;
                         } else {
                             // 右侧改变声音
                             mNeedChangeVolume = true;
@@ -213,8 +207,7 @@ public abstract class NiceVideoPlayerController
                     float newBrightness = mGestureDownBrightness + deltaBrightness;
                     newBrightness = Math.max(0, Math.min(newBrightness, 1));
                     float newBrightnessPercentage = newBrightness;
-                    WindowManager.LayoutParams params = NiceUtil.scanForActivity(mContext)
-                            .getWindow().getAttributes();
+                    WindowManager.LayoutParams params = NiceUtil.scanForActivity(mContext).getWindow().getAttributes();
                     params.screenBrightness = newBrightnessPercentage;
                     NiceUtil.scanForActivity(mContext).getWindow().setAttributes(params);
                     int newBrightnessProgress = (int) (100f * newBrightnessPercentage);

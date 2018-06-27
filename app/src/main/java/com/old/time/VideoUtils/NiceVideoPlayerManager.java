@@ -9,6 +9,7 @@ public class NiceVideoPlayerManager {
     private NiceVideoPlayer mVideoPlayer;
 
     private NiceVideoPlayerManager() {
+
     }
 
     private static NiceVideoPlayerManager sInstance;
