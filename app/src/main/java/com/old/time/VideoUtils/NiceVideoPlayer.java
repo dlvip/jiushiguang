@@ -13,6 +13,7 @@ import android.view.TextureView;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.old.time.beans.VideoBean;
 import com.old.time.utils.DebugLog;
 
 import java.io.IOException;
@@ -128,16 +129,15 @@ public class NiceVideoPlayer extends FrameLayout implements INiceVideoPlayer, Te
     /**
      * 设置数据
      *
-     * @param videoUrl
-     * @param imgUrl
+     * @param videoBean
      */
-    public void setDataForView(String videoUrl, String imgUrl) {
+    public void setDataForView(VideoBean videoBean) {
         if (mController == null) {
 
             return;
         }
-        setUp(videoUrl, null);
-        ((TxVideoPlayerController) mController).setResForVideoPlayer(imgUrl);
+        setUp(videoBean.getVideoUrl(), null);
+        ((TxVideoPlayerController) mController).setResForVideoPlayer(videoBean.getPicUrl());
     }
 
     public void setUp(String url, Map<String, String> headers) {

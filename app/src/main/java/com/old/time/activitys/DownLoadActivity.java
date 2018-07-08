@@ -5,14 +5,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.old.time.adapters.DownLoadAdapter;
+import com.old.time.dialogs.DialogInputBottom;
 import com.old.time.downloads.DownLoadListener;
 import com.old.time.downloads.DownLoadManager;
 import com.old.time.downloads.DownLoadService;
 import com.old.time.downloads.TaskInfo;
 import com.old.time.downloads.dbcontrol.FileHelper;
 import com.old.time.downloads.dbcontrol.bean.SQLDownLoadInfo;
+import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 
@@ -37,11 +43,6 @@ public class DownLoadActivity extends CBaseActivity {
      */
     private DownLoadManager manager;
 
-    /**
-     * 模拟下载地址
-     */
-    private String downLoadUrl = "http://test.o.longbeidata.com/filekey/95b0b81bd7f14e658b001928183294a0.mp4";
-
     private DownLoadAdapter mAdapter;
 
     private List<TaskInfo> mTaskInfos = new ArrayList<>();
@@ -53,24 +54,22 @@ public class DownLoadActivity extends CBaseActivity {
         manager.setSupportBreakpoint(true);
         manager.deleteAllTask();
         mTaskInfos.clear();
-        for (int i = 0; i < 20; i++) {
-            TaskInfo mTaskInfo = new TaskInfo();
-            String fileName = "";
-            if (!TextUtils.isEmpty(downLoadUrl)) {
-                String[] filepaths = downLoadUrl.split("/");
-                if (filepaths != null && filepaths.length > 0) {
-                    fileName = filepaths[filepaths.length - 1];
-
-                }
-            }
-            mTaskInfo.setFileName(i + fileName);
-            mTaskInfo.setTaskID(i + FileHelper.getUserID());
-            manager.addTask(i + FileHelper.getUserID(), downLoadUrl, i + fileName, new DownloadManagerListener(mTaskInfo));
-            mTaskInfos.add(mTaskInfo);
-
-        }
         mAdapter = new DownLoadAdapter(mTaskInfos);
         mRecyclerView.setAdapter(mAdapter);
+        linear_layout_more.setVisibility(View.VISIBLE);
+        TextView textView = new TextView(mContext);
+        textView.setText("添加视频");
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
+        params.gravity = Gravity.CENTER;
+        textView.setLayoutParams(params);
+        linear_layout_more.addView(textView);
+        linear_layout_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEdtDialog();
+
+            }
+        });
     }
 
     @Override
@@ -159,5 +158,33 @@ public class DownLoadActivity extends CBaseActivity {
 
             }
         }
+    }
+
+    private DialogInputBottom mInputBottomDialog;
+
+
+    private void showEdtDialog(){
+        if(mInputBottomDialog == null){
+            mInputBottomDialog = new DialogInputBottom(mContext, new OnClickManagerCallBack() {
+                @Override
+                public void onClickRankManagerCallBack(int typeId, String downLoadUrl) {
+                    TaskInfo mTaskInfo = new TaskInfo();
+                    String fileName = "";
+                    if (!TextUtils.isEmpty(downLoadUrl)) {
+                        String[] filepaths = downLoadUrl.split("/");
+                        if (filepaths != null && filepaths.length > 0) {
+                            fileName = filepaths[filepaths.length - 1];
+
+                        }
+                    }
+                    mTaskInfo.setFileName(downLoadUrl);
+                    mTaskInfo.setTaskID(FileHelper.getUserID());
+                    manager.addTask(FileHelper.getUserID(), downLoadUrl, fileName, new DownloadManagerListener(mTaskInfo));
+                    mAdapter.addData(mTaskInfo);
+                }
+            });
+        }
+        mInputBottomDialog.show();
+
     }
 }

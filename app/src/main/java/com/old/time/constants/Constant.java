@@ -27,6 +27,11 @@ public class Constant {
      */
     public static String BASE_URL = "http://120.76.72.60/webconsole/wap/";
 
+    /**
+     * 测试baseUrl
+     */
+    public static String BASE_TEST_URL = "http://192.168.0.4:8080/jiushiguang/";
+
     //用户登陆
     public static final String USER_LOGIN = "loginByPhone";
 
@@ -44,6 +49,9 @@ public class Constant {
 
     //获取圈子列表
     public static final String GET_LIST_CONTENT = "listContent";
+
+    //获取视频列表
+    public static final String GET_VIDEO_LIST = "getVideos";
 
     public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 
