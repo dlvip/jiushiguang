@@ -8,18 +8,18 @@ import java.io.Serializable;
 
 public class AlbumBean implements Serializable {
 
-    private Integer id;
+    private String id;
     private String picUrl;
-    private Double price;
-    private Integer buyCount;
+    private String price;
+    private String buyCount;
     private String title;
     private String albumUrl;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -31,19 +31,19 @@ public class AlbumBean implements Serializable {
         this.picUrl = picUrl;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public Integer getBuyCount() {
+    public String getBuyCount() {
         return buyCount;
     }
 
-    public void setBuyCount(Integer buyCount) {
+    public void setBuyCount(String buyCount) {
         this.buyCount = buyCount;
     }
 

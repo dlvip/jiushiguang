@@ -1,6 +1,5 @@
 package com.old.time.fragments;
 
-import android.app.Activity;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,10 +9,20 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.old.time.R;
 import com.old.time.activitys.WebViewActivity;
+import com.old.time.beans.AlbumBean;
+import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.okhttps.Http;
+import com.old.time.okhttps.exception.ApiException;
+import com.old.time.okhttps.subscriber.CommonSubscriber;
+import com.old.time.okhttps.transformer.CommonTransformer;
+import com.old.time.utils.MapParams;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.banner.BannerLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by NING on 2018/3/5.
@@ -24,7 +33,7 @@ public class HomeFragment extends CBaseFragment {
     private BannerLayout recycler_banner;
     private int width;
 
-    private BaseQuickAdapter<String, BaseViewHolder> mAdapter;
+    private BaseQuickAdapter<AlbumBean, BaseViewHolder> mAdapter;
 
     @Override
     protected void lazyLoad() {
@@ -42,9 +51,9 @@ public class HomeFragment extends CBaseFragment {
         });
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 5));
-        mAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_home, strings) {
+        mAdapter = new BaseQuickAdapter<AlbumBean, BaseViewHolder>(R.layout.adapter_home, mAlbumBeans) {
             @Override
-            protected void convert(BaseViewHolder helper, String item) {
+            protected void convert(BaseViewHolder helper, AlbumBean item) {
                 if (helper.getLayoutPosition() % 2 != 0) {
                     helper.getConvertView().setPadding(0, 0, UIHelper.dip2px(5), 0);
 
@@ -52,8 +61,9 @@ public class HomeFragment extends CBaseFragment {
                     helper.getConvertView().setPadding(UIHelper.dip2px(5), 0, 0, 0);
 
                 }
+                helper.setText(R.id.tv_photo_name,item.getTitle()).setText(R.id.tv_photo_money,item.getPrice());
                 ImageView img_phone_pic = helper.getView(R.id.img_phone_pic);
-                GlideUtils.getInstance().setImageViewWH(mContext, item, img_phone_pic, width / 2);
+                GlideUtils.getInstance().setImageViewWH(mContext, item.getPicUrl(), img_phone_pic, width / 2);
             }
         };
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
@@ -69,9 +79,32 @@ public class HomeFragment extends CBaseFragment {
         mAdapter.setHeaderAndEmpty(true);
     }
 
+    private List<AlbumBean> mAlbumBeans = new ArrayList<>();
+
     @Override
-    public void getDataFromNet(boolean isRefresh) {
-        mSwipeRefreshLayout.setRefreshing(false);
+    public void getDataFromNet(final boolean isRefresh) {
+        MapParams params = new MapParams();
+        Http.getHttpService().getAlbumList(Constant.GET_ALUMLIST, params.getParamString())
+                .compose(new CommonTransformer<List<AlbumBean>>())
+                .subscribe(new CommonSubscriber<List<AlbumBean>>(mContext) {
+                    @Override
+                    public void onNext(List<AlbumBean> albumBeans) {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        if (isRefresh) {
+                            mAlbumBeans.clear();
+                            mAdapter.setNewData(mAlbumBeans);
+
+                        }
+                        mAdapter.addData(albumBeans);
+                    }
+
+                    @Override
+                    protected void onError(ApiException e) {
+                        super.onError(e);
+                        mSwipeRefreshLayout.setRefreshing(false);
+
+                    }
+                });
 
     }
 }

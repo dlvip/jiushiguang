@@ -41,7 +41,7 @@ public class MyApplication extends Application {
         client = new ReadClient();//初始化客户端配置信息管理者
         initLoadSirs();
         initQbSdk();
-        startService(new Intent(this, DownLoadService.class));
+//        startService(new Intent(this, DownLoadService.class));
     }
 
     private TaskManager mTaskMgr;

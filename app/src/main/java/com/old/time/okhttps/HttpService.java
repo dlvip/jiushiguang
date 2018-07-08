@@ -1,9 +1,11 @@
 package com.old.time.okhttps;
 
+import com.old.time.beans.AlbumBean;
 import com.old.time.beans.DynamicBean;
 import com.old.time.beans.LoginBean;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.beans.VideoBean;
+import com.old.time.utils.AliyPostUtil;
 
 import java.util.List;
 
@@ -44,5 +46,10 @@ public interface HttpService {
     @FormUrlEncoded
     @POST("video/{apiUrl}")
     Observable<BaseHttpResult<List<VideoBean>>> getVideoList(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
+
+    //获取相册列表
+    @FormUrlEncoded
+    @POST("album/{apiUrl}")
+    Observable<BaseHttpResult<List<AlbumBean>>> getAlbumList(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
 
 }
