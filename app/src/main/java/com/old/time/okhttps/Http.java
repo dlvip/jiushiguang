@@ -151,7 +151,7 @@ public class Http {
                             .connectTimeout(60l, TimeUnit.SECONDS).readTimeout(60l, TimeUnit.SECONDS).writeTimeout(60l, TimeUnit.SECONDS).build();
 
                     // 获取retrofit的实例
-                    retrofit = new Retrofit.Builder().baseUrl(Constant.BASE_URL)  //自己配置
+                    retrofit = new Retrofit.Builder().baseUrl(Constant.BASE_TEST_URL)  //自己配置
                             .client(client).addCallAdapterFactory(RxJavaCallAdapterFactory.create()).addConverterFactory(GsonConverterFactory.create()) //这里是用的fastjson的
                             .build();
                 }

@@ -144,8 +144,6 @@ public class FileHelper {
         return userID;
     }
 
-    ;
-
     /**
      * 过滤附件ID中某些不能存在在文件名中的字符
      */

@@ -9,5 +9,4 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_200" />
 
-
 </LinearLayout>

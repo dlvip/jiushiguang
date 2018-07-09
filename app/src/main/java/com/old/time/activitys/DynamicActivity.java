@@ -115,7 +115,9 @@ public class DynamicActivity extends SBaseActivity {
         MapParams params = new MapParams();
         params.putParams("userid", userid);
         params.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());
-        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString()).compose(new CommonTransformer<List<DynamicBean>>()).subscribe(new CommonSubscriber<List<DynamicBean>>(mContext) {
+        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString())
+                .compose(new CommonTransformer<List<DynamicBean>>())
+                .subscribe(new CommonSubscriber<List<DynamicBean>>(mContext) {
             @Override
             public void onNext(List<DynamicBean> dynamicBeans) {
                 mSwipeRefreshLayout.setRefreshing(false);
