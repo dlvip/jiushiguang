@@ -1,6 +1,7 @@
 package com.old.time.okhttps;
 
 import com.old.time.beans.AlbumBean;
+import com.old.time.beans.ArticleBean;
 import com.old.time.beans.DynamicBean;
 import com.old.time.beans.LoginBean;
 import com.old.time.beans.UserInfoBean;
@@ -51,5 +52,13 @@ public interface HttpService {
     @FormUrlEncoded
     @POST("album/{apiUrl}")
     Observable<BaseHttpResult<List<AlbumBean>>> getAlbumList(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
+
+
+    //获取文章列表
+    @FormUrlEncoded
+    @POST("article/{apiUrl}")
+    Observable<BaseHttpResult<List<ArticleBean>>> getArticleBeanList(@Path("apiUrl") String apiUrl, @Field("json") String mMapParams);
+
+
 
 }

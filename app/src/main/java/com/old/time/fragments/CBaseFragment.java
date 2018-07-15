@@ -12,6 +12,7 @@ import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyLinearLayoutManager;
+import com.old.time.utils.RecyclerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,8 @@ public abstract class CBaseFragment extends BaseFragment {
         //去除recyclerView 默认动画
         ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         mRecyclerView.getItemAnimator().setChangeDuration(0);
-
+        mRecyclerView.setLayoutManager(new MyLinearLayoutManager(mContext));
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext));
         mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
                 R.color.holo_orange_light, R.color.holo_red_light);
 

@@ -56,6 +56,9 @@ public class Constant {
     //获取相册列表
     public static final String GET_ALUMLIST = "getAlbumList";
 
+    //获取文章列表
+    public static final String GET_ARTICLE_LIST = "getArticleList";
+
     public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 
     public static String MP4_PATH_URL = "http://o1.longbeidata.com//filekey/b245e7761b2e4600884b1cf828bd5a7f.mp4";
