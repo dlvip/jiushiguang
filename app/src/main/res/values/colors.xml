@@ -1,145 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="color_ff4444">#ff4444</color>
     <color name="colorAccent">#FF4081</color>
     <color name="color_cb5278">#cb5278</color>
-    <color name="pull_refresh_textview">#000000</color>
-    <color name="gold">#ffd700</color>
     <color name="transparent">#0000</color>
     <color name="text_main">#9e9e9e</color>
     <color name="main_bg">#f8f8f8</color>
-    <color name="color_f5f5f5">#f5f5f5</color>
-    <color name="color_80000000">#80000000</color>
     <color name="color_60000000">#60000000</color>
-    <color name="color_40">#40000000</color>
-    <color name="color_90f">#95ffffff</color>
-    <color name="color_90_f">#90ffffff</color>
-    <color name="color_10f">#20ffffff</color>
-    <color name="color_ff000000">#FF000000</color>
     <color name="color_fff">#fff</color>
     <color name="color_000">#000</color>
     <color name="color_666">#666</color>
-    <color name="color_cdf49f">#cdf49f</color>
-    <color name="color_dfdfdf">#dfdfdf</color>
     <color name="color_999">#999</color>
     <color name="color_ccc">#ccc</color>
     <color name="color_aaa">#aaaaaa</color>
     <color name="color_3f5">#f5f5f5</color>
-    <color name="color_3bf">#bfbfbf</color>
-    <color name="color_3ef">#efefef</color>
-    <color name="color_3ed">#EDEDED</color>
-
-    <color name="color_ddd">#dddddd</color>
+    <color name="color_ff9441">#ff9441</color>
 
     <color name="line_bg">#efefef</color>
 
-    <color name="coloe_fff8e3">#fff8e3</color>
-    <color name="coloe_779800">#779800</color>
     <color name="coloe_0958B5">#0958B5</color>
-    <color name="color_0066cc">#0066cc</color>
     <color name="coloe_58ad2c">#58ad2c</color>
     <color name="color_58ad2c">#58ad2c</color>
-    <color name="color_3c">#cccccc</color>
-    <color name="color_4478d5">#4478d5</color>
-    <color name="color_06c">#0066cc</color>
-    <color name="color_63c565">#63c565</color>
-    <color name="color_3deab5">#3deab5</color>
-    <color name="color_bef473">#bef473</color>
-    <color name="color_b7d8ab">#b7d8ab</color>
-    <color name="color_6080e8">#6080e8</color>
-    <color name="color_3dd1ea">#3dd1ea</color>
-    <color name="color_ffc533">#ffc533</color>
-    <color name="color_995edd">#995edd</color>
-    <color name="color_43b4f6">#995edd</color>
-    <color name="color_ffc30e">#ffc30e</color>
-    <color name="color_f0f0f0">#f0f0f0</color>
-    <color name="color_fc831e">#fc831e</color>
-    <color name="color_CDEDB0">#CDEDB0</color>
 
     <color name="holo_blue_bright">#ff00ddff</color>
     <color name="holo_green_light">#ff99cc00</color>
     <color name="color_f9f9f9">#f9f9f9</color>
-    <color name="holo_green">#8dbb3c</color>
     <color name="holo_orange_light">#ffffbb33</color>
-    <color name="holo_f1c335">#f1c335</color>
     <color name="holo_red_light">#ff4444</color>
-    <color name="color_DD4B4B">#DD4B4B</color>
-    <color name="color_e8175e">#e8175e</color>
     <color name="color_ff2a27">#ff2a27</color>
-    <color name="color_e7e7e7">#e7e7e7</color>
     <color name="color_484848">#484848</color>
-    <color name="color_B88884">#B88884</color>
-    <color name="color_D5340A">#D5340A</color>
     <color name="color_005abc">#005abc</color>
-    <color name="color_79bd56">#79bd56</color>
-    <color name="color_e4e4e4">#e4e4e4</color>
-    <color name="color_a4a4a4">#a4a4a4</color>
     <color name="color_4a4a4a">#4a4a4a</color>
-    <color name="color_9b9b9b">#9b9b9b</color>
-    <color name="color_000030">#000030</color>
-    <color name="color_3a3">#a3a3a3</color>
-    <color name="color_3e">#eeeeee</color>
 
-    <color name="color_fd434b">#fd434b</color>
-    <color name="color_5cac2c">#5cac2c</color>
-    <color name="color_51a2e4">#51a2e4</color>
-    <color name="color_fa8ff9">#fa8ff9</color>
-    <color name="color_ffbe08">#ffbe08</color>
-    <color name="color_4edab3">#4edab3</color>
-    <color name="color_9a9a9a">#9a9a9a</color>
-    <color name="color_9ad008">#9ad008</color>
-    <color name="color_4a9225">#4a9225</color>
-    <color name="color_333">#333333</color>
-    <color name="color_f45d5d">#f45d5d</color>
-    <color name="color_f79552">#f79552</color>
-    <color name="color_c8c8c8">#c8c8c8</color>
-    <color name="color_ffe9e9">#ffe9e9</color>
-    <color name="color_f590fe">#f590fe</color>
-    <color name="color_ffbf00">#ffbf00</color>
-    <color name="color_54d1c4">#54d1c4</color>
-    <color name="color_eef7e9">#eef7e9</color>
     <color name="color_969696">#969696</color>
-    <color name="color_e6e6e6">#e6e6e6</color>
-    <color name="color_ebebeb">#ebebeb</color>
     <color name="color_323232">#323232</color>
-    <color name="color_252525">#252525</color>
-    <color name="color_30000">#30000000</color>
-    <color name="color_646464">#646464</color>
     <color name="color_2e6cd3">#2e6cd3</color>
-    <color name="color_ff9000">#ff9000</color>
-    <color name="color_ff9441">#ff9441</color>
-    <color name="color_ffe3d0">#ffe3d0</color>
-    <color name="color_d0021b">#d0021b</color>
-    <color name="color_3a8b7f">#3a8b7f</color>
-    <color name="color_70000">#70000000</color>
 
-
-    <color name="color_aa000000">#aa000000</color>
 
     <!--百分之50的透明度-->
-    <color name="black_touming">#2f000000</color>
     <!--百分之80的透明度-->
-    <color name="black_touming_80">#cc000000</color>
 
     <!--播放器相关颜色-->
-    <color name="colorPlayerBlackTrans">#bb000000</color>
-    <color name="colorPlayerWhite">#FFFFFF</color>
-    <color name="mp3_bg_color">#b5b5b5</color>
     <!--进度条的颜色-->
-    <color name="colorPlayerProgressBg">#e1767676</color>
-    <color name="colorPlayerProgressSecond">#c1c1c1</color>
-    <color name="colorPlayerProgress">#FFFFFF</color>
 
-    <color name="color_FC831E">#FC831E</color>
-    <color name="color_656565">#656565</color>
-    <color name="color_EE3129">#EE3129</color>
-    <color name="color_d8d8d8">#d8d8d8</color>
-    <color name="color_4a90e2">#4a90e2</color>
-    <color name="color_ff001f">#ff001f</color>
     <color name="color_ff7400">#ff7400</color>
-    <color name="color_417505">#417505</color>
     <color name="color_9013fe">#9013fe</color>
 
     <!--文字贴纸-->
@@ -159,8 +64,8 @@
 
 
     <!--前景色-->
-    <color name="easy_photos_fg_primary">#ffffff</color>//3e4145  前景主色，如字体颜色、icon颜色
-    <color name="easy_photos_fg_primary_dark">#9b9b9b</color>//前景偏暗色，如不可用状态的字体颜色
+    <color name="easy_photos_fg_primary">#ffffff</color>//3e4145 前景主色，如字体颜色、icon颜色
+    //前景偏暗色，如不可用状态的字体颜色
     <color name="easy_photos_fg_accent">#00AA00</color>//578fff  前景突出色，如发送按钮的背景色，选中状态的颜色
 
     <!--背景色-->
@@ -168,7 +73,7 @@
 
     <!--操作栏颜色-->
     <color name="easy_photos_bar_primary">#393a3f</color>//ffffff 操作栏主色，如相册页顶部和底部操作栏
-    <color name="easy_photos_bar_primary_dark">#303135</color>//f9f9f9  操作栏偏暗色，操作栏间隔线颜色，如相册页返回按钮右边的竖线
+    //f9f9f9 操作栏偏暗色，操作栏间隔线颜色，如相册页返回按钮右边的竖线
     <color name="easy_photos_bar_primary_translation">#eb212123</color>//b4ffffff  操作栏带透明的色值，如预览页的底部操作栏颜色，相册页的相机按钮背景颜色。
 
 

@@ -22,10 +22,6 @@ import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
-import com.old.time.okhttps.Http;
-import com.old.time.okhttps.exception.ApiException;
-import com.old.time.okhttps.subscriber.CommonSubscriber;
-import com.old.time.okhttps.transformer.CommonTransformer;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.utils.MapParams;
@@ -107,24 +103,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
             return;
         }
-        MapParams mMapParams = new MapParams();
-        mMapParams.putParams("userid", UserLocalInfoUtils.instance().getUserId());
-        mMapParams.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());
-        Http.getHttpService().getUserInfo(Constant.GET_USER_INFO, mMapParams.getParamString()).compose(new CommonTransformer<UserInfoBean>()).subscribe(new CommonSubscriber<UserInfoBean>(mContext) {
-            @Override
-            public void onNext(UserInfoBean mUserInfoBean) {
-                mSwipeRefreshLayout.setRefreshing(false);
-                setDataForView(mUserInfoBean);
-
-            }
-
-            @Override
-            protected void onError(ApiException e) {
-                super.onError(e);
-                mSwipeRefreshLayout.setRefreshing(false);
-
-            }
-        });
     }
 
     /**

@@ -25,7 +25,6 @@
         android:background="@color/line_bg" />
 
     <LinearLayout
-        android:id="@+id/bottom_bt_ll"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_44">
 
@@ -40,7 +39,6 @@
             android:textSize="13sp" />
 
         <View
-            android:id="@+id/lay_line"
             android:layout_width="@dimen/line_height"
             android:layout_height="match_parent"
             android:background="@color/line_bg" />

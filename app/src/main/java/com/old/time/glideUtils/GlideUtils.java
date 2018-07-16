@@ -5,25 +5,15 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.FitCenter;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.signature.StringSignature;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.old.time.R;
 import com.old.time.constants.Constant;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.ScreenTools;
 
-
 import jp.wasabeef.glide.transformations.BlurTransformation;
-
-import jp.wasabeef.glide.transformations.ColorFilterTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by wangfang on 2017/4/26.
@@ -72,23 +62,7 @@ public class GlideUtils {
 
             return;
         }
-        manager.load(resourceId).placeholder(resourceId).into(imageView);
-    }
-
-    /**
-     * 设置圆形资源图片
-     *
-     * @param context
-     * @param imageView
-     * @param resourceId
-     */
-    public void setRoundResource(Context context, ImageView imageView, int resourceId) {
-        RequestManager manager = getRequestManager(context);
-        if (manager == null) {
-
-            return;
-        }
-        manager.load(resourceId).bitmapTransform(new FitCenter(context), new CropCircleTransformation(context)).into(imageView);
+        manager.load(resourceId).apply(new RequestOptions().placeholder(resourceId)).into(imageView);
     }
 
     /**
@@ -100,52 +74,6 @@ public class GlideUtils {
      */
     public void setImageView(Context context, String url, ImageView imageView) {
         setImageView(context, url, imageView, R.drawable.shape_radius_666);
-
-    }
-
-    /**
-     * 设置图片,带回调
-     *
-     * @param url
-     * @param imageView
-     * @paramcontext
-     */
-    public void setImageViewBack(Context context, String url, ImageView imageView) {
-
-        if (TextUtils.isEmpty(url)) {
-            setImageView(context, imageView, R.drawable.shape_radius_666);
-            return;
-        }
-        url = getPicUrl(url);
-        if (context == null) {
-
-            return;
-        }
-        RequestManager manager = getRequestManager(context);
-        if (manager == null) {
-
-            return;
-        }
-        manager.load(url)// 加载图片资源
-                .skipMemoryCache(false)//是否将图片放到内存中
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//磁盘图片缓存策略
-                .crossFade(500)// 默认淡入淡出动画300ms
-                .thumbnail(0.1f)
-                .dontAnimate()
-                .priority(Priority.HIGH)// 当前线程的优先级
-                .signature(new StringSignature(url))
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        return false;
-                    }
-                })
-                .into(imageView);
 
     }
 
@@ -250,15 +178,7 @@ public class GlideUtils {
             return;
         }
         manager.load(url)// 加载图片资源
-                .skipMemoryCache(false)//是否将图片放到内存中
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//磁盘图片缓存策略
-                .crossFade(500)// 默认淡入淡出动画500ms
-                .error(resourceId)
-                .thumbnail(0.1f)// 占位图片
-                .centerCrop()//  fitCenter()
-                .bitmapTransform(new BlurTransformation(context, 20))// bitmap操作
-                .priority(Priority.HIGH)// 当前线程的优先级
-                .signature(new StringSignature(url))
+                .apply(new RequestOptions().transform(new BlurTransformation(context, 20)))//
                 .into(imageView);
     }
 
@@ -285,16 +205,7 @@ public class GlideUtils {
             return;
         }
         manager.load(url)// 加载图片资源
-                .skipMemoryCache(false)//是否将图片放到内存中
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//磁盘图片缓存策略
-                .crossFade(500)// 默认淡入淡出动画500ms
-                .error(R.drawable.shape_radius_666)
-                .thumbnail(0.1f)// 占位图片
-                .centerCrop()
-                .bitmapTransform(new BlurTransformation(context, radius)
-                        , new ColorFilterTransformation(context, 0x80000000))// bitmap操作
-                .priority(Priority.HIGH)// 当前线程的优先级
-                .signature(new StringSignature(url))
+                .apply(new RequestOptions().override(W, H).transform(new BlurTransformation(context, radius)))//
                 .into(imageView);
     }
 
@@ -303,9 +214,9 @@ public class GlideUtils {
      *
      * @param url
      * @param imageView
-     * @param dp        角度
+     * @param radius    角度
      */
-    public void setRadiusImageView(Context context, String url, ImageView imageView, int resId, int dp) {
+    public void setRadiusImageView(Context context, String url, ImageView imageView, int resId, int radius) {
         if (TextUtils.isEmpty(url)) {
             setImageView(context, imageView, resId);
 
@@ -322,16 +233,8 @@ public class GlideUtils {
             return;
         }
         manager.load(url)// 加载图片资源
-                .skipMemoryCache(false)//是否将图片放到内存中
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//磁盘图片缓存策略
-                .crossFade(500)// 默认淡入淡出动画300ms
-                .thumbnail(0.1f)
-                .dontAnimate()
-                .centerCrop()
-                .error(resId)
-                .transform(new CenterCrop(context), new GlideRoundTransform(context, dp))
-                .priority(Priority.HIGH)// 当前线程的优先级
-                .signature(new StringSignature(url))
+                .apply(new RequestOptions().placeholder(resId).transform(new GlideRoundTransform(radius)))//
+                .transition(DrawableTransitionOptions.withCrossFade())//
                 .into(imageView);
 
     }
@@ -361,14 +264,7 @@ public class GlideUtils {
             return;
         }
         manager.load(url)// 加载图片资源
-                .skipMemoryCache(false)//是否将图片放到内存中
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//磁盘图片缓存策略
-                .crossFade(500)// 默认淡入淡出动画300ms
-                .thumbnail(0.1f)
-                .dontAnimate()
-                .priority(Priority.HIGH)// 当前线程的优先级
-                .signature(new StringSignature(url))
-                .error(resourceId)
+                .apply(new RequestOptions().placeholder(resourceId).error(resourceId))//
                 .into(imageView);
     }
 
@@ -398,17 +294,11 @@ public class GlideUtils {
 
             return;
         }
-        manager.load(url)// 加载图片资源
-                .skipMemoryCache(false)//是否将图片放到内存中
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//磁盘图片缓存策略
-                .crossFade(500)// 默认淡入淡出动画300ms
-                .thumbnail(0.1f)
-                .dontAnimate()
-                .placeholder(resourceId)
-                .priority(Priority.HIGH)// 当前线程的优先级
-                .signature(new StringSignature(url))
-                .error(resourceId)
-                .into(imageView);
+        RequestOptions options = new RequestOptions()//
+                .placeholder(resourceId)//
+                .override(width, height)//
+                .error(resourceId);
+        manager.load(url).apply(options).into(imageView);
     }
 
     /**
@@ -435,17 +325,27 @@ public class GlideUtils {
             return;
         }
         manager.load(url)// 加载图片资源
-                .skipMemoryCache(false)//是否将图片放到内存中
-                .diskCacheStrategy(DiskCacheStrategy.ALL)//磁盘图片缓存策略
-                .crossFade(500)// 默认淡入淡出动画300ms
-                .thumbnail(0.1f)
-                .dontAnimate()
-                .centerCrop()
-                .error(resourceId)
-                .bitmapTransform(new FitCenter(context), new CropCircleTransformation(context))
-                .priority(Priority.HIGH)// 当前线程的优先级
-                .signature(new StringSignature(url))
+                .apply(new RequestOptions().circleCrop())//
                 .into(imageView);
+    }
+
+    /**
+     * 设置原型图片
+     *
+     * @param context
+     * @param imageView
+     * @param resourceId
+     */
+    private void setRoundResource(Context context, ImageView imageView, int resourceId) {
+        RequestManager manager = getRequestManager(context);
+        if (manager == null) {
+
+            return;
+        }
+        manager.load("")//
+                .apply(new RequestOptions().placeholder(resourceId).circleCrop())//
+                .into(imageView);
+
     }
 
     /**
@@ -470,6 +370,7 @@ public class GlideUtils {
     public void setVideoToImageView(Context context, String url, ImageView imageView, int resourceId) {
         if (TextUtils.isEmpty(url)) {
             setImageView(context, imageView, resourceId);
+
             return;
         }
         RequestManager manager = getRequestManager(context);
@@ -477,12 +378,7 @@ public class GlideUtils {
             return;
         }
         manager.load(url)// 加载图片资源
-                .crossFade(500)// 默认淡入淡出动画300ms
-                .thumbnail(0.1f)
-                .dontAnimate()
-                .placeholder(resourceId)
-                .priority(Priority.HIGH)// 当前线程的优先级
-                .error(resourceId)
+                .apply(new RequestOptions().placeholder(resourceId).error(resourceId))//
                 .into(imageView);
     }
 

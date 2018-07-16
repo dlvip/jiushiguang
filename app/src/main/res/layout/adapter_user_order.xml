@@ -19,7 +19,6 @@
         android:paddingRight="@dimen/layout_10">
 
         <TextView
-            android:id="@+id/order_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -52,7 +51,6 @@
         android:background="@color/line_bg" />
 
     <RelativeLayout
-        android:id="@+id/linear_layout_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/layout_10">
@@ -97,7 +95,6 @@
         android:background="@color/line_bg" />
 
     <LinearLayout
-        android:id="@+id/linear_layout_addmsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bar_tv1"
@@ -105,7 +102,6 @@
         android:padding="10dp">
 
         <TextView
-            android:id="@+id/tv_order_receiver"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:drawableRight="@mipmap/public_arrow_up"
@@ -114,7 +110,6 @@
             android:textSize="@dimen/text_12" />
 
         <TextView
-            android:id="@+id/tv_order_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_10"

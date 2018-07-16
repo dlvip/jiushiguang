@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 从头部退出动画 -->
-<translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/accelerate_interpolator"
-    android:duration="1000"
-    android:fromYDelta="0%p"
-    android:toYDelta="-100%p" >
-
-</translate>

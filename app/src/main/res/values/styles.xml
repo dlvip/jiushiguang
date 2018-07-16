@@ -8,17 +8,6 @@
         <item name="colorAccent">@color/color_666</item>
     </style>
 
-    <style name="AppThemeNoState" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/color_fff</item>
-        <item name="colorPrimaryDark">@color/color_60000000</item>
-        <item name="colorAccent">@color/color_666</item>
-
-    </style>
-
-    <style name="AppThemeTransStatus" parent="Theme.AppCompat.Light.NoActionBar">
-
-    </style>
-
     <!-- 自定义对话框样式 -->
     <style name="dialog_setting" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>

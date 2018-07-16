@@ -23,7 +23,6 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/edt_user_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/tv_user_name"
@@ -63,7 +62,6 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/edt_user_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/tv_user_phone"
@@ -89,7 +87,6 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/relative_layout_choice_address"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_44"
         android:background="@color/color_fff"
@@ -154,7 +151,6 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/edt_address_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/tv_address_detail"
@@ -187,7 +183,6 @@
         android:paddingLeft="10dp">
 
         <TextView
-            android:id="@+id/tv_address_default"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -196,7 +191,6 @@
             android:textSize="14sp" />
 
         <ImageView
-            android:id="@+id/img_is_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

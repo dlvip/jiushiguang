@@ -24,7 +24,6 @@
             android:src="@mipmap/head_circle" />
 
         <ImageView
-            android:id="@+id/header_iv"
             android:layout_width="@dimen/layout_80"
             android:layout_height="@dimen/layout_80"
             android:layout_gravity="center"

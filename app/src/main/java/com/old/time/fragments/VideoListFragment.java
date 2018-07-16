@@ -8,13 +8,7 @@ import com.old.time.R;
 import com.old.time.VideoUtils.NiceVideoPlayer;
 import com.old.time.VideoUtils.NiceVideoPlayerManager;
 import com.old.time.beans.VideoBean;
-import com.old.time.constants.Constant;
-import com.old.time.okhttps.Http;
-import com.old.time.okhttps.exception.ApiException;
-import com.old.time.okhttps.subscriber.CommonSubscriber;
-import com.old.time.okhttps.transformer.CommonTransformer;
 import com.old.time.utils.DebugLog;
-import com.old.time.utils.MapParams;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
@@ -32,26 +26,7 @@ public class VideoListFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        MapParams params = new MapParams();
-        Http.getHttpService().getVideoList(Constant.GET_VIDEO_LIST, params.getParamString()).compose(new CommonTransformer<List<VideoBean>>()).subscribe(new CommonSubscriber<List<VideoBean>>(mContext) {
-            @Override
-            public void onNext(List<VideoBean> videoList) {
-                mSwipeRefreshLayout.setRefreshing(false);
-                if (isRefresh) {
-                    videoBeans.clear();
-                    mAdapter.setNewData(videoBeans);
 
-                }
-                mAdapter.addData(videoList);
-            }
-
-            @Override
-            protected void onError(ApiException e) {
-                super.onError(e);
-                mSwipeRefreshLayout.setRefreshing(false);
-
-            }
-        });
     }
 
     private BaseQuickAdapter<VideoBean, BaseViewHolder> mAdapter;

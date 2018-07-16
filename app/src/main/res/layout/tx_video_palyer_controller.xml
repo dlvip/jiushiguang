@@ -259,21 +259,6 @@
             android:textColor="@android:color/white"
             android:textSize="12sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="/"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00"
-            android:textColor="@android:color/white"
-            android:textSize="12sp" />
-
         <SeekBar
             android:id="@+id/seek"
             android:layout_width="0dp"
@@ -286,6 +271,14 @@
             android:minHeight="1.5dp"
             android:progressDrawable="@drawable/seek_progress"
             android:thumb="@drawable/seek_thumb" />
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/clarity"

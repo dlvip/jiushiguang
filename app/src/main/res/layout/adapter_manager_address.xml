@@ -31,7 +31,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_user_address_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -64,13 +63,11 @@
 
 
         <LinearLayout
-            android:id="@+id/linear_layout_img_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/layout_10">
 
             <ImageView
-                android:id="@+id/img_is_select"
                 android:layout_width="@dimen/layout_20"
                 android:layout_height="@dimen/layout_20"
                 android:layout_gravity="center_vertical"

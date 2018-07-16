@@ -10,19 +10,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.old.time.R;
-import com.old.time.beans.LoginBean;
-import com.old.time.constants.Constant;
-import com.old.time.okhttps.Http;
-import com.old.time.okhttps.exception.ApiException;
-import com.old.time.okhttps.subscriber.CommonSubscriber;
-import com.old.time.okhttps.transformer.CommonTransformer;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.MapParams;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class UserRegisterActivity extends BaseActivity {
 
@@ -112,31 +104,6 @@ public class UserRegisterActivity extends BaseActivity {
 
             return;
         }
-        MapParams mMapParams = new MapParams();
-        mMapParams.putParams("phone", phoneStr);
-        Http.getHttpService().login(Constant.GET_PHONE_CODE, mMapParams.getParamString()).compose(new CommonTransformer<LoginBean>()).subscribe(new CommonSubscriber<LoginBean>(mContext, true) {
-            @Override
-            public void onNext(LoginBean loginBean) {
-                timer = new Timer();// 开启计时器
-                timer.schedule(new TimerTask() {
-                    int i = 60;// 倒数60秒
-
-                    @Override
-                    public void run() {// 定义一个消息传过去
-                        Message msg = new Message();
-                        msg.what = i--;
-                        handler.sendMessage(msg);
-
-                    }
-                }, 0, 1000);// 开始倒计时，倒计时间隔为1秒
-            }
-
-            @Override
-            protected void onError(ApiException e) {
-                super.onError(e);
-
-            }
-        });
     }
 
     /**
@@ -161,25 +128,6 @@ public class UserRegisterActivity extends BaseActivity {
 
             return;
         }
-        MapParams mMapParams = new MapParams();
-        mMapParams.putParams("usename", phoneStr);
-        mMapParams.putParams("password", passWordStr);
-        mMapParams.putParams("code", codeStr);
-        Http.getHttpService().login(Constant.USER_REGISTER, mMapParams.getParamString()).compose(new CommonTransformer<LoginBean>()).subscribe(new CommonSubscriber<LoginBean>(mContext, true) {
-            @Override
-            public void onNext(LoginBean loginBean) {
-                Intent intent = new Intent(mContext, MainActivity.class);
-                ActivityUtils.startActivity(mContext, intent);
-                ActivityUtils.finishActivity(mContext);
-
-            }
-
-            @Override
-            protected void onError(ApiException e) {
-                super.onError(e);
-
-            }
-        });
     }
 
     @Override

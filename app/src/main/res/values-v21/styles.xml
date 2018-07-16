@@ -9,14 +9,4 @@
 
     </style>
 
-    <style name="AppThemeNoState" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/color_fff</item>
-        <item name="colorPrimaryDark">@color/color_60000000</item>
-        <item name="colorAccent">@color/color_666</item>
-
-        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
-        <item name="android:statusBarColor">@color/color_60000000</item>
-    </style>
-
 </resources>

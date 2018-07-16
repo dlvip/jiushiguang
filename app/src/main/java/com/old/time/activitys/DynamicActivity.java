@@ -7,7 +7,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.google.gson.Gson;
 import com.old.time.R;
 import com.old.time.adapters.DynamicAdapter;
 import com.old.time.beans.DynamicBean;
@@ -16,14 +15,9 @@ import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.UploadImagesCallBack;
-import com.old.time.okhttps.Http;
-import com.old.time.okhttps.exception.ApiException;
-import com.old.time.okhttps.subscriber.CommonSubscriber;
-import com.old.time.okhttps.transformer.CommonTransformer;
 import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.EasyPhotos;
-import com.old.time.utils.MapParams;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
@@ -112,30 +106,30 @@ public class DynamicActivity extends SBaseActivity {
     @Override
     public void getDataFromNet(final boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
-        MapParams params = new MapParams();
-        params.putParams("userid", userid);
-        params.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());
-        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString())
-                .compose(new CommonTransformer<List<DynamicBean>>())
-                .subscribe(new CommonSubscriber<List<DynamicBean>>(mContext) {
-            @Override
-            public void onNext(List<DynamicBean> dynamicBeans) {
-                mSwipeRefreshLayout.setRefreshing(false);
-                if (isRefresh) {
-                    mDynamicBeans.clear();
-                    mAdapter.setNewData(mDynamicBeans);
-
-                }
-                mAdapter.addData(dynamicBeans);
-            }
-
-            @Override
-            protected void onError(ApiException e) {
-                super.onError(e);
-                mSwipeRefreshLayout.setRefreshing(false);
-
-            }
-        });
+//        MapParams params = new MapParams();
+//        params.putParams("userid", userid);
+//        params.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());
+//        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString())
+//                .compose(new CommonTransformer<List<DynamicBean>>())
+//                .subscribe(new CommonSubscriber<List<DynamicBean>>(mContext) {
+//            @Override
+//            public void onNext(List<DynamicBean> dynamicBeans) {
+//                mSwipeRefreshLayout.setRefreshing(false);
+//                if (isRefresh) {
+//                    mDynamicBeans.clear();
+//                    mAdapter.setNewData(mDynamicBeans);
+//
+//                }
+//                mAdapter.addData(dynamicBeans);
+//            }
+//
+//            @Override
+//            protected void onError(ApiException e) {
+//                super.onError(e);
+//                mSwipeRefreshLayout.setRefreshing(false);
+//
+//            }
+//        });
     }
 
     private int W, H;
@@ -196,9 +190,9 @@ public class DynamicActivity extends SBaseActivity {
 
                     return;
                 }
-                Gson gson = new Gson();
-                String ssonStr = gson.toJson(mPhotoInfoBeans);
-                sendCircleContent(conStr, ssonStr);
+//                Gson gson = new Gson();
+//                String ssonStr = gson.toJson(mPhotoInfoBeans);
+//                sendCircleContent(conStr, ssonStr);
 
             }
         });
@@ -209,28 +203,29 @@ public class DynamicActivity extends SBaseActivity {
      * 发送圈子内容
      */
     private void sendCircleContent(String content, String mPhotoInfoBeanStr) {
-        MapParams params = new MapParams();
-        params.putParams("userid", UserLocalInfoUtils.instance().getUserId());
-        if (!TextUtils.isEmpty(content)) {
-            params.putParams("content", content);
 
-        }
-        if (!TextUtils.isEmpty(mPhotoInfoBeanStr)) {
-            params.putParams("conetentimages", mPhotoInfoBeanStr);
-
-        }
-        Http.getHttpService().sendContent(Constant.SEND_CONTENT, params.getParamString()).compose(new CommonTransformer<String>()).subscribe(new CommonSubscriber<String>(mContext) {
-            @Override
-            public void onNext(String string) {
-
-            }
-
-            @Override
-            protected void onError(ApiException e) {
-                super.onError(e);
-
-            }
-        });
+//        MapParams params = new MapParams();
+//        params.putParams("userid", UserLocalInfoUtils.instance().getUserId());
+//        if (!TextUtils.isEmpty(content)) {
+//            params.putParams("content", content);
+//
+//        }
+//        if (!TextUtils.isEmpty(mPhotoInfoBeanStr)) {
+//            params.putParams("conetentimages", mPhotoInfoBeanStr);
+//
+//        }
+//        Http.getHttpService().sendContent(Constant.SEND_CONTENT, params.getParamString()).compose(new CommonTransformer<String>()).subscribe(new CommonSubscriber<String>(mContext) {
+//            @Override
+//            public void onNext(String string) {
+//
+//            }
+//
+//            @Override
+//            protected void onError(ApiException e) {
+//                super.onError(e);
+//
+//            }
+//        });
     }
 
     @Override
