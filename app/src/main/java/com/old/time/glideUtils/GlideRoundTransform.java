@@ -1,6 +1,5 @@
 package com.old.time.glideUtils;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

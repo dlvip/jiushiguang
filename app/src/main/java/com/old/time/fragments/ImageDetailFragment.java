@@ -6,7 +6,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import com.bumptech.glide.request.target.ImageViewTarget;
+
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.old.time.R;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.ActivityUtils;
@@ -17,7 +21,6 @@ import com.old.time.views.largeImageUtils.LargeImageView;
  */
 public class ImageDetailFragment extends BaseFragment {
     private LargeImageView mImageView;
-    private String mImageUrl;
 
     public static ImageDetailFragment newInstance(String imageUrl) {
         final ImageDetailFragment f = new ImageDetailFragment();
@@ -56,10 +59,20 @@ public class ImageDetailFragment extends BaseFragment {
 
             }
         });
-        GlideUtils.getInstance().getRequestManager(mContext).load(imgUrl).into(new ImageViewTarget<Drawable>(mImageView) {
+        GlideUtils.getInstance().getRequestManager(mContext).load(imgUrl).listener(new RequestListener<Drawable>() {
             @Override
-            protected void setResource(@Nullable Drawable resource) {
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
 
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                if(resource != null){
+                    mImageView.setImage(resource);
+
+                }
+                return false;
             }
         });
     }
