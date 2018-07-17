@@ -33,31 +33,31 @@ public class Constant {
     public static String BASE_TEST_URL = "http://192.168.0.4:8080/jiushiguang/";
 
     //用户登陆
-    public static final String USER_LOGIN = "loginByPhone";
+    public static final String USER_LOGIN = BASE_TEST_URL + "loginByPhone";
 
     //获取验证码
-    public static final String GET_PHONE_CODE = "getVerification";
+    public static final String GET_PHONE_CODE = BASE_TEST_URL + "getVerification";
 
     //用户注册
-    public static final String USER_REGISTER = "regedit";
+    public static final String USER_REGISTER = BASE_TEST_URL + "regedit";
 
     //获取用户信息
-    public static final String GET_USER_INFO = "getUserInfo";
+    public static final String GET_USER_INFO = BASE_TEST_URL + "getUserInfo";
 
     // 发布动态
-    public static final String SEND_CONTENT = "saveContent";
+    public static final String SEND_CONTENT = BASE_TEST_URL + "saveContent";
 
     //获取圈子列表
-    public static final String GET_LIST_CONTENT = "listContent";
+    public static final String GET_LIST_CONTENT = BASE_TEST_URL + "listContent";
 
     //获取视频列表
-    public static final String GET_VIDEO_LIST = "getVideos";
+    public static final String GET_VIDEO_LIST = BASE_TEST_URL + "getVideos";
 
     //获取相册列表
-    public static final String GET_ALUMLIST = "getAlbumList";
+    public static final String GET_ALUMLIST = BASE_TEST_URL + "getAlbumList";
 
     //获取文章列表
-    public static final String GET_ARTICLE_LIST = "getArticleList";
+    public static final String GET_ARTICLE_LIST = BASE_TEST_URL + "article/getArticleList";
 
     public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 

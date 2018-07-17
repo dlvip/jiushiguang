@@ -3,10 +3,16 @@ package com.old.time.fragments;
 import android.view.View;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.adapter.Call;
+import com.lzy.okgo.callback.Callback;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.base.Request;
 import com.old.time.R;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.HomeAdapter;
 import com.old.time.beans.ArticleBean;
+import com.old.time.constants.Constant;
+import com.old.time.okhttps.ObjCallBack;
 import com.old.time.views.banner.BannerLayout;
 
 import java.util.ArrayList;
@@ -22,9 +28,11 @@ public class HomeFragment extends CBaseFragment {
     private HomeAdapter mAdapter;
 
     private List<ArticleBean> articleBeans;
+    private String cacheKey;
 
     @Override
     protected void lazyLoad() {
+        cacheKey = HomeFragment.class.getName();
         super.lazyLoad();
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
@@ -48,7 +56,7 @@ public class HomeFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-
+        OkGo.post(Constant.GET_ARTICLE_LIST).cacheKey(cacheKey).execute(new ObjCallBack<List<ArticleBean>>());
 
     }
 }
