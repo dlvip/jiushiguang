@@ -9,13 +9,7 @@ import com.lzy.okgo.request.base.Request;
  * Created by wcl on 2018/7/17.
  */
 
-public abstract  class BaseCallback<T> implements Callback {
-
-    @Override
-    public Object convertResponse(okhttp3.Response response) throws Throwable {
-
-        return null;
-    }
+public abstract  class BaseCallback<T> implements Callback<T> {
 
     @Override
     public void onStart(Request request) {

@@ -3,16 +3,13 @@ package com.old.time.fragments;
 import android.view.View;
 
 import com.lzy.okgo.OkGo;
-import com.lzy.okgo.adapter.Call;
-import com.lzy.okgo.callback.Callback;
 import com.lzy.okgo.model.Response;
-import com.lzy.okgo.request.base.Request;
 import com.old.time.R;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.HomeAdapter;
 import com.old.time.beans.ArticleBean;
 import com.old.time.constants.Constant;
-import com.old.time.okhttps.ObjCallBack;
+import com.old.time.okhttps.JsonCallBack;
 import com.old.time.views.banner.BannerLayout;
 
 import java.util.ArrayList;
@@ -56,7 +53,18 @@ public class HomeFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        OkGo.post(Constant.GET_ARTICLE_LIST).cacheKey(cacheKey).execute(new ObjCallBack<List<ArticleBean>>());
+        OkGo.<List<ArticleBean>>post(Constant.GET_ARTICLE_LIST).cacheKey(cacheKey).execute(new JsonCallBack<List<ArticleBean>>() {
 
+            @Override
+            public void onSuccess(Response<List<ArticleBean>> response) {
+
+            }
+
+            @Override
+            public void onError(Response<List<ArticleBean>> response) {
+
+
+            }
+        });
     }
 }
