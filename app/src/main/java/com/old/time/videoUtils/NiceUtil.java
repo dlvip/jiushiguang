@@ -1,4 +1,4 @@
-package com.old.time.VideoUtils;
+package com.old.time.videoUtils;
 
 import android.app.Activity;
 import android.content.Context;

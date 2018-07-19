@@ -21,7 +21,22 @@ public class SpUtils {
      * 保存在手机里面的文件名
      */
     public static final String FILE_NAME = "123";
+    public static final String CONFIGFILE = "config";
     static Context context = MyApplication.getInstance();
+
+    public static void setInt(String key, int value) {
+        SharedPreferences sp = context.getSharedPreferences(CONFIGFILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putInt(key, value);
+        edit.commit();
+    }
+
+    public static int getInt(String key, int defValue) {
+        SharedPreferences sp = context.getSharedPreferences(CONFIGFILE, Context.MODE_PRIVATE);
+        int value = sp.getInt(key, defValue);
+        return value;
+    }
+
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -68,14 +83,19 @@ public class SpUtils {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
 
         if (defaultObject instanceof String) {
+
             return sp.getString(key, (String) defaultObject);
         } else if (defaultObject instanceof Integer) {
+
             return sp.getInt(key, (Integer) defaultObject);
         } else if (defaultObject instanceof Boolean) {
+
             return sp.getBoolean(key, (Boolean) defaultObject);
         } else if (defaultObject instanceof Float) {
+
             return sp.getFloat(key, (Float) defaultObject);
         } else if (defaultObject instanceof Long) {
+
             return sp.getLong(key, (Long) defaultObject);
         }
         return null;

@@ -3,13 +3,12 @@ package com.old.time.activitys;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.old.time.R;
-import com.old.time.VideoUtils.NiceVideoPlayer;
+import com.old.time.videoUtils.NiceVideoPlayer;
 import com.old.time.constants.Constant;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.views.WebViewFragment;

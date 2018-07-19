@@ -5,6 +5,7 @@ import android.view.View;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
 import com.old.time.R;
+import com.old.time.activitys.MusicActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.HomeAdapter;
 import com.old.time.beans.ArticleBean;
@@ -45,8 +46,8 @@ public class HomeFragment extends CBaseFragment {
         recycler_banner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                WebViewActivity.startWebViewActivity(mContext);
-
+//                WebViewActivity.startWebViewActivity(mContext);
+                MusicActivity.startMusicActivity(mContext);
             }
         });
     }

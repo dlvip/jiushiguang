@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="@color/main_bg">
 
-    <com.old.time.VideoUtils.NiceVideoPlayer
+    <com.old.time.videoUtils.NiceVideoPlayer
         android:id="@+id/nineImageView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_200" />

@@ -1,4 +1,4 @@
-package com.old.time.VideoUtils;
+package com.old.time.videoUtils;
 
 /**
  * Created by XiaoJianjun on 2017/5/5.

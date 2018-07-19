@@ -48,6 +48,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <!-- 定位配置开始 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -101,6 +102,7 @@
         <activity
             android:name=".activitys.VideoDetailActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden" />
+        <activity android:name=".activitys.MusicActivity"></activity>
     </application>
 
 </manifest>

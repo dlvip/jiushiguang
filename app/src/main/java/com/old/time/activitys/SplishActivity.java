@@ -95,6 +95,7 @@ public class SplishActivity extends BaseActivity {
     }
 
     private CountDownTimer countDownTimer = new CountDownTimer(3200, 1000) {
+
         @Override
         public void onTick(long millisUntilFinished) {
             relative_layout_next.setVisibility(View.VISIBLE);
