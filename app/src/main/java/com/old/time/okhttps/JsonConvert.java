@@ -61,10 +61,11 @@ public class JsonConvert<T> implements Converter<T> {
     @Override
     public T convertResponse(Response response) throws Throwable {
         if (type == null) {
+            // 如果没有通过构造函数传进来，就自动解析父类泛型的真实类型（有局限性，继承后就无法解析到）
             if (clazz == null) {
-                // 如果没有通过构造函数传进来，就自动解析父类泛型的真实类型（有局限性，继承后就无法解析到）
                 Type genType = getClass().getGenericSuperclass();
                 type = ((ParameterizedType) genType).getActualTypeArguments()[0];
+
             } else {
 
                 return parseClass(response, clazz);
@@ -72,10 +73,13 @@ public class JsonConvert<T> implements Converter<T> {
         }
 
         if (type instanceof ParameterizedType) {
+
             return parseParameterizedType(response, (ParameterizedType) type);
         } else if (type instanceof Class) {
+
             return parseClass(response, (Class<?>) type);
         } else {
+
             return parseType(response, type);
         }
     }

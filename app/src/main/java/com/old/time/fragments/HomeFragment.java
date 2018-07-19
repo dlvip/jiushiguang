@@ -11,6 +11,7 @@ import com.old.time.adapters.HomeAdapter;
 import com.old.time.beans.ArticleBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
+import com.old.time.utils.DebugLog;
 import com.old.time.views.banner.BannerLayout;
 
 import java.util.ArrayList;
@@ -54,15 +55,17 @@ public class HomeFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        OkGo.<List<ArticleBean>>post(Constant.GET_ARTICLE_LIST).cacheKey(cacheKey).execute(new JsonCallBack<List<ArticleBean>>() {
+        OkGo.<String>post(Constant.GET_ARTICLE_LIST).cacheKey(cacheKey).execute(new JsonCallBack<String>() {
 
             @Override
-            public void onSuccess(Response<List<ArticleBean>> response) {
+            public void onSuccess(Response<String> response) {
+                String bodyStr = response.body().toString();
+                DebugLog.e("response", bodyStr);
 
             }
 
             @Override
-            public void onError(Response<List<ArticleBean>> response) {
+            public void onError(Response<String> response) {
 
 
             }
