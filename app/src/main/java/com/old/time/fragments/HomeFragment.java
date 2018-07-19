@@ -9,8 +9,10 @@ import com.old.time.activitys.MusicActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.HomeAdapter;
 import com.old.time.beans.ArticleBean;
+import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.views.banner.BannerLayout;
 
@@ -55,17 +57,15 @@ public class HomeFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        OkGo.<String>post(Constant.GET_ARTICLE_LIST).cacheKey(cacheKey).execute(new JsonCallBack<String>() {
-
+        OkGoUtils.postNetForData(Constant.GET_ARTICLE_LIST, cacheKey, new OkGoUtils.JsonObjCallBack() {
             @Override
-            public void onSuccess(Response<String> response) {
-                String bodyStr = response.body().toString();
-                DebugLog.e("response", bodyStr);
+            public void onSuccess(ResultBean mResultBean) {
+
 
             }
 
             @Override
-            public void onError(Response<String> response) {
+            public void onError(ResultBean mResultBean) {
 
 
             }
