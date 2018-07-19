@@ -2,18 +2,13 @@ package com.old.time.fragments;
 
 import android.view.View;
 
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 import com.old.time.R;
 import com.old.time.activitys.MusicActivity;
-import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.HomeAdapter;
 import com.old.time.beans.ArticleBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
-import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
-import com.old.time.utils.DebugLog;
 import com.old.time.views.banner.BannerLayout;
 
 import java.util.ArrayList;
