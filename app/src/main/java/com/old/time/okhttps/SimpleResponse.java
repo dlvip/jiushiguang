@@ -15,6 +15,8 @@
  */
 package com.old.time.okhttps;
 
+import com.old.time.beans.ResultBean;
+
 import java.io.Serializable;
 
 /**
@@ -33,9 +35,9 @@ public class SimpleResponse implements Serializable {
     public int code;
     public String msg;
 
-    public LzyResponse toLzyResponse() {
-        LzyResponse lzyResponse = new LzyResponse();
-        lzyResponse.code = code;
+    public ResultBean toLzyResponse() {
+        ResultBean lzyResponse = new ResultBean();
+        lzyResponse.status = code;
         lzyResponse.msg = msg;
         return lzyResponse;
     }

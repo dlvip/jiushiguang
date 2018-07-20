@@ -9,6 +9,7 @@ import com.old.time.beans.ArticleBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.utils.UIHelper;
 import com.old.time.views.banner.BannerLayout;
 
 import java.util.ArrayList;
@@ -52,16 +53,30 @@ public class HomeFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        OkGoUtils.postNetForData(Constant.GET_ARTICLE_LIST, cacheKey, new OkGoUtils.JsonObjCallBack() {
+        OkGoUtils.postNetForData(Constant.GET_ARTICLE_LIST, cacheKey, new OkGoUtils.JsonObjCallBack<List<ArticleBean>>() {
+
             @Override
-            public void onSuccess(ResultBean mResultBean) {
+            public void onSuccess(ResultBean<List<ArticleBean>> mResultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (isRefresh) {
+                    articleBeans.clear();
+                    mAdapter.setNewData(articleBeans);
 
+                }
+                if (mResultBean.status == Constant.STATUS_FRIEND_00) {
+                    articleBeans.addAll(mResultBean.data);
+                    mAdapter.setNewData(articleBeans);
 
+                } else {
+                    UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+                }
             }
 
             @Override
-            public void onError(ResultBean mResultBean) {
-
+            public void onError(ResultBean<List<ArticleBean>> mResultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
 
             }
         });

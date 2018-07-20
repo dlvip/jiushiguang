@@ -17,6 +17,7 @@ package com.old.time.okhttps;
 
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.convert.Converter;
+import com.old.time.beans.ResultBean;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -127,33 +128,36 @@ public class JsonConvert<T> implements Converter<T> {
 
         Type rawType = type.getRawType();                     // 泛型的实际类型
         Type typeArgument = type.getActualTypeArguments()[0]; // 泛型的参数
-        if (rawType != LzyResponse.class) {
+        if (rawType != ResultBean.class) {
             // 泛型格式如下： new JsonCallback<外层BaseBean<内层JavaBean>>(this)
             T t = Convert.fromJson(jsonReader, type);
             response.close();
             return t;
         } else {
             if (typeArgument == Void.class) {
-                // 泛型格式如下： new JsonCallback<LzyResponse<Void>>(this)
+                // 泛型格式如下： new JsonCallback<ResultBean<Void>>(this)
                 SimpleResponse simpleResponse = Convert.fromJson(jsonReader, SimpleResponse.class);
                 response.close();
                 //noinspection unchecked
                 return (T) simpleResponse.toLzyResponse();
             } else {
-                // 泛型格式如下： new JsonCallback<LzyResponse<内层JavaBean>>(this)
-                LzyResponse lzyResponse = Convert.fromJson(jsonReader, type);
+                // 泛型格式如下： new JsonCallback<ResultBean<内层JavaBean>>(this)
+                ResultBean lzyResponse = Convert.fromJson(jsonReader, type);
                 response.close();
-                int code = lzyResponse.code;
+                int code = lzyResponse.status;
                 //这里的0是以下意思
                 //一般来说服务器会和客户端约定一个数表示成功，其余的表示失败，这里根据实际情况修改
                 if (code == 0) {
-                    //noinspection unchecked
+
                     return (T) lzyResponse;
                 } else if (code == 104) {
+
                     throw new IllegalStateException("用户授权信息无效");
                 } else if (code == 105) {
+
                     throw new IllegalStateException("用户收取信息已过期");
                 } else {
+
                     //直接将服务端的错误信息抛出，onError中可以获取
                     throw new IllegalStateException("错误代码：" + code + "，错误信息：" + lzyResponse.msg);
                 }

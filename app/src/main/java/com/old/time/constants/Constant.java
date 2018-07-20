@@ -66,6 +66,22 @@ public class Constant {
     public static String mHomeUrl = "http://yst.longbei.ren/html/yst/index.html";
 
     /**
+     * 请求code值
+     */
+    public static final int STATUS_FRIEND_00 = 0;
+    public static final int STATUS_FRIEND_08 = -8;//退出登录
+    public static final int STATUS_FRIEND_17 = -17;//敏感词
+    public static final int STATUS_FRIEND_90 = -90;
+    public static final int STATUS_FRIEND_910 = -910;
+    public static final int STATUS_SERVER_ERROR = 404;
+    public static final int STATUS_FRIEND_10 = -10;
+    public static final int STATUS_FRIEND_1003 = -1003;//需要强制更新
+    public static final int STATUS_FRIEND_2000 = -2000;//没有网络
+    public static final int STATUS_FRIEND_2001 = -2001;//网络超时
+    public static final int STATUS_FRIEND_1403 = -1403;//本部分考试结束
+    public static final int STATUS_FRIEND_1406 = -1406;//本题已经做过了
+
+    /**
      * 音乐配置开始
      **/
     //本地歌曲listview点击

@@ -1,11 +1,11 @@
 package com.old.time.okhttps;
 
-import android.text.TextUtils;
-
-import com.google.gson.Gson;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
+import com.old.time.beans.ArticleBean;
 import com.old.time.beans.ResultBean;
+
+import java.util.List;
 
 /**
  * Created by wcl on 2018/7/19.
@@ -13,39 +13,26 @@ import com.old.time.beans.ResultBean;
 
 public class OkGoUtils {
 
-    public static void postNetForData(String postUrl, String cacheKey, final JsonObjCallBack jsonObjCallBack) {
-        OkGo.<String>post(postUrl).cacheKey(cacheKey).execute(new JsonCallBack<String>() {
+    public static <T> void postNetForData(String postUrl, String cacheKey, final JsonObjCallBack<T> jsonObjCallBack) {
+        OkGo.<ResultBean<List<ArticleBean>>>post(postUrl).cacheKey(cacheKey).execute(new JsonCallBack<ResultBean<List<ArticleBean>>>() {
 
             @Override
-            public void onSuccess(Response<String> response) {
+            public void onSuccess(Response<ResultBean<List<ArticleBean>>> response) {
+                if (response == null) {
+                    jsonObjCallBack.onError(new ResultBean(-1, "网络异常"));
 
-                String bodyStr = response.body().toString();
-                if (TextUtils.isEmpty(bodyStr)) {
-                    ResultBean<String> resultBean = new ResultBean<>();
-                    resultBean.status = -1;
-                    resultBean.msg = "网络错误";
-                    resultBean.data = "";
-                    jsonObjCallBack.onSuccess(resultBean);
-
-                    return;
                 }
-                jsonObjCallBack.onSuccess(new Gson().fromJson(bodyStr, ResultBean.class));
+                jsonObjCallBack.onSuccess((ResultBean) response.body());
 
             }
 
             @Override
-            public void onError(Response<String> response) {
-                String bodyStr = response.body().toString();
-                if (TextUtils.isEmpty(bodyStr)) {
-                    ResultBean<String> resultBean = new ResultBean<>();
-                    resultBean.status = -1;
-                    resultBean.msg = "网络错误";
-                    resultBean.data = "";
-                    jsonObjCallBack.onSuccess(resultBean);
+            public void onError(Response<ResultBean<List<ArticleBean>>> response) {
+                if (response == null) {
+                    jsonObjCallBack.onError(new ResultBean(-1, "网络异常"));
 
-                    return;
                 }
-                jsonObjCallBack.onSuccess(new Gson().fromJson(bodyStr, ResultBean.class));
+                jsonObjCallBack.onError((ResultBean) response.body());
 
             }
         });
