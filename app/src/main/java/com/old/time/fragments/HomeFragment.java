@@ -1,14 +1,21 @@
 package com.old.time.fragments;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.old.time.R;
-import com.old.time.activitys.MusicActivity;
+import com.old.time.activitys.WebViewActivity;
+import com.old.time.adapters.HCourseAdapter;
+import com.old.time.adapters.HMusicAdapter;
 import com.old.time.adapters.HomeAdapter;
+import com.old.time.adapters.IconTabAdapter;
 import com.old.time.beans.ArticleBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.utils.MyGridLayoutManager;
+import com.old.time.utils.MyLinearLayoutManager;
+import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.banner.BannerLayout;
 
@@ -26,14 +33,45 @@ public class HomeFragment extends CBaseFragment {
 
     private List<ArticleBean> articleBeans;
     private String cacheKey;
+    private RecyclerView recycler_icons;
+    private IconTabAdapter adapter;
+
+    private RecyclerView recycler_course;
+    private HCourseAdapter hCourseAdapter;
+
+    private RecyclerView recycler_music;
+    private HMusicAdapter hMusicAdapter;
 
     @Override
     protected void lazyLoad() {
         cacheKey = HomeFragment.class.getName();
         super.lazyLoad();
+        strings.clear();
+        for (int i = 0; i < 5; i++) {
+            strings.add(Constant.PHOTO_PIC_URL);
+
+        }
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
         recycler_banner.initBannerImageView(strings);
+
+        recycler_icons = headerView.findViewById(R.id.recycler_icons);
+        recycler_icons.setLayoutManager(new MyGridLayoutManager(mContext, 5));
+        adapter = new IconTabAdapter(strings);
+        recycler_icons.setAdapter(adapter);
+
+        //精品课堂
+        recycler_course = headerView.findViewById(R.id.recycler_course);
+        recycler_course.setLayoutManager(new MyLinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
+        recycler_course.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10, R.color.color_fff));
+        hCourseAdapter = new HCourseAdapter(strings);
+        recycler_course.setAdapter(hCourseAdapter);
+
+        //名师优讲
+        recycler_music = headerView.findViewById(R.id.recycler_music);
+        recycler_music.setLayoutManager(new MyLinearLayoutManager(mContext));
+        hMusicAdapter = new HMusicAdapter(strings);
+        recycler_music.setAdapter(hMusicAdapter);
 
         articleBeans = new ArrayList<>();
         mAdapter = new HomeAdapter(articleBeans);
@@ -45,8 +83,8 @@ public class HomeFragment extends CBaseFragment {
         recycler_banner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
             @Override
             public void onItemClick(int position) {
-//                WebViewActivity.startWebViewActivity(mContext);
-                MusicActivity.startMusicActivity(mContext);
+                WebViewActivity.startWebViewActivity(mContext);
+
             }
         });
     }

@@ -216,9 +216,9 @@ public class GlideUtils {
      * @param imageView
      * @param radius    角度
      */
-    public void setRadiusImageView(Context context, String url, ImageView imageView, int resId, int radius) {
+    public void setRadiusImageView(Context context, String url, ImageView imageView, int radius) {
         if (TextUtils.isEmpty(url)) {
-            setImageView(context, imageView, resId);
+            setImageView(context, imageView, R.color.color_666);
 
             return;
         }
@@ -233,7 +233,7 @@ public class GlideUtils {
             return;
         }
         manager.load(url)// 加载图片资源
-                .apply(new RequestOptions().placeholder(resId).transform(new GlideRoundTransform(radius)))//
+                .apply(new RequestOptions().transform(new GlideRoundTransform(radius)))//
                 .transition(DrawableTransitionOptions.withCrossFade())//
                 .into(imageView);
 

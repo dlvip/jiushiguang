@@ -12,135 +12,57 @@
         android:layout_height="200dp"
         app:showIndicator="false" />
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_icons"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_90"
-        android:layout_marginTop="@dimen/layout_10"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/layout_10">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/layout_45"
-                android:layout_height="@dimen/layout_45"
-                android:src="@mipmap/head_circle" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_15"
-                android:text="视频教育"
-                android:textColor="@color/color_999"
-                android:textSize="@dimen/text_13" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/layout_45"
-                android:layout_height="@dimen/layout_45"
-                android:src="@mipmap/head_circle" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_15"
-                android:text="视频教育"
-                android:textColor="@color/color_999"
-                android:textSize="@dimen/text_13" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/layout_45"
-                android:layout_height="@dimen/layout_45"
-                android:src="@mipmap/head_circle" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_15"
-                android:text="视频教育"
-                android:textColor="@color/color_999"
-                android:textSize="@dimen/text_13" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/layout_45"
-                android:layout_height="@dimen/layout_45"
-                android:src="@mipmap/head_circle" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_15"
-                android:text="视频教育"
-                android:textColor="@color/color_999"
-                android:textSize="@dimen/text_13" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/layout_45"
-                android:layout_height="@dimen/layout_45"
-                android:src="@mipmap/head_circle" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/layout_15"
-                android:text="视频教育"
-                android:textColor="@color/color_999"
-                android:textSize="@dimen/text_13" />
-
-
-        </LinearLayout>
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/layout_15"
+        android:paddingTop="@dimen/layout_15" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_10"
         android:background="@color/line_bg" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/layout_15"
+        android:text="精品课堂"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_18" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginTop="@dimen/layout_10"
+        android:background="@color/main_bg" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/layout_15"
+        android:text="名师优讲"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_18" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_music"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginTop="@dimen/layout_10"
+        android:background="@color/main_bg" />
 
     <TextView
         android:layout_width="match_parent"

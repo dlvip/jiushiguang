@@ -7,7 +7,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.activitys.DynamicActivity;
-import com.old.time.activitys.LocationMapActivity;
 import com.old.time.activitys.VideoDetailActivity;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.RecyclerItemDecoration;
@@ -54,6 +53,7 @@ public class FindFragment extends CBaseFragment {
     @Override
     public void getDataFromNet(boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
+
 
     }
 }

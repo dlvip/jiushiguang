@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_fff"
+    android:padding="@dimen/layout_10">
+
+    <ImageView
+        android:id="@+id/img_book_pic"
+        android:layout_width="@dimen/layout_65"
+        android:layout_height="90dp"
+        android:layout_marginRight="@dimen/layout_10" />
+
+    <TextView
+        android:id="@+id/tv_book_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/img_book_pic"
+        android:lineSpacingExtra="@dimen/layout_3"
+        android:maxLines="2"
+        android:minLines="2"
+        android:text="@string/title"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_book_name"
+        android:layout_toRightOf="@+id/img_book_pic"
+        android:text="@string/book_name"
+        android:textColor="@color/color_666"
+        android:textSize="@dimen/text_14" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_book_pic"
+        android:layout_marginTop="@dimen/layout_10"
+        android:layout_toRightOf="@+id/img_book_pic"
+        android:text="6.9小时 | 31讲"
+        android:textColor="@color/color_666"
+        android:textSize="@dimen/text_14" />
+
+    <TextView
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_book_pic"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="@dimen/layout_5"
+        android:layout_marginTop="@dimen/layout_10"
+        android:background="@drawable/shape_gary_f5"
+        android:padding="@dimen/layout_3"
+        android:text="限时免费"
+        android:textColor="@color/color_666"
+        android:textSize="@dimen/text_14" />
+
+
+</RelativeLayout>

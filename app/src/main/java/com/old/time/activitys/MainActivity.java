@@ -87,11 +87,12 @@ public class MainActivity extends BaseActivity {
 
                 }
                 switchConent(mHomeFragment);
+
                 break;
             case 1:
                 if (mFindFragment == null) {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    mFindFragment = new VideoListFragment();
+                    mFindFragment = new FindFragment();
                     fragmentTransaction.add(R.id.fl_content, mFindFragment);
                     fragmentTransaction.commit();
 
@@ -145,7 +146,7 @@ public class MainActivity extends BaseActivity {
 
     private HomeFragment mHomeFragment;
     private MineFragment mMineFragment;
-    private VideoListFragment mFindFragment;
+    private FindFragment mFindFragment;
     private FragmentTransaction fragmentTransaction;
 
     /**
@@ -170,12 +171,6 @@ public class MainActivity extends BaseActivity {
 
         fragmentTransaction.show(fragment);
         fragmentTransaction.commitAllowingStateLoss();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        ActivityUtils.clearLoginList();
     }
 
     @Override

@@ -51,7 +51,7 @@ public class Constant {
     public static final String GET_LIST_CONTENT = BASE_TEST_URL + "listContent";
 
     //获取视频列表
-    public static final String GET_VIDEO_LIST = BASE_TEST_URL + "getVideos";
+    public static final String GET_VIDEO_LIST = BASE_TEST_URL + "video/getVideos";
 
     //获取相册列表
     public static final String GET_ALUMLIST = BASE_TEST_URL + "getAlbumList";

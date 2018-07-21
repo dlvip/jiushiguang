@@ -10,7 +10,7 @@
       android:bottomLeftRadius 整型 左下角半径
       android:bottomRightRadius 整型 右下角半径
      -->
-    <corners android:radius="3dp"/>
+    <corners android:radius="3dp" />
 
     <!--
        渐变色
@@ -54,16 +54,14 @@
     -->
 
     <!--<size-->
-        <!--android:width="100%p"-->
-        <!--/>-->
+    <!--android:width="100%p"-->
+    <!--/>-->
 
     <!--
         内部填充
         android:color 颜色值 填充颜色
     -->
-    <solid
-    android:color="@color/color_3f5"
-    />
+    <solid android:color="@color/color_3f5" />
 
     <!--
         描边

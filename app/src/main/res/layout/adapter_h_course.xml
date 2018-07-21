@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="240dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_solid_fff_stroke_linebg">
+
+    <ImageView
+        android:id="@+id/img_course_pic"
+        android:layout_width="@dimen/layout_0"
+        android:layout_height="@dimen/layout_0"
+        android:background="@color/color_999"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="5:3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_course_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_10"
+        android:ellipsize="end"
+        android:maxLength="25"
+        android:padding="@dimen/layout_3"
+        android:text="@string/title_detail"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintTop_toBottomOf="@+id/img_course_pic" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        app:layout_constraintTop_toBottomOf="@+id/tv_course_title">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="限时免费"
+            android:textColor="@color/color_ff9441"
+            android:textSize="@dimen/text_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:text="立即学习"
+            android:textColor="@color/color_ff9441"
+            android:textSize="@dimen/text_14" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

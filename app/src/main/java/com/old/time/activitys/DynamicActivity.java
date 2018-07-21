@@ -42,11 +42,11 @@ public class DynamicActivity extends SBaseActivity {
      * @param userId
      */
     public static void startDynamicActivity(Activity mContext, String userId) {
-//        if (!UserLocalInfoUtils.instance().isUserLogin()) {
-//            UserLoginActivity.startUserLoginActivity(mContext);
-//
-//            return;
-//        }
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UserLoginActivity.startUserLoginActivity(mContext);
+
+            return;
+        }
         if (TextUtils.isEmpty(userId)) {
             userId = UserLocalInfoUtils.instance().getUserId();
 
@@ -106,30 +106,7 @@ public class DynamicActivity extends SBaseActivity {
     @Override
     public void getDataFromNet(final boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
-//        MapParams params = new MapParams();
-//        params.putParams("userid", userid);
-//        params.putParams("current_userid", UserLocalInfoUtils.instance().getUserId());
-//        Http.getHttpService().getListContent(Constant.GET_LIST_CONTENT, params.getParamString())
-//                .compose(new CommonTransformer<List<DynamicBean>>())
-//                .subscribe(new CommonSubscriber<List<DynamicBean>>(mContext) {
-//            @Override
-//            public void onNext(List<DynamicBean> dynamicBeans) {
-//                mSwipeRefreshLayout.setRefreshing(false);
-//                if (isRefresh) {
-//                    mDynamicBeans.clear();
-//                    mAdapter.setNewData(mDynamicBeans);
-//
-//                }
-//                mAdapter.addData(dynamicBeans);
-//            }
-//
-//            @Override
-//            protected void onError(ApiException e) {
-//                super.onError(e);
-//                mSwipeRefreshLayout.setRefreshing(false);
-//
-//            }
-//        });
+
     }
 
     private int W, H;
@@ -190,10 +167,6 @@ public class DynamicActivity extends SBaseActivity {
 
                     return;
                 }
-//                Gson gson = new Gson();
-//                String ssonStr = gson.toJson(mPhotoInfoBeans);
-//                sendCircleContent(conStr, ssonStr);
-
             }
         });
     }
@@ -204,28 +177,6 @@ public class DynamicActivity extends SBaseActivity {
      */
     private void sendCircleContent(String content, String mPhotoInfoBeanStr) {
 
-//        MapParams params = new MapParams();
-//        params.putParams("userid", UserLocalInfoUtils.instance().getUserId());
-//        if (!TextUtils.isEmpty(content)) {
-//            params.putParams("content", content);
-//
-//        }
-//        if (!TextUtils.isEmpty(mPhotoInfoBeanStr)) {
-//            params.putParams("conetentimages", mPhotoInfoBeanStr);
-//
-//        }
-//        Http.getHttpService().sendContent(Constant.SEND_CONTENT, params.getParamString()).compose(new CommonTransformer<String>()).subscribe(new CommonSubscriber<String>(mContext) {
-//            @Override
-//            public void onNext(String string) {
-//
-//            }
-//
-//            @Override
-//            protected void onError(ApiException e) {
-//                super.onError(e);
-//
-//            }
-//        });
     }
 
     @Override

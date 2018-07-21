@@ -23,6 +23,7 @@
     <dimen name="layout_48">48dp</dimen>
     <dimen name="layout_50">50dp</dimen>
     <dimen name="layout_60">60dp</dimen>
+    <dimen name="layout_65">65dp</dimen>
     <dimen name="layout_70">70dp</dimen>
     <dimen name="layout_80">80dp</dimen>
     <dimen name="layout_88">88dp</dimen>
