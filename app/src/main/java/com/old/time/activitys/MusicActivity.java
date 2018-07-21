@@ -20,8 +20,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.old.time.R;
 import com.old.time.constants.Constant;
@@ -32,6 +30,7 @@ import com.old.time.mp3Utils.MusicService;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.SpUtils;
+import com.old.time.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,7 +162,7 @@ public class MusicActivity extends BaseActivity {
                 }
             });
         } else {
-            Toast.makeText(this, "当前没有音乐，记得去下载再来。", Toast.LENGTH_LONG).show();
+            UIHelper.ToastMessage(mContext, "当前没有音乐，记得去下载再来。");
 
         }
     }
