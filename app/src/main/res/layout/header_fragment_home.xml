@@ -10,7 +10,8 @@
         android:id="@+id/recycler_banner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:showIndicator="false" />
+        app:indicatorGravity="center"
+        app:showIndicator="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_icons"
