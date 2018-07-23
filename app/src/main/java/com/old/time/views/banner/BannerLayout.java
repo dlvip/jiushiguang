@@ -1,5 +1,6 @@
 package com.old.time.views.banner;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -15,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -24,9 +26,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.old.time.R;
+import com.old.time.activitys.WebViewActivity;
+import com.old.time.beans.BannerBean;
 import com.old.time.views.banner.adapter.MzBannerAdapter;
 import com.old.time.views.banner.layoutmanager.BannerLayoutManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BannerLayout extends FrameLayout {
@@ -81,8 +86,11 @@ public class BannerLayout extends FrameLayout {
         initView(context, attrs);
     }
 
+    private Activity mContext;
+
     protected void initView(Context context, AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RecyclerViewBannerBase);
+        this.mContext = (Activity) context;
+        TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.RecyclerViewBannerBase);
         showIndicator = a.getBoolean(R.styleable.RecyclerViewBannerBase_showIndicator, true);
         autoPlayDuration = a.getInt(R.styleable.RecyclerViewBannerBase_interval, 4000);
         isAutoPlaying = a.getBoolean(R.styleable.RecyclerViewBannerBase_autoPlaying, true);
@@ -108,9 +116,9 @@ public class BannerLayout extends FrameLayout {
         }
 
         indicatorMargin = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorSpace, dp2px(4));
-        int marginLeft = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorMarginLeft, dp2px(16));
+        int marginLeft = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorMarginLeft, dp2px(0));
         int marginRight = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorMarginRight, dp2px(0));
-        int marginBottom = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorMarginBottom, dp2px(11));
+        int marginBottom = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorMarginBottom, dp2px(20));
         int g = a.getInt(R.styleable.RecyclerViewBannerBase_indicatorGravity, 0);
         int gravity;
         if (g == 0) {
@@ -196,22 +204,37 @@ public class BannerLayout extends FrameLayout {
         }
     }
 
+    private OnBannerItemClickListener onBannerItemClickListener;
+
     public void setOnBannerItemClickListener(OnBannerItemClickListener onBannerItemClickListener) {
-        if (mMzBannerAdapter != null) {
-            mMzBannerAdapter.setOnBannerItemClickListener(onBannerItemClickListener);
-        }
+        this.onBannerItemClickListener = onBannerItemClickListener;
+
     }
+
+    private List<BannerBean> bannerBeans = new ArrayList();
 
     /**
      * 设置轮播数据集
      */
-    public void initBannerImageView(final List<String> list) {
-        mMzBannerAdapter = new MzBannerAdapter(getContext(), list);
+    public void initBannerImageView(final List<BannerBean> list) {
+        if (list == null || list.size() == 0) {
+
+            return;
+        }
+        bannerBeans.clear();
+        bannerBeans.addAll(list);
+        bannerSize = bannerBeans.size();
+        if (mMzBannerAdapter != null) {
+
+            mMzBannerAdapter.notifyDataSetChanged();
+
+            return;
+        }
+        mMzBannerAdapter = new MzBannerAdapter(getContext(), bannerBeans);
         mRecyclerView.setAdapter(mMzBannerAdapter);
         currentIndex = 10000;
         mRecyclerView.scrollToPosition(currentIndex);
         hasInit = true;
-        bannerSize = list.size();
         setPlaying(true);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -227,6 +250,19 @@ public class BannerLayout extends FrameLayout {
                     currentIndex = first;
 
                 }
+                refreshIndicator();
+            }
+        });
+        mMzBannerAdapter.setOnBannerItemClickListener(new OnBannerItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String detailUrl = bannerBeans.get(position).getDetailUrl();
+                if (TextUtils.isEmpty(detailUrl)) {
+
+                    return;
+                }
+                WebViewActivity.startWebViewActivity(mContext, detailUrl);
+
             }
         });
     }
@@ -288,7 +324,8 @@ public class BannerLayout extends FrameLayout {
             lp.setMargins(indicatorMargin, indicatorMargin, indicatorMargin, indicatorMargin);
             bannerPoint.setScaleType(ImageView.ScaleType.CENTER_CROP);
             bannerPoint.setLayoutParams(lp);
-            return new RecyclerView.ViewHolder(bannerPoint) {};
+            return new RecyclerView.ViewHolder(bannerPoint) {
+            };
         }
 
         @Override
@@ -319,15 +356,15 @@ public class BannerLayout extends FrameLayout {
      * 改变导航的指示点
      */
     protected synchronized void refreshIndicator() {
-        if (showIndicator && bannerSize > 1) {
+        if (indicatorAdapter != null && showIndicator && bannerSize > 1) {
             indicatorAdapter.setPosition(currentIndex % bannerSize);
             indicatorAdapter.notifyDataSetChanged();
+
         }
     }
 
     public interface OnBannerItemClickListener {
         void onItemClick(int position);
+
     }
-
-
 }

@@ -53,6 +53,9 @@ public class Constant {
     //获取视频列表
     public static final String GET_VIDEO_LIST = BASE_TEST_URL + "video/getVideos";
 
+    //获取轮播图列表
+    public static final String GET_HOME_BANNERS = BASE_TEST_URL + "banner/getBanners";
+
     //获取相册列表
     public static final String GET_ALUMLIST = BASE_TEST_URL + "getAlbumList";
 

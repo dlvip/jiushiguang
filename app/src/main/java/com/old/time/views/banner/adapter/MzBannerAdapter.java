@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.old.time.R;
+import com.old.time.beans.BannerBean;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.views.banner.BannerLayout;
 
@@ -21,10 +22,10 @@ import java.util.List;
 public class MzBannerAdapter extends RecyclerView.Adapter<MzBannerAdapter.MzViewHolder> {
 
     private Context context;
-    private List<String> urlList;
+    private List<BannerBean> urlList;
     private BannerLayout.OnBannerItemClickListener onBannerItemClickListener;
 
-    public MzBannerAdapter(Context context, List<String> urlList) {
+    public MzBannerAdapter(Context context, List<BannerBean> urlList) {
         this.context = context;
         this.urlList = urlList;
     }
@@ -42,14 +43,15 @@ public class MzBannerAdapter extends RecyclerView.Adapter<MzBannerAdapter.MzView
     public void onBindViewHolder(MzBannerAdapter.MzViewHolder holder, final int position) {
         if (urlList == null || urlList.isEmpty()) return;
         final int P = position % urlList.size();
-        String url = urlList.get(P);
+        BannerBean url = urlList.get(P);
         ImageView img = holder.imageView;
-        GlideUtils.getInstance().setImageView(context, url, img);
+        GlideUtils.getInstance().setImageView(context, url.getPicUrl(), img);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onBannerItemClickListener != null) {
                     onBannerItemClickListener.onItemClick(P);
+
                 }
             }
         });

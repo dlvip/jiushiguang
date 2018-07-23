@@ -3,6 +3,8 @@ package com.old.time.fragments;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.model.Response;
 import com.old.time.R;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.HCourseAdapter;
@@ -10,8 +12,10 @@ import com.old.time.adapters.HMusicAdapter;
 import com.old.time.adapters.HomeAdapter;
 import com.old.time.adapters.IconTabAdapter;
 import com.old.time.beans.ArticleBean;
+import com.old.time.beans.BannerBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
@@ -29,6 +33,7 @@ import java.util.List;
 public class HomeFragment extends CBaseFragment {
 
     private BannerLayout recycler_banner;
+
     private HomeAdapter mAdapter;
 
     private List<ArticleBean> articleBeans;
@@ -53,7 +58,6 @@ public class HomeFragment extends CBaseFragment {
         }
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
-        recycler_banner.initBannerImageView(strings);
 
         recycler_icons = headerView.findViewById(R.id.recycler_icons);
         recycler_icons.setLayoutManager(new MyGridLayoutManager(mContext, 5));
@@ -80,17 +84,21 @@ public class HomeFragment extends CBaseFragment {
         mAdapter.addHeaderView(headerView);
         mAdapter.setHeaderAndEmpty(true);
 
-        recycler_banner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                WebViewActivity.startWebViewActivity(mContext);
-
-            }
-        });
     }
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
+        getHomeBanners();
+        getHomeArticles(isRefresh);
+
+    }
+
+    /**
+     * 获取文章列表
+     *
+     * @param isRefresh
+     */
+    private void getHomeArticles(final boolean isRefresh) {
         OkGoUtils.postNetForData(Constant.GET_ARTICLE_LIST, cacheKey, new OkGoUtils.JsonObjCallBack<List<ArticleBean>>() {
 
             @Override
@@ -118,5 +126,43 @@ public class HomeFragment extends CBaseFragment {
 
             }
         });
+    }
+
+    /**
+     * 获取轮播图列表
+     */
+    private void getHomeBanners() {
+        OkGo.<ResultBean<List<BannerBean>>>post(Constant.GET_HOME_BANNERS)//
+                .cacheKey(Constant.GET_HOME_BANNERS)//
+                .execute(new JsonCallBack<ResultBean<List<BannerBean>>>() {
+                    @Override
+                    public void onSuccess(Response<ResultBean<List<BannerBean>>> response) {
+                        if (response == null || response.body() == null) {
+
+                            return;
+                        }
+                        ResultBean<List<BannerBean>> resultBean = response.body();
+                        if (resultBean == null || resultBean.data == null) {
+
+                            return;
+                        }
+                        recycler_banner.initBannerImageView(resultBean.data);
+
+                    }
+
+                    @Override
+                    public void onError(Response<ResultBean<List<BannerBean>>> response) {
+                        if (response == null || response.body() == null) {
+
+                            return;
+                        }
+                        ResultBean<List<BannerBean>> resultBean = response.body();
+                        if (resultBean == null) {
+
+                            return;
+                        }
+                        UIHelper.ToastMessage(mContext, resultBean.msg);
+                    }
+                });
     }
 }
