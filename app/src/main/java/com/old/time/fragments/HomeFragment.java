@@ -3,6 +3,7 @@ package com.old.time.fragments;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.lzy.okgo.model.Response;
 import com.old.time.R;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
@@ -12,6 +13,7 @@ import com.old.time.beans.ArticleBean;
 import com.old.time.beans.BannerBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
@@ -95,7 +97,8 @@ public class HomeFragment extends CBaseFragment {
      * @param isRefresh
      */
     private void getHomeArticles(final boolean isRefresh) {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_ARTICLE_LIST, cacheKey, new OkGoUtils.JsonObjCallBack<ResultBean<List<ArticleBean>>>() {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_ARTICLE_LIST, cacheKey, new JsonCallBack<ResultBean<List<ArticleBean>>>() {
+
             @Override
             public void onSuccess(ResultBean<List<ArticleBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -127,7 +130,7 @@ public class HomeFragment extends CBaseFragment {
      * 获取轮播图列表
      */
     private void getHomeBanners() {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_HOME_BANNERS, new OkGoUtils.JsonObjCallBack<ResultBean<List<BannerBean>>>() {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_HOME_BANNERS, new JsonCallBack<ResultBean<List<BannerBean>>>() {
 
             @Override
             public void onSuccess(ResultBean<List<BannerBean>> resultBean) {

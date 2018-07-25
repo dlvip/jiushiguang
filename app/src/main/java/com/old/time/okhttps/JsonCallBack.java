@@ -1,5 +1,8 @@
 package com.old.time.okhttps;
 
+import com.lzy.okgo.model.Response;
+import com.old.time.beans.ResultBean;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -21,4 +24,30 @@ public abstract class JsonCallBack<T> extends BaseCallback<T> {
 
         return convert.convertResponse(response);
     }
+
+    @Override
+    public void onSuccess(Response<T> response) {
+        if (response == null || response.body() == null) {
+            onError((T) new ResultBean(-1, "网络异常"));
+
+        } else {
+            onSuccess(response.body());
+
+        }
+    }
+
+    @Override
+    public void onError(Response<T> response) {
+        if (response == null || response.body() == null) {
+            onError((T) new ResultBean(-1, "网络异常"));
+
+        } else {
+            onError(response.body());
+
+        }
+    }
+
+    public abstract void onSuccess(T mResultBean);
+
+    public abstract void onError(T mResultBean);
 }

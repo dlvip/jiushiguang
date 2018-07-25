@@ -91,7 +91,7 @@ public class VideoListFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_VIDEO_LIST, new OkGoUtils.JsonObjCallBack<ResultBean<List<VideoBean>>>() {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_VIDEO_LIST, new JsonCallBack<ResultBean<List<VideoBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<VideoBean>> resultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
