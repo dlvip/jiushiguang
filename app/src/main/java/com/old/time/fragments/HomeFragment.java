@@ -3,10 +3,7 @@ package com.old.time.fragments;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.model.Response;
 import com.old.time.R;
-import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
 import com.old.time.adapters.HomeAdapter;
@@ -15,7 +12,6 @@ import com.old.time.beans.ArticleBean;
 import com.old.time.beans.BannerBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
-import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
@@ -99,8 +95,7 @@ public class HomeFragment extends CBaseFragment {
      * @param isRefresh
      */
     private void getHomeArticles(final boolean isRefresh) {
-        OkGoUtils.postNetForData(Constant.GET_ARTICLE_LIST, cacheKey, new OkGoUtils.JsonObjCallBack<List<ArticleBean>>() {
-
+        OkGoUtils.getInstance().postNetForData(Constant.GET_ARTICLE_LIST, cacheKey, new OkGoUtils.JsonObjCallBack<ResultBean<List<ArticleBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<ArticleBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -132,37 +127,26 @@ public class HomeFragment extends CBaseFragment {
      * 获取轮播图列表
      */
     private void getHomeBanners() {
-        OkGo.<ResultBean<List<BannerBean>>>post(Constant.GET_HOME_BANNERS)//
-                .cacheKey(Constant.GET_HOME_BANNERS)//
-                .execute(new JsonCallBack<ResultBean<List<BannerBean>>>() {
-                    @Override
-                    public void onSuccess(Response<ResultBean<List<BannerBean>>> response) {
-                        if (response == null || response.body() == null) {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_HOME_BANNERS, new OkGoUtils.JsonObjCallBack<ResultBean<List<BannerBean>>>() {
 
-                            return;
-                        }
-                        ResultBean<List<BannerBean>> resultBean = response.body();
-                        if (resultBean == null || resultBean.data == null) {
+            @Override
+            public void onSuccess(ResultBean<List<BannerBean>> resultBean) {
+                if (resultBean == null || resultBean.data == null) {
 
-                            return;
-                        }
-                        recycler_banner.initBannerImageView(resultBean.data);
+                    return;
+                }
+                recycler_banner.initBannerImageView(resultBean.data);
 
-                    }
+            }
 
-                    @Override
-                    public void onError(Response<ResultBean<List<BannerBean>>> response) {
-                        if (response == null || response.body() == null) {
+            @Override
+            public void onError(ResultBean<List<BannerBean>> resultBean) {
+                if (resultBean == null) {
 
-                            return;
-                        }
-                        ResultBean<List<BannerBean>> resultBean = response.body();
-                        if (resultBean == null) {
-
-                            return;
-                        }
-                        UIHelper.ToastMessage(mContext, resultBean.msg);
-                    }
-                });
+                    return;
+                }
+                UIHelper.ToastMessage(mContext, resultBean.msg);
+            }
+        });
     }
 }

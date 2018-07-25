@@ -10,6 +10,7 @@ import com.old.time.R;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.videoUtils.NiceVideoPlayer;
 import com.old.time.videoUtils.NiceVideoPlayerManager;
 import com.old.time.beans.VideoBean;
@@ -90,52 +91,40 @@ public class VideoListFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        OkGo.<ResultBean<List<VideoBean>>>post(Constant.GET_VIDEO_LIST)//
-                .execute(new JsonCallBack<ResultBean<List<VideoBean>>>() {
-                    @Override
-                    public void onSuccess(Response<ResultBean<List<VideoBean>>> response) {
-                        mSwipeRefreshLayout.setRefreshing(false);
-                        if (response == null || response.body() == null) {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_VIDEO_LIST, new OkGoUtils.JsonObjCallBack<ResultBean<List<VideoBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<VideoBean>> resultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (resultBean == null) {
 
-                            return;
-                        }
-                        ResultBean<List<VideoBean>> resultBean = response.body();
-                        if (resultBean == null) {
+                    return;
+                }
+                if (isRefresh) {
+                    videoBeans.clear();
+                    mAdapter.setNewData(videoBeans);
 
-                            return;
-                        }
-                        if (isRefresh) {
-                            videoBeans.clear();
-                            mAdapter.setNewData(videoBeans);
+                }
 
-                        }
+                if (resultBean.status == Constant.STATUS_FRIEND_00) {
+                    videoBeans.addAll(resultBean.data);
+                    mAdapter.setNewData(videoBeans);
 
-                        if (resultBean.status == Constant.STATUS_FRIEND_00) {
-                            videoBeans.addAll(resultBean.data);
-                            mAdapter.setNewData(videoBeans);
+                } else {
+                    UIHelper.ToastMessage(mContext, resultBean.msg);
 
-                        } else {
-                            UIHelper.ToastMessage(mContext, resultBean.msg);
+                }
+            }
 
-                        }
+            @Override
+            public void onError(ResultBean<List<VideoBean>> resultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (resultBean == null) {
 
-                    }
-
-                    @Override
-                    public void onError(Response<ResultBean<List<VideoBean>>> response) {
-                        mSwipeRefreshLayout.setRefreshing(false);
-                        if (response == null || response.body() == null) {
-
-                            return;
-                        }
-                        ResultBean<List<VideoBean>> resultBean = response.body();
-                        if (resultBean == null) {
-
-                            return;
-                        }
-                        UIHelper.ToastMessage(mContext, resultBean.msg);
-                    }
-                });
+                    return;
+                }
+                UIHelper.ToastMessage(mContext, resultBean.msg);
+            }
+        });
     }
 
     @Override

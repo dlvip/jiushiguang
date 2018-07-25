@@ -18,6 +18,7 @@ public abstract class JsonCallBack<T> extends BaseCallback<T> {
         }
         Type type = ((ParameterizedType) genType).getActualTypeArguments()[0];
         JsonConvert<T> convert = new JsonConvert<>(type);
+
         return convert.convertResponse(response);
     }
 }
