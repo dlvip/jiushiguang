@@ -3,6 +3,7 @@ package com.old.time.activitys;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -10,10 +11,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.Parcelable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.graphics.Palette;
 import android.view.View;
@@ -63,7 +66,6 @@ public class MusicActivity extends BaseActivity {
     private RemoteViews remoteViews;
     private PendingIntent pending_intent_play;
     private NotificationManager mNotificationManager;
-    private NotificationCompat.Builder mBuilder;
     private Mp3Info mMp3Info;
 
     private Handler handler = new Handler() {
@@ -101,14 +103,15 @@ public class MusicActivity extends BaseActivity {
         mPlayMode = findViewById(R.id.play_mode);//播放模式
         mNext = findViewById(R.id.next);//下一首
         remoteViews = new RemoteViews(getPackageName(), R.layout.customnotice);//通知栏布局
+        //消息管理
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         createNotification();//创建通知栏
 
         //音乐列表
         mMusicList = MediaUtil.getMp3Infos(this);
         //启动音乐服务
         startMusicService();
-        //消息管理
-        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
         //初始化控件UI，默认显示历史播放歌曲
         mPosition = SpUtils.getInt("music_current_position", 0);
         mIsPlaying = MusicService.isPlaying();
@@ -216,15 +219,16 @@ public class MusicActivity extends BaseActivity {
 
         }
         remoteViews.setOnClickPendingIntent(R.id.widget_play, pending_intent_play);
-        mNotificationManager.notify(Constant.NOTIFICATION_CEDE, mBuilder.build());
+        mNotificationManager.notify(Constant.NOTIFICATION_CEDE, notification);
     }
+
+    private Notification notification = null;
 
     /**
      * 创建通知栏
      */
     @SuppressLint("NewApi")
     private void createNotification() {
-        mBuilder = new NotificationCompat.Builder(mContext, NotificationChannel.DEFAULT_CHANNEL_ID);
         // 点击跳转到主界面
         Intent intent_main = new Intent(mContext, MusicActivity.class);
         PendingIntent pending_intent_go = PendingIntent.getActivity(mContext, 1, intent_main, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -262,11 +266,26 @@ public class MusicActivity extends BaseActivity {
         PendingIntent pending_intent_next = PendingIntent.getBroadcast(mContext, 6, intent_next, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.widget_next, pending_intent_next);
 
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher); // 设置顶部图标（状态栏）
-        mBuilder.setContent(remoteViews);
-        mBuilder.setOngoing(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(YOUR_CHANNEL_ID, YOUR_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+            notification = new Notification.Builder(mContext, NotificationChannel.DEFAULT_CHANNEL_ID)//
+                    .setSmallIcon(R.mipmap.ic_launcher)//
+                    .setCustomContentView(remoteViews)//
+                    .setOngoing(true).build();
 
+
+        } else {
+            notification = new NotificationCompat.Builder(mContext, NotificationChannel.DEFAULT_CHANNEL_ID)//
+                    .setSmallIcon(R.mipmap.ic_launcher)//
+                    .setContent(remoteViews)//
+                    .setOngoing(true).build();
+
+        }
     }
+
+    private static final String YOUR_CHANNEL_ID = "YOUR_NOTIFY_ID";
+    private static final String YOUR_CHANNEL_NAME = "YOUR_NOTIFY_NAME";
 
     @Override
     protected void initEvent() {
