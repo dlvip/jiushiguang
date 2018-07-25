@@ -3,6 +3,7 @@ package com.old.time.activitys;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -38,7 +39,7 @@ import java.util.List;
 public class MusicActivity extends BaseActivity {
 
     public static void startMusicActivity(Context mContext) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
 
             return;
         }
@@ -162,7 +163,7 @@ public class MusicActivity extends BaseActivity {
                 }
             });
         } else {
-            UIHelper.ToastMessage(mContext, "当前没有音乐，记得去下载再来。");
+            UIHelper.ToastMessage(mContext, "没有播放内容");
 
         }
     }
@@ -206,12 +207,12 @@ public class MusicActivity extends BaseActivity {
         if (mIsPlaying) {//如果正在播放——》暂停
             intent_play_pause = new Intent();
             intent_play_pause.setAction(Constant.ACTION_PAUSE);
-            pending_intent_play = PendingIntent.getBroadcast(this, 4, intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
+            pending_intent_play = PendingIntent.getBroadcast(mContext, 4, intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
 
         } else {//如果暂停——》播放
             intent_play_pause = new Intent();
             intent_play_pause.setAction(Constant.ACTION_PLAY);
-            pending_intent_play = PendingIntent.getBroadcast(this, 5, intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
+            pending_intent_play = PendingIntent.getBroadcast(mContext, 5, intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
 
         }
         remoteViews.setOnClickPendingIntent(R.id.widget_play, pending_intent_play);
@@ -223,22 +224,22 @@ public class MusicActivity extends BaseActivity {
      */
     @SuppressLint("NewApi")
     private void createNotification() {
-        mBuilder = new NotificationCompat.Builder(this);
+        mBuilder = new NotificationCompat.Builder(mContext, NotificationChannel.DEFAULT_CHANNEL_ID);
         // 点击跳转到主界面
-        Intent intent_main = new Intent(this, MusicActivity.class);
-        PendingIntent pending_intent_go = PendingIntent.getActivity(this, 1, intent_main, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent_main = new Intent(mContext, MusicActivity.class);
+        PendingIntent pending_intent_go = PendingIntent.getActivity(mContext, 1, intent_main, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.notice, pending_intent_go);
 
         // 4个参数context, requestCode, intent, flags
         Intent intent_cancel = new Intent();
         intent_cancel.setAction(Constant.ACTION_CLOSE);
-        PendingIntent pending_intent_close = PendingIntent.getBroadcast(this, 2, intent_cancel, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pending_intent_close = PendingIntent.getBroadcast(mContext, 2, intent_cancel, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.widget_close, pending_intent_close);
 
         // 上一曲
         Intent intent_prv = new Intent();
         intent_prv.setAction(Constant.ACTION_PRV);
-        PendingIntent pending_intent_prev = PendingIntent.getBroadcast(this, 3, intent_prv, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pending_intent_prev = PendingIntent.getBroadcast(mContext, 3, intent_prv, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.widget_prev, pending_intent_prev);
 
         // 设置播放暂停
@@ -246,19 +247,19 @@ public class MusicActivity extends BaseActivity {
         if (mIsPlaying) {//如果正在播放——》暂停
             intent_play_pause = new Intent();
             intent_play_pause.setAction(Constant.ACTION_PAUSE);
-            pending_intent_play = PendingIntent.getBroadcast(this, 4, intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
+            pending_intent_play = PendingIntent.getBroadcast(mContext, 4, intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
 
         } else {//如果暂停——》播放
             intent_play_pause = new Intent();
             intent_play_pause.setAction(Constant.ACTION_PLAY);
-            pending_intent_play = PendingIntent.getBroadcast(this, 5, intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
+            pending_intent_play = PendingIntent.getBroadcast(mContext, 5, intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
 
         }
         remoteViews.setOnClickPendingIntent(R.id.widget_play, pending_intent_play);
         // 下一曲
         Intent intent_next = new Intent();
         intent_next.setAction(Constant.ACTION_NEXT);
-        PendingIntent pending_intent_next = PendingIntent.getBroadcast(this, 6, intent_next, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pending_intent_next = PendingIntent.getBroadcast(mContext, 6, intent_next, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.widget_next, pending_intent_next);
 
         mBuilder.setSmallIcon(R.mipmap.ic_launcher); // 设置顶部图标（状态栏）

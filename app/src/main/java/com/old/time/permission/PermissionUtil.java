@@ -18,7 +18,6 @@ import java.util.List;
 
 public class PermissionUtil {
 
-
     public interface PermissionCallBack {
         void onSuccess();
 
