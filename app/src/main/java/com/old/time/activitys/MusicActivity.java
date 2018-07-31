@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -16,17 +15,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.Parcelable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.constants.Constant;
+import com.old.time.glideUtils.GlideUtils;
+import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.mp3Utils.MediaUtil;
 import com.old.time.mp3Utils.Mp3Info;
 import com.old.time.mp3Utils.MusicPlayerView;
@@ -53,7 +52,7 @@ public class MusicActivity extends BaseActivity {
 
     private static final String TAG = "MusicActivity";
     private MusicPlayerView mpv;
-    private LinearLayout mainView;
+    private View mainView;
     private ImageView mNext;
     private ImageView mPrevious;
     private List<Mp3Info> mMusicList = new ArrayList<>();
@@ -95,6 +94,11 @@ public class MusicActivity extends BaseActivity {
     };
 
     public void initView() {
+        findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
+        ImageView img_back = findViewById(R.id.back);
+        findViewById(R.id.header_main).setBackgroundResource(R.color.transparent);
+        findViewById(R.id.top_title).setBackgroundResource(R.color.transparent);
+        img_back.setImageResource(R.mipmap.ic_delete_easy_photos);
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
         mSinger = findViewById(R.id.textViewSinger);//歌手
@@ -138,7 +142,7 @@ public class MusicActivity extends BaseActivity {
     /**
      * 刷新播放控件的歌名，歌手，图片，按钮的形状
      */
-    private void switchSongUI(int position, boolean isPlaying) {
+    private void switchSongUI(int position, final boolean isPlaying) {
         if (mMusicList.size() > 0 && position < mMusicList.size()) {
             // 1.获取播放数据
             mMp3Info = mMusicList.get(position);
@@ -148,23 +152,28 @@ public class MusicActivity extends BaseActivity {
             mSong.setText(mSongTitle);
             mSinger.setText(mSingerArtist);
             // 3.更新notification通知栏和播放控件UI
-            Bitmap mBitmap = MediaUtil.getArtwork(MusicActivity.this, mMp3Info.getId(), mMp3Info.getAlbumId(), true, false);
-            remoteViews.setImageViewBitmap(R.id.widget_album, mBitmap);
+            GlideUtils.getInstance().downLoadBitmap(mContext, mMp3Info.getPicUrl(), new ImageDownLoadCallBack() {
+                @Override
+                public void onDownLoadSuccess(Bitmap resource) {
+                    remoteViews.setImageViewBitmap(R.id.widget_album, resource);
+                    mpv.setCoverBitmap(resource);
+                    // 4.更换音乐背景
+                    assert resource != null;
+                    Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
+                        @Override
+                        public void onGenerated(Palette p) {
+                            int mutedColor = p.getMutedColor(Color.BLACK);
+                            Palette.Swatch darkMutedSwatch = p.getDarkMutedSwatch();//获取柔和的黑
+                            mainView.setBackgroundColor(darkMutedSwatch != null ? darkMutedSwatch.getRgb() : mutedColor);
+
+                        }
+                    });
+                }
+            });
             remoteViews.setTextViewText(R.id.widget_title, mMp3Info.getTitle());
             remoteViews.setTextViewText(R.id.widget_artist, mMp3Info.getArtist());
             refreshPlayStateUI(isPlaying);
-            mpv.setCoverBitmap(mBitmap);
-            // 4.更换音乐背景
-            assert mBitmap != null;
-            Palette.from(mBitmap).generate(new Palette.PaletteAsyncListener() {
-                @Override
-                public void onGenerated(Palette p) {
-                    int mutedColor = p.getMutedColor(Color.BLACK);
-                    Palette.Swatch darkMutedSwatch = p.getDarkMutedSwatch();      //获取柔和的黑
-                    mainView.setBackgroundColor(darkMutedSwatch != null ? darkMutedSwatch.getRgb() : mutedColor);
 
-                }
-            });
         } else {
             UIHelper.ToastMessage(mContext, "没有播放内容");
 
@@ -267,25 +276,24 @@ public class MusicActivity extends BaseActivity {
         remoteViews.setOnClickPendingIntent(R.id.widget_next, pending_intent_next);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(YOUR_CHANNEL_ID, YOUR_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
-            mNotificationManager.createNotificationChannel(channel);
-            notification = new Notification.Builder(mContext, NotificationChannel.DEFAULT_CHANNEL_ID)//
+            notification = new Notification.Builder(mContext, DEFAULT_CHANNEL_ID)//
                     .setSmallIcon(R.mipmap.ic_launcher)//
                     .setCustomContentView(remoteViews)//
+                    .setChannelId(MY_CHANNEL_ID)//
                     .setOngoing(true).build();
 
-
         } else {
-            notification = new NotificationCompat.Builder(mContext, NotificationChannel.DEFAULT_CHANNEL_ID)//
+            notification = new NotificationCompat.Builder(mContext, DEFAULT_CHANNEL_ID)//
                     .setSmallIcon(R.mipmap.ic_launcher)//
                     .setContent(remoteViews)//
+                    .setChannelId(MY_CHANNEL_ID)//
                     .setOngoing(true).build();
 
         }
     }
 
-    private static final String YOUR_CHANNEL_ID = "YOUR_NOTIFY_ID";
-    private static final String YOUR_CHANNEL_NAME = "YOUR_NOTIFY_NAME";
+    private static final String DEFAULT_CHANNEL_ID = "1234567";
+    private static final String MY_CHANNEL_ID = "my_channel_01";
 
     @Override
     protected void initEvent() {

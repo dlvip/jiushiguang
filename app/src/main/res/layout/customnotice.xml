@@ -32,19 +32,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ellipsize="end"
-                android:lines="1"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
                 android:textColor="#ded6d6"
+                android:textIsSelectable="true"
                 android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/widget_artist"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/layout_10"
                 android:layout_weight="1"
                 android:ellipsize="end"
+                android:maxLines="1"
                 android:textColor="#A0A0A0"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

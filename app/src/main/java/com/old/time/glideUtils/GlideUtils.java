@@ -1,17 +1,30 @@
 package com.old.time.glideUtils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.target.ThumbnailImageViewTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.old.time.R;
 import com.old.time.constants.Constant;
+import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.ScreenTools;
+import com.old.time.utils.UIHelper;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -357,6 +370,7 @@ public class GlideUtils {
      */
     public void setVideoToImageView(Context context, String url, ImageView imageView) {
         setVideoToImageView(context, url, imageView, R.drawable.shape_radius_666);
+
     }
 
     /**
@@ -383,6 +397,39 @@ public class GlideUtils {
     }
 
     /**
+     * 获取图片
+     *
+     * @param context
+     * @param url
+     * @param downLoadCallBack
+     */
+    public void downLoadBitmap(Context context, String url, final ImageDownLoadCallBack downLoadCallBack) {
+        RequestManager manager = getRequestManager(context);
+        if (manager == null) {
+
+            return;
+        }
+        url = getPicUrl(url, UIHelper.dip2px(50), UIHelper.dip2px(50));
+        RequestBuilder<Bitmap> requestBuilder;
+        if (TextUtils.isEmpty(url)) {
+            requestBuilder = manager.asBitmap().load(R.mipmap.ic_launcher);
+
+        } else {
+            requestBuilder = manager.asBitmap().load(url);
+
+        }
+        requestBuilder.apply(new RequestOptions().override(UIHelper.dip2px(50))).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                if (downLoadCallBack != null) {
+                    downLoadCallBack.onDownLoadSuccess(resource);
+
+                }
+            }
+        });
+    }
+
+    /**
      * 获取图片全路径
      *
      * @param url
@@ -396,7 +443,7 @@ public class GlideUtils {
     public static String getPicUrl(String url, int width, int height) {
         if (TextUtils.isEmpty(url)) {
 
-            return "?x-oss-process=image/resize";
+            return "x-oss-process=image/resize";
         }
         if (!TextUtils.isEmpty(url) && url.contains("storage")) {//手机图片
             if (!url.startsWith("file:///")) {

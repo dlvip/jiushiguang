@@ -1,78 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/music_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/coloBGNormal"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/coloBGNormal">
+    <TextView
+        android:id="@+id/textViewSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:maxLines="2"
+        android:minLines="2"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/app_name"
+        android:textColor="#d7ded0d0"
+        android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textViewSong"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/app_name"
-            android:textColor="#d7ded0d0"
-            android:textSize="20sp" />
+    <TextView
+        android:id="@+id/textViewSinger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewSong"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/app_name"
+        android:textColor="#9cffffff"
+        android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/textViewSinger"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewSong"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="@string/app_name"
-            android:textColor="#9cffffff"
-            android:textSize="15sp" />
+    <com.old.time.mp3Utils.MusicPlayerView
+        android:id="@+id/mpv"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_below="@+id/textViewSinger"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        app:buttonColor="@color/colorAccent"
+        app:progressLoadedColor="@color/colorAccent"
+        app:textColor="#80FFFFFF"
+        app:textSize="14sp" />
 
-        <com.old.time.mp3Utils.MusicPlayerView
-            android:id="@+id/mpv"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_below="@+id/textViewSinger"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            app:buttonColor="@color/colorAccent"
-            app:progressLoadedColor="@color/colorAccent"
-            app:textColor="#80FFFFFF"
-            app:textSize="14sp" />
+    <ImageView
+        android:id="@+id/play_mode"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/mpv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/player_btn_mode_playall_normal" />
 
-        <ImageView
-            android:id="@+id/play_mode"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_below="@+id/mpv"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/player_btn_mode_playall_normal" />
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignRight="@+id/mpv"
+        android:layout_below="@+id/mpv"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/player_icon_next" />
 
-        <ImageView
-            android:id="@+id/next"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignRight="@+id/mpv"
-            android:layout_below="@+id/mpv"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/player_icon_next" />
+    <ImageView
+        android:id="@+id/previous"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/mpv"
+        android:layout_below="@+id/mpv"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/player_icon_previous" />
 
-        <ImageView
-            android:id="@+id/previous"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignLeft="@+id/mpv"
-            android:layout_below="@+id/mpv"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/player_icon_previous" />
+    <include layout="@layout/header_main" />
 
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

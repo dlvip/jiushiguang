@@ -2,6 +2,7 @@ package com.old.time.mp3Utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 /**
  * 序列化bean对象，使之能在activity和service中传递信息

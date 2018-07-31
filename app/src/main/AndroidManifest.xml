@@ -29,7 +29,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!--请求安装未知应用-->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -58,7 +58,7 @@
             android:value="9c9c4d9a65971e91f0130fa087d263aa" />
 
         <!--音乐播放-->
-        <service android:name=".mp3Utils.MusicService"/>
+        <service android:name=".mp3Utils.MusicService" />
 
         <service android:name="com.amap.api.location.APSService" />
         <!-- 定位配置结束 -->
@@ -108,7 +108,9 @@
         <activity
             android:name=".activitys.VideoDetailActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden" />
-        <activity android:name=".activitys.MusicActivity"></activity>
+        <activity
+            android:name=".activitys.MusicActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>
