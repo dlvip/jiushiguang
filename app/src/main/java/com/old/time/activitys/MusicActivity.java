@@ -46,7 +46,7 @@ public class MusicActivity extends BaseActivity {
             return;
         }
         Intent intent = new Intent(mContext, MusicActivity.class);
-        ActivityUtils.startActivity((Activity) mContext, intent);
+        ActivityUtils.startLoginActivity((Activity) mContext, intent);
 
     }
 
@@ -94,11 +94,6 @@ public class MusicActivity extends BaseActivity {
     };
 
     public void initView() {
-        findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
-        ImageView img_back = findViewById(R.id.back);
-        findViewById(R.id.header_main).setBackgroundResource(R.color.transparent);
-        findViewById(R.id.top_title).setBackgroundResource(R.color.transparent);
-        img_back.setImageResource(R.mipmap.ic_delete_easy_photos);
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
         mSinger = findViewById(R.id.textViewSinger);//歌手
@@ -369,6 +364,12 @@ public class MusicActivity extends BaseActivity {
         intent.setAction(action);
         sendBroadcast(intent);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        ActivityUtils.finishLoginActivity(mContext);
     }
 
     @Override

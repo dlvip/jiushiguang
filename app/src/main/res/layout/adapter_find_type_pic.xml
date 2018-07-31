@@ -20,12 +20,12 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/img_find_pic"
+                android:id="@+id/img_event_pic"
                 android:layout_width="@dimen/layout_0"
                 android:layout_height="@dimen/layout_0"
                 android:background="@color/color_999"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="7:3"
+                android:scaleType="fitXY"
+                app:layout_constraintDimensionRatio="2190:1277"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
@@ -37,19 +37,22 @@
             android:background="@color/line_bg" />
 
         <TextView
-            android:id="@+id/tv_topic_title"
+            android:id="@+id/tv_event_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_44"
             android:gravity="center_vertical"
-            android:maxLines="1"
+            android:maxLines="2"
+            android:minLines="2"
             android:paddingLeft="@dimen/layout_10"
             android:text="@string/title"
             android:textColor="@color/color_000"
-            android:textSize="@dimen/text_18" />
+            android:textSize="@dimen/text_16" />
 
         <TextView
+            android:id="@+id/tv_event_describe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_3"
             android:lineSpacingExtra="@dimen/layout_5"
             android:maxLines="2"
             android:minLines="2"
@@ -65,6 +68,7 @@
             android:paddingRight="@dimen/layout_10">
 
             <TextView
+                android:id="@+id/tv_event_price"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -73,6 +77,7 @@
                 android:textSize="@dimen/text_14" />
 
             <TextView
+                android:id="@+id/tv_join_count"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -80,11 +85,6 @@
                 android:text="立即参与"
                 android:textColor="@color/color_ff9441"
                 android:textSize="@dimen/text_14" />
-
-
         </RelativeLayout>
-
     </LinearLayout>
-
-
 </android.support.v7.widget.CardView>

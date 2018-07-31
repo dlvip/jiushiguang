@@ -72,6 +72,4 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/player_icon_previous" />
 
-    <include layout="@layout/header_main" />
-
 </RelativeLayout>

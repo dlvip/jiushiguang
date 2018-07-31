@@ -11,6 +11,7 @@ import com.old.time.adapters.IconTabAdapter;
 import com.old.time.beans.ArticleBean;
 import com.old.time.beans.BannerBean;
 import com.old.time.beans.CourseBean;
+import com.old.time.beans.IconBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.TeacherBean;
 import com.old.time.constants.Constant;
@@ -33,12 +34,14 @@ public class HomeFragment extends CBaseFragment {
 
     private BannerLayout recycler_banner;
 
-    private HomeAdapter mAdapter;
-
     private List<ArticleBean> articleBeans;
+    private HomeAdapter mAdapter;
     private String cacheKey;
+
+
+    private List<IconBean> iconBeans;
     private RecyclerView recycler_icons;
-    private IconTabAdapter adapter;
+    private IconTabAdapter iconAdapter;
 
     private List<CourseBean> courseBeans;
     private RecyclerView recycler_course;
@@ -60,10 +63,12 @@ public class HomeFragment extends CBaseFragment {
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
 
+        //icon导航
         recycler_icons = headerView.findViewById(R.id.recycler_icons);
         recycler_icons.setLayoutManager(new MyGridLayoutManager(mContext, 5));
-        adapter = new IconTabAdapter(strings);
-        recycler_icons.setAdapter(adapter);
+        iconBeans = new ArrayList<>();
+        iconAdapter = new IconTabAdapter(iconBeans);
+        recycler_icons.setAdapter(iconAdapter);
 
         //精品课堂
         recycler_course = headerView.findViewById(R.id.recycler_course);
@@ -80,6 +85,7 @@ public class HomeFragment extends CBaseFragment {
         hMusicAdapter = new HMusicAdapter(teacherBeans);
         recycler_music.setAdapter(hMusicAdapter);
 
+        //家长专栏
         articleBeans = new ArrayList<>();
         mAdapter = new HomeAdapter(articleBeans);
         mRecyclerView.setAdapter(mAdapter);
@@ -92,6 +98,7 @@ public class HomeFragment extends CBaseFragment {
     @Override
     public void getDataFromNet(final boolean isRefresh) {
         getHomeBanners();
+        getHomeIcons(isRefresh);
         getHomeCourses(isRefresh);
         getHomeTeachers(isRefresh);
         getHomeArticles(isRefresh);
@@ -156,6 +163,38 @@ public class HomeFragment extends CBaseFragment {
                     return;
                 }
                 UIHelper.ToastMessage(mContext, resultBean.msg);
+            }
+        });
+    }
+
+    /**
+     * 获取icon列表
+     *
+     * @param isRefresh
+     */
+    private void getHomeIcons(final boolean isRefresh) {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_HOME_ICONS, new JsonCallBack<ResultBean<List<IconBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<IconBean>> mResultBean) {
+                if (isRefresh) {
+                    iconBeans.clear();
+                    iconAdapter.setNewData(iconBeans);
+
+                }
+                if (mResultBean.status == Constant.STATUS_FRIEND_00) {
+                    iconBeans.addAll(mResultBean.data);
+                    iconAdapter.setNewData(iconBeans);
+
+                } else {
+                    UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+                }
+            }
+
+            @Override
+            public void onError(ResultBean<List<IconBean>> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
             }
         });
     }

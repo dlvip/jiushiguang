@@ -15,6 +15,7 @@
         android:visibility="gone">
 
         <ImageView
+            android:id="@+id/img_back"
             android:layout_width="@dimen/layout_23"
             android:layout_height="@dimen/layout_23"
             android:layout_centerVertical="true"
