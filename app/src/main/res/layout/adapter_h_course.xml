@@ -22,6 +22,8 @@
         android:layout_marginTop="@dimen/layout_10"
         android:ellipsize="end"
         android:maxLength="25"
+        android:maxLines="2"
+        android:minLines="2"
         android:padding="@dimen/layout_3"
         android:text="@string/title_detail"
         android:textColor="@color/color_000"

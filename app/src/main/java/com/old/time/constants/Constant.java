@@ -30,7 +30,7 @@ public class Constant {
     /**
      * 测试baseUrl
      */
-    public static String BASE_TEST_URL = "http://192.168.0.4:8080/jiushiguang/";
+    public static String BASE_TEST_URL = "http://localhost:8080/jiushiguang/";
 
     //用户登陆
     public static final String USER_LOGIN = BASE_TEST_URL + "loginByPhone";
@@ -55,6 +55,12 @@ public class Constant {
 
     //获取轮播图列表
     public static final String GET_HOME_BANNERS = BASE_TEST_URL + "banner/getBanners";
+
+    //获取精品课堂列表
+    public static final String GET_HOME_COURSES = BASE_TEST_URL + "course/getCourseList";
+
+    //获取名师优讲
+    public static final String GET_HONE_TEACHERS = BASE_TEST_URL + "user/getUserList";
 
     //获取相册列表
     public static final String GET_ALUMLIST = BASE_TEST_URL + "getAlbumList";

@@ -3,7 +3,6 @@ package com.old.time.fragments;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.lzy.okgo.model.Response;
 import com.old.time.R;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
@@ -11,7 +10,9 @@ import com.old.time.adapters.HomeAdapter;
 import com.old.time.adapters.IconTabAdapter;
 import com.old.time.beans.ArticleBean;
 import com.old.time.beans.BannerBean;
+import com.old.time.beans.CourseBean;
 import com.old.time.beans.ResultBean;
+import com.old.time.beans.TeacherBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
@@ -39,9 +40,11 @@ public class HomeFragment extends CBaseFragment {
     private RecyclerView recycler_icons;
     private IconTabAdapter adapter;
 
+    private List<CourseBean> courseBeans;
     private RecyclerView recycler_course;
     private HCourseAdapter hCourseAdapter;
 
+    private List<TeacherBean> teacherBeans;
     private RecyclerView recycler_music;
     private HMusicAdapter hMusicAdapter;
 
@@ -66,13 +69,15 @@ public class HomeFragment extends CBaseFragment {
         recycler_course = headerView.findViewById(R.id.recycler_course);
         recycler_course.setLayoutManager(new MyLinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
         recycler_course.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10, R.color.color_fff));
-        hCourseAdapter = new HCourseAdapter(strings);
+        courseBeans = new ArrayList<>();
+        hCourseAdapter = new HCourseAdapter(courseBeans);
         recycler_course.setAdapter(hCourseAdapter);
 
         //名师优讲
         recycler_music = headerView.findViewById(R.id.recycler_music);
         recycler_music.setLayoutManager(new MyLinearLayoutManager(mContext));
-        hMusicAdapter = new HMusicAdapter(strings);
+        teacherBeans = new ArrayList<>();
+        hMusicAdapter = new HMusicAdapter(teacherBeans);
         recycler_music.setAdapter(hMusicAdapter);
 
         articleBeans = new ArrayList<>();
@@ -87,6 +92,8 @@ public class HomeFragment extends CBaseFragment {
     @Override
     public void getDataFromNet(final boolean isRefresh) {
         getHomeBanners();
+        getHomeCourses(isRefresh);
+        getHomeTeachers(isRefresh);
         getHomeArticles(isRefresh);
 
     }
@@ -149,6 +156,66 @@ public class HomeFragment extends CBaseFragment {
                     return;
                 }
                 UIHelper.ToastMessage(mContext, resultBean.msg);
+            }
+        });
+    }
+
+    /**
+     * 精品课堂
+     */
+    private void getHomeCourses(final boolean isRefresh) {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_HOME_COURSES, new JsonCallBack<ResultBean<List<CourseBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<CourseBean>> mResultBean) {
+                if (isRefresh) {
+                    courseBeans.clear();
+                    hCourseAdapter.setNewData(courseBeans);
+
+                }
+                if (mResultBean.status == Constant.STATUS_FRIEND_00) {
+                    courseBeans.addAll(mResultBean.data);
+                    hCourseAdapter.setNewData(courseBeans);
+
+                } else {
+                    UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+                }
+            }
+
+            @Override
+            public void onError(ResultBean<List<CourseBean>> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
+    }
+
+    /**
+     * 获取名师优讲
+     */
+    private void getHomeTeachers(final boolean isRefresh) {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_HONE_TEACHERS, new JsonCallBack<ResultBean<List<TeacherBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<TeacherBean>> mResultBean) {
+                if (isRefresh) {
+                    teacherBeans.clear();
+                    hMusicAdapter.setNewData(teacherBeans);
+
+                }
+                if (mResultBean.status == Constant.STATUS_FRIEND_00) {
+                    teacherBeans.addAll(mResultBean.data);
+                    hMusicAdapter.setNewData(teacherBeans);
+
+                } else {
+                    UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+                }
+            }
+
+            @Override
+            public void onError(ResultBean<List<TeacherBean>> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
             }
         });
     }
