@@ -2,7 +2,6 @@ package com.old.time.mp3Utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 
 /**
  * 序列化bean对象，使之能在activity和service中传递信息
@@ -10,12 +9,12 @@ import android.text.TextUtils;
 public class Mp3Info implements Parcelable {
 
     private long id;
-    private String title;
-    private String artist;
-    private String album;
     private long albumId;
     private long duration;
     private long size;
+    private String title;
+    private String artist;
+    private String album;
     private String url;
 
     private String songId;

@@ -50,6 +50,9 @@ public class Constant {
     //获取圈子列表
     public static final String GET_LIST_CONTENT = BASE_TEST_URL + "listContent";
 
+    //获取相册列表
+    public static final String GET_ALUMLIST = BASE_TEST_URL + "getAlbumList";
+
     //获取视频列表
     public static final String GET_VIDEO_LIST = BASE_TEST_URL + "video/getVideos";
 
@@ -61,9 +64,6 @@ public class Constant {
 
     //获取名师优讲
     public static final String GET_HONE_TEACHERS = BASE_TEST_URL + "user/getUserList";
-
-    //获取相册列表
-    public static final String GET_ALUMLIST = BASE_TEST_URL + "getAlbumList";
 
     //获取文章列表
     public static final String GET_ARTICLE_LIST = BASE_TEST_URL + "article/getArticleList";
