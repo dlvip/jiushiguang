@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <include
-        layout="@layout/scanner_toolbar"
+        layout="@layout/zxing_scanner_toolbar"
         android:visibility="gone" />
 
     <FrameLayout

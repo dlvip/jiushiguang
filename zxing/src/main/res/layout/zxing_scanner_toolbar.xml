@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:paddingLeft="10dp"
             android:paddingRight="20dp"
-            android:src="@mipmap/abc_ic_ab_back_mtrl_am_alpha" />
+            android:src="@mipmap/zxing_abc_ic_ab_back_mtrl_am_alpha" />
 
         <TextView
             android:id="@+id/scanner_toolbar_title"

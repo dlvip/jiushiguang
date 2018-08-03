@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.zxing.activity.CaptureActivity;
 import com.old.time.R;
 import com.old.time.activitys.PicsManageActivity;
 import com.old.time.activitys.SettingActivity;
@@ -23,6 +24,7 @@ import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.utils.MapParams;
 
@@ -98,7 +100,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void getDataFromNet(boolean isRefresh) {
-        if(!UserLocalInfoUtils.instance().isUserLogin()){
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
             mSwipeRefreshLayout.setRefreshing(false);
 
             return;
@@ -149,16 +151,32 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.relative_layout_setting:
-                intent = new Intent(mContext, SettingActivity.class);
+//                intent = new Intent(mContext, SettingActivity.class);
+                intent = new Intent(mContext, CaptureActivity.class);
 
                 break;
         }
         if (intent != null) {
-            ActivityUtils.startActivity(mContext, intent);
+            ActivityUtils.fStartActivtiyForResult(this, intent, CaptureActivity.REQ_CODE);
 
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+
+            return;
+        }
+        switch (requestCode) {
+            case CaptureActivity.REQ_CODE:
+                String urlPath = data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
+                UIHelper.ToastMessage(mContext, urlPath);
+
+                break;
+        }
+    }
 
     @Override
     public void onResume() {

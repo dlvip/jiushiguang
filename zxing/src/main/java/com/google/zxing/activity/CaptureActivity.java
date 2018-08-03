@@ -77,7 +77,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scanner);
+        setContentView(R.layout.zxing_activity_scanner);
         CameraManager.init(getApplication());
         viewfinderView = findViewById(R.id.viewfinder_content);
         back = findViewById(R.id.scanner_toolbar_back);
@@ -259,7 +259,6 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
             hasSurface = true;
             initCamera(holder);
         }
-
     }
 
     @Override
@@ -288,7 +287,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             mediaPlayer.setOnCompletionListener(beepListener);
 
-            AssetFileDescriptor file = getResources().openRawResourceFd(R.raw.beep);
+            AssetFileDescriptor file = getResources().openRawResourceFd(R.raw.zxing_beep);
             try {
                 mediaPlayer.setDataSource(file.getFileDescriptor(), file.getStartOffset(), file.getLength());
                 file.close();
