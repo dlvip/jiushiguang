@@ -1,1 +1,1 @@
-include ':app', ':okgo', ':okserver'
+include ':app', ':okgo', ':okserver', ':zxing', ':rootlibrary'

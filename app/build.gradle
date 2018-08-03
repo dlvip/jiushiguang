@@ -47,9 +47,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
 
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     implementation 'com.github.bumptech.glide:glide:4.5.0'
@@ -58,10 +55,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.readystatesoftware.chuck:library:1.0.4'
 
-    compile 'com.android.support:palette-v7:27.1.1'
-    compile 'com.android.support:cardview-v7:27.1.1'
-    compile 'com.android.support:recyclerview-v7:27.1.1'
-    compile 'com.google.zxing:core:3.3.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation files('libs/AMap3DMap_6.1.0_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330.jar')
@@ -70,7 +63,7 @@ dependencies {
     compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
     compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.3'
     compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.3'
-
-
     compile project(path: ':okgo')
+    compile project(path: ':rootlibrary')
+
 }
