@@ -211,6 +211,28 @@ public class BannerLayout extends FrameLayout {
 
     }
 
+    /**
+     * 设置adapter
+     *
+     * @param mBannerAdapter
+     */
+    public void setmBannerAdapter(MzBannerAdapter mBannerAdapter) {
+        this.mMzBannerAdapter = mBannerAdapter;
+        mRecyclerView.setAdapter(mMzBannerAdapter);
+        mMzBannerAdapter.setOnBannerItemClickListener(new OnBannerItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                String detailUrl = bannerBeans.get(position).getDetailUrl();
+                if (TextUtils.isEmpty(detailUrl)) {
+
+                    return;
+                }
+                WebViewActivity.startWebViewActivity(mContext, detailUrl);
+
+            }
+        });
+    }
+
     private List<BannerBean> bannerBeans = new ArrayList();
 
     /**
@@ -224,14 +246,7 @@ public class BannerLayout extends FrameLayout {
         bannerBeans.clear();
         bannerBeans.addAll(list);
         bannerSize = bannerBeans.size();
-        if (mMzBannerAdapter != null) {
-
-            mMzBannerAdapter.notifyDataSetChanged();
-
-            return;
-        }
-        mMzBannerAdapter = new MzBannerAdapter(getContext(), bannerBeans);
-        mRecyclerView.setAdapter(mMzBannerAdapter);
+        mMzBannerAdapter.notifyDataSetChanged();
         currentIndex = 10000;
         mRecyclerView.scrollToPosition(currentIndex);
         hasInit = true;
@@ -251,18 +266,6 @@ public class BannerLayout extends FrameLayout {
 
                 }
                 refreshIndicator();
-            }
-        });
-        mMzBannerAdapter.setOnBannerItemClickListener(new OnBannerItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                String detailUrl = bannerBeans.get(position).getDetailUrl();
-                if (TextUtils.isEmpty(detailUrl)) {
-
-                    return;
-                }
-                WebViewActivity.startWebViewActivity(mContext, detailUrl);
-
             }
         });
     }

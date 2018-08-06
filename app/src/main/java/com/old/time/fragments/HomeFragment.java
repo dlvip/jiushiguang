@@ -22,6 +22,7 @@ import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.banner.BannerLayout;
+import com.old.time.views.banner.adapter.MzBannerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,9 @@ import java.util.List;
 
 public class HomeFragment extends CBaseFragment {
 
+    private List<BannerBean> bannerBeans;
     private BannerLayout recycler_banner;
+    private MzBannerAdapter mzBannerAdapter;
 
     private List<ArticleBean> articleBeans;
     private HomeAdapter mAdapter;
@@ -62,6 +65,9 @@ public class HomeFragment extends CBaseFragment {
         }
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
+        bannerBeans = new ArrayList<>();
+        mzBannerAdapter = new MzBannerAdapter(mContext, bannerBeans);
+        recycler_banner.setmBannerAdapter(mzBannerAdapter);
 
         //icon导航
         recycler_icons = headerView.findViewById(R.id.recycler_icons);
@@ -152,7 +158,9 @@ public class HomeFragment extends CBaseFragment {
 
                     return;
                 }
-                recycler_banner.initBannerImageView(resultBean.data);
+                bannerBeans.clear();
+                bannerBeans.addAll(resultBean.data);
+                recycler_banner.initBannerImageView(bannerBeans);
 
             }
 

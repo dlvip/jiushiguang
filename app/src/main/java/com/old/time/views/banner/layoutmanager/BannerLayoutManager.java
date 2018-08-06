@@ -712,7 +712,6 @@ public class BannerLayoutManager extends RecyclerView.LayoutManager
         int position = getCurrentPositionOffset();
         if (!mInfinite) return Math.abs(position);
         position = !mReverseLayout ?
-                //take care of position = getItemCount()
                 (position >= 0 ?
                         position % getItemCount() :
                         getItemCount() + position % getItemCount()) :

@@ -1,5 +1,6 @@
 package com.old.time.fragments;
 
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -57,10 +58,7 @@ public class FindFragment extends CBaseFragment {
             }
         };
         View headerView = View.inflate(mContext, R.layout.header_find, null);
-        View topicView = headerView.findViewById(R.id.include_topic);
-        tv_toppic_title = topicView.findViewById(R.id.tv_recycler_title);
-        tv_toppic_title.setText("家长问答");
-        topicRecycler = topicView.findViewById(R.id.recycler_content);
+        topicRecycler = headerView.findViewById(R.id.recycler_topic);
         topicRecycler.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayout.HORIZONTAL, false));
         topicAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_topic, strings) {
             @Override
@@ -69,6 +67,7 @@ public class FindFragment extends CBaseFragment {
 
             }
         };
+        new PagerSnapHelper().attachToRecyclerView(topicRecycler);
         topicRecycler.setAdapter(topicAdapter);
         View talkView = headerView.findViewById(R.id.include_talk);
         tv_talk_title = talkView.findViewById(R.id.tv_recycler_title);

@@ -68,7 +68,7 @@ public class MzBannerAdapter extends RecyclerView.Adapter<MzBannerAdapter.MzView
 
         MzViewHolder(View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.image);
+            imageView = itemView.findViewById(R.id.image);
         }
     }
 
