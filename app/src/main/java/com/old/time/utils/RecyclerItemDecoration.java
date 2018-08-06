@@ -117,8 +117,13 @@ public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         if (mOrientation == VERTICAL_LIST) {
-            outRect.set(0, spacing, 0, 0);
+            if (spacing == UIHelper.dip2px(10)) {
+                outRect.set(0, 0, 0, spacing);
 
+            } else {
+                outRect.set(0, spacing, 0, 0);
+
+            }
         } else {
             outRect.set(spacing, 0, 0, 0);
 

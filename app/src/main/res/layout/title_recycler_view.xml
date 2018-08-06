@@ -5,14 +5,6 @@
     android:background="@color/main_bg"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/include_topic"
-        layout="@layout/title_recycler_view" />
-
-    <include
-        android:id="@+id/include_talk"
-        layout="@layout/title_recycler_view" />
-
     <TextView
         android:id="@+id/tv_recycler_title"
         android:layout_width="match_parent"
@@ -20,7 +12,13 @@
         android:background="@color/color_fff"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/layout_15"
-        android:text="亲子活动"
+        android:text="精品课堂"
         android:textColor="@color/color_000"
         android:textSize="@dimen/text_18" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

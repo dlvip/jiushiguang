@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/layout_5"
+    android:background="@drawable/shape_solid_fff_stroke_linebg"
+    android:orientation="vertical"
+    android:padding="@dimen/layout_10">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="你听过孩子说的最可怕第一句话是什么？"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_10"
+        android:lineSpacingExtra="@dimen/layout_3"
+        android:maxLines="3"
+        android:text="@string/title_detail"
+        android:textColor="@color/color_4a4a4a"
+        android:textSize="@dimen/text_14" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_10"
+        android:text="167赞 · 56评论"
+        android:textColor="@color/color_666"
+        android:textSize="@dimen/text_12" />
+
+
+</LinearLayout>

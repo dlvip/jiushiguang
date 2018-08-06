@@ -1,7 +1,10 @@
 package com.old.time.fragments;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -9,12 +12,12 @@ import com.old.time.R;
 import com.old.time.activitys.DynamicActivity;
 import com.old.time.activitys.VideoDetailActivity;
 import com.old.time.beans.EventBean;
-import com.old.time.beans.IconBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 
@@ -29,6 +32,14 @@ public class FindFragment extends CBaseFragment {
 
     private BaseQuickAdapter<EventBean, BaseViewHolder> mAdapter;
     private List<EventBean> eventBeans;
+
+    private TextView tv_toppic_title;
+    private RecyclerView topicRecycler;
+    private BaseQuickAdapter<String, BaseViewHolder> topicAdapter;
+
+    private TextView tv_talk_title;
+    private RecyclerView talkRecycler;
+    private BaseQuickAdapter<String, BaseViewHolder> talkAdapter;
 
     @Override
     protected void lazyLoad() {
@@ -46,6 +57,32 @@ public class FindFragment extends CBaseFragment {
             }
         };
         View headerView = View.inflate(mContext, R.layout.header_find, null);
+        View topicView = headerView.findViewById(R.id.include_topic);
+        tv_toppic_title = topicView.findViewById(R.id.tv_recycler_title);
+        tv_toppic_title.setText("家长问答");
+        topicRecycler = topicView.findViewById(R.id.recycler_content);
+        topicRecycler.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayout.HORIZONTAL, false));
+        topicAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_topic, strings) {
+            @Override
+            protected void convert(BaseViewHolder helper, String item) {
+
+
+            }
+        };
+        topicRecycler.setAdapter(topicAdapter);
+        View talkView = headerView.findViewById(R.id.include_talk);
+        tv_talk_title = talkView.findViewById(R.id.tv_recycler_title);
+        tv_talk_title.setText("热议话题");
+        talkRecycler = talkView.findViewById(R.id.recycler_content);
+        talkRecycler.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayout.HORIZONTAL, false));
+        talkAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_find_talk, strings) {
+            @Override
+            protected void convert(BaseViewHolder helper, String item) {
+
+
+            }
+        };
+        talkRecycler.setAdapter(talkAdapter);
         mAdapter.addHeaderView(headerView);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mAdapter);
