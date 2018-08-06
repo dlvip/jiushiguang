@@ -1,26 +1,17 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 1
-        multiDexEnabled true
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
 
+        vectorDrawables.useSupportLibrary = true
     }
-
-
-//    compileSdkVersion rootProject.ext.compileSdkVersion
-//    buildToolsVersion rootProject.ext.buildToolsVersion
-//
-//    defaultConfig {
-//        minSdkVersion rootProject.ext.libMinSdkVersion
-//        targetSdkVersion rootProject.ext.targetSdkVersion
-//        versionCode rootProject.ext.versionCode
-//        versionName rootProject.ext.versionName_okgo
-//    }
 }
 
 dependencies {

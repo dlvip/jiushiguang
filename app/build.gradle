@@ -1,14 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.old.time"
-        minSdkVersion 16
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0.2"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
         multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true
@@ -52,19 +53,19 @@ dependencies {
 
     implementation files('libs/AMap3DMap_6.1.0_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330.jar')
 
-    implementation 'com.github.bumptech.glide:glide:4.5.0'
+    compile 'com.github.bumptech.glide:glide:4.5.0'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
 
     compile 'com.android.support:multidex:1.0.3'
-    compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.readystatesoftware.chuck:library:1.0.4'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
     compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
     compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.3'
-    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.3'
+
     compile project(path: ':okserver')
     compile project(path: ':zxing')
 }
