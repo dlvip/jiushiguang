@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/main_bg"
@@ -16,9 +16,38 @@
         android:textColor="@color/color_000"
         android:textSize="@dimen/text_18" />
 
+    <LinearLayout
+        android:id="@+id/linear_layout_more"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/layout_44"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/layout_10"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingTop="@dimen/layout_5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/layout_10"
+            android:gravity="center"
+            android:text="全部"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/text_15" />
+
+        <ImageView
+            android:layout_width="@dimen/layout_12"
+            android:layout_height="@dimen/layout_12"
+            android:src="@mipmap/public_arrow_right" />
+
+    </LinearLayout>
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_recycler_title" />
 
-</LinearLayout>
+</RelativeLayout>
