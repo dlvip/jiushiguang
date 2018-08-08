@@ -25,7 +25,7 @@ public class Constant {
     /**
      * 服务器baseUrl
      */
-    public static String BASE_URL = "http://120.76.72.60/webconsole/wap/";
+//    public static String BASE_URL = "http://120.76.72.60/webconsole/wap/";
 
     /**
      * 测试baseUrl

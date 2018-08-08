@@ -1,5 +1,6 @@
 package com.old.time.fragments;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
@@ -10,17 +11,18 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.dueeeke.dkplayer.activitys.DouYinActivity;
+import com.dueeeke.dkplayer.activitys.RecyclerViewActivity;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.old.time.R;
-import com.old.time.activitys.DynamicActivity;
 import com.old.time.activitys.TopicsActivity;
-import com.old.time.activitys.VideoDetailActivity;
 import com.old.time.beans.EventBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
@@ -90,7 +92,8 @@ public class FindFragment extends CBaseFragment {
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                VideoDetailActivity.startVideoDetailActivity(mContext);
+                Intent intent = new Intent(mContext, DouYinActivity.class);
+                ActivityUtils.startActivity(mContext, intent);
 
             }
         });
