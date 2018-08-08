@@ -11,10 +11,15 @@ android {
 
         vectorDrawables.useSupportLibrary = true
     }
+    allprojects {
+        repositories {
+            maven { url "https://jitpack.io" }
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.zxing:core:3.3.3'
-    compile project(':rootProject')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.google.zxing:core:3.3.3'
+    implementation project(':rootProject')
 }

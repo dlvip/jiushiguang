@@ -14,6 +14,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':okgo')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':okgo')
 }
