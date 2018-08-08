@@ -81,6 +81,18 @@ public class NiceVideoPlayer extends FrameLayout implements INiceVideoPlayer, Te
      **/
     public static final int MODE_TINY_WINDOW = 12;
 
+    public static final int SCREEN_SCALE_DEFAULT = 0;
+    public static final int SCREEN_SCALE_16_9 = 1;
+    public static final int SCREEN_SCALE_4_3 = 2;
+    public static final int SCREEN_SCALE_MATCH_PARENT = 3;
+    public static final int SCREEN_SCALE_ORIGINAL = 4;
+    public static final int SCREEN_SCALE_CENTER_CROP = 5;
+
+    /**
+     * 视频比例
+     */
+    private int screenScale = SCREEN_SCALE_DEFAULT;
+
     /**
      * IjkPlayer
      **/
@@ -161,6 +173,15 @@ public class NiceVideoPlayer extends FrameLayout implements INiceVideoPlayer, Te
      */
     public void setPlayerType(int playerType) {
         mPlayerType = playerType;
+    }
+
+
+    /**
+     * 设置视频比例
+     */
+    public void setScreenScale(int screenScale) {
+        this.screenScale = screenScale;
+
     }
 
     /**
@@ -391,6 +412,7 @@ public class NiceVideoPlayer extends FrameLayout implements INiceVideoPlayer, Te
         if (mTextureView == null) {
             mTextureView = new NiceTextureView(mContext);
             mTextureView.setSurfaceTextureListener(this);
+            mTextureView.setScreenScale(screenScale);
         }
     }
 

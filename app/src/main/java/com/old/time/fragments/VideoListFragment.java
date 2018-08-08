@@ -42,7 +42,6 @@ public class VideoListFragment extends CBaseFragment {
             protected void convert(BaseViewHolder helper, VideoBean item) {
                 if (windowHeight == 0) {
                     windowHeight = ScreenTools.instance(mContext).getScreenHeight();
-                    DebugLog.d(TAG, "windowHeight=" + windowHeight);
 
                 }
                 NiceVideoPlayer mNiceVideoPlayer = helper.getView(R.id.nineImageView);

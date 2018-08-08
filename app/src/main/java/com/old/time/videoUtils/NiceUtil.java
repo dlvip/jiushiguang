@@ -1,5 +1,6 @@
 package com.old.time.videoUtils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -49,27 +50,24 @@ public class NiceUtil {
         return null;
     }
 
+    @SuppressLint("RestrictedApi")
     public static void showActionBar(Context context) {
         ActionBar ab = getAppCompActivity(context).getSupportActionBar();
         if (ab != null) {
             ab.setShowHideAnimationEnabled(false);
             ab.show();
         }
-        scanForActivity(context)
-                .getWindow()
-                .clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        scanForActivity(context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
+    @SuppressLint("RestrictedApi")
     public static void hideActionBar(Context context) {
         ActionBar ab = getAppCompActivity(context).getSupportActionBar();
         if (ab != null) {
             ab.setShowHideAnimationEnabled(false);
             ab.hide();
         }
-        scanForActivity(context)
-                .getWindow()
-                .setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        scanForActivity(context).getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     /**
@@ -100,8 +98,7 @@ public class NiceUtil {
      * @return px value
      */
     public static int dp2px(Context context, float dpVal) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal,
-                context.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources().getDisplayMetrics());
     }
 
     /**
@@ -134,10 +131,9 @@ public class NiceUtil {
      * @param url     视频链接url
      */
     public static void savePlayPosition(Context context, String url, long position) {
-        context.getSharedPreferences("NICE_VIDEO_PALYER_PLAY_POSITION",
-                Context.MODE_PRIVATE)
-                .edit()
-                .putLong(url, position)
+        context.getSharedPreferences("NICE_VIDEO_PALYER_PLAY_POSITION", Context.MODE_PRIVATE)//
+                .edit()//
+                .putLong(url, position)//
                 .apply();
     }
 
@@ -149,8 +145,7 @@ public class NiceUtil {
      * @return 上次保存的播放位置
      */
     public static long getSavedPlayPosition(Context context, String url) {
-        return context.getSharedPreferences("NICE_VIDEO_PALYER_PLAY_POSITION",
-                Context.MODE_PRIVATE)
+        return context.getSharedPreferences("NICE_VIDEO_PALYER_PLAY_POSITION", Context.MODE_PRIVATE)//
                 .getLong(url, 0);
     }
 }
