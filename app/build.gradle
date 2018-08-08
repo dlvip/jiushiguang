@@ -57,4 +57,5 @@ dependencies {
     implementation project(path: ':okserver')
     implementation project(path: ':zxing')
     implementation project(path: ':rootProject')
+    implementation project(path: ':dkplayer')
 }

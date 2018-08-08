@@ -11,10 +11,6 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        ndk {
-            //设置支持的SO库架构
-            abiFilters 'armeabi-v7a' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
-        }
     }
 
     buildTypes {
@@ -23,13 +19,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
-
     allprojects {
         repositories {
             maven { url "https://jitpack.io" }
@@ -40,4 +29,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':rootProject')
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
 }
