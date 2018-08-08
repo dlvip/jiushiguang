@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_marginBottom="@dimen/layout_5"
-    android:layout_marginLeft="@dimen/layout_5"
-    android:layout_marginRight="@dimen/layout_5"
     android:background="@drawable/shape_solid_fff_stroke_linebg"
     android:orientation="vertical"
     android:padding="@dimen/layout_10">
@@ -13,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="你听过孩子说的最可怕第一句话是什么？"
+        android:text="你听过孩子说的最可怕的一句话是什么？"
         android:textColor="@color/color_000"
         android:textSize="@dimen/text_16" />
 

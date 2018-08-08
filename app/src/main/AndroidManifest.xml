@@ -110,7 +110,10 @@
         <activity
             android:name=".activitys.MusicActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activitys.VideoActivity"></activity>
+        <activity android:name=".activitys.VideoActivity"/>
+        <activity android:name=".activitys.TopicsActivity" />
+        <activity android:name=".activitys.CoursesActivity" />
+        <activity android:name=".activitys.MusicsActivity"/>
     </application>
 
 </manifest>

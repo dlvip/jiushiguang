@@ -1,7 +1,8 @@
 package com.old.time.fragments;
 
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,8 +10,10 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.old.time.R;
 import com.old.time.activitys.DynamicActivity;
+import com.old.time.activitys.TopicsActivity;
 import com.old.time.activitys.VideoDetailActivity;
 import com.old.time.beans.EventBean;
 import com.old.time.beans.ResultBean;
@@ -34,10 +37,6 @@ public class FindFragment extends CBaseFragment {
     private BaseQuickAdapter<EventBean, BaseViewHolder> mAdapter;
     private List<EventBean> eventBeans;
 
-    private TextView tv_toppic_title;
-    private RecyclerView topicRecycler;
-    private BaseQuickAdapter<String, BaseViewHolder> topicAdapter;
-
     private TextView tv_talk_title;
     private RecyclerView talkRecycler;
     private BaseQuickAdapter<String, BaseViewHolder> talkAdapter;
@@ -47,6 +46,7 @@ public class FindFragment extends CBaseFragment {
         super.lazyLoad();
         eventBeans = new ArrayList<>();
         mAdapter = new BaseQuickAdapter<EventBean, BaseViewHolder>(R.layout.adapter_find_type_pic, eventBeans) {
+
             @Override
             protected void convert(BaseViewHolder helper, EventBean item) {
                 helper.setText(R.id.tv_event_title, item.getTitle())
@@ -58,23 +58,13 @@ public class FindFragment extends CBaseFragment {
             }
         };
         View headerView = View.inflate(mContext, R.layout.header_find, null);
-        topicRecycler = headerView.findViewById(R.id.recycler_topic);
-        topicRecycler.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayout.HORIZONTAL, false));
-        topicAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_topic, strings) {
-            @Override
-            protected void convert(BaseViewHolder helper, String item) {
-
-
-            }
-        };
-        new PagerSnapHelper().attachToRecyclerView(topicRecycler);
-        topicRecycler.setAdapter(topicAdapter);
         View talkView = headerView.findViewById(R.id.include_talk);
         tv_talk_title = talkView.findViewById(R.id.tv_recycler_title);
         tv_talk_title.setText("热议话题");
         talkRecycler = talkView.findViewById(R.id.recycler_content);
         talkRecycler.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayout.HORIZONTAL, false));
         talkAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_find_talk, strings) {
+
             @Override
             protected void convert(BaseViewHolder helper, String item) {
 
@@ -82,17 +72,22 @@ public class FindFragment extends CBaseFragment {
             }
         };
         talkRecycler.setAdapter(talkAdapter);
-        mAdapter.addHeaderView(headerView);
-        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
-        mRecyclerView.setAdapter(mAdapter);
-        headerView.setOnClickListener(new View.OnClickListener() {
+        SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
+        snapHelperStart.attachToRecyclerView(talkRecycler);
+        headerView.findViewById(R.id.tv_topic_more).setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View view) {
-                DynamicActivity.startDynamicActivity(mContext, "");
+            public void onClick(View v) {
+                TopicsActivity.startTopicsActivity(mContext);
 
             }
         });
+
+        mAdapter.addHeaderView(headerView);
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
+        mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 VideoDetailActivity.startVideoDetailActivity(mContext);
@@ -129,6 +124,5 @@ public class FindFragment extends CBaseFragment {
 
             }
         });
-
     }
 }

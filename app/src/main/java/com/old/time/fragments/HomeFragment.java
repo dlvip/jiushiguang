@@ -1,9 +1,15 @@
 package com.old.time.fragments;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.TextView;
 
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.old.time.R;
+import com.old.time.activitys.CoursesActivity;
+import com.old.time.activitys.MusicsActivity;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
 import com.old.time.adapters.HomeAdapter;
@@ -41,7 +47,6 @@ public class HomeFragment extends CBaseFragment {
     private HomeAdapter mAdapter;
     private String cacheKey;
 
-
     private List<IconBean> iconBeans;
     private RecyclerView recycler_icons;
     private IconTabAdapter iconAdapter;
@@ -58,11 +63,6 @@ public class HomeFragment extends CBaseFragment {
     protected void lazyLoad() {
         cacheKey = HomeFragment.class.getName();
         super.lazyLoad();
-        strings.clear();
-        for (int i = 0; i < 5; i++) {
-            strings.add(Constant.PHOTO_PIC_URL);
-
-        }
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
         bannerBeans = new ArrayList<>();
@@ -77,19 +77,41 @@ public class HomeFragment extends CBaseFragment {
         recycler_icons.setAdapter(iconAdapter);
 
         //精品课堂
-        recycler_course = headerView.findViewById(R.id.recycler_course);
+        View include_course = headerView.findViewById(R.id.include_course);
+        TextView tv_course_title = include_course.findViewById(R.id.tv_recycler_title);
+        tv_course_title.setText("精品课堂");
+        recycler_course = include_course.findViewById(R.id.recycler_content);
         recycler_course.setLayoutManager(new MyLinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
         recycler_course.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10, R.color.color_fff));
         courseBeans = new ArrayList<>();
         hCourseAdapter = new HCourseAdapter(courseBeans);
         recycler_course.setAdapter(hCourseAdapter);
+        SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
+        snapHelperStart.attachToRecyclerView(recycler_course);
+        include_course.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CoursesActivity.startCoursesActivity(mContext);
+
+            }
+        });
 
         //名师优讲
-        recycler_music = headerView.findViewById(R.id.recycler_music);
+        View include_music = headerView.findViewById(R.id.include_music);
+        TextView tv_music_title = include_course.findViewById(R.id.tv_recycler_title);
+        tv_music_title.setText("精品课堂");
+        recycler_music = include_music.findViewById(R.id.recycler_content);
         recycler_music.setLayoutManager(new MyLinearLayoutManager(mContext));
         teacherBeans = new ArrayList<>();
         hMusicAdapter = new HMusicAdapter(teacherBeans);
         recycler_music.setAdapter(hMusicAdapter);
+        include_music.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MusicsActivity.startMusicsActivity(mContext);
+
+            }
+        });
 
         //家长专栏
         articleBeans = new ArrayList<>();

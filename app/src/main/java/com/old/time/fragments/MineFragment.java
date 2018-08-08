@@ -21,12 +21,10 @@ import com.old.time.activitys.SystemMsgActivity;
 import com.old.time.activitys.UserOrderActivity;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
-import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
-import com.old.time.utils.MapParams;
 
 /**
  * Created by NING on 2018/3/5.
@@ -151,8 +149,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.relative_layout_setting:
-//                intent = new Intent(mContext, SettingActivity.class);
-                intent = new Intent(mContext, CaptureActivity.class);
+                intent = new Intent(mContext, SettingActivity.class);
 
                 break;
         }

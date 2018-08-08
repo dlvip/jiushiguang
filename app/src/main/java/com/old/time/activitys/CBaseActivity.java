@@ -82,6 +82,7 @@ public abstract class CBaseActivity extends BaseActivity {
             public void run() {
                 mSwipeRefreshLayout.setRefreshing(true);
                 onRefreshListener.onRefresh();
+
             }
         });
     }

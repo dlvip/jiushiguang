@@ -102,7 +102,7 @@ public abstract class CBaseFragment extends BaseFragment {
     }
 
     /**
-     * 互动到哪一条
+     * 滑动到哪一条
      *
      * @param position
      */
@@ -111,6 +111,7 @@ public abstract class CBaseFragment extends BaseFragment {
 
             return;
         }
+        mRecyclerView.stopScroll();
         LinearLayoutManager manager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         manager.scrollToPositionWithOffset(position, 0);
     }

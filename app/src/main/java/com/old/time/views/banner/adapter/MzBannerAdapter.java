@@ -18,7 +18,6 @@ import java.util.List;
  * Created by test on 2017/11/22.
  */
 
-
 public class MzBannerAdapter extends RecyclerView.Adapter<MzBannerAdapter.MzViewHolder> {
 
     private Context context;
