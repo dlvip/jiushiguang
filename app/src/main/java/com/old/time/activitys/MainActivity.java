@@ -12,7 +12,6 @@ import com.old.time.R;
 import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
-import com.old.time.fragments.VideoListFragment;
 import com.old.time.utils.ActivityUtils;
 
 public class MainActivity extends BaseActivity {

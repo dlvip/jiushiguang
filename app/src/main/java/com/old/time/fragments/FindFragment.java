@@ -14,7 +14,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.old.time.R;
 import com.old.time.activitys.TopicsActivity;
-import com.old.time.activitys.VideoDetailActivity;
 import com.old.time.activitys.VideoPagerActivity;
 import com.old.time.beans.EventBean;
 import com.old.time.beans.ResultBean;
