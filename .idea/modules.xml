@@ -4,12 +4,15 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/zbaselibrary/baselibrary.iml" filepath="$PROJECT_DIR$/zbaselibrary/baselibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dkplayer/dkplayer.iml" filepath="$PROJECT_DIR$/dkplayer/dkplayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/jiushiguang.iml" filepath="$PROJECT_DIR$/jiushiguang.iml" />
       <module fileurl="file://$PROJECT_DIR$/okgo/okgo.iml" filepath="$PROJECT_DIR$/okgo/okgo.iml" />
       <module fileurl="file://$PROJECT_DIR$/okserver/okserver.iml" filepath="$PROJECT_DIR$/okserver/okserver.iml" />
       <module fileurl="file://$PROJECT_DIR$/rootProject/rootProject.iml" filepath="$PROJECT_DIR$/rootProject/rootProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rootProject/rootProject.iml" filepath="$PROJECT_DIR$/rootProject/rootProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/rootProject/rootlibrary.iml" filepath="$PROJECT_DIR$/rootProject/rootlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/rootlibrary/zbaselibrary.iml" filepath="$PROJECT_DIR$/rootlibrary/zbaselibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zxing/zxing.iml" filepath="$PROJECT_DIR$/zxing/zxing.iml" />
       <module fileurl="file://$PROJECT_DIR$/zxing/zxing.iml" filepath="$PROJECT_DIR$/zxing/zxing.iml" />
     </modules>
   </component>

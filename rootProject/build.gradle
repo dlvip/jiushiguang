@@ -10,6 +10,13 @@ android {
         versionCode rootProject.ext.versionCode
 
         vectorDrawables.useSupportLibrary = true
+
+        //添加如下配置就OK了
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
 
     allprojects {
@@ -34,7 +41,6 @@ dependencies {
     compile 'com.android.support:multidex:1.0.3'
 
     compile 'jp.wasabeef:glide-transformations:2.0.1'
-
     compile 'com.github.bumptech.glide:glide:4.5.0'
     compile 'com.github.rubensousa:gravitysnaphelper:1.5'
     compile 'com.github.castorflex.verticalviewpager:library:19.0.1'

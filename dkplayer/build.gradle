@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -11,6 +11,12 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
+        //添加如下配置就OK了
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
 
     buildTypes {
@@ -27,8 +33,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(path: ':rootProject')
-    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
 }

@@ -21,62 +21,60 @@ import earnmoney.download.com.dkplayer.R;
 public class VideoRecyclerViewAdapter extends RecyclerView.Adapter<VideoRecyclerViewAdapter.VideoHolder> {
 
 
-        private List<VideoBean> videos;
-        private Context context;
+    private List<VideoBean> videos;
+    private Context context;
 
-        public VideoRecyclerViewAdapter(List<VideoBean> videos, Context context) {
-            this.videos = videos;
-            this.context = context;
-        }
+    public VideoRecyclerViewAdapter(List<VideoBean> videos, Context context) {
+        this.videos = videos;
+        this.context = context;
+    }
 
-        @Override
-        public VideoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(context).inflate(R.layout.item_video_auto_play, parent, false);
-            return new VideoHolder(itemView);
+    @Override
+    public VideoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(context).inflate(R.layout.item_video_auto_play, parent, false);
+        return new VideoHolder(itemView);
 
-        }
+    }
 
-        @Override
-        public void onBindViewHolder(final VideoHolder holder, int position) {
-            VideoBean videoBean = videos.get(position);
-//            Glide.with(context)
-//                    .load(videoBean.getThumb())
-//                    .crossFade()
-//                    .placeholder(android.R.color.white)
-//                    .into(holder.controller.getThumb());
-            holder.ijkVideoView.setPlayerConfig(holder.mPlayerConfig);
-            holder.ijkVideoView.setUrl(videoBean.getUrl());
-            holder.ijkVideoView.setTitle(videoBean.getTitle());
-            holder.ijkVideoView.setVideoController(holder.controller);
-            holder.title.setText(videoBean.getTitle());
+    @Override
+    public void onBindViewHolder(final VideoHolder holder, int position) {
+        VideoBean videoBean = videos.get(position);
+        Glide.with(context)
+                .load(videoBean.getThumb())
+                .into(holder.controller.getThumb());
+        holder.ijkVideoView.setPlayerConfig(holder.mPlayerConfig);
+        holder.ijkVideoView.setUrl(videoBean.getUrl());
+        holder.ijkVideoView.setTitle(videoBean.getTitle());
+        holder.ijkVideoView.setVideoController(holder.controller);
+        holder.title.setText(videoBean.getTitle());
 //            holder.ijkVideoView.setTag(position);
-        }
+    }
 
-        @Override
-        public int getItemCount() {
-            return videos.size();
-        }
+    @Override
+    public int getItemCount() {
+        return videos.size();
+    }
 
-        public class VideoHolder extends RecyclerView.ViewHolder {
+    public class VideoHolder extends RecyclerView.ViewHolder {
 
-            private IjkVideoView ijkVideoView;
-            private StandardVideoController controller;
-            private TextView title;
-            private PlayerConfig mPlayerConfig;
+        private IjkVideoView ijkVideoView;
+        private StandardVideoController controller;
+        private TextView title;
+        private PlayerConfig mPlayerConfig;
 
-            VideoHolder(View itemView) {
-                super(itemView);
-                ijkVideoView = itemView.findViewById(R.id.video_player);
-                int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
-                ijkVideoView.setLayoutParams(new LinearLayout.LayoutParams(widthPixels, widthPixels * 9 / 16 + 1));
-                controller = new StandardVideoController(context);
-                title = itemView.findViewById(R.id.tv_title);
-                mPlayerConfig = new PlayerConfig.Builder()
-                        .enableCache()
-                        .autoRotate()
-                        .addToPlayerManager()//required
+        VideoHolder(View itemView) {
+            super(itemView);
+            ijkVideoView = itemView.findViewById(R.id.video_player);
+            int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
+            ijkVideoView.setLayoutParams(new LinearLayout.LayoutParams(widthPixels, widthPixels * 9 / 16 + 1));
+            controller = new StandardVideoController(context);
+            title = itemView.findViewById(R.id.tv_title);
+            mPlayerConfig = new PlayerConfig.Builder()
+                    .enableCache()
+                    .autoRotate()
+                    .addToPlayerManager()//required
 //                        .savingProgress()
-                        .build();
-            }
+                    .build();
         }
     }
+}
