@@ -1,40 +1,29 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion '27.0.3'
+    compileSdkVersion externalCompileSdkVersion
+    buildToolsVersion externalBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
+        minSdkVersion externalMinSdkVersion
+        targetSdkVersion externalTargetSdkVersion
+        versionCode externalVersionCode
 
         vectorDrawables.useSupportLibrary = true
 
-        //添加如下配置就OK了
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath = true
-            }
-        }
     }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    allprojects {
-        repositories {
-            maven { url "https://jitpack.io" }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(path: ':rootProject')
-    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+    implementation externalAndroidAppCompatV7
+    implementation externalAndroidAppConstraint
+    implementation externalGithubIjkplayer
+    implementation externalGithubVideocache
+
 }

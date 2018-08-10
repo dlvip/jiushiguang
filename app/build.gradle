@@ -1,25 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion externalCompileSdkVersion
+    buildToolsVersion externalBuildToolsVersion
 
     defaultConfig {
         applicationId "com.old.time"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.compileSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion externalMinSdkVersion
+        targetSdkVersion externalTargetSdkVersion
+        versionCode externalVersionCode
+        versionName externalVersionName
         multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true
-
-        //添加如下配置就OK了
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath = true
-            }
-        }
 
     }
     signingConfigs {
@@ -58,11 +51,26 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation files('libs/AMap3DMap_6.1.0_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330.jar')
+
+    implementation externalChuck
+    implementation externalAndroidPalette
+    implementation externalGSON
+    implementation externalOKHTTP
+    implementation externalAndroidDesign
+    implementation externalAndroidAppCompatV7
+    implementation externalAndroidRecyclerView
+    implementation externalAndroidAppConstraint
+    implementation externalGithubPluginGlide
+    implementation externalGithubTransform
+    implementation externalGithubAdapterHelper
+    implementation externalAndroidCardView
+    implementation externalGithubIjkplayer
+    implementation externalGithubGravitySnapHelper
+    implementation externalGithubVerticalViewPager
 
     implementation project(path: ':okserver')
     implementation project(path: ':zxing')
-    implementation project(path: ':rootProject')
+    implementation project(path: ':okgo')
     implementation project(path: ':dkplayer')
 }

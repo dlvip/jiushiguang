@@ -7,10 +7,10 @@
     android:orientation="vertical"
     tools:context="com.old.time.activitys.VideoDetailActivity">
 
-    <com.old.time.videoUtils.NiceVideoPlayer
-        android:id="@+id/nineImageView"
+    <com.dueeeke.videoplayer.player.IjkVideoView
+        android:id="@+id/video_player"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_200" />
+        android:layout_height="200dp" />
 
     <FrameLayout
         android:id="@+id/web_layout"

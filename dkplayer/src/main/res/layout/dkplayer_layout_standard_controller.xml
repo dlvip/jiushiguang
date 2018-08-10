@@ -12,8 +12,7 @@
         android:background="@drawable/dkplayer_shape_standard_controller_top_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/back"
@@ -25,7 +24,7 @@
             android:visibility="gone"
             tools:visibility="visible" />
 
-        <com.dueeeke.dkplayer.ui.MarqueeTextView
+        <com.dueeeke.videoplayer.controller.MarqueeTextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
