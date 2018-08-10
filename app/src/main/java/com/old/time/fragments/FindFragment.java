@@ -15,6 +15,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.old.time.R;
 import com.old.time.activitys.TopicsActivity;
 import com.old.time.activitys.VideoDetailActivity;
+import com.old.time.activitys.VideoPagerActivity;
 import com.old.time.beans.EventBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
@@ -91,7 +92,7 @@ public class FindFragment extends CBaseFragment {
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(mContext, VideoDetailActivity.class);
+                Intent intent = new Intent(mContext, VideoPagerActivity.class);
                 ActivityUtils.startActivity(mContext, intent);
 
             }

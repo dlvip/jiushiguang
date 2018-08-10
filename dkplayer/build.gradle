@@ -21,6 +21,9 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation externalAndroidAppCompatV7
+    implementation externalAndroidAppConstraint
     implementation externalGithubIjkplayer
+    implementation externalGithubVideocache
 
 }
