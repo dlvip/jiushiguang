@@ -10,6 +10,7 @@ android {
         versionCode rootProject.ext.versionCode
 
         vectorDrawables.useSupportLibrary = true
+
     }
 
     allprojects {
@@ -38,11 +39,13 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:4.5.0'
     compile 'com.github.rubensousa:gravitysnaphelper:1.5'
     compile 'com.github.castorflex.verticalviewpager:library:19.0.1'
-    compile 'com.github.bumptech.glide:compiler:4.5.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
     compile 'com.danikula:videocache:2.7.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.readystatesoftware.chuck:library:1.0.4'
+
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
 
 }

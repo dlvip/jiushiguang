@@ -14,13 +14,6 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        //添加如下配置就OK了
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath = true
-            }
-        }
-
     }
     signingConfigs {
         key {
@@ -64,5 +57,4 @@ dependencies {
     implementation project(path: ':okserver')
     implementation project(path: ':zxing')
     implementation project(path: ':rootProject')
-    implementation project(path: ':dkplayer')
 }
