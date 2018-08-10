@@ -1,9 +1,13 @@
 package com.old.time.activitys;
 
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewParent;
+import android.view.WindowInsets;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -36,6 +40,8 @@ public class VideoPagerActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        setStatusBarTransparent();
+
         mVerticalViewPager = findViewById(R.id.vertical_view_pager);
         mIjkVideoView = new IjkVideoView(this);
         PlayerConfig config = new PlayerConfig.Builder().setLooping().build();
@@ -100,6 +106,51 @@ public class VideoPagerActivity extends BaseActivity {
         mIjkVideoView.start();
         mPlayingPosition = mCurrentPosition;
 
+    }
+
+    /**
+     * 把状态栏设成透明
+     */
+    private void setStatusBarTransparent() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+            return;
+        }
+        View decorView = VideoPagerActivity.this.getWindow().getDecorView();
+        decorView.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsets onApplyWindowInsets(View view, WindowInsets windowInsets) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+                    return windowInsets;
+                }
+                windowInsets = view.onApplyWindowInsets(windowInsets);
+                windowInsets = windowInsets.replaceSystemWindowInsets(windowInsets.getSystemWindowInsetLeft()//
+                        , 0, windowInsets.getSystemWindowInsetRight()//
+                        , windowInsets.getSystemWindowInsetBottom());
+                return windowInsets;
+            }
+        });
+        ViewCompat.requestApplyInsets(decorView);
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, android.R.color.transparent));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mIjkVideoView.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mIjkVideoView.resume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mIjkVideoView.release();
     }
 
     @Override
