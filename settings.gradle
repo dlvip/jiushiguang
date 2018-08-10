@@ -1,1 +1,1 @@
-include ':app', ':okgo', ':okserver', ':zxing', ':rootProject'
+include ':app', ':okgo', ':okserver', ':zxing', ':dkplayer'

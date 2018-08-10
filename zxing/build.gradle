@@ -1,25 +1,21 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion externalCompileSdkVersion
+    buildToolsVersion externalBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
+        minSdkVersion externalMinSdkVersion
+        targetSdkVersion externalTargetSdkVersion
+        versionCode externalVersionCode
 
         vectorDrawables.useSupportLibrary = true
-    }
-    allprojects {
-        repositories {
-            maven { url "https://jitpack.io" }
-        }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.zxing:core:3.3.3'
-    implementation project(':rootProject')
+    implementation externalSimpleZXing
+    implementation externalAndroidAppCompatV7
+
 }

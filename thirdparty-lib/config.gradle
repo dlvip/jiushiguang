@@ -1,0 +1,53 @@
+ext {
+
+    //Build Gradle Plugin
+    externalGithubPluginGlide = 'com.github.bumptech.glide:glide:4.5.0'
+    externalGithubTransform = 'jp.wasabeef:glide-transformations:2.0.1'
+    externalGithubGravitySnapHelper = 'com.github.rubensousa:gravitysnaphelper:1.5'
+    externalGithubVerticalViewPager = 'com.github.castorflex.verticalviewpager:library:19.0.1'
+    externalGithubAdapterHelper = 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    externalGithubVideocache = 'com.danikula:videocache:2.7.0'
+    externalGithubChuck = 'com.readystatesoftware.chuck:library:1.0.4'
+    externalGithubIjkplayer = 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+
+    //Android support Libraries
+    externalAndroidAppCompatV7 = 'com.android.support:appcompat-v7:27.1.1'
+    externalAndroidAppConstraint = 'com.android.support.constraint:constraint-layout:1.1.2'
+    externalAndroidCardView = 'com.android.support:cardview-v7:27.1.1'
+    externalAndroidMultiDex = 'com.android.support:multidex:1.0.3'
+    externalAndroidRecyclerView = 'com.android.support:recyclerview-v7:27.1.1'
+    externalAndroidSupportV13 = 'com.android.support:support-v13:23.4.0'
+    externalAndroidDesign = 'com.android.support:design:27.1.1'
+    externalAndroidPalette = 'com.android.support:palette-v7:27.1.1'
+
+    //Test related third party libraries
+    externalAndroidTestEspressoCore = 'com.android.support.test.espresso:espresso-core:3.0.2'
+    externalAndroidTestRunner = 'com.android.support.test:runner:1.0.2'
+    externalHamcrestLibrary = 'org.hamcrest:hamcrest-library:1.3'
+    externalMockito = 'org.mockito:mockito-core:1.10.19'
+    externalJunit = 'junit:junit:4.12'
+
+    //Application Layer
+    externalEventBus = 'org.greenrobot:eventbus:3.1.1'
+    externalGlideOkHttp = 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    externalSimpleZXing = 'com.google.zxing:core:3.3.3'
+    externalPicasso = 'com.squareup.picasso:picasso:2.5.2'
+    externalLeakcanary = 'com.squareup.leakcanary:leakcanary-android:1.5'
+
+    //SDK Layer
+
+    externalJSR305 = 'com.google.code.findbugs:jsr305:3.0.0'
+    externalChuck = 'com.readystatesoftware.chuck:library:1.0.4'
+    externalOKHTTP = 'com.squareup.okhttp3:okhttp:3.8.1'
+    externalGSON = 'com.google.code.gson:gson:2.8.1'
+    externalHttpCore = 'org.apache.httpcomponents:httpcore:4.4.1'
+
+    //Android SDK/Tools Version
+    externalVersionCode = 1
+    externalVersionName = '1.0.2'
+    externalMinSdkVersion = 16
+    externalTargetSdkVersion = 27
+    externalCompileSdkVersion = 27
+    externalBuildToolsVersion = '27.0.3'
+
+}
