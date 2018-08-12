@@ -113,7 +113,8 @@
         <activity android:name=".activitys.TopicsActivity" />
         <activity android:name=".activitys.CoursesActivity" />
         <activity android:name=".activitys.MusicsActivity" />
-        <activity android:name=".activitys.VideoPagerActivity"></activity>
+        <activity android:name=".activitys.VideoPagerActivity" />
+        <activity android:name=".activitys.TalksActivity"></activity>
     </application>
 
 </manifest>

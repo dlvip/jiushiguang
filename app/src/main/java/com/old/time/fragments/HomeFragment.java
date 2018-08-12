@@ -84,7 +84,7 @@ public class HomeFragment extends CBaseFragment {
         recycler_course.setLayoutManager(new MyLinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
         recycler_course.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10, R.color.color_fff));
         courseBeans = new ArrayList<>();
-        hCourseAdapter = new HCourseAdapter(courseBeans);
+        hCourseAdapter = new HCourseAdapter(R.layout.adapter_h_course, courseBeans);
         recycler_course.setAdapter(hCourseAdapter);
         SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
         snapHelperStart.attachToRecyclerView(recycler_course);
@@ -98,8 +98,8 @@ public class HomeFragment extends CBaseFragment {
 
         //名师优讲
         View include_music = headerView.findViewById(R.id.include_music);
-        TextView tv_music_title = include_course.findViewById(R.id.tv_recycler_title);
-        tv_music_title.setText("精品课堂");
+        TextView tv_music_title = include_music.findViewById(R.id.tv_recycler_title);
+        tv_music_title.setText("名师优讲");
         recycler_music = include_music.findViewById(R.id.recycler_content);
         recycler_music.setLayoutManager(new MyLinearLayoutManager(mContext));
         teacherBeans = new ArrayList<>();

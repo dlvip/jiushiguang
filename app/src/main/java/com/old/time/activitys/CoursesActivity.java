@@ -3,6 +3,7 @@ package com.old.time.activitys;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.old.time.R;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.beans.CourseBean;
 import com.old.time.beans.ResultBean;
@@ -32,7 +33,7 @@ public class CoursesActivity extends CBaseActivity {
         super.initView();
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         courseBeans = new ArrayList<>();
-        hCourseAdapter = new HCourseAdapter(courseBeans);
+        hCourseAdapter = new HCourseAdapter(R.layout.adapter_course, courseBeans);
         mRecyclerView.setAdapter(hCourseAdapter);
 
     }

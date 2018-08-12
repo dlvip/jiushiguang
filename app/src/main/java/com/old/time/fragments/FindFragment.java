@@ -11,10 +11,15 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.dueeeke.videoplayer.demo.DataUtil;
+import com.dueeeke.videoplayer.demo.VideoBean;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.old.time.R;
+import com.old.time.activitys.TalksActivity;
 import com.old.time.activitys.TopicsActivity;
 import com.old.time.activitys.VideoPagerActivity;
+import com.old.time.adapters.TalkAdapter;
+import com.old.time.adapters.VideoFindAdapter;
 import com.old.time.beans.EventBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
@@ -22,6 +27,7 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
@@ -35,12 +41,16 @@ import java.util.List;
 
 public class FindFragment extends CBaseFragment {
 
+    private List<VideoBean> videoBeans;
+    private VideoFindAdapter vFAdapter;
+    private RecyclerView recycler_view_video;
+
     private BaseQuickAdapter<EventBean, BaseViewHolder> mAdapter;
     private List<EventBean> eventBeans;
 
     private TextView tv_talk_title;
     private RecyclerView talkRecycler;
-    private BaseQuickAdapter<String, BaseViewHolder> talkAdapter;
+    private TalkAdapter talkAdapter;
 
     @Override
     protected void lazyLoad() {
@@ -59,19 +69,19 @@ public class FindFragment extends CBaseFragment {
             }
         };
         View headerView = View.inflate(mContext, R.layout.header_find, null);
+        recycler_view_video = headerView.findViewById(R.id.recycler_view_video);
+        recycler_view_video.setLayoutManager(new MyGridLayoutManager(mContext, 5));
+        recycler_view_video.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10));
+        videoBeans = DataUtil.getFindVideoPagerList();
+        vFAdapter = new VideoFindAdapter(videoBeans);
+        recycler_view_video.setAdapter(vFAdapter);
+
         View talkView = headerView.findViewById(R.id.include_talk);
         tv_talk_title = talkView.findViewById(R.id.tv_recycler_title);
         tv_talk_title.setText("热议话题");
         talkRecycler = talkView.findViewById(R.id.recycler_content);
         talkRecycler.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayout.HORIZONTAL, false));
-        talkAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_find_talk, strings) {
-
-            @Override
-            protected void convert(BaseViewHolder helper, String item) {
-
-
-            }
-        };
+        talkAdapter = new TalkAdapter(R.layout.adapter_find_talk, strings);
         talkRecycler.setAdapter(talkAdapter);
         SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
         snapHelperStart.attachToRecyclerView(talkRecycler);
@@ -80,6 +90,15 @@ public class FindFragment extends CBaseFragment {
             @Override
             public void onClick(View v) {
                 TopicsActivity.startTopicsActivity(mContext);
+
+            }
+        });
+
+        headerView.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                TalksActivity.startTalksActivity(mContext);
 
             }
         });

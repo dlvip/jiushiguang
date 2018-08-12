@@ -1,5 +1,8 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -19,6 +22,7 @@ import com.dueeeke.videoplayer.demo.VideoBean;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.dueeeke.videoplayer.player.PlayerConfig;
 import com.old.time.R;
+import com.old.time.utils.ActivityUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +30,22 @@ import java.util.List;
 import fr.castorflex.android.verticalviewpager.VerticalViewPager;
 
 public class VideoPagerActivity extends BaseActivity {
+
+
+    /**
+     * 视频列表
+     *
+     * @param mContext
+     * @param mCurrentPosition
+     */
+    public static void startVideoPagerActivity(Context mContext, int mCurrentPosition) {
+        Intent intent = new Intent(mContext, VideoPagerActivity.class);
+        intent.putExtra(CURRENT_POSITION, mCurrentPosition);
+        ActivityUtils.startLoginActivity((Activity) mContext, intent);
+
+    }
+
+    public static String CURRENT_POSITION = "mCurrentPosition";
 
     private VideoPagerController mVideoPagerController;
     private VerticalViewPager mVerticalViewPager;
@@ -41,7 +61,7 @@ public class VideoPagerActivity extends BaseActivity {
     @Override
     protected void initView() {
         setStatusBarTransparent();
-
+        mCurrentPosition = getIntent().getIntExtra(CURRENT_POSITION, 0);
         mVerticalViewPager = findViewById(R.id.vertical_view_pager);
         mIjkVideoView = new IjkVideoView(this);
         PlayerConfig config = new PlayerConfig.Builder().setLooping().build();
@@ -59,7 +79,6 @@ public class VideoPagerActivity extends BaseActivity {
         mVideoPagerAdapter = new VideoPagerAdapter(mViews);
         mVerticalViewPager.setAdapter(mVideoPagerAdapter);
         mVerticalViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -93,6 +112,7 @@ public class VideoPagerActivity extends BaseActivity {
 
             }
         });
+        mVerticalViewPager.setCurrentItem(mCurrentPosition);
     }
 
     private void startPlay() {
@@ -157,4 +177,5 @@ public class VideoPagerActivity extends BaseActivity {
     protected int getLayoutID() {
         return R.layout.activity_video_pager;
     }
+
 }

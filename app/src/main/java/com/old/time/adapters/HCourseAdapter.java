@@ -16,11 +16,14 @@ import java.util.List;
  */
 
 public class HCourseAdapter extends BaseQuickAdapter<CourseBean, BaseViewHolder> {
-
-
-    public HCourseAdapter(@Nullable List<CourseBean> data) {
-        super(R.layout.adapter_h_course, data);
+    public HCourseAdapter(int layoutResId, @Nullable List<CourseBean> data) {
+        super(layoutResId, data);
     }
+
+
+//    public HCourseAdapter(@Nullable List<CourseBean> data) {
+//        super(R.layout.adapter_h_course, data);
+//    }
 
     @Override
     protected void convert(BaseViewHolder helper, CourseBean item) {
