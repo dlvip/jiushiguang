@@ -11,12 +11,6 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
-        //添加如下配置就OK了
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath = true
-            }
-        }
     }
 }
 
