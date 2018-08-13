@@ -72,7 +72,7 @@ public class FindFragment extends CBaseFragment {
         recycler_view_video = headerView.findViewById(R.id.recycler_view_video);
         recycler_view_video.setLayoutManager(new MyGridLayoutManager(mContext, 5));
         recycler_view_video.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10));
-        videoBeans = DataUtil.getFindVideoPagerList();
+        videoBeans = DataUtil.getVideoPagerList();
         vFAdapter = new VideoFindAdapter(videoBeans);
         recycler_view_video.setAdapter(vFAdapter);
 

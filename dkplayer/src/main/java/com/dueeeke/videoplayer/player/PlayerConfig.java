@@ -1,5 +1,10 @@
 package com.dueeeke.videoplayer.player;
 
+import android.content.Context;
+
+import com.dueeeke.videoplayer.mediaPlayers.AndroidMediaPlayer;
+import com.dueeeke.videoplayer.mediaPlayers.ExoMediaPlayer;
+
 /**
  * 播放器配置类
  * Created by xinyu on 2018/4/3.

@@ -35,12 +35,13 @@ ext {
     externalLeakcanary = 'com.squareup.leakcanary:leakcanary-android:1.5'
 
     //SDK Layer
-
     externalJSR305 = 'com.google.code.findbugs:jsr305:3.0.0'
     externalChuck = 'com.readystatesoftware.chuck:library:1.0.4'
     externalOKHTTP = 'com.squareup.okhttp3:okhttp:3.8.1'
     externalGSON = 'com.google.code.gson:gson:2.8.1'
     externalHttpCore = 'org.apache.httpcomponents:httpcore:4.4.1'
+    externalExoPlayer = 'com.google.android.exoplayer:exoplayer:2.8.2'
+    externalExtensionRtmp = 'com.google.android.exoplayer:extension-rtmp:2.8.2'
 
     //Android SDK/Tools Version
     externalVersionCode = 1

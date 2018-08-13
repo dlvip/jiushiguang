@@ -1,4 +1,4 @@
-package com.dueeeke.videoplayer.player;
+package com.dueeeke.videoplayer.mediaPlayers;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -8,6 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Surface;
 import android.view.SurfaceHolder;
+
+import com.dueeeke.videoplayer.player.AbstractPlayer;
+import com.dueeeke.videoplayer.player.RawDataSourceProvider;
 
 import java.util.Map;
 

@@ -28,4 +28,9 @@
 -keep   class com.autonavi.**{*;}
 -keep   class com.amap.api.trace.**{*;}
 
+-keep class tv.danmaku.ijk.** { *; }
+-dontwarn tv.danmaku.ijk.**
+-keep class com.dueeeke.videoplayer.** { *; }
+-dontwarn com.dueeeke.videoplayer.**
+
 
