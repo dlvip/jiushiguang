@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.zxing.activity.CaptureActivity;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.PicsManageActivity;
 import com.old.time.activitys.SettingActivity;
@@ -19,12 +20,22 @@ import com.old.time.activitys.UserLoginActivity;
 import com.old.time.activitys.UserMesgActivity;
 import com.old.time.activitys.SystemMsgActivity;
 import com.old.time.activitys.UserOrderActivity;
+import com.old.time.beans.ResultBean;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
+import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DebugLog;
+import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by NING on 2018/3/5.

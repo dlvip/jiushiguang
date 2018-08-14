@@ -1,5 +1,7 @@
 package com.old.time.constants;
 
+import com.old.time.utils.StringUtils;
+
 /**
  * Created by NING on 2018/3/5.
  */
@@ -62,8 +64,17 @@ public class Constant {
     //获取icon列表
     public static final String GET_HOME_ICONS = BASE_TEST_URL + "icon/getIconList";
 
+    //添加课堂列表
+    public static final String COURSE_ADD_COURSE = BASE_TEST_URL + "course/addCourse";
+
     //获取精品课堂列表
     public static final String GET_HOME_COURSES = BASE_TEST_URL + "course/getCourseList";
+
+    //添加章节列表
+    public static final String MUSIC_ADD_MUSIC = BASE_TEST_URL + "music/addMusic";
+
+    //获取章节列表
+    public static final String GET_MUSIC_LIST = BASE_TEST_URL + "music/getMusicList";
 
     //获取名师优讲
     public static final String GET_HONE_TEACHERS = BASE_TEST_URL + "user/getUserList";

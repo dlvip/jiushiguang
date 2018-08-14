@@ -23,6 +23,8 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.old.time.R;
+import com.old.time.beans.MusicBean;
+import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
@@ -30,8 +32,11 @@ import com.old.time.mp3Utils.MediaUtil;
 import com.old.time.mp3Utils.Mp3Info;
 import com.old.time.mp3Utils.MusicPlayerView;
 import com.old.time.mp3Utils.MusicService;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.UIHelper;
 
@@ -109,12 +114,14 @@ public class MusicActivity extends BaseActivity {
         //音乐列表
         mMusicList = MediaUtil.getMp3Infos(this);
         //启动音乐服务
-        startMusicService();
+//        startMusicService();
 
         //初始化控件UI，默认显示历史播放歌曲
         mPosition = SpUtils.getInt("music_current_position", 0);
         mIsPlaying = MusicService.isPlaying();
         switchSongUI(mPosition, mIsPlaying);
+
+        getMusics();
     }
 
     @Override
@@ -350,6 +357,36 @@ public class MusicActivity extends BaseActivity {
         intent.setAction(action);
         sendBroadcast(intent);
 
+    }
+
+    /**
+     * 获取章节列表
+     */
+    private void getMusics() {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<MusicBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<MusicBean>> mResultBean) {
+                mMusicList.clear();
+                for (MusicBean mMusicBean : mResultBean.data) {
+                    Mp3Info mp3Info = new Mp3Info();
+                    mp3Info.setAlbum(mMusicBean.getMusicPic());
+                    mp3Info.setAlbumId(Long.parseLong(mMusicBean.getAlbumId()));
+                    mp3Info.setAudio(mMusicBean.getMusiceUrl());
+                    mp3Info.setDuration(mMusicBean.getMusiceTime());
+                    mp3Info.setPicUrl(mMusicBean.getMusicPic());
+                    mp3Info.setUrl(mMusicBean.getMusiceUrl());
+
+                    mMusicList.add(mp3Info);
+                }
+                startMusicService();
+
+            }
+
+            @Override
+            public void onError(ResultBean<List<MusicBean>> mResultBean) {
+
+            }
+        });
     }
 
     /**
