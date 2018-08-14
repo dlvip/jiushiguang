@@ -18,7 +18,6 @@ import com.dueeeke.videoplayer.controller.base.BaseVideoController;
 import com.dueeeke.videoplayer.controller.base.MediaPlayerControl;
 import com.dueeeke.videoplayer.listener.PlayerEventListener;
 import com.dueeeke.videoplayer.listener.VideoListener;
-import com.dueeeke.videoplayer.mediaPlayers.IjkPlayer;
 import com.dueeeke.videoplayer.util.ProgressUtil;
 import com.dueeeke.videoplayer.util.WindowUtil;
 

@@ -18,6 +18,7 @@ import com.old.time.R;
 import com.old.time.activitys.TalksActivity;
 import com.old.time.activitys.TopicsActivity;
 import com.old.time.activitys.VideoPagerActivity;
+import com.old.time.activitys.VideosActivity;
 import com.old.time.adapters.TalkAdapter;
 import com.old.time.adapters.VideoFindAdapter;
 import com.old.time.beans.EventBean;
@@ -60,9 +61,7 @@ public class FindFragment extends CBaseFragment {
 
             @Override
             protected void convert(BaseViewHolder helper, EventBean item) {
-                helper.setText(R.id.tv_event_title, item.getTitle())
-                        .setText(R.id.tv_event_price, "￥ " + item.getPrice())
-                        .setText(R.id.tv_join_count, item.getJoinCount() + " 人参与");
+                helper.setText(R.id.tv_event_title, item.getTitle()).setText(R.id.tv_event_price, "￥ " + item.getPrice()).setText(R.id.tv_join_count, item.getJoinCount() + " 人参与");
                 ImageView img_event_pic = helper.getView(R.id.img_event_pic);
                 GlideUtils.getInstance().setImageView(mContext, item.getPicUrl(), img_event_pic);
 
@@ -72,7 +71,7 @@ public class FindFragment extends CBaseFragment {
         recycler_view_video = headerView.findViewById(R.id.recycler_view_video);
         recycler_view_video.setLayoutManager(new MyGridLayoutManager(mContext, 5));
         recycler_view_video.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10));
-        videoBeans = DataUtil.getVideoPagerList();
+        videoBeans = DataUtil.getVideoPagersList();
         vFAdapter = new VideoFindAdapter(videoBeans);
         recycler_view_video.setAdapter(vFAdapter);
 
@@ -99,6 +98,13 @@ public class FindFragment extends CBaseFragment {
             @Override
             public void onClick(View v) {
                 TalksActivity.startTalksActivity(mContext);
+
+            }
+        });
+        headerView.findViewById(R.id.linear_layout_find_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                VideosActivity.startVideosActivity(mContext);
 
             }
         });

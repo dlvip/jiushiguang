@@ -5,6 +5,36 @@
     android:background="@color/main_bg"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/linear_layout_find_video"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_30"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="大家都在看"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_12"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawablePadding="@dimen/layout_6"
+            android:drawableRight="@mipmap/public_arrow_right"
+            android:gravity="center_vertical"
+            android:text="查看全部"
+            android:textColor="@color/color_666"
+            android:textSize="@dimen/text_12" />
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_video"
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.dueeeke.videoplayer.mediaPlayers;
+package com.dueeeke.videoplayer.player;
 
 import android.content.ContentResolver;
 import android.content.Context;
