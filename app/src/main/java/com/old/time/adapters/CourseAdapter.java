@@ -12,13 +12,13 @@ import com.old.time.glideUtils.GlideUtils;
 import java.util.List;
 
 /**
- * Created by NING on 2018/8/15.
+ * Created by wcl on 2018/7/21.
  */
 
-public class HCourseAdapter extends BaseQuickAdapter<CourseBean, BaseViewHolder> {
+public class CourseAdapter extends BaseQuickAdapter<CourseBean, BaseViewHolder> {
 
-    public HCourseAdapter(@Nullable List<CourseBean> data) {
-        super(R.layout.adapter_h_course, data);
+    public CourseAdapter(@Nullable List<CourseBean> data) {
+        super(R.layout.adapter_course, data);
 
     }
 

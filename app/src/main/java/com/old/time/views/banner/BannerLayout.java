@@ -118,7 +118,7 @@ public class BannerLayout extends FrameLayout {
         indicatorMargin = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorSpace, dp2px(4));
         int marginLeft = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorMarginLeft, dp2px(0));
         int marginRight = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorMarginRight, dp2px(0));
-        int marginBottom = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorMarginBottom, dp2px(20));
+        int marginBottom = a.getDimensionPixelSize(R.styleable.RecyclerViewBannerBase_indicatorMarginBottom, dp2px(0));
         int g = a.getInt(R.styleable.RecyclerViewBannerBase_indicatorGravity, 0);
         int gravity;
         if (g == 0) {
@@ -143,7 +143,6 @@ public class BannerLayout extends FrameLayout {
         mLayoutManager = new BannerLayoutManager(getContext(), orientation);
         mRecyclerView.setLayoutManager(mLayoutManager);
         new PagerSnapHelper().attachToRecyclerView(mRecyclerView);
-
 
         //指示器部分
         indicatorContainer = new RecyclerView(context);

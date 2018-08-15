@@ -36,21 +36,5 @@ public class HMusicAdapter extends BaseQuickAdapter<TeacherBean, BaseViewHolder>
 
             }
         });
-
-//        GlideUtils.getInstance().downLoadBitmap(mContext, item.avatar, new ImageDownLoadCallBack() {
-//            @Override
-//            public void onDownLoadSuccess(Bitmap bitmap) {
-//                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-//                    @Override
-//                    public void onGenerated(Palette p) {
-//                        int mutedColor = p.getMutedColor(Color.GRAY);
-//                        Palette.Swatch darkMutedSwatch = p.getDarkMutedSwatch();//获取柔和的黑
-//                        helper.setBackgroundColor(R.id.relative_layout_parent, //
-//                                darkMutedSwatch != null ? darkMutedSwatch.getRgb() : mutedColor);
-//
-//                    }
-//                });
-//            }
-//        });
     }
 }

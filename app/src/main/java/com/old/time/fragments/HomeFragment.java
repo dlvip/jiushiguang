@@ -10,6 +10,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.old.time.R;
 import com.old.time.activitys.CoursesActivity;
 import com.old.time.activitys.MusicsActivity;
+import com.old.time.adapters.CourseAdapter;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
 import com.old.time.adapters.HomeAdapter;
@@ -84,7 +85,7 @@ public class HomeFragment extends CBaseFragment {
         recycler_course.setLayoutManager(new MyLinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
         recycler_course.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10, R.color.color_fff));
         courseBeans = new ArrayList<>();
-        hCourseAdapter = new HCourseAdapter(R.layout.adapter_h_course, courseBeans);
+        hCourseAdapter = new HCourseAdapter(courseBeans);
         recycler_course.setAdapter(hCourseAdapter);
         SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
         snapHelperStart.attachToRecyclerView(recycler_course);

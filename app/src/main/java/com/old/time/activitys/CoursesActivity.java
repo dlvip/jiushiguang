@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.old.time.R;
-import com.old.time.adapters.HCourseAdapter;
+import com.old.time.adapters.CourseAdapter;
 import com.old.time.beans.CourseBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
@@ -25,7 +25,7 @@ public class CoursesActivity extends CBaseActivity {
 
     }
 
-    private HCourseAdapter hCourseAdapter;
+    private CourseAdapter courseAdapter;
     private List<CourseBean> courseBeans;
 
     @Override
@@ -33,8 +33,8 @@ public class CoursesActivity extends CBaseActivity {
         super.initView();
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         courseBeans = new ArrayList<>();
-        hCourseAdapter = new HCourseAdapter(R.layout.adapter_course, courseBeans);
-        mRecyclerView.setAdapter(hCourseAdapter);
+        courseAdapter = new CourseAdapter(courseBeans);
+        mRecyclerView.setAdapter(courseAdapter);
 
     }
 
@@ -46,12 +46,12 @@ public class CoursesActivity extends CBaseActivity {
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (isRefresh) {
                     courseBeans.clear();
-                    hCourseAdapter.setNewData(courseBeans);
+                    courseAdapter.setNewData(courseBeans);
 
                 }
                 if (mResultBean.status == Constant.STATUS_FRIEND_00) {
                     courseBeans.addAll(mResultBean.data);
-                    hCourseAdapter.setNewData(courseBeans);
+                    courseAdapter.setNewData(courseBeans);
 
                 } else {
                     UIHelper.ToastMessage(mContext, mResultBean.msg);

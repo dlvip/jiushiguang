@@ -9,7 +9,7 @@
     <com.old.time.views.banner.BannerLayout
         android:id="@+id/recycler_banner"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="140dp"
         app:indicatorGravity="center"
         app:showIndicator="true" />
 
@@ -27,17 +27,16 @@
 
     <include
         android:id="@+id/include_course"
-        layout="@layout/title_recycler_view"/>
+        layout="@layout/title_recycler_view" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
-        android:layout_marginTop="@dimen/layout_10"
         android:background="@color/main_bg" />
 
     <include
         android:id="@+id/include_music"
-        layout="@layout/title_recycler_view"/>
+        layout="@layout/title_recycler_view" />
 
     <View
         android:layout_width="match_parent"

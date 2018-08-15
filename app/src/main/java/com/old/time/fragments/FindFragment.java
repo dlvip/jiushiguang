@@ -61,7 +61,8 @@ public class FindFragment extends CBaseFragment {
 
             @Override
             protected void convert(BaseViewHolder helper, EventBean item) {
-                helper.setText(R.id.tv_event_title, item.getTitle()).setText(R.id.tv_event_price, "￥ " + item.getPrice()).setText(R.id.tv_join_count, item.getJoinCount() + " 人参与");
+                helper.setText(R.id.tv_event_title, item.getTitle()).setText(R.id.tv_event_price, "￥ " + item.getPrice())//
+                        .setText(R.id.tv_join_count, item.getJoinCount() + " 人参与");
                 ImageView img_event_pic = helper.getView(R.id.img_event_pic);
                 GlideUtils.getInstance().setImageView(mContext, item.getPicUrl(), img_event_pic);
 

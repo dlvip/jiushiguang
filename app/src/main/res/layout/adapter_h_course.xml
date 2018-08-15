@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="240dp"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/layout_100"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_solid_fff_stroke_linebg">
+    android:layout_marginBottom="@dimen/layout_10"
+    app:cardCornerRadius="5dp">
 
-    <include layout="@layout/adapter_course" />
+    <ImageView
+        android:id="@+id/img_course_pic"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="@dimen/layout_10"
+        android:background="@color/color_999"
+        android:scaleType="fitXY" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/tv_course_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@color/color_fff"
+        android:lineSpacingExtra="@dimen/layout_3"
+        android:maxLines="2"
+        android:minLines="2"
+        android:paddingBottom="@dimen/layout_5"
+        android:paddingTop="@dimen/layout_5"
+        android:text="@string/title_detail"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_12" />
+
+    <TextView
+        android:id="@+id/tv_join_count"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/img_course_pic"
+        android:layout_marginTop="@dimen/layout_80"
+        android:background="@color/color_60000000"
+        android:gravity="center_vertical"
+        android:padding="@dimen/layout_3"
+        android:text="128万"
+        android:textColor="@color/color_fff"
+        android:textSize="@dimen/text_10" />
+
+</android.support.v7.widget.CardView>

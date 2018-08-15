@@ -53,7 +53,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation files('libs/AMap3DMap_6.1.0_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330.jar')
 
-    implementation externalChuck
+    implementation externalGithubChuck
     implementation externalAndroidPalette
     implementation externalGSON
     implementation externalOKHTTP
