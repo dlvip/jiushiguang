@@ -13,6 +13,7 @@ import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.UIHelper;
 
 public class MainActivity extends BaseActivity {
 

@@ -2,7 +2,9 @@ package com.old.time;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
+import com.old.time.constants.Constant;
 import com.old.time.loadsirs.core.LoadSir;
 import com.old.time.loadsirs.customs.EmptyCallback;
 import com.old.time.loadsirs.customs.ErrorCallback;
@@ -11,6 +13,8 @@ import com.old.time.task.ReadClient;
 import com.old.time.task.TaskManager;
 import com.old.time.utils.ASRUtil;
 import com.old.time.utils.DebugLog;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.tencent.smtt.sdk.QbSdk;
 
 import java.security.cert.CertificateException;
@@ -56,14 +60,34 @@ public class MyApplication extends Application {
     }
 
     private void init() {
+        initBugly();
         mTaskMgr = new TaskManager();
         mTaskMgr.init(0);
         client = new ReadClient();//初始化客户端配置信息管理者
         initLoadSirs();
         initQbSdk();
         initOkGo();
+    }
+
+    /**
+     * 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
+     * 调试时，将第三个参数改为true
+     */
+    private void initBugly() {
+        Bugly.init(mContext, Constant.TINK_APP_ID, false);
 
     }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        // you must install multiDex whatever tinker is installed!
+        MultiDex.install(base);
+
+        // 安装tinker
+        Beta.installTinker();
+    }
+
 
     private TaskManager mTaskMgr;
 

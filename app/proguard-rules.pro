@@ -33,4 +33,7 @@
 -keep class com.dueeeke.videoplayer.** { *; }
 -dontwarn com.dueeeke.videoplayer.**
 
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+
 

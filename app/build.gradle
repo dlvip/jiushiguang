@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 
+// 依赖插件脚本
+apply from: 'tinker-support.gradle'
 android {
     compileSdkVersion externalCompileSdkVersion
     buildToolsVersion externalBuildToolsVersion
@@ -13,6 +15,11 @@ android {
         multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true
+
+        //设置支持的SO库架构
+        ndk {
+            abiFilters 'armeabi-v7a' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
 
     }
     signingConfigs {
@@ -73,4 +80,11 @@ dependencies {
     implementation project(path: ':zxing')
     implementation project(path: ':okgo')
     implementation project(path: ':dkplayer')
+
+    //热修复相关
+    implementation externalAndroidMultiDex
+    implementation externalTencentCrashreportUpgrade
+    implementation externalTencentNativeCrashReport
+    implementation externalTencentTinkerAndroidLib
+
 }

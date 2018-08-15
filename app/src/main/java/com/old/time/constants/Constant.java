@@ -1,12 +1,13 @@
 package com.old.time.constants;
 
-import com.old.time.utils.StringUtils;
-
 /**
  * Created by NING on 2018/3/5.
  */
 
 public class Constant {
+
+    //热更新App ID
+    public static final String TINK_APP_ID = "726aeba59a";
 
     //阿里云环境配置
     public static final String accessKeyId = "LTAIZI9pk9HdFbtB";
