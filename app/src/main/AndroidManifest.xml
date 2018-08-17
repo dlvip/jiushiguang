@@ -92,13 +92,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activitys.UserLoginActivity"
+            android:name=".activitys.MainActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activitys.MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask"
+            android:name=".activitys.UserLoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity android:name=".activitys.PhotoPagerActivity" />
         <activity android:name=".activitys.TakePicActivity" />

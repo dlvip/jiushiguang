@@ -175,7 +175,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(false);//将此任务转向后台
-        super.onBackPressed();
 
     }
 
