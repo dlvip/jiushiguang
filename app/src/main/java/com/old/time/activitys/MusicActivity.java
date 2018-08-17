@@ -36,7 +36,6 @@ import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.UIHelper;
 
@@ -135,6 +134,8 @@ public class MusicActivity extends BaseActivity {
     private void startMusicService() {
         Intent musicService = new Intent();
         musicService.setClass(getApplicationContext(), MusicService.class);
+        musicService.setAction("ACTION_START");
+        musicService.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         musicService.putParcelableArrayListExtra("music_list", (ArrayList<? extends Parcelable>) mMusicList);
         musicService.putExtra("messenger", new Messenger(handler));
         startService(musicService);

@@ -23,8 +23,8 @@ public class AnimUtil {
      * 缩放: 0~1, 以中心点缩放
      */
     public static ScaleAnimation getScaleAnim() {
-        ScaleAnimation scale = new ScaleAnimation(0.8f, 1, 0.8f, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.4f);
-        scale.setDuration(3000);
+        ScaleAnimation scale = new ScaleAnimation(1f, 1.2f, 1f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scale.setDuration(5000);
         scale.setFillAfter(true);
         return scale;
     }
@@ -33,7 +33,6 @@ public class AnimUtil {
      * 旋转动画: 0~360, 中心点
      */
     public static RotateAnimation getRotateAnim() {
-
         RotateAnimation rotate = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, //
                 Animation.RELATIVE_TO_SELF, 0.5f);
         rotate.setDuration(3000);

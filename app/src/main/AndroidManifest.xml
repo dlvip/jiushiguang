@@ -77,7 +77,10 @@
             android:value="9c9c4d9a65971e91f0130fa087d263aa" />
 
         <!-- 音乐播放 -->
-        <service android:name=".mp3Utils.MusicService" />
+        <service
+            android:name=".mp3Utils.MusicService"
+            android:enabled="true"
+            android:process="system" />
         <service android:name="com.amap.api.location.APSService" />
         <!-- 定位配置结束 -->
 
