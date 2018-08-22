@@ -22,7 +22,9 @@ import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
+import com.old.time.beans.CourseBean;
 import com.old.time.beans.MusicBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
@@ -44,12 +46,13 @@ import java.util.List;
 
 public class MusicActivity extends BaseActivity {
 
-    public static void startMusicActivity(Context mContext) {
+    public static void startMusicActivity(Context mContext, CourseBean mCourseBean) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
 
             return;
         }
         Intent intent = new Intent(mContext, MusicActivity.class);
+        intent.putExtra("mCourseBean", mCourseBean);
         ActivityUtils.startLoginActivity((Activity) mContext, intent);
 
     }
@@ -97,7 +100,10 @@ public class MusicActivity extends BaseActivity {
         }
     };
 
+    private CourseBean mCourseBean;
+
     public void initView() {
+        mCourseBean = (CourseBean) getIntent().getSerializableExtra("mCourseBean");
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
         mSinger = findViewById(R.id.textViewSinger);//歌手
@@ -364,7 +370,10 @@ public class MusicActivity extends BaseActivity {
      * 获取章节列表
      */
     private void getMusics() {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<MusicBean>>>() {
+        HttpParams params = new HttpParams();
+        params.put("albumId", mCourseBean.albumId);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<MusicBean>>>() {
+
             @Override
             public void onSuccess(ResultBean<List<MusicBean>> mResultBean) {
                 mMusicList.clear();

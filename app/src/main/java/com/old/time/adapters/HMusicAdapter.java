@@ -32,7 +32,6 @@ public class HMusicAdapter extends BaseQuickAdapter<TeacherBean, BaseViewHolder>
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicActivity.startMusicActivity(mContext);
 
             }
         });

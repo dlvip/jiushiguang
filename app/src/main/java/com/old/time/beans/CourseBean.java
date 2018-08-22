@@ -13,5 +13,6 @@ public class CourseBean implements Serializable {
 
     public String coursePic;
 
+    public String albumId;
 
 }
