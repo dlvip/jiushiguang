@@ -9,8 +9,8 @@ buildscript {
     apply from: 'thirdparty-lib/config.gradle'
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
-
         classpath "com.tencent.bugly:tinker-support:1.1.2"
+
     }
 }
 

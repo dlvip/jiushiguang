@@ -41,13 +41,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
+    private TextView tv_title;
+
     /**
      * 设置title
      *
      * @param text
      */
     public void setTitleText(int text) {
-        TextView tv_title = findViewById(R.id.top_title);
+        if (tv_title == null) {
+            tv_title = findViewById(R.id.top_title);
+
+        }
         if (tv_title != null) tv_title.setText(text);
     }
 
@@ -57,7 +62,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * @param text
      */
     public void setTitleText(String text) {
-        TextView tv_title = (TextView) findViewById(R.id.top_title);
+        if(tv_title == null){
+            tv_title = findViewById(R.id.top_title);
+
+        }
         if (tv_title != null) tv_title.setText(text);
 
     }
@@ -146,7 +154,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    public void save(View view){
+    public void save(View view) {
 
     }
 

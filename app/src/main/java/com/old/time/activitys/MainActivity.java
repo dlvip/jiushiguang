@@ -13,7 +13,6 @@ import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.UIHelper;
 
 public class MainActivity extends BaseActivity {
 
@@ -171,6 +170,12 @@ public class MainActivity extends BaseActivity {
 
         fragmentTransaction.show(fragment);
         fragmentTransaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(false);//将此任务转向后台
+
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class VideoPagerAdapter extends PagerAdapter {
 
-    private static final String TAG = "DouYinAdapter";
+    private static final String TAG = "VideoPagerAdapter";
 
     private List<View> mViews;
 
