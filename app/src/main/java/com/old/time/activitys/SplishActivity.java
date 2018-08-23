@@ -121,5 +121,6 @@ public class SplishActivity extends BaseActivity {
         ActivityUtils.removeActivity(this);
         cancelDownTimer();
         MyApplication.getInstance().getTaskManager().delTask(Constant.IMAGEDOWNLOAD_THREAD_NAME);
+
     }
 }

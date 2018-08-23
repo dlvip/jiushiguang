@@ -125,9 +125,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             return;
         }
         UserLocalInfoUtils.instance().setmUserInfoBean(mUserInfoBean);
-        GlideUtils.getInstance().setRoundImageView(mContext, mUserInfoBean.getLogopath(), img_user_header);
-        tv_user_name.setText(mUserInfoBean.getNickName());
-        tv_user_detail.setText(mUserInfoBean.getSign());
+        GlideUtils.getInstance().setRoundImageView(mContext, mUserInfoBean.getAvatar(), img_user_header);
+        tv_user_name.setText(mUserInfoBean.getUserName());
+        tv_user_detail.setText(mUserInfoBean.getVocation());
 
     }
 

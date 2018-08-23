@@ -9,12 +9,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Result;
 import com.old.time.R;
+import com.old.time.beans.ResultBean;
+import com.old.time.beans.UserInfoBean;
+import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class UserRegisterActivity extends BaseActivity {
 
@@ -31,16 +40,16 @@ public class UserRegisterActivity extends BaseActivity {
 
     }
 
-    private Timer timer;
-    private int times = 0;
+    private Timer timer = new Timer();
+    private int times = 100;
     private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            if (msg.what > 0 && msg.what <= 100) {
+            if (msg.what > 0 && msg.what < 100) {
                 times = msg.what;
                 tv_get_code.setText(msg.what + " S");
 
             } else {
-                times = 0;
+                times = 100;
                 tv_get_code.setText("获取验证码");
                 timer.cancel();
 
@@ -89,7 +98,7 @@ public class UserRegisterActivity extends BaseActivity {
      * 获取验证码
      */
     private void getPhoneCode() {
-        if (times != 0) {//时间在倒计时
+        if (times == 100) {//时间在倒计时
 
             return;
         }
@@ -104,7 +113,28 @@ public class UserRegisterActivity extends BaseActivity {
 
             return;
         }
+        HttpParams params = new HttpParams();
+        params.put("mobile", phoneStr);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_PHONE_CODE, new JsonCallBack<ResultBean<String>>() {
+            @Override
+            public void onSuccess(ResultBean<String> mResultBean) {
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        handler.sendEmptyMessage(times--);
+
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void onError(ResultBean<String> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
     }
+
 
     /**
      * 用户注册
@@ -128,6 +158,27 @@ public class UserRegisterActivity extends BaseActivity {
 
             return;
         }
+        HttpParams params = new HttpParams();
+        params.put("mobile", phoneStr);
+        params.put("pasWord", StringUtils.encodeByMD5(passWordStr));
+        params.put("code", codeStr);
+        OkGoUtils.getInstance().postNetForData(params, Constant.USER_REGISTER, new JsonCallBack<ResultBean<UserInfoBean>>() {
+            @Override
+            public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
+                if (mResultBean == null || mResultBean.data == null) {
+
+                    return;
+                }
+                UserLocalInfoUtils.instance().setmUserInfoBean(mResultBean.data);
+
+            }
+
+            @Override
+            public void onError(ResultBean<UserInfoBean> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
     }
 
     @Override

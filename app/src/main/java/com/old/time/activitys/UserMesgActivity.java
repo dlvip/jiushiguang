@@ -55,9 +55,9 @@ public class UserMesgActivity extends BaseActivity {
 
             return;
         }
-        GlideUtils.getInstance().setRoundImageView(mContext, mUserInfoBean.getLogopath(), img_user_header);
-        tv_edt_nick.setText(mUserInfoBean.getNickName());
-        tv_edt_brief.setText(mUserInfoBean.getSign());
+        GlideUtils.getInstance().setRoundImageView(mContext, mUserInfoBean.getAvatar(), img_user_header);
+        tv_edt_nick.setText(mUserInfoBean.getUserName());
+        tv_edt_brief.setText(mUserInfoBean.getVocation());
     }
 
     @Override

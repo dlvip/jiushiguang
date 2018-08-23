@@ -8,47 +8,24 @@ import java.io.Serializable;
 
 public class UserInfoBean implements Serializable {
 
+    private String id;
 
+    private String userId;
+
+    private String userName;
+
+    private String avatar;
+
+    private String mobile;
+
+    private String birthday;
 
     /**
-     * sign :
-     * id : d01bbb7c-9f8e-4669-9bbb-7c9f8e1669f0
-     * groupCount : 0
-     * groupId :
-     * frendCount : 0
-     * nickName : Akity
-     * watchCount : 30
-     * age :
-     * genger :
-     * logopath : 2f362f4da7a4634da090bb8a568e59d7.jpg
-     * fansCount : 0
-     * bindingTime : 2018-03-06 14:12:34.0
-     * focusflag : false
+     * 0：女、1：男
      */
+    private boolean sex;
 
-
-
-    private String sign;
-    private String id;
-    private String groupCount;
-    private String groupId;
-    private String frendCount;
-    private String nickName;
-    private String watchCount;
-    private String age;
-    private String genger;
-    private String logopath;
-    private String fansCount;
-    private String bindingTime;
-    private boolean focusflag;
-
-    public String getSign() {
-        return sign;
-    }
-
-    public void setSign(String sign) {
-        this.sign = sign;
-    }
+    private String vocation;
 
     public String getId() {
         return id;
@@ -58,91 +35,59 @@ public class UserInfoBean implements Serializable {
         this.id = id;
     }
 
-    public String getGroupCount() {
-        return groupCount;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setGroupCount(String groupCount) {
-        this.groupCount = groupCount;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getGroupId() {
-        return groupId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getFrendCount() {
-        return frendCount;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setFrendCount(String frendCount) {
-        this.frendCount = frendCount;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public String getWatchCount() {
-        return watchCount;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setWatchCount(String watchCount) {
-        this.watchCount = watchCount;
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
-    public String getAge() {
-        return age;
+    public boolean isSex() {
+        return sex;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setSex(boolean sex) {
+        this.sex = sex;
     }
 
-    public String getGenger() {
-        return genger;
+    public String getVocation() {
+        return vocation;
     }
 
-    public void setGenger(String genger) {
-        this.genger = genger;
-    }
-
-    public String getLogopath() {
-        return logopath;
-    }
-
-    public void setLogopath(String logopath) {
-        this.logopath = logopath;
-    }
-
-    public String getFansCount() {
-        return fansCount;
-    }
-
-    public void setFansCount(String fansCount) {
-        this.fansCount = fansCount;
-    }
-
-    public String getBindingTime() {
-        return bindingTime;
-    }
-
-    public void setBindingTime(String bindingTime) {
-        this.bindingTime = bindingTime;
-    }
-
-    public boolean isFocusflag() {
-        return focusflag;
-    }
-
-    public void setFocusflag(boolean focusflag) {
-        this.focusflag = focusflag;
+    public void setVocation(String vocation) {
+        this.vocation = vocation;
     }
 }
