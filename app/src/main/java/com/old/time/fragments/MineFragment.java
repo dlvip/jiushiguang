@@ -114,6 +114,28 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
             return;
         }
+        HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_INFO, new JsonCallBack<ResultBean<UserInfoBean>>() {
+            @Override
+            public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (mResultBean == null || mResultBean.data == null) {
+
+                    return;
+                }
+                UserInfoBean mUserInfoBean = mResultBean.data;
+                UserLocalInfoUtils.instance().setmUserInfoBean(mUserInfoBean);
+                setDataForView(mUserInfoBean);
+            }
+
+            @Override
+            public void onError(ResultBean<UserInfoBean> mResultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
     }
 
     /**

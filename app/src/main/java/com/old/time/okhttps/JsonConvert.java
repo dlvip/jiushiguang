@@ -18,6 +18,7 @@ package com.old.time.okhttps;
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.convert.Converter;
 import com.old.time.beans.ResultBean;
+import com.old.time.exceptions.JSGRuntimeException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -150,17 +151,23 @@ public class JsonConvert<T> implements Converter<T> {
                 if (code == 0) {
 
                     return (T) lzyResponse;
-                } else if (code == 104) {
-
-                    throw new IllegalStateException("用户授权信息无效");
-                } else if (code == 105) {
-
-                    throw new IllegalStateException("用户收取信息已过期");
                 } else {
 
-                    //直接将服务端的错误信息抛出，onError中可以获取
-                    throw new IllegalStateException("错误代码：" + code + "，错误信息：" + lzyResponse.msg);
+                    throw new JSGRuntimeException(code, lzyResponse.msg);
                 }
+
+
+//                if (code == 104) {
+//
+//                    throw new IllegalStateException("用户授权信息无效");
+//                } else if (code == 105) {
+//
+//                    throw new IllegalStateException("用户收取信息已过期");
+//                } else {
+//
+//                    //直接将服务端的错误信息抛出，onError中可以获取
+//                    throw new IllegalStateException("错误代码：" + code + "，错误信息：" + lzyResponse.msg);
+//                }
             }
         }
     }

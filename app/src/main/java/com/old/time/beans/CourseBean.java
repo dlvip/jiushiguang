@@ -7,12 +7,27 @@ import java.io.Serializable;
  */
 
 public class CourseBean implements Serializable {
+
     public String id;
+
+    /**
+     * 用户di
+     */
+    private Integer userId;
 
     public String title;
 
     public String coursePic;
 
+    /**
+     * 专辑id
+     */
     public String albumId;
 
+
+    @Override
+    public String toString() {
+
+        return "CourseBean={ id:" + id + " , userId:" + userId + " , title:" + title + " , coursePic:" + coursePic + " , albumId:" + albumId + "}";
+    }
 }

@@ -23,7 +23,7 @@ public class UserInfoBean implements Serializable {
     /**
      * 0：女、1：男
      */
-    private boolean sex;
+    private int sex;
 
     private String vocation;
 
@@ -75,11 +75,11 @@ public class UserInfoBean implements Serializable {
         this.birthday = birthday;
     }
 
-    public boolean isSex() {
+    public int isSex() {
         return sex;
     }
 
-    public void setSex(boolean sex) {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
