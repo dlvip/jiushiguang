@@ -2,6 +2,7 @@ package com.old.time.okhttps;
 
 import com.lzy.okgo.model.Response;
 import com.old.time.beans.ResultBean;
+import com.old.time.exceptions.JSGRuntimeException;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -38,13 +39,22 @@ public abstract class JsonCallBack<T> extends BaseCallback<T> {
 
     @Override
     public void onError(Response<T> response) {
-        if (response == null || response.body() == null) {
+        if (response == null) {
+            onError((T) new ResultBean(-1, "网络异常"));
+
+        }
+        if (response.getException() instanceof JSGRuntimeException) {
+            JSGRuntimeException jsgRuntimeException = (JSGRuntimeException) response.getException();
+            onError((T) new ResultBean(jsgRuntimeException.getStatus(), jsgRuntimeException.getMsg()));
+
+        } else if (response.body() == null) {
             onError((T) new ResultBean(-1, "网络异常"));
 
         } else {
             onError(response.body());
 
         }
+
     }
 
     public abstract void onSuccess(T mResultBean);

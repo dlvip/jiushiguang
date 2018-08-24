@@ -20,6 +20,7 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.FileUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.SpUtils;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class UserMesgActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mUserInfoBean = SpUtils.getObject(Key.GET_USER_INFO_BEAN);
+        mUserInfoBean = UserLocalInfoUtils.instance().getmUserInfoBean();
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         setTitleText("资料信息");
         img_user_header = findViewById(R.id.img_user_header);
@@ -55,6 +56,7 @@ public class UserMesgActivity extends BaseActivity {
 
             return;
         }
+        tv_edt_phone.setText(mUserInfoBean.getMobile());
         GlideUtils.getInstance().setRoundImageView(mContext, mUserInfoBean.getAvatar(), img_user_header);
         tv_edt_nick.setText(mUserInfoBean.getUserName());
         tv_edt_brief.setText(mUserInfoBean.getVocation());

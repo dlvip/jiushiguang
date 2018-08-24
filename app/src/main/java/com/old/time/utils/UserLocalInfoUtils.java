@@ -47,7 +47,7 @@ public class UserLocalInfoUtils {
 
             return "-1";
         }
-        return mUserInfoBean.getId();
+        return mUserInfoBean.getUserId();
     }
 
     /**

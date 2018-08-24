@@ -1,16 +1,14 @@
 package com.old.time.activitys;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lzy.okgo.model.HttpParams;
-import com.lzy.okgo.model.Result;
 import com.old.time.R;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.UserInfoBean;
@@ -37,25 +35,9 @@ public class UserRegisterActivity extends BaseActivity {
         intent.putExtra("mRegisterTag", mRegisterTag);
         intent.putExtra("mPhoneStr", mPhoneStr);
         ActivityUtils.startActivity(mContext, intent);
+        ActivityUtils.finishActivity(mContext);
 
     }
-
-    private Timer timer = new Timer();
-    private int times = 100;
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            if (msg.what > 0 && msg.what < 100) {
-                times = msg.what;
-                tv_get_code.setText(msg.what + " S");
-
-            } else {
-                times = 100;
-                tv_get_code.setText("获取验证码");
-                timer.cancel();
-
-            }
-        }
-    };
 
     private String mRegisterTag, mPhoneStr;
 
@@ -94,11 +76,13 @@ public class UserRegisterActivity extends BaseActivity {
 
     }
 
+    private ProgressDialog pd;
+
     /**
      * 获取验证码
      */
     private void getPhoneCode() {
-        if (times == 100) {//时间在倒计时
+        if (times != 100) {//时间在倒计时
 
             return;
         }
@@ -113,26 +97,52 @@ public class UserRegisterActivity extends BaseActivity {
 
             return;
         }
+        pd = UIHelper.showProgressMessageDialog(mContext, getString(R.string.please_wait));
         HttpParams params = new HttpParams();
         params.put("mobile", phoneStr);
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_PHONE_CODE, new JsonCallBack<ResultBean<String>>() {
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_PHONE_CODE, new JsonCallBack<ResultBean>() {
             @Override
-            public void onSuccess(ResultBean<String> mResultBean) {
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        handler.sendEmptyMessage(times--);
+            public void onSuccess(ResultBean mResultBean) {
+                UIHelper.dissmissProgressDialog(pd);
+                startTimer();
 
-                    }
-                }, 1000);
             }
 
             @Override
-            public void onError(ResultBean<String> mResultBean) {
+            public void onError(ResultBean mResultBean) {
+                UIHelper.dissmissProgressDialog(pd);
                 UIHelper.ToastMessage(mContext, mResultBean.msg);
 
             }
         });
+    }
+
+    private Timer timer;// 计时器
+    private int times = 100;
+
+    /**
+     * 开启倒计时
+     */
+    private void startTimer() {
+        timer = new Timer();// 计时器
+        TimerTask timerTask = new TimerTask() {
+
+            @Override
+            public void run() {// 定义一个消息传过去
+                times--;
+                if (times > 0 && times < 100) {
+                    tv_get_code.setText(times + " S");
+
+                } else {
+                    times = 100;
+                    tv_get_code.setText("获取验证码");
+                    timer.cancel();
+
+                }
+            }
+        };
+        timer.schedule(timerTask, 0, 1000);// 开始倒计时，倒计时间隔为1秒
+
     }
 
 
@@ -170,6 +180,7 @@ public class UserRegisterActivity extends BaseActivity {
                     return;
                 }
                 UserLocalInfoUtils.instance().setmUserInfoBean(mResultBean.data);
+                ActivityUtils.finishActivity(mContext);
 
             }
 
@@ -209,5 +220,16 @@ public class UserRegisterActivity extends BaseActivity {
     @Override
     protected int getLayoutID() {
         return R.layout.activity_user_register;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+
+        }
+        super.onDestroy();
+
     }
 }

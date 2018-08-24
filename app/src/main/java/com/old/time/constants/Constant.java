@@ -36,7 +36,7 @@ public class Constant {
     public static String BASE_TEST_URL = "http://localhost:8080/jiushiguang/";
 
     //用户登陆
-    public static final String USER_LOGIN = BASE_TEST_URL + "getMobileCode";
+    public static final String USER_LOGIN = BASE_TEST_URL + "loginUser";
 
     //获取验证码
     public static final String GET_PHONE_CODE = BASE_TEST_URL + "getMobileCode";
@@ -45,7 +45,7 @@ public class Constant {
     public static final String USER_REGISTER = BASE_TEST_URL + "registerUser";
 
     //获取用户信息
-    public static final String GET_USER_INFO = BASE_TEST_URL + "getUserInfo";
+    public static final String GET_USER_INFO = BASE_TEST_URL + "user/getUserByUserId";
 
     // 发布动态
     public static final String SEND_CONTENT = BASE_TEST_URL + "saveContent";
@@ -65,8 +65,8 @@ public class Constant {
     //获取icon列表
     public static final String GET_HOME_ICONS = BASE_TEST_URL + "icon/getIconList";
 
-    //添加课堂列表
-    public static final String COURSE_ADD_COURSE = BASE_TEST_URL + "course/addCourse";
+    //添加专辑
+    public static final String COURSE_ADD_COURSE = BASE_TEST_URL + "course/saveCourse";
 
     //获取精品课堂列表
     public static final String GET_HOME_COURSES = BASE_TEST_URL + "course/getCourseList";
@@ -85,8 +85,6 @@ public class Constant {
 
     //获取活动列表
     public static final String GET_EVENT_LIST = BASE_TEST_URL + "event/getEventList";
-
-
 
 
     public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
