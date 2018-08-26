@@ -140,8 +140,6 @@ public class MusicActivity extends BaseActivity {
     private void startMusicService() {
         Intent musicService = new Intent();
         musicService.setClass(getApplicationContext(), MusicService.class);
-        musicService.setAction("ACTION_START");
-        musicService.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         musicService.putParcelableArrayListExtra("music_list", (ArrayList<? extends Parcelable>) mMusicList);
         musicService.putExtra("messenger", new Messenger(handler));
         startService(musicService);
@@ -372,6 +370,8 @@ public class MusicActivity extends BaseActivity {
     private void getMusics() {
         HttpParams params = new HttpParams();
         params.put("albumId", mCourseBean.albumId);
+        params.put("pageNum", "1");
+        params.put("pageSize", "15");
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<MusicBean>>>() {
 
             @Override
@@ -381,10 +381,10 @@ public class MusicActivity extends BaseActivity {
                     Mp3Info mp3Info = new Mp3Info();
                     mp3Info.setAlbum(mMusicBean.getMusicPic());
                     mp3Info.setAlbumId(Long.parseLong(mMusicBean.getAlbumId()));
-                    mp3Info.setAudio(mMusicBean.getMusiceUrl());
+                    mp3Info.setAudio("http://audio.xmcdn.com/group4/M09/6F/EF/wKgDs1RBv7ew141uANxGeNWjXjA063.mp3");
                     mp3Info.setDuration(mMusicBean.getMusiceTime());
                     mp3Info.setPicUrl(mMusicBean.getMusicPic());
-                    mp3Info.setUrl(mMusicBean.getMusiceUrl());
+                    mp3Info.setUrl("http://audio.xmcdn.com/group4/M09/6F/EF/wKgDs1RBv7ew141uANxGeNWjXjA063.mp3");
 
                     mMusicList.add(mp3Info);
                 }

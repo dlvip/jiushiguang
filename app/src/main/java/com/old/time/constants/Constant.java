@@ -71,11 +71,11 @@ public class Constant {
     //获取精品课堂列表
     public static final String GET_HOME_COURSES = BASE_TEST_URL + "course/getCourseList";
 
-    //添加章节列表
+    //添加章节
     public static final String MUSIC_ADD_MUSIC = BASE_TEST_URL + "music/addMusic";
 
     //获取章节列表
-    public static final String GET_MUSIC_LIST = BASE_TEST_URL + "music/findMusicEntriesByAlbumId";
+    public static final String GET_MUSIC_LIST = BASE_TEST_URL + "music/getChapters";
 
     //获取名师优讲
     public static final String GET_HONE_TEACHERS = BASE_TEST_URL + "user/getUserList";

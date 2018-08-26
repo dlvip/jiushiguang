@@ -13,7 +13,7 @@ public class CourseBean implements Serializable {
     /**
      * 用户di
      */
-    private Integer userId;
+    public String userId;
 
     public String title;
 
