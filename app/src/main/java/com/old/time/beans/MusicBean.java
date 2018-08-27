@@ -14,13 +14,13 @@ public class MusicBean implements Serializable {
 
     private String albumId;
 
-    private String musiceUrl;
+    private String musicUrl;
 
-    private String musiceTitle;
+    private String musicTitle;
 
     private String musicPic;
 
-    private long musiceTime;
+    private long musicTime;
 
     public String getId() {
         return id;
@@ -46,20 +46,20 @@ public class MusicBean implements Serializable {
         this.albumId = albumId;
     }
 
-    public String getMusiceUrl() {
-        return musiceUrl;
+    public String getMusicUrl() {
+        return musicUrl;
     }
 
-    public void setMusiceUrl(String musiceUrl) {
-        this.musiceUrl = musiceUrl;
+    public void setMusicUrl(String musicUrl) {
+        this.musicUrl = musicUrl;
     }
 
-    public String getMusiceTitle() {
-        return musiceTitle;
+    public String getMusicTitle() {
+        return musicTitle;
     }
 
-    public void setMusiceTitle(String musiceTitle) {
-        this.musiceTitle = musiceTitle;
+    public void setMusicTitle(String musicTitle) {
+        this.musicTitle = musicTitle;
     }
 
     public String getMusicPic() {
@@ -70,11 +70,11 @@ public class MusicBean implements Serializable {
         this.musicPic = musicPic;
     }
 
-    public long getMusiceTime() {
-        return musiceTime;
+    public long getMusicTime() {
+        return musicTime;
     }
 
-    public void setMusiceTime(long musiceTime) {
-        this.musiceTime = musiceTime;
+    public void setMusicTime(long musicTime) {
+        this.musicTime = musicTime;
     }
 }

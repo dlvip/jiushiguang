@@ -17,11 +17,14 @@ import android.os.Messenger;
 import android.os.Parcelable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.beans.CourseBean;
@@ -38,6 +41,8 @@ import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.MyLinearLayoutManager;
+import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.UIHelper;
 
@@ -101,6 +106,8 @@ public class MusicActivity extends BaseActivity {
     };
 
     private CourseBean mCourseBean;
+    private RecyclerView recycler_view_music;
+    private BaseQuickAdapter<Mp3Info, BaseViewHolder> mp3Adapter;
 
     public void initView() {
         mCourseBean = (CourseBean) getIntent().getSerializableExtra("mCourseBean");
@@ -111,13 +118,14 @@ public class MusicActivity extends BaseActivity {
         mPrevious = findViewById(R.id.previous);//上一首
         mPlayMode = findViewById(R.id.play_mode);//播放模式
         mNext = findViewById(R.id.next);//下一首
+        recycler_view_music = findViewById(R.id.recycler_view_music);
         remoteViews = new RemoteViews(getPackageName(), R.layout.customnotice);//通知栏布局
         //消息管理
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         createNotification();//创建通知栏
 
         //音乐列表
-        mMusicList = MediaUtil.getMp3Infos(this);
+//        mMusicList = MediaUtil.getMp3Infos(this);
         //启动音乐服务
 //        startMusicService();
 
@@ -125,6 +133,19 @@ public class MusicActivity extends BaseActivity {
         mPosition = SpUtils.getInt("music_current_position", 0);
         mIsPlaying = MusicService.isPlaying();
         switchSongUI(mPosition, mIsPlaying);
+        recycler_view_music.setLayoutManager(new MyLinearLayoutManager(mContext));
+        recycler_view_music.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST));
+        mp3Adapter = new BaseQuickAdapter<Mp3Info, BaseViewHolder>(R.layout.adapter_music, mMusicList) {
+            @Override
+            protected void convert(BaseViewHolder helper, Mp3Info item) {
+                int position = helper.getLayoutPosition() + 1;
+                helper.setText(R.id.tv_music_index, position + "")//
+                        .setText(R.id.tv_music_title, item.getTitle())//
+                        .setText(R.id.tv_music_time, String.valueOf(item.getSize()));
+
+            }
+        };
+        recycler_view_music.setAdapter(mp3Adapter);
 
         getMusics();
     }
@@ -138,6 +159,7 @@ public class MusicActivity extends BaseActivity {
      * 开始音乐服务并传输数据
      */
     private void startMusicService() {
+        mp3Adapter.notifyDataSetChanged();
         Intent musicService = new Intent();
         musicService.setClass(getApplicationContext(), MusicService.class);
         musicService.putParcelableArrayListExtra("music_list", (ArrayList<? extends Parcelable>) mMusicList);
@@ -381,10 +403,11 @@ public class MusicActivity extends BaseActivity {
                     Mp3Info mp3Info = new Mp3Info();
                     mp3Info.setAlbum(mMusicBean.getMusicPic());
                     mp3Info.setAlbumId(Long.parseLong(mMusicBean.getAlbumId()));
-                    mp3Info.setAudio("http://audio.xmcdn.com/group4/M09/6F/EF/wKgDs1RBv7ew141uANxGeNWjXjA063.mp3");
-                    mp3Info.setDuration(mMusicBean.getMusiceTime());
+                    mp3Info.setAudio(mMusicBean.getMusicUrl());
+                    mp3Info.setDuration(mMusicBean.getMusicTime());
                     mp3Info.setPicUrl(mMusicBean.getMusicPic());
-                    mp3Info.setUrl("http://audio.xmcdn.com/group4/M09/6F/EF/wKgDs1RBv7ew141uANxGeNWjXjA063.mp3");
+                    mp3Info.setTitle(mMusicBean.getMusicTitle());
+                    mp3Info.setUrl(mMusicBean.getMusicUrl());
 
                     mMusicList.add(mp3Info);
                 }
