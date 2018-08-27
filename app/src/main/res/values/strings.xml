@@ -2,6 +2,7 @@
     <string name="app_name">留年</string>
     <string name="main_right">保存</string>
     <string name="loading_show_empty">暂无数据</string>
+    <string name="error_net">网络异常</string>
     <string name="viewpager_indicator">%1$d/%2$d</string>
 
     <string name="main_tab_home">首页</string>

@@ -1,27 +1,40 @@
 package com.old.time.activitys;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
+import com.old.time.beans.PhotoInfoBean;
+import com.old.time.beans.ResultBean;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
+import com.old.time.constants.Constant;
 import com.old.time.constants.Key;
 import com.old.time.dialogs.DialogChoseAddress;
 import com.old.time.dialogs.DialogInputBottom;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.OnClickManagerCallBack;
+import com.old.time.interfaces.UploadImagesCallBack;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.FileUtils;
+import com.old.time.utils.NetworkUtil;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.SpUtils;
+import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserMesgActivity extends BaseActivity {
@@ -31,12 +44,19 @@ public class UserMesgActivity extends BaseActivity {
     private int PIC_COUNT_SIZE = 1;
     private UserInfoBean mUserInfoBean;
 
+    private RelativeLayout right_layout_send;
+
     /**
      * 消息通知
      *
      * @param mContext
      */
     public static void startUserMesgActivity(Activity mContext) {
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UserLoginActivity.startUserLoginActivity(mContext);
+
+            return;
+        }
         Intent intent = new Intent(mContext, UserMesgActivity.class);
         ActivityUtils.startActivity(mContext, intent);
 
@@ -52,10 +72,11 @@ public class UserMesgActivity extends BaseActivity {
         tv_edt_nick = findViewById(R.id.tv_edt_nick);
         tv_edt_address = findViewById(R.id.tv_edt_address);
         tv_edt_brief = findViewById(R.id.tv_edt_brief);
-        if (mUserInfoBean == null) {
 
-            return;
-        }
+        right_layout_send = findViewById(R.id.right_layout_send);
+        right_layout_send.setVisibility(View.VISIBLE);
+        right_layout_send.setOnClickListener(this);
+
         tv_edt_phone.setText(mUserInfoBean.getMobile());
         GlideUtils.getInstance().setRoundImageView(mContext, mUserInfoBean.getAvatar(), img_user_header);
         tv_edt_nick.setText(mUserInfoBean.getUserName());
@@ -97,7 +118,62 @@ public class UserMesgActivity extends BaseActivity {
                 mDialogInputBottom.showDialog(R.string.user_set_brief, R.string.dialog_true);
 
                 break;
+            case R.id.right_layout_send:
+                updateUserMsg();
+
+                break;
         }
+    }
+
+    private String userName, avatar, vocation, birthday, sex;
+    private ProgressDialog pd;
+
+    /**
+     * 修改用户信息
+     */
+    private void updateUserMsg() {
+        if (TextUtils.isEmpty(userName) && TextUtils.isEmpty(avatar) //
+                && TextUtils.isEmpty(vocation) && TextUtils.isEmpty(birthday) //
+                && TextUtils.isEmpty(sex)) {
+
+            UIHelper.ToastMessage(mContext, "没有要提交的内容");
+
+            return;
+        }
+        pd = UIHelper.showProgressMessageDialog(mContext, getString(R.string.please_wait));
+        HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        params.put("userName", userName);
+        params.put("avatar", avatar);
+        params.put("birthday", birthday);
+        params.put("sex", sex);
+        params.put("vocation", vocation);
+        OkGoUtils.getInstance().postNetForData(params, Constant.UPDATE_USER_MSG, new JsonCallBack<ResultBean<UserInfoBean>>() {
+            @Override
+            public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
+                UIHelper.dissmissProgressDialog(pd);
+                if (mResultBean == null || mResultBean.data == null) {
+                    UIHelper.ToastMessage(mContext, "操作失败");
+
+                    return;
+                }
+                UserLocalInfoUtils.instance().setmUserInfoBean(mResultBean.data);
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+                ActivityUtils.finishActivity(mContext);
+            }
+
+            @Override
+            public void onError(ResultBean<UserInfoBean> mResultBean) {
+                UIHelper.dissmissProgressDialog(pd);
+                if (mResultBean == null || mResultBean.data == null) {
+                    UIHelper.ToastMessage(mContext, "操作失败");
+
+                    return;
+                }
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
     }
 
     private DialogChoseAddress mDialogChoseAddress;
@@ -136,6 +212,7 @@ public class UserMesgActivity extends BaseActivity {
                                 return;
                             }
                             tv_edt_nick.setText(typeName);
+                            UserMesgActivity.this.userName = typeName;
 
                             break;
                         case 1:
@@ -144,6 +221,7 @@ public class UserMesgActivity extends BaseActivity {
                                 return;
                             }
                             tv_edt_brief.setText(typeName);
+                            UserMesgActivity.this.vocation = typeName;
 
                             break;
                     }
@@ -151,6 +229,8 @@ public class UserMesgActivity extends BaseActivity {
             });
         }
     }
+
+    private List<String> picPaths = new ArrayList<>();
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -177,9 +257,33 @@ public class UserMesgActivity extends BaseActivity {
                     return;
                 }
                 GlideUtils.getInstance().setRoundImageView(mContext, outputPath, img_user_header);
+                picPaths.clear();
+                picPaths.add(outputPath);
+                sendAliyunPic(picPaths);
 
                 break;
         }
+    }
+
+    /**
+     * 上传图片到阿里云
+     *
+     * @param picPaths
+     */
+    private void sendAliyunPic(List<String> picPaths) {
+        pd = UIHelper.showProgressMessageDialog(mContext, getString(R.string.please_wait));
+        AliyPostUtil.getInstance(mContext).uploadCompresImgsToAliyun(picPaths, new UploadImagesCallBack() {
+            @Override
+            public void getImagesPath(List<PhotoInfoBean> onlineFileName) {
+                UIHelper.dissmissProgressDialog(pd);
+                if (onlineFileName == null || onlineFileName.size() == 0) {
+
+                    UIHelper.ToastMessage(mContext, "上传图片失败");
+                    return;
+                }
+                UserMesgActivity.this.avatar = onlineFileName.get(0).picKey;
+            }
+        });
     }
 
     @Override

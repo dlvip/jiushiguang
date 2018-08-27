@@ -47,7 +47,6 @@ public class HomeFragment extends CBaseFragment {
 
     private List<ArticleBean> articleBeans;
     private HomeAdapter mAdapter;
-    private String cacheKey;
 
     private List<IconBean> iconBeans;
     private RecyclerView recycler_icons;
@@ -63,7 +62,6 @@ public class HomeFragment extends CBaseFragment {
 
     @Override
     protected void lazyLoad() {
-        cacheKey = HomeFragment.class.getName();
         super.lazyLoad();
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
@@ -141,7 +139,7 @@ public class HomeFragment extends CBaseFragment {
      * @param isRefresh
      */
     private void getHomeArticles(final boolean isRefresh) {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_ARTICLE_LIST, cacheKey, new JsonCallBack<ResultBean<List<ArticleBean>>>() {
+        OkGoUtils.getInstance().postNetForData(null, Constant.GET_ARTICLE_LIST, new JsonCallBack<ResultBean<List<ArticleBean>>>() {
 
             @Override
             public void onSuccess(ResultBean<List<ArticleBean>> mResultBean) {

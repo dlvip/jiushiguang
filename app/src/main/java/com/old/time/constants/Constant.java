@@ -6,6 +6,8 @@ package com.old.time.constants;
 
 public class Constant {
 
+    public static final int PageSize = 15;
+
     //热更新App ID
     public static final String TINK_APP_ID = "726aeba59a";
 
@@ -47,6 +49,9 @@ public class Constant {
     //获取用户信息
     public static final String GET_USER_INFO = BASE_TEST_URL + "user/getUserByUserId";
 
+    //修改用户信息
+    public static final String UPDATE_USER_MSG = BASE_TEST_URL + "user/updateUserMsg";
+
     // 发布动态
     public static final String SEND_CONTENT = BASE_TEST_URL + "saveContent";
 
@@ -85,7 +90,6 @@ public class Constant {
 
     //获取活动列表
     public static final String GET_EVENT_LIST = BASE_TEST_URL + "event/getEventList";
-
 
     public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 
