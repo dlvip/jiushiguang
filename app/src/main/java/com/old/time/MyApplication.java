@@ -1,8 +1,8 @@
 package com.old.time;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.old.time.constants.Constant;
 import com.old.time.loadsirs.core.LoadSir;
@@ -43,7 +43,7 @@ import okhttp3.OkHttpClient;
  * Created by NING on 2018/2/23.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
 
     public static MyApplication application;
 

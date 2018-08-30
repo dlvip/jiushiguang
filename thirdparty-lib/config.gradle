@@ -13,7 +13,6 @@ ext {
     externalGithubVerticalViewPager = 'com.github.castorflex.verticalviewpager:library:19.0.1'
     externalGithubAdapterHelper = 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     externalGithubVideocache = 'com.danikula:videocache:2.7.0'
-    externalGithubChuck = 'com.readystatesoftware.chuck:library:1.0.4'
     externalGithubIjkplayer = 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
 
     //Android support Libraries
@@ -42,7 +41,6 @@ ext {
 
     //SDK Layer
     externalJSR305 = 'com.google.code.findbugs:jsr305:3.0.0'
-    externalChuck = 'com.readystatesoftware.chuck:library:1.0.4'
     externalOKHTTP = 'com.squareup.okhttp3:okhttp:3.8.1'
     externalGSON = 'com.google.code.gson:gson:2.8.1'
     externalHttpCore = 'org.apache.httpcomponents:httpcore:4.4.1'

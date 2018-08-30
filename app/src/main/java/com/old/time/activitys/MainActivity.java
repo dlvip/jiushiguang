@@ -1,5 +1,6 @@
 package com.old.time.activitys;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import com.old.time.R;
 import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
+import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 
 public class MainActivity extends BaseActivity {
@@ -25,6 +27,10 @@ public class MainActivity extends BaseActivity {
      * @param mContext
      */
     public static void startMainActivity(Activity mContext) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.READ_PHONE_STATE})) {
+
+            return;
+        }
         Intent intent = new Intent(mContext, MainActivity.class);
         ActivityUtils.startActivity(mContext, intent);
         ActivityUtils.finishActivity(mContext);
