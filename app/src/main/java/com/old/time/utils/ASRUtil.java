@@ -195,7 +195,7 @@ public class ASRUtil {
      * @param mContext
      */
     public static void setAppID(Context mContext) {
-        SpeechUtility.createUtility(mContext, SpeechConstant.APPID + "=" + Key.XFYUN_APP_ID);
+//        SpeechUtility.createUtility(mContext, SpeechConstant.APPID + "=" + Key.XFYUN_APP_ID);
 
     }
 

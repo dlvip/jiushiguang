@@ -15,7 +15,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -26,6 +30,10 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.lzy.okgo.model.HttpParams;
+import com.mediabrowser.xiaxl.client.MusicManager;
+import com.mediabrowser.xiaxl.client.listener.OnSaveRecordListener;
+import com.mediabrowser.xiaxl.client.model.MusicInfo;
+import com.mediabrowser.xiaxl.setting.SettingConfig;
 import com.old.time.R;
 import com.old.time.beans.CourseBean;
 import com.old.time.beans.MusicBean;
@@ -33,7 +41,6 @@ import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
-import com.old.time.mp3Utils.MediaUtil;
 import com.old.time.mp3Utils.Mp3Info;
 import com.old.time.mp3Utils.MusicPlayerView;
 import com.old.time.mp3Utils.MusicService;
@@ -148,7 +155,75 @@ public class MusicActivity extends BaseActivity {
         recycler_view_music.setAdapter(mp3Adapter);
 
         getMusics();
+
+        initMusicAgent();
+        initData();
     }
+
+    private MusicManager mMusicManager;
+    // 音频数据
+    private List<MusicInfo> mMusicInfos = new ArrayList<>();
+
+    /**
+     * 初始化音乐引擎
+     */
+    private void initMusicAgent() {
+        // 初始化
+        if (mMusicManager == null) {
+            mMusicManager = MusicManager.getInstance();
+        }
+        mMusicManager.init(this);
+        // 音频变化的监听类
+        mMusicManager.addOnAudioStatusListener(mAudioStatusChangeListener);
+        // 记录播放记录的监听
+        mMusicManager.addOnRecorListener(mOnRecordListener);
+    }
+
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+        // 允许GPRS播放
+        SettingConfig.setGPRSPlayAllowed(this, true);
+        // 添加音频数据
+        mMusicInfos.add(new MusicInfo());
+
+    }
+
+    /**
+     * 音频变化回调
+     */
+    MusicManager.OnAudioStatusChangeListener mAudioStatusChangeListener = new MusicManager.OnAudioStatusChangeListener() {
+        @Override
+        public void onPlaybackStateChanged(@NonNull PlaybackStateCompat state) {
+            // 播放音频 状态变化
+//            onMediaPlaybackStateChanged(state);
+        }
+
+        @Override
+        public void onMetadataChanged(MediaMetadataCompat metadata) {
+            // 播放音频变化的回调
+//            onMediaMetadataChanged(metadata);
+        }
+
+        @Override
+        public void onQueueChanged(List<MediaSessionCompat.QueueItem> queue) {
+            // TODO 播放队列发生变化
+        }
+    };
+
+    /**
+     * 记录播放位置的回调
+     */
+    OnSaveRecordListener mOnRecordListener = new OnSaveRecordListener() {
+        @Override
+        public void onSaveRecord(MediaMetadataCompat mediaMetadataCompat, long postion) {
+            // TODO 保存播放记录用
+
+        }
+    };
+
 
     @Override
     protected int getLayoutID() {
@@ -345,6 +420,19 @@ public class MusicActivity extends BaseActivity {
                     sendBroadcast(Constant.ACTION_PLAY);
 
                 }
+
+                if (mIsPlaying) {
+                    if (mMusicManager != null) {
+                        mMusicManager.pause();
+                    }
+                } else {
+                    if (mMusicManager != null) {
+                        mMusicManager.playMusicList(mMusicInfos, 0);
+
+                    }
+                }
+
+
                 break;
             case R.id.previous://上一首
                 sendBroadcast(Constant.ACTION_PRV);

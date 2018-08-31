@@ -21,7 +21,7 @@ ext {
     externalAndroidCardView = 'com.android.support:cardview-v7:27.1.1'
     externalAndroidMultiDex = 'com.android.support:multidex:1.0.3'
     externalAndroidRecyclerView = 'com.android.support:recyclerview-v7:27.1.1'
-    externalAndroidSupportV13 = 'com.android.support:support-v13:23.4.0'
+    externalAndroidSupportV13 = 'com.android.support:support-v13:27.1.1'
     externalAndroidDesign = 'com.android.support:design:27.1.1'
     externalAndroidPalette = 'com.android.support:palette-v7:27.1.1'
 
