@@ -127,39 +127,39 @@ public class SettingActivity extends BaseActivity {
 
             return;
         }
-//        String string = StringUtils.getJson(jsonName + ".json", mContext);
-//        try {
-//            JSONObject jsonObject = new JSONObject(string);
-//            JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                JSONObject musicObj = jsonArray.getJSONObject(i);
-//                DebugLog.d("musicObj", musicObj.toString());
-//                HttpParams params = new HttpParams();
-//                params.put("userId", "06l6pkk0");
-//                params.put("albumId", musicObj.getString("albumId"));
-//                params.put("chapterId", musicObj.getString("trackId"));
-//                params.put("musicUrl", musicObj.getString("playUrl64"));
-//                params.put("musicPic", musicObj.getString("coverLarge"));
-//                params.put("musicTitle", musicObj.getString("title"));
-//                params.put("musicTime", musicObj.getString("playtimes"));
-//                params.put("orderNo", musicObj.getString("orderNo"));
-//                OkGoUtils.getInstance().postNetForData(params, Constant.MUSIC_ADD_MUSIC, new JsonCallBack<ResultBean<CourseBean>>() {
-//                    @Override
-//                    public void onSuccess(ResultBean<CourseBean> mResultBean) {
-//                        DebugLog.e("mResultBean::::", mResultBean.toString());
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(ResultBean<CourseBean> mResultBean) {
-//
-//
-//                    }
-//                });
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        String string = StringUtils.getJson(jsonName + ".json", mContext);
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject musicObj = jsonArray.getJSONObject(i);
+                DebugLog.d("musicObj", musicObj.toString());
+                HttpParams params = new HttpParams();
+                params.put("userId", "06l6pkk0");
+                params.put("albumId", musicObj.getString("albumId"));
+                params.put("chapterId", musicObj.getString("trackId"));
+                params.put("musicUrl", musicObj.getString("playUrl64"));
+                params.put("musicPic", musicObj.getString("coverLarge"));
+                params.put("musicTitle", musicObj.getString("title"));
+                params.put("musicTime", musicObj.getString("playtimes"));
+                params.put("orderNo", musicObj.getString("orderNo"));
+                OkGoUtils.getInstance().postNetForData(params, Constant.MUSIC_ADD_MUSIC, new JsonCallBack<ResultBean<CourseBean>>() {
+                    @Override
+                    public void onSuccess(ResultBean<CourseBean> mResultBean) {
+                        DebugLog.e("mResultBean::::", mResultBean.toString());
+
+                    }
+
+                    @Override
+                    public void onError(ResultBean<CourseBean> mResultBean) {
+
+
+                    }
+                });
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

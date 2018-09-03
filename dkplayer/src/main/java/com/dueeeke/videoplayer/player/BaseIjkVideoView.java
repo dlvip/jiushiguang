@@ -164,8 +164,10 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
         if (mMediaPlayer == null) {
             if (mPlayerConfig.mAbstractPlayer != null) {
                 mMediaPlayer = mPlayerConfig.mAbstractPlayer;
+
             } else {
                 mMediaPlayer = new IjkPlayer(getContext());
+
             }
             mMediaPlayer.bindVideoView(this);
             mMediaPlayer.initPlayer();
@@ -217,8 +219,7 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
             startInPlaybackState();
         }
         setKeepScreenOn(true);
-        if (mAudioFocusHelper != null)
-            mAudioFocusHelper.requestFocus();
+        if (mAudioFocusHelper != null) mAudioFocusHelper.requestFocus();
     }
 
     /**
@@ -232,8 +233,7 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
         if (mPlayerConfig.savingProgress) {
             mCurrentPosition = ProgressUtil.getSavedProgress(mCurrentUrl);
         }
-        if (mPlayerConfig.mAutoRotate)
-            orientationEventListener.enable();
+        if (mPlayerConfig.mAutoRotate) orientationEventListener.enable();
         initPlayer();
         startPrepare(false);
     }
@@ -256,8 +256,7 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
             mMediaPlayer.pause();
             setPlayState(STATE_PAUSED);
             setKeepScreenOn(false);
-            if (mAudioFocusHelper != null)
-                mAudioFocusHelper.abandonFocus();
+            if (mAudioFocusHelper != null) mAudioFocusHelper.abandonFocus();
             if (mVideoListener != null) mVideoListener.onVideoPaused();
         }
     }
@@ -266,14 +265,17 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
      * 继续播放
      */
     public void resume() {
-        if (isInPlaybackState()
-                && !mMediaPlayer.isPlaying()) {
+        if (isInPlaybackState() && !mMediaPlayer.isPlaying()) {
             mMediaPlayer.start();
             setPlayState(STATE_PLAYING);
-            if (mAudioFocusHelper != null)
+            if (mAudioFocusHelper != null) {
                 mAudioFocusHelper.requestFocus();
+
+            }
             setKeepScreenOn(true);
-            if (mVideoListener != null) mVideoListener.onVideoStarted();
+            if (mVideoListener != null) {
+                mVideoListener.onVideoStarted();
+            }
         }
     }
 
@@ -286,8 +288,10 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
             setPlayState(STATE_IDLE);
-            if (mAudioFocusHelper != null)
+            if (mAudioFocusHelper != null) {
                 mAudioFocusHelper.abandonFocus();
+
+            }
             setKeepScreenOn(false);
         }
         onPlayStopped();
@@ -303,8 +307,7 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
             mMediaPlayer.release();
             mMediaPlayer = null;
             setPlayState(STATE_IDLE);
-            if (mAudioFocusHelper != null)
-                mAudioFocusHelper.abandonFocus();
+            if (mAudioFocusHelper != null) mAudioFocusHelper.abandonFocus();
             setKeepScreenOn(false);
         }
         onPlayStopped();
@@ -313,8 +316,7 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
     private void onPlayStopped() {
         if (mVideoController != null) mVideoController.hideStatusView();
         orientationEventListener.disable();
-        if (mCacheServer != null)
-            mCacheServer.unregisterCacheListener(cacheListener);
+        if (mCacheServer != null) mCacheServer.unregisterCacheListener(cacheListener);
         isLockFullScreen = false;
         mCurrentPosition = 0;
     }
@@ -330,11 +332,11 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
      * 是否处于播放状态
      */
     protected boolean isInPlaybackState() {
-        return (mMediaPlayer != null
-                && mCurrentPlayState != STATE_ERROR
-                && mCurrentPlayState != STATE_IDLE
-                && mCurrentPlayState != STATE_PREPARING
+        return (mMediaPlayer != null && mCurrentPlayState != STATE_ERROR //
+                && mCurrentPlayState != STATE_IDLE //
+                && mCurrentPlayState != STATE_PREPARING //
                 && mCurrentPlayState != STATE_PLAYBACK_COMPLETED);
+
     }
 
     /**

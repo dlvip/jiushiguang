@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -15,13 +16,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.media.MediaMetadataCompat;
-import android.support.v4.media.session.MediaSessionCompat;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
@@ -29,29 +27,27 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.lzy.okgo.model.HttpParams;
-import com.mediabrowser.xiaxl.client.MusicManager;
-import com.mediabrowser.xiaxl.client.listener.OnSaveRecordListener;
-import com.mediabrowser.xiaxl.client.model.MusicInfo;
-import com.mediabrowser.xiaxl.setting.SettingConfig;
 import com.old.time.R;
 import com.old.time.beans.CourseBean;
-import com.old.time.beans.MusicBean;
-import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
+import com.old.time.mp3Utils.MediaUtil;
 import com.old.time.mp3Utils.Mp3Info;
 import com.old.time.mp3Utils.MusicPlayerView;
 import com.old.time.mp3Utils.MusicService;
-import com.old.time.okhttps.JsonCallBack;
-import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.SpUtils;
+import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
+
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,8 +127,9 @@ public class MusicActivity extends BaseActivity {
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         createNotification();//创建通知栏
 
+        mMusicList.clear();
         //音乐列表
-//        mMusicList = MediaUtil.getMp3Infos(this);
+        mMusicList.addAll(MediaUtil.getMp3Infos(this));
         //启动音乐服务
 //        startMusicService();
 
@@ -154,76 +151,10 @@ public class MusicActivity extends BaseActivity {
         };
         recycler_view_music.setAdapter(mp3Adapter);
 
-        getMusics();
-
-        initMusicAgent();
-        initData();
-    }
-
-    private MusicManager mMusicManager;
-    // 音频数据
-    private List<MusicInfo> mMusicInfos = new ArrayList<>();
-
-    /**
-     * 初始化音乐引擎
-     */
-    private void initMusicAgent() {
-        // 初始化
-        if (mMusicManager == null) {
-            mMusicManager = MusicManager.getInstance();
-        }
-        mMusicManager.init(this);
-        // 音频变化的监听类
-        mMusicManager.addOnAudioStatusListener(mAudioStatusChangeListener);
-        // 记录播放记录的监听
-        mMusicManager.addOnRecorListener(mOnRecordListener);
-    }
-
-
-    /**
-     * 初始化数据
-     */
-    private void initData() {
-        // 允许GPRS播放
-        SettingConfig.setGPRSPlayAllowed(this, true);
-        // 添加音频数据
-        mMusicInfos.add(new MusicInfo());
+//        getMusics();
+        addMusic("289105");
 
     }
-
-    /**
-     * 音频变化回调
-     */
-    MusicManager.OnAudioStatusChangeListener mAudioStatusChangeListener = new MusicManager.OnAudioStatusChangeListener() {
-        @Override
-        public void onPlaybackStateChanged(@NonNull PlaybackStateCompat state) {
-            // 播放音频 状态变化
-//            onMediaPlaybackStateChanged(state);
-        }
-
-        @Override
-        public void onMetadataChanged(MediaMetadataCompat metadata) {
-            // 播放音频变化的回调
-//            onMediaMetadataChanged(metadata);
-        }
-
-        @Override
-        public void onQueueChanged(List<MediaSessionCompat.QueueItem> queue) {
-            // TODO 播放队列发生变化
-        }
-    };
-
-    /**
-     * 记录播放位置的回调
-     */
-    OnSaveRecordListener mOnRecordListener = new OnSaveRecordListener() {
-        @Override
-        public void onSaveRecord(MediaMetadataCompat mediaMetadataCompat, long postion) {
-            // TODO 保存播放记录用
-
-        }
-    };
-
 
     @Override
     protected int getLayoutID() {
@@ -234,7 +165,6 @@ public class MusicActivity extends BaseActivity {
      * 开始音乐服务并传输数据
      */
     private void startMusicService() {
-        mp3Adapter.notifyDataSetChanged();
         Intent musicService = new Intent();
         musicService.setClass(getApplicationContext(), MusicService.class);
         musicService.putParcelableArrayListExtra("music_list", (ArrayList<? extends Parcelable>) mMusicList);
@@ -380,6 +310,8 @@ public class MusicActivity extends BaseActivity {
         remoteViews.setOnClickPendingIntent(R.id.widget_next, pending_intent_next);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel(MY_CHANNEL_ID, DEFAULT_CHANNEL_ID, NotificationManager.IMPORTANCE_LOW);
+            mNotificationManager.createNotificationChannel(mChannel);
             notification = new Notification.Builder(mContext, DEFAULT_CHANNEL_ID)//
                     .setSmallIcon(R.mipmap.ic_launcher)//
                     .setCustomContentView(remoteViews)//
@@ -420,18 +352,6 @@ public class MusicActivity extends BaseActivity {
                     sendBroadcast(Constant.ACTION_PLAY);
 
                 }
-
-                if (mIsPlaying) {
-                    if (mMusicManager != null) {
-                        mMusicManager.pause();
-                    }
-                } else {
-                    if (mMusicManager != null) {
-                        mMusicManager.playMusicList(mMusicInfos, 0);
-
-                    }
-                }
-
 
                 break;
             case R.id.previous://上一首
@@ -474,40 +394,69 @@ public class MusicActivity extends BaseActivity {
 
     }
 
-    /**
-     * 获取章节列表
-     */
-    private void getMusics() {
-        HttpParams params = new HttpParams();
-        params.put("albumId", mCourseBean.albumId);
-        params.put("pageNum", "1");
-        params.put("pageSize", "15");
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<MusicBean>>>() {
+//    /**
+//     * 获取章节列表
+//     */
+//    private void getMusics() {
+//        HttpParams params = new HttpParams();
+//        params.put("albumId", mCourseBean.albumId);
+//        params.put("pageNum", "1");
+//        params.put("pageSize", "15");
+//        OkGoUtils.getInstance().postNetForData(params, Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<MusicBean>>>() {
+//
+//            @Override
+//            public void onSuccess(ResultBean<List<MusicBean>> mResultBean) {
+//                mMusicList.clear();
+//                for (MusicBean mMusicBean : mResultBean.data) {
+//                    Mp3Info mp3Info = new Mp3Info();
+//                    mp3Info.setAlbum(mMusicBean.getMusicPic());
+//                    mp3Info.setAlbumId(Long.parseLong(mMusicBean.getAlbumId()));
+//                    mp3Info.setAudio(mMusicBean.getMusicUrl());
+//                    mp3Info.setDuration(mMusicBean.getMusicTime());
+//                    mp3Info.setPicUrl(mMusicBean.getMusicPic());
+//                    mp3Info.setTitle(mMusicBean.getMusicTitle());
+//                    mp3Info.setUrl(mMusicBean.getMusicUrl());
+//
+//                    mMusicList.add(mp3Info);
+//                }
+//                startMusicService();
+//
+//            }
+//
+//            @Override
+//            public void onError(ResultBean<List<MusicBean>> mResultBean) {
+//
+//            }
+//        });
+//    }
 
-            @Override
-            public void onSuccess(ResultBean<List<MusicBean>> mResultBean) {
-                mMusicList.clear();
-                for (MusicBean mMusicBean : mResultBean.data) {
-                    Mp3Info mp3Info = new Mp3Info();
-                    mp3Info.setAlbum(mMusicBean.getMusicPic());
-                    mp3Info.setAlbumId(Long.parseLong(mMusicBean.getAlbumId()));
-                    mp3Info.setAudio(mMusicBean.getMusicUrl());
-                    mp3Info.setDuration(mMusicBean.getMusicTime());
-                    mp3Info.setPicUrl(mMusicBean.getMusicPic());
-                    mp3Info.setTitle(mMusicBean.getMusicTitle());
-                    mp3Info.setUrl(mMusicBean.getMusicUrl());
+    private void addMusic(String jsonName) {
+        if (TextUtils.isEmpty(jsonName)) {
 
-                    mMusicList.add(mp3Info);
-                }
-                startMusicService();
+            return;
+        }
+        String string = StringUtils.getJson(jsonName + ".json", mContext);
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
+            mMusicList.clear();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject musicObj = jsonArray.getJSONObject(i);
+                Mp3Info mp3Info = new Mp3Info();
+                mp3Info.setAlbum(musicObj.getString("coverLarge"));
+                mp3Info.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
+                mp3Info.setAudio(musicObj.getString("playUrl64"));
+                mp3Info.setDuration(Long.parseLong(musicObj.getString("playtimes")));
+                mp3Info.setPicUrl(musicObj.getString("coverLarge"));
+                mp3Info.setTitle(musicObj.getString("title"));
+                mp3Info.setUrl(musicObj.getString("playUrl64"));
+                mMusicList.add(mp3Info);
 
             }
-
-            @Override
-            public void onError(ResultBean<List<MusicBean>> mResultBean) {
-
-            }
-        });
+            startMusicService();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

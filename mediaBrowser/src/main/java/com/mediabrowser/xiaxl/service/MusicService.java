@@ -403,6 +403,7 @@ public class MusicService extends MediaBrowserServiceCompat implements
      * A simple handler that stops the service if playback is not active (playing)
      */
     private static class DelayedStopHandler extends Handler {
+
         private final WeakReference<MusicService> mWeakReference;
 
         private DelayedStopHandler(MusicService service) {

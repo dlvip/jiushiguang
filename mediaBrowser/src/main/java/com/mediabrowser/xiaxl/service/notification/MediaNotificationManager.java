@@ -17,6 +17,8 @@
 package com.mediabrowser.xiaxl.service.notification;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -25,6 +27,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
@@ -39,6 +42,8 @@ import android.util.Log;
 import com.mediabrowser.xiaxl.R;
 import com.mediabrowser.xiaxl.service.MusicService;
 import com.mediabrowser.xiaxl.service.utils.ResourceUtil;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * Keeps track of a notification and updates it automatically for a given
@@ -95,7 +100,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
     /**
      * 获取NotificationManager
      */
-    private final NotificationManagerCompat mNotificationManager;
+    private final NotificationManager mNotificationManager;
 
 
     /**
@@ -122,7 +127,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
          *
          */
         // NotificationManagerCompat
-        mNotificationManager = NotificationManagerCompat.from(service);
+        mNotificationManager = (NotificationManager) mMusicService.getSystemService(NOTIFICATION_SERVICE);
 
         /**
          *
@@ -302,7 +307,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
         if (mMediaMetadata == null || mPlaybackState == null) {
             return null;
         }
-        //
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(mMusicService, DEFAULT_CHANNEL_ID);
         // 上一曲
         notificationBuilder.addAction(R.drawable.ic_skip_previous_white_36dp, mMusicService.getString(R.string.label_previous), mPreviousIntent);

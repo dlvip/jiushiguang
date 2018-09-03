@@ -79,6 +79,7 @@ dependencies {
     implementation externalGithubIjkplayer
     implementation externalGithubGravitySnapHelper
     implementation externalGithubVerticalViewPager
+    implementation externalEventBus
 
     implementation project(path: ':okserver')
     implementation project(path: ':zxing')

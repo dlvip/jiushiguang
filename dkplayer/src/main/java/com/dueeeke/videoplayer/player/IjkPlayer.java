@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Surface;
 import android.view.SurfaceHolder;
+import android.widget.SeekBar;
 
 import com.dueeeke.videoplayer.player.AbstractPlayer;
 import com.dueeeke.videoplayer.player.RawDataSourceProvider;
@@ -57,7 +58,7 @@ public class IjkPlayer extends AbstractPlayer {
     public void setDataSource(String path, Map<String, String> headers) {
         try {
             Uri uri = Uri.parse(path);
-            if(uri.getScheme().equals(ContentResolver.SCHEME_ANDROID_RESOURCE)){
+            if (uri.getScheme().equals(ContentResolver.SCHEME_ANDROID_RESOURCE)) {
                 RawDataSourceProvider rawDataSourceProvider = RawDataSourceProvider.create(mAppContext, uri);
                 mMediaPlayer.setDataSource(rawDataSourceProvider);
             } else {
@@ -135,8 +136,7 @@ public class IjkPlayer extends AbstractPlayer {
 
     @Override
     public void release() {
-        if (mMediaPlayer != null)
-            mMediaPlayer.release();
+        if (mMediaPlayer != null) mMediaPlayer.release();
     }
 
     @Override

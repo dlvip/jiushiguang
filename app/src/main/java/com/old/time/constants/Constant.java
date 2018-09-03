@@ -77,7 +77,7 @@ public class Constant {
     public static final String GET_HOME_COURSES = BASE_TEST_URL + "course/getCourseList";
 
     //添加章节
-    public static final String MUSIC_ADD_MUSIC = BASE_TEST_URL + "music/addMusic";
+    public static final String MUSIC_ADD_MUSIC = BASE_TEST_URL + "music/saveChapter";
 
     //获取章节列表
     public static final String GET_MUSIC_LIST = BASE_TEST_URL + "music/getChapters";
