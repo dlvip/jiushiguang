@@ -134,6 +134,8 @@ public class Constant {
     public static final String ACTION_NEXT = "com.old.time.next";
     //上一曲
     public static final String ACTION_PRV = "com.old.time.prv";
+    //播放速率
+    public static final String ACTION_SPEED = "com.old.time.speed";
 
     public static final String ACTION_CLOSE = "com.old.time.close";
 

@@ -18,7 +18,6 @@ import android.os.Messenger;
 import android.os.Parcelable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.graphics.Palette;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,13 +25,13 @@ import android.widget.ProgressBar;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.beans.CourseBean;
 import com.old.time.constants.Constant;
+import com.old.time.dialogs.DialogChapterList;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
+import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.mp3Utils.MediaUtil;
 import com.old.time.mp3Utils.Mp3Info;
 import com.old.time.mp3Utils.MusicService;
@@ -62,16 +61,17 @@ public class MusicPlayActivity extends BaseActivity {
 
     }
 
-    private static final String TAG = "MusicActivity";
+    private static final String TAG = "MusicPlayActivity";
     private ProgressBar mProgressBar;
     private View mainView;
-    private ImageView img_previous, img_next, img_play;
+    private ImageView img_book_pic;
+    private ImageView img_more, img_previous, img_next, img_play;
     private List<Mp3Info> mMusicList = new ArrayList<>();
     private TextView mSong;
     private TextView mSinger;
     private int mPosition;
     private boolean mIsPlaying = false;
-    private TextView tv_seek;
+    private TextView tv_speed, tv_progress_time, tv_title_time;
 
     private RemoteViews remoteViews;
     private PendingIntent pending_intent_play;
@@ -86,20 +86,24 @@ public class MusicPlayActivity extends BaseActivity {
                 int totalDuration = msg.arg2;
                 mProgressBar.setProgress(currentPosition);
                 mProgressBar.setMax(totalDuration);
+                tv_progress_time.setText(StringUtils.getDurationStr(currentPosition));
+                tv_title_time.setText(StringUtils.getDurationStr(totalDuration));
 
             }
             if (msg.what == Constant.MSG_PREPARED) {
                 mPosition = msg.arg1;
                 mIsPlaying = (boolean) msg.obj;
                 switchSongUI(mPosition, mIsPlaying);
+
             }
             if (msg.what == Constant.MSG_PLAY_STATE) {
                 mIsPlaying = (boolean) msg.obj;
                 refreshPlayStateUI(mIsPlaying);
+
             }
             if (msg.what == Constant.MSG_CANCEL) {
                 mIsPlaying = false;
-                finish();
+
             }
         }
     };
@@ -108,11 +112,15 @@ public class MusicPlayActivity extends BaseActivity {
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
         mSinger = findViewById(R.id.textViewSinger);//歌手
+        img_more = findViewById(R.id.img_more);
         img_previous = findViewById(R.id.img_previous);//上一首
         img_play = findViewById(R.id.img_play);//播放模式
         img_next = findViewById(R.id.img_next);//下一首
+        tv_progress_time = findViewById(R.id.tv_progress_time);
+        tv_title_time = findViewById(R.id.tv_title_time);
         mProgressBar = findViewById(R.id.pro_percent);
-        tv_seek = findViewById(R.id.tv_seek);
+        tv_speed = findViewById(R.id.tv_speed);
+        img_book_pic = findViewById(R.id.img_book_pic);
         remoteViews = new RemoteViews(getPackageName(), R.layout.customnotice);//通知栏布局
         //消息管理
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -166,8 +174,6 @@ public class MusicPlayActivity extends BaseActivity {
             GlideUtils.getInstance().downLoadBitmap(mContext, mMp3Info.getPicUrl(), new ImageDownLoadCallBack() {
                 @Override
                 public void onDownLoadSuccess(Bitmap resource) {
-                    remoteViews.setImageViewBitmap(R.id.widget_album, resource);
-                    img_play.setImageBitmap(resource);
                     // 4.更换音乐背景
                     assert resource != null;
                     Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
@@ -179,6 +185,8 @@ public class MusicPlayActivity extends BaseActivity {
 
                         }
                     });
+                    img_book_pic.setImageBitmap(resource);
+                    remoteViews.setImageViewBitmap(R.id.widget_album, resource);
                 }
             });
             remoteViews.setTextViewText(R.id.widget_title, mMp3Info.getTitle());
@@ -205,10 +213,10 @@ public class MusicPlayActivity extends BaseActivity {
      */
     private void updateMpv(boolean isPlaying) {
         if (isPlaying) {
-            img_play.setImageResource(R.drawable.widget_play);
+            img_play.setImageResource(R.drawable.ic_pause_white_36dp);
 
         } else {
-            img_play.setImageResource(R.drawable.widget_pause);
+            img_play.setImageResource(R.drawable.ic_play_white_36dp);
 
         }
     }
@@ -250,7 +258,7 @@ public class MusicPlayActivity extends BaseActivity {
     @SuppressLint("NewApi")
     private void createNotification() {
         // 点击跳转到主界面
-        Intent intent_main = new Intent(mContext, MusicActivity.class);
+        Intent intent_main = new Intent(mContext, MusicPlayActivity.class);
         PendingIntent pending_intent_go = PendingIntent.getActivity(mContext, 1, intent_main, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.notice, pending_intent_go);
 
@@ -311,17 +319,27 @@ public class MusicPlayActivity extends BaseActivity {
     @Override
     protected void initEvent() {
         super.initEvent();
-        img_play.setOnClickListener(this);
+        img_more.setOnClickListener(this);
         img_previous.setOnClickListener(this);
+        img_play.setOnClickListener(this);
         img_next.setOnClickListener(this);
+        tv_speed.setOnClickListener(this);
 
     }
 
-    public String[] seek = {"0.75", "1.0", "1.25", "1.5", "1.75", "2.0"};
+    public String[] seek = {"x0.7", "x1.0", "x1.5", "x2.0", "x2.5", "x3.0"};
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.img_more:
+                showListDialog();
+
+                break;
+            case R.id.img_previous://上一首
+                sendBroadcast(Constant.ACTION_PRV);
+
+                break;
             case R.id.img_play://自定义播放控件，点击播放或暂停
                 if (mIsPlaying) {
                     sendBroadcast(Constant.ACTION_PAUSE);
@@ -332,33 +350,32 @@ public class MusicPlayActivity extends BaseActivity {
                 }
 
                 break;
-            case R.id.img_previous://上一首
-                sendBroadcast(Constant.ACTION_PRV);
-
-                break;
-            case R.id.tv_seek://切换播放模式
-                MusicService.playMode++;
-                tv_seek.setText(seek[MusicService.playMode % seek.length]);
-//                switch (MusicService.playMode % 3) {
-//                    case 0://随机播放
-//                        mPlayMode.setImageResource(R.drawable.player_btn_mode_shuffle_normal);
-//
-//                        break;
-//                    case 1://单曲循环
-//                        mPlayMode.setImageResource(R.drawable.player_btn_mode_loopsingle_normal);
-//
-//                        break;
-//                    case 2://列表播放
-//                        mPlayMode.setImageResource(R.drawable.player_btn_mode_playall_normal);
-//
-//                        break;
-//                }
-                break;
             case R.id.img_next://下一首
                 sendBroadcast(Constant.ACTION_NEXT);
 
                 break;
+            case R.id.tv_speed://切换播放模式
+                MusicService.PLAY_SPEED++;
+                tv_speed.setText(seek[MusicService.PLAY_SPEED % seek.length]);
+
+                break;
         }
+    }
+
+    private DialogChapterList dialogChapterList;
+
+    private void showListDialog() {
+        if (dialogChapterList == null) {
+            dialogChapterList = new DialogChapterList(mContext, new OnClickManagerCallBack() {
+                @Override
+                public void onClickRankManagerCallBack(int position, String typeName) {
+                    sendBroadcast(Constant.ACTION_PLAY, position);
+
+                }
+            });
+        }
+        dialogChapterList.showChapterListDialog(mMusicList);
+
     }
 
     /**
@@ -425,7 +442,7 @@ public class MusicPlayActivity extends BaseActivity {
                 mp3Info.setAlbum(musicObj.getString("coverLarge"));
                 mp3Info.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
                 mp3Info.setAudio(musicObj.getString("playUrl64"));
-                mp3Info.setDuration(Long.parseLong(musicObj.getString("playtimes")));
+                mp3Info.setDuration(Long.parseLong(musicObj.getString("duration")));
                 mp3Info.setPicUrl(musicObj.getString("coverLarge"));
                 mp3Info.setTitle(musicObj.getString("title"));
                 mp3Info.setUrl(musicObj.getString("playUrl64"));

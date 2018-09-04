@@ -90,8 +90,7 @@ public class StringUtils {
             //获取assets资源管理器
             AssetManager assetManager = context.getAssets();
             //通过管理器打开文件并读取
-            BufferedReader bf = new BufferedReader(new InputStreamReader(
-                    assetManager.open(fileName)));
+            BufferedReader bf = new BufferedReader(new InputStreamReader(assetManager.open(fileName)));
             String line;
             while ((line = bf.readLine()) != null) {
                 stringBuilder.append(line);
@@ -105,8 +104,7 @@ public class StringUtils {
     /**
      * 十六进制下数字到字符的映射数组
      */
-    private final static String[] hexDigits = {"0", "1", "2", "3", "4", "5",
-            "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
+    private final static String[] hexDigits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"};
 
     /**
      * 对字符串进行MD5编码
@@ -150,10 +148,28 @@ public class StringUtils {
      */
     private static String byteToHexString(byte b) {
         int n = b;
-        if (n < 0)
-            n = 256 + n;
+        if (n < 0) n = 256 + n;
         int d1 = n / 16;
         int d2 = n % 16;
         return hexDigits[d1] + hexDigits[d2];
+    }
+
+
+    /**
+     * 转化分钟
+     *
+     * @param duration
+     * @return
+     */
+    public static String getDurationStr(int duration) {
+        if (duration == 0) {
+
+            return "00:00";
+        }
+        String durationStr;
+        durationStr = duration / 60 > 9 ? "" + duration / 60 : "0" + duration / 60;
+        durationStr += duration % 60 > 9 ? ":" + duration % 60 : ":0" + duration % 60;
+
+        return durationStr;
     }
 }

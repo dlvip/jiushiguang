@@ -63,7 +63,20 @@ public class Mp3Info implements Parcelable {
     }
 
     public long getDuration() {
+
         return duration;
+    }
+
+    public String getDurationStr() {
+        if (duration == 0) {
+
+            return "00:00";
+        }
+        String durationStr;
+        durationStr = duration / 60 > 9 ? "" + duration / 60 : "0" + duration / 60;
+        durationStr += duration % 60 > 9 ? ":" + duration % 60 : ":0" + duration % 60;
+
+        return durationStr;
     }
 
     public void setDuration(long duration) {
@@ -122,7 +135,7 @@ public class Mp3Info implements Parcelable {
         return CREATOR;
     }
 
-    public Mp3Info(){
+    public Mp3Info() {
 
     }
 
@@ -176,19 +189,6 @@ public class Mp3Info implements Parcelable {
 
     @Override
     public String toString() {
-        return "Mp3Info{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", artist='" + artist + '\'' +
-                ", album='" + album + '\'' +
-                ", albumId=" + albumId +
-                ", duration=" + duration +
-                ", size=" + size +
-                ", url='" + url + '\'' +
-                ", songId='" + songId + '\'' +
-                ", songName='" + songName + '\'' +
-                ", picUrl='" + picUrl + '\'' +
-                ", audio='" + audio + '\'' +
-                '}';
+        return "Mp3Info{" + "id=" + id + ", title='" + title + '\'' + ", artist='" + artist + '\'' + ", album='" + album + '\'' + ", albumId=" + albumId + ", duration=" + duration + ", size=" + size + ", url='" + url + '\'' + ", songId='" + songId + '\'' + ", songName='" + songName + '\'' + ", picUrl='" + picUrl + '\'' + ", audio='" + audio + '\'' + '}';
     }
 }

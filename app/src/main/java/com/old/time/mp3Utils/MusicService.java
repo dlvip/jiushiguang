@@ -39,6 +39,7 @@ public class MusicService extends Service implements PlayerEventListener {
     private MusicBroadReceiver receiver;
     private int mPosition;
     public static int playMode = 2;//1.单曲循环 2.列表循环 0.随机播放
+    public static int PLAY_SPEED = 2;//播放速率 0.7、1.0、1.5、2.0、2.5、3.0
     private Random mRandom;
     public static int prv_position;
     private Message mMessage;
@@ -135,7 +136,7 @@ public class MusicService extends Service implements PlayerEventListener {
         }
     }
 
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
 
@@ -178,6 +179,15 @@ public class MusicService extends Service implements PlayerEventListener {
         }
     }
 
+    private float[] floats = {0.7f, 1.0f, 1.5f, 2.0f, 2.5f, 3.0f};
+
+    private void setPlaySpeed() {
+        if (mPlayer != null) {
+            mPlayer.setSpeed(floats[PLAY_SPEED % floats.length]);
+
+        }
+    }
+
     /**
      * 暂停
      */
@@ -199,6 +209,7 @@ public class MusicService extends Service implements PlayerEventListener {
         intentFilter.addAction(Constant.ACTION_PLAY);
         intentFilter.addAction(Constant.ACTION_NEXT);
         intentFilter.addAction(Constant.ACTION_PRV);
+        intentFilter.addAction(Constant.ACTION_SPEED);
         intentFilter.addAction(Constant.ACTION_CLOSE);
         intentFilter.addAction(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
         intentFilter.setPriority(1000);
@@ -313,6 +324,10 @@ public class MusicService extends Service implements PlayerEventListener {
                         play(getRandom());
 
                     }
+                    break;
+                case Constant.ACTION_SPEED:
+                    setPlaySpeed();
+
                     break;
                 case Constant.ACTION_CLOSE:
                     cancelMusic();

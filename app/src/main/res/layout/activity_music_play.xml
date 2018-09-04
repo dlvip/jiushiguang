@@ -25,8 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginRight="@dimen/layout_10"
         android:layout_marginTop="@dimen/layout_120"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/splish_pic" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/textViewSong"
@@ -62,6 +61,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_progress_time"
             android:layout_width="@dimen/layout_60"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -80,6 +80,7 @@
 
 
         <TextView
+            android:id="@+id/tv_title_time"
             android:layout_width="@dimen/layout_60"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -93,59 +94,55 @@
     <LinearLayout
         android:id="@+id/linear_layout_btn"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/layout_10"
-        android:paddingTop="@dimen/layout_10">
+        android:paddingBottom="@dimen/layout_5"
+        android:paddingTop="@dimen/layout_5">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/img_more"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingBottom="@dimen/layout_15"
-            android:paddingTop="@dimen/layout_15"
-            android:src="@drawable/player_btn_mode_playall_normal" />
+            android:paddingBottom="@dimen/layout_5"
+            android:paddingTop="@dimen/layout_5"
+            android:src="@mipmap/ic_player_current_playlist" />
 
         <ImageView
             android:id="@+id/img_previous"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingBottom="@dimen/layout_15"
-            android:paddingTop="@dimen/layout_15"
-            android:src="@drawable/player_icon_previous" />
+            android:paddingBottom="@dimen/layout_5"
+            android:paddingTop="@dimen/layout_5"
+            android:src="@drawable/ic_skip_previous_white_36dp" />
 
         <ImageView
             android:id="@+id/img_play"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/widget_play" />
+            android:src="@drawable/ic_pause_white_36dp" />
 
         <ImageView
             android:id="@+id/img_next"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingBottom="@dimen/layout_15"
-            android:paddingTop="@dimen/layout_15"
-            android:src="@drawable/player_icon_next" />
+            android:paddingBottom="@dimen/layout_5"
+            android:paddingTop="@dimen/layout_5"
+            android:src="@drawable/ic_skip_next_white_36dp" />
 
         <TextView
-            android:id="@+id/tv_seek"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_speed"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/text_12"
-            android:layout_marginLeft="@dimen/layout_15"
-            android:layout_marginRight="@dimen/layout_15"
-            android:layout_marginTop="@dimen/layout_12"
             android:layout_weight="1"
-            android:background="@drawable/player_btn_mode_playall_normal"
             android:gravity="center"
             android:text="x1.2"
             android:textColor="@color/color_fff"
-            android:textSize="@dimen/text_10" />
+            android:textSize="@dimen/text_16" />
 
     </LinearLayout>
 

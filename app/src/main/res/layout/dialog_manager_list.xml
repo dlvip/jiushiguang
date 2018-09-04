@@ -15,6 +15,7 @@
         android:textSize="12sp" />
 
     <View
+        android:id="@+id/view_line_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
         android:background="@color/line_bg" />
@@ -22,18 +23,15 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="450dp"
+        android:background="@color/color_fff" />
 
 
     <View
+        android:id="@+id/view_line_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_10"
         android:background="@color/main_bg" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        android:background="@color/line_bg" />
 
     <TextView
         android:id="@+id/tv_cancel"

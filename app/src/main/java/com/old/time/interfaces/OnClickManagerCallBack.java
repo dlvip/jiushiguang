@@ -5,5 +5,5 @@ package com.old.time.interfaces;
  */
 
 public interface OnClickManagerCallBack {
-    void onClickRankManagerCallBack(int typeId, String typeName);
+    void onClickRankManagerCallBack(int position, String typeName);
 }
