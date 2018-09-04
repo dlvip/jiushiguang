@@ -63,6 +63,17 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     }
 
     /**
+     * 开始
+     */
+    private void sentPreparedMessageToMain() {
+        Intent intent = new Intent();
+        intent.putExtra(MusicBroadReceiver.START_POSITION, mPosition);
+        intent.setAction(Constant.ACTION_START);
+        sendBroadcast(intent);
+
+    }
+
+    /**
      * 播放进度
      */
     private void sentPositionToMainByTimer() {
@@ -92,20 +103,9 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
             mPlayer.reset();
             mPlayer.setDataSource(mMusic_list.get(position).getUrl(), null);
             mPlayer.prepareAsync();
-
             isPlaying = true;
+
         }
-    }
-
-    /**
-     * 开始
-     */
-    private void sentPreparedMessageToMain() {
-        Intent intent = new Intent();
-        intent.putExtra(MusicBroadReceiver.START_POSITION, mPosition);
-        intent.setAction(Constant.ACTION_START);
-        sendBroadcast(intent);
-
     }
 
     @Override
@@ -214,11 +214,10 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     public void onPrepared() {
         if (mPlayer != null) {
             mPlayer.start();//开始播放
+//            sentPreparedMessageToMain();
+            sentPositionToMainByTimer();
 
         }
-        sentPreparedMessageToMain();
-        sentPositionToMainByTimer();
-
     }
 
     @Override
