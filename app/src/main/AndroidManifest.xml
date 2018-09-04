@@ -3,7 +3,6 @@
     package="com.old.time">
 
     <uses-permission android:name="android.permission.READ_LOGS" />
-
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -59,24 +58,25 @@
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-
         </provider>
 
         <!-- 定位配置开始 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="9c9c4d9a65971e91f0130fa087d263aa" />
+
         <service android:name="com.amap.api.location.APSService" />
         <!-- 定位配置结束 -->
+
 
         <!-- 音乐播放 -->
         <service android:name=".mp3Utils.MusicService" />
@@ -133,7 +133,8 @@
         <activity android:name=".activitys.MusicsActivity" />
         <activity android:name=".activitys.VideoPagerActivity" />
         <activity android:name=".activitys.TalksActivity" />
-        <activity android:name=".activitys.VideosActivity"></activity>
+        <activity android:name=".activitys.VideosActivity" />
+        <activity android:name=".activitys.MusicPlayActivity"></activity>
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
@@ -34,12 +35,9 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.mp3Utils.MediaUtil;
 import com.old.time.mp3Utils.Mp3Info;
-import com.old.time.mp3Utils.MusicPlayerView;
 import com.old.time.mp3Utils.MusicService;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.MyLinearLayoutManager;
-import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
@@ -51,30 +49,29 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicActivity extends BaseActivity {
+public class MusicPlayActivity extends BaseActivity {
 
-    public static void startMusicActivity(Context mContext, CourseBean mCourseBean) {
+    public static void startMusicPlayActivity(Context mContext, CourseBean mCourseBean) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
 
             return;
         }
-        Intent intent = new Intent(mContext, MusicActivity.class);
+        Intent intent = new Intent(mContext, MusicPlayActivity.class);
         intent.putExtra("mCourseBean", mCourseBean);
         ActivityUtils.startLoginActivity((Activity) mContext, intent);
 
     }
 
     private static final String TAG = "MusicActivity";
-    private MusicPlayerView mpv;
+    private ProgressBar mProgressBar;
     private View mainView;
-    private ImageView mNext;
-    private ImageView mPrevious;
+    private ImageView img_previous, img_next, img_play;
     private List<Mp3Info> mMusicList = new ArrayList<>();
     private TextView mSong;
     private TextView mSinger;
-    private ImageView mPlayMode;
     private int mPosition;
     private boolean mIsPlaying = false;
+    private TextView tv_seek;
 
     private RemoteViews remoteViews;
     private PendingIntent pending_intent_play;
@@ -87,8 +84,8 @@ public class MusicActivity extends BaseActivity {
             if (msg.what == Constant.MSG_PROGRESS) {
                 int currentPosition = msg.arg1;
                 int totalDuration = msg.arg2;
-                mpv.setProgress(currentPosition);
-                mpv.setMax(totalDuration);
+                mProgressBar.setProgress(currentPosition);
+                mProgressBar.setMax(totalDuration);
 
             }
             if (msg.what == Constant.MSG_PREPARED) {
@@ -107,20 +104,15 @@ public class MusicActivity extends BaseActivity {
         }
     };
 
-    private CourseBean mCourseBean;
-    private RecyclerView recycler_view_music;
-    private BaseQuickAdapter<Mp3Info, BaseViewHolder> mp3Adapter;
-
     public void initView() {
-        mCourseBean = (CourseBean) getIntent().getSerializableExtra("mCourseBean");
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
         mSinger = findViewById(R.id.textViewSinger);//歌手
-        mpv = findViewById(R.id.mpv);//自定义播放控件
-        mPrevious = findViewById(R.id.previous);//上一首
-        mPlayMode = findViewById(R.id.play_mode);//播放模式
-        mNext = findViewById(R.id.next);//下一首
-        recycler_view_music = findViewById(R.id.recycler_view_music);
+        img_previous = findViewById(R.id.img_previous);//上一首
+        img_play = findViewById(R.id.img_play);//播放模式
+        img_next = findViewById(R.id.img_next);//下一首
+        mProgressBar = findViewById(R.id.pro_percent);
+        tv_seek = findViewById(R.id.tv_seek);
         remoteViews = new RemoteViews(getPackageName(), R.layout.customnotice);//通知栏布局
         //消息管理
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -136,28 +128,14 @@ public class MusicActivity extends BaseActivity {
         mPosition = SpUtils.getInt("music_current_position", 0);
         mIsPlaying = MusicService.isPlaying();
         switchSongUI(mPosition, mIsPlaying);
-        recycler_view_music.setLayoutManager(new MyLinearLayoutManager(mContext));
-        recycler_view_music.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST));
-        mp3Adapter = new BaseQuickAdapter<Mp3Info, BaseViewHolder>(R.layout.adapter_music, mMusicList) {
-            @Override
-            protected void convert(BaseViewHolder helper, Mp3Info item) {
-                int position = helper.getLayoutPosition() + 1;
-                helper.setText(R.id.tv_music_index, position + "")//
-                        .setText(R.id.tv_music_title, item.getTitle())//
-                        .setText(R.id.tv_music_time, String.valueOf(item.getSize()));
 
-            }
-        };
-        recycler_view_music.setAdapter(mp3Adapter);
-
-//        getMusics();
         addMusic("289105");
 
     }
 
     @Override
     protected int getLayoutID() {
-        return R.layout.activity_musice;
+        return R.layout.activity_music_play;
     }
 
     /**
@@ -189,7 +167,7 @@ public class MusicActivity extends BaseActivity {
                 @Override
                 public void onDownLoadSuccess(Bitmap resource) {
                     remoteViews.setImageViewBitmap(R.id.widget_album, resource);
-                    mpv.setCoverBitmap(resource);
+                    img_play.setImageBitmap(resource);
                     // 4.更换音乐背景
                     assert resource != null;
                     Palette.from(resource).generate(new Palette.PaletteAsyncListener() {
@@ -227,10 +205,10 @@ public class MusicActivity extends BaseActivity {
      */
     private void updateMpv(boolean isPlaying) {
         if (isPlaying) {
-            mpv.start();
+            img_play.setImageResource(R.drawable.widget_play);
 
         } else {
-            mpv.stop();
+            img_play.setImageResource(R.drawable.widget_pause);
 
         }
     }
@@ -333,17 +311,18 @@ public class MusicActivity extends BaseActivity {
     @Override
     protected void initEvent() {
         super.initEvent();
-        mpv.setOnClickListener(this);
-        mPrevious.setOnClickListener(this);
-        mPlayMode.setOnClickListener(this);
-        mNext.setOnClickListener(this);
+        img_play.setOnClickListener(this);
+        img_previous.setOnClickListener(this);
+        img_next.setOnClickListener(this);
 
     }
+
+    public String[] seek = {"0.75", "1.0", "1.25", "1.5", "1.75", "2.0"};
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.mpv://自定义播放控件，点击播放或暂停
+            case R.id.img_play://自定义播放控件，点击播放或暂停
                 if (mIsPlaying) {
                     sendBroadcast(Constant.ACTION_PAUSE);
 
@@ -353,28 +332,29 @@ public class MusicActivity extends BaseActivity {
                 }
 
                 break;
-            case R.id.previous://上一首
+            case R.id.img_previous://上一首
                 sendBroadcast(Constant.ACTION_PRV);
 
                 break;
-            case R.id.play_mode://切换播放模式
+            case R.id.tv_seek://切换播放模式
                 MusicService.playMode++;
-                switch (MusicService.playMode % 3) {
-                    case 0://随机播放
-                        mPlayMode.setImageResource(R.drawable.player_btn_mode_shuffle_normal);
-
-                        break;
-                    case 1://单曲循环
-                        mPlayMode.setImageResource(R.drawable.player_btn_mode_loopsingle_normal);
-
-                        break;
-                    case 2://列表播放
-                        mPlayMode.setImageResource(R.drawable.player_btn_mode_playall_normal);
-
-                        break;
-                }
+                tv_seek.setText(seek[MusicService.playMode % seek.length]);
+//                switch (MusicService.playMode % 3) {
+//                    case 0://随机播放
+//                        mPlayMode.setImageResource(R.drawable.player_btn_mode_shuffle_normal);
+//
+//                        break;
+//                    case 1://单曲循环
+//                        mPlayMode.setImageResource(R.drawable.player_btn_mode_loopsingle_normal);
+//
+//                        break;
+//                    case 2://列表播放
+//                        mPlayMode.setImageResource(R.drawable.player_btn_mode_playall_normal);
+//
+//                        break;
+//                }
                 break;
-            case R.id.next://下一首
+            case R.id.img_next://下一首
                 sendBroadcast(Constant.ACTION_NEXT);
 
                 break;

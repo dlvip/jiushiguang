@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.activitys.MusicActivity;
+import com.old.time.activitys.MusicPlayActivity;
 import com.old.time.beans.CourseBean;
 import com.old.time.glideUtils.GlideUtils;
 
@@ -34,7 +35,7 @@ public class CourseAdapter extends BaseQuickAdapter<CourseBean, BaseViewHolder> 
             @Override
             public void onClick(View v) {
                 CourseBean mCourseBean = getItem(position);
-                MusicActivity.startMusicActivity(mContext, mCourseBean);
+                MusicPlayActivity.startMusicPlayActivity(mContext, mCourseBean);
 
             }
         });
