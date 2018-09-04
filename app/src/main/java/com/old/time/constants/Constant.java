@@ -1,5 +1,7 @@
 package com.old.time.constants;
 
+import com.old.time.utils.StringUtils;
+
 /**
  * Created by NING on 2018/3/5.
  */
@@ -116,8 +118,6 @@ public class Constant {
     /**
      * 音乐配置开始
      **/
-    //本地歌曲listview点击
-    public static final String ACTION_LIST_ITEM = "com.old.time.listitem";
     public static final int MSG_PROGRESS = 001;
     public static final int MSG_PREPARED = 002;
     public static final int MSG_PLAY_STATE = 003;
@@ -126,17 +126,23 @@ public class Constant {
 
     public static final int NOTIFICATION_CEDE = 100;
 
-    //暂停音乐
+    //本地歌曲listview点击
+    public static final String ACTION_LIST_ITEM = "com.old.time.listitem";
+    //开始
+    public static final String ACTION_START = "com.old.time.start";
+    //暂停
     public static final String ACTION_PAUSE = "com.old.time.pause";
-    //播放音乐
+    //播放
     public static final String ACTION_PLAY = "com.old.time.play";
     //下一曲
     public static final String ACTION_NEXT = "com.old.time.next";
     //上一曲
     public static final String ACTION_PRV = "com.old.time.prv";
+    //播放进度
+    public static final String ACTION_PROGRESS = "com.old.time.progress";
     //播放速率
     public static final String ACTION_SPEED = "com.old.time.speed";
-
+    //关闭
     public static final String ACTION_CLOSE = "com.old.time.close";
 
     /**音乐配置结束**/

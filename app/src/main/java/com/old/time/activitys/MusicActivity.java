@@ -134,7 +134,6 @@ public class MusicActivity extends BaseActivity {
 
         //初始化控件UI，默认显示历史播放歌曲
         mPosition = SpUtils.getInt("music_current_position", 0);
-        mIsPlaying = MusicService.isPlaying();
         switchSongUI(mPosition, mIsPlaying);
         recycler_view_music.setLayoutManager(new MyLinearLayoutManager(mContext));
         recycler_view_music.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST));

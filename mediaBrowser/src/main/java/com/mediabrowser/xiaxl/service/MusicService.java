@@ -417,6 +417,7 @@ public class MusicService extends MediaBrowserServiceCompat implements
             // 没有音频播放，则停止改service
             if (service != null && service.mPlaybackManager.getPlayback() != null) {
                 if (service.mPlaybackManager.getPlayback().isPlaying()) {
+
                     return;
                 }
                 service.stopSelf();

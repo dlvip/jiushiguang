@@ -12,11 +12,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Message;
-import android.os.Messenger;
 import android.os.Parcelable;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.graphics.Palette;
 import android.text.TextUtils;
 import android.view.View;
@@ -32,11 +28,12 @@ import com.old.time.dialogs.DialogChapterList;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.interfaces.OnClickManagerCallBack;
-import com.old.time.mp3Utils.MediaUtil;
 import com.old.time.mp3Utils.Mp3Info;
 import com.old.time.mp3Utils.MusicService;
 import com.old.time.permission.PermissionUtil;
+import com.old.time.receivers.MusicBroadReceiver;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
@@ -48,7 +45,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicPlayActivity extends BaseActivity {
+public class MusicPlayActivity extends BaseActivity implements MusicBroadReceiver.MusicPlayCallBackListener {
 
     public static void startMusicPlayActivity(Context mContext, CourseBean mCourseBean) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
@@ -78,37 +75,16 @@ public class MusicPlayActivity extends BaseActivity {
     private NotificationManager mNotificationManager;
     private Mp3Info mMp3Info;
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == Constant.MSG_PROGRESS) {
-                int currentPosition = msg.arg1;
-                int totalDuration = msg.arg2;
-                mProgressBar.setProgress(currentPosition);
-                mProgressBar.setMax(totalDuration);
-                tv_progress_time.setText(StringUtils.getDurationStr(currentPosition));
-                tv_title_time.setText(StringUtils.getDurationStr(totalDuration));
-
-            }
-            if (msg.what == Constant.MSG_PREPARED) {
-                mPosition = msg.arg1;
-                mIsPlaying = (boolean) msg.obj;
-                switchSongUI(mPosition, mIsPlaying);
-
-            }
-            if (msg.what == Constant.MSG_PLAY_STATE) {
-                mIsPlaying = (boolean) msg.obj;
-                refreshPlayStateUI(mIsPlaying);
-
-            }
-            if (msg.what == Constant.MSG_CANCEL) {
-                mIsPlaying = false;
-
-            }
-        }
-    };
+    private MusicBroadReceiver receiver;
 
     public void initView() {
+        //创建广播接受者
+        if (receiver == null) {
+            receiver = new MusicBroadReceiver(this);
+
+        }
+        registerReceiver(receiver, MusicBroadReceiver.getIntentFilter());
+
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
         mSinger = findViewById(R.id.textViewSinger);//歌手
@@ -126,18 +102,12 @@ public class MusicPlayActivity extends BaseActivity {
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         createNotification();//创建通知栏
 
-        mMusicList.clear();
-        //音乐列表
-        mMusicList.addAll(MediaUtil.getMp3Infos(this));
-        //启动音乐服务
-//        startMusicService();
+        addMusic("289105");
 
+        mIsPlaying = MusicService.isPlaying;
         //初始化控件UI，默认显示历史播放歌曲
         mPosition = SpUtils.getInt("music_current_position", 0);
-        mIsPlaying = MusicService.isPlaying();
         switchSongUI(mPosition, mIsPlaying);
-
-        addMusic("289105");
 
     }
 
@@ -153,7 +123,6 @@ public class MusicPlayActivity extends BaseActivity {
         Intent musicService = new Intent();
         musicService.setClass(getApplicationContext(), MusicService.class);
         musicService.putParcelableArrayListExtra("music_list", (ArrayList<? extends Parcelable>) mMusicList);
-        musicService.putExtra("messenger", new Messenger(handler));
         startService(musicService);
 
     }
@@ -213,10 +182,10 @@ public class MusicPlayActivity extends BaseActivity {
      */
     private void updateMpv(boolean isPlaying) {
         if (isPlaying) {
-            img_play.setImageResource(R.drawable.ic_pause_white_36dp);
+            img_play.setImageResource(R.mipmap.ic_pause_white_36dp);
 
         } else {
-            img_play.setImageResource(R.drawable.ic_play_white_36dp);
+            img_play.setImageResource(R.mipmap.ic_play_white_36dp);
 
         }
     }
@@ -297,20 +266,13 @@ public class MusicPlayActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel mChannel = new NotificationChannel(MY_CHANNEL_ID, DEFAULT_CHANNEL_ID, NotificationManager.IMPORTANCE_LOW);
             mNotificationManager.createNotificationChannel(mChannel);
-            notification = new Notification.Builder(mContext, DEFAULT_CHANNEL_ID)//
-                    .setSmallIcon(R.mipmap.ic_launcher)//
-                    .setCustomContentView(remoteViews)//
-                    .setChannelId(MY_CHANNEL_ID)//
-                    .setOngoing(true).build();
-
-        } else {
-            notification = new NotificationCompat.Builder(mContext, DEFAULT_CHANNEL_ID)//
-                    .setSmallIcon(R.mipmap.ic_launcher)//
-                    .setContent(remoteViews)//
-                    .setChannelId(MY_CHANNEL_ID)//
-                    .setOngoing(true).build();
 
         }
+        notification = new Notification.Builder(mContext, DEFAULT_CHANNEL_ID)//
+                .setSmallIcon(R.mipmap.ic_launcher)//
+                .setCustomContentView(remoteViews)//
+                .setChannelId(MY_CHANNEL_ID)//
+                .setOngoing(true).build();
     }
 
     private static final String DEFAULT_CHANNEL_ID = "1234567";
@@ -327,8 +289,6 @@ public class MusicPlayActivity extends BaseActivity {
 
     }
 
-    public String[] seek = {"x0.7", "x1.0", "x1.5", "x2.0", "x2.5", "x3.0"};
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -340,7 +300,7 @@ public class MusicPlayActivity extends BaseActivity {
                 sendBroadcast(Constant.ACTION_PRV);
 
                 break;
-            case R.id.img_play://自定义播放控件，点击播放或暂停
+            case R.id.img_play:
                 if (mIsPlaying) {
                     sendBroadcast(Constant.ACTION_PAUSE);
 
@@ -355,11 +315,22 @@ public class MusicPlayActivity extends BaseActivity {
 
                 break;
             case R.id.tv_speed://切换播放模式
-                MusicService.PLAY_SPEED++;
-                tv_speed.setText(seek[MusicService.PLAY_SPEED % seek.length]);
+                sendSpeedBroadcast();
 
                 break;
         }
+    }
+
+    /**
+     * 改变播放速率
+     */
+    private void sendSpeedBroadcast() {
+        MusicService.PLAY_SPEED++;
+        Intent intent = new Intent();
+        intent.putExtra(MusicBroadReceiver.START_SPEED, floats[MusicService.PLAY_SPEED % floats.length]);
+        intent.setAction(Constant.ACTION_SPEED);
+        sendBroadcast(intent);
+
     }
 
     private DialogChapterList dialogChapterList;
@@ -369,7 +340,7 @@ public class MusicPlayActivity extends BaseActivity {
             dialogChapterList = new DialogChapterList(mContext, new OnClickManagerCallBack() {
                 @Override
                 public void onClickRankManagerCallBack(int position, String typeName) {
-                    sendBroadcast(Constant.ACTION_PLAY, position);
+                    sendBroadcast(position);
 
                 }
             });
@@ -458,13 +429,12 @@ public class MusicPlayActivity extends BaseActivity {
     /**
      * 选择播放
      *
-     * @param action
      * @param position
      */
-    private void sendBroadcast(String action, int position) {
+    private void sendBroadcast(int position) {
         Intent intent = new Intent();
-        intent.putExtra("position", position);
-        intent.setAction(action);
+        intent.putExtra(MusicBroadReceiver.START_POSITION, position);
+        intent.setAction(Constant.ACTION_LIST_ITEM);
         sendBroadcast(intent);
 
     }
@@ -473,12 +443,110 @@ public class MusicPlayActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         ActivityUtils.finishLoginActivity(mContext);
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         SpUtils.setInt("music_current_position", mPosition);
+        unregisterReceiver(receiver);
 
+    }
+
+    @Override
+    public void start(int position) {
+        DebugLog.d(TAG,"start");
+        this.mPosition = position;
+        if (img_play != null) {
+            img_play.setImageResource(R.mipmap.ic_pause_white_36dp);
+
+        }
+        mIsPlaying = true;
+        refreshPlayStateUI(mIsPlaying);
+    }
+
+    @Override
+    public void play() {
+        DebugLog.d(TAG,"play");
+        if (img_play != null) {
+            img_play.setImageResource(R.mipmap.ic_pause_white_36dp);
+
+        }
+        mIsPlaying = true;
+        refreshPlayStateUI(mIsPlaying);
+    }
+
+    @Override
+    public void pause() {
+        DebugLog.d(TAG,"pause");
+        if (img_play != null) {
+            img_play.setImageResource(R.mipmap.ic_play_white_36dp);
+
+        }
+        mIsPlaying = false;
+        refreshPlayStateUI(mIsPlaying);
+    }
+
+    @Override
+    public void previous() {
+        DebugLog.d(TAG,"previous");
+        if (mPosition - 1 > 0) {
+            mPosition--;
+
+        } else {
+            mPosition = mMusicList.size() - 1;
+
+        }
+        mIsPlaying = true;
+        refreshPlayStateUI(mIsPlaying);
+    }
+
+    @Override
+    public void next() {
+        DebugLog.d(TAG,"next");
+        if (mPosition + 1 < mMusicList.size()) {
+            mPosition++;
+
+        } else {
+            mPosition = 0;
+
+        }
+        mIsPlaying = true;
+        refreshPlayStateUI(mIsPlaying);
+    }
+
+    @Override
+    public void progress(int current, int total) {
+        DebugLog.d(TAG,"progress");
+        if (mProgressBar != null && tv_progress_time != null && tv_title_time != null) {
+            mProgressBar.setProgress(current);
+            mProgressBar.setMax(total);
+            tv_progress_time.setText(StringUtils.getDurationStr(current / 1000));
+            tv_title_time.setText(StringUtils.getDurationStr(total / 1000));
+
+        }
+    }
+
+    @Override
+    public void close() {
+        DebugLog.d(TAG,"close");
+        if (img_play != null) {
+            img_play.setImageResource(R.mipmap.ic_play_white_36dp);
+
+        }
+        mIsPlaying = false;
+        refreshPlayStateUI(mIsPlaying);
+    }
+
+    private float[] floats = {0.7f, 1.0f, 1.5f, 2.0f, 2.5f, 3.0f};
+
+    @Override
+    public void speed(float speed) {
+        DebugLog.d(TAG,"speed");
+        if (tv_speed != null) {
+            tv_speed.setText("x" + String.valueOf(speed));
+
+        }
     }
 }

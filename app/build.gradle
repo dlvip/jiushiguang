@@ -85,7 +85,6 @@ dependencies {
     implementation project(path: ':zxing')
     implementation project(path: ':okgo')
     implementation project(path: ':dkplayer')
-    implementation project(path: ':mediaBrowser')
 
     //热修复相关
     implementation externalAndroidMultiDex

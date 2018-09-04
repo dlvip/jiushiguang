@@ -1,1 +1,1 @@
-include ':app', ':okgo', ':okserver', ':zxing', ':dkplayer', ':mediaBrowser'
+include ':app', ':okgo', ':okserver', ':zxing', ':dkplayer'
