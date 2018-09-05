@@ -27,6 +27,8 @@ import com.old.time.utils.UserLocalInfoUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+
 public class CreateDynActivity extends BaseActivity {
 
     /**
@@ -36,7 +38,7 @@ public class CreateDynActivity extends BaseActivity {
      * @param requestCode
      */
     public static void startCreateDynActivity(Activity mContext, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, ACCESS_COARSE_LOCATION})) {
 
             return;
         }
@@ -127,7 +129,7 @@ public class CreateDynActivity extends BaseActivity {
      * 获取用户信息
      */
     private void getUserAddress() {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, ACCESS_COARSE_LOCATION)) {
 
             return;
         }

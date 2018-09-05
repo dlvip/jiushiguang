@@ -1,6 +1,5 @@
 package com.old.time.activitys;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -38,6 +37,10 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 public class TakePicActivity extends BaseActivity implements SurfaceHolder.Callback {
 
     private static final int PIC_COUNT_SIZE = 9;
@@ -54,7 +57,7 @@ public class TakePicActivity extends BaseActivity implements SurfaceHolder.Callb
     private TextView tv_pic_upload;
 
     public static void startCameraActivity(Activity mContext, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 
             return;
         }
@@ -64,7 +67,7 @@ public class TakePicActivity extends BaseActivity implements SurfaceHolder.Callb
     }
 
     public static void startCameraActivity(Activity mContext, List<String> picPaths, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 
             return;
         }

@@ -16,6 +16,8 @@ import com.old.time.fragments.MineFragment;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 
+import static android.Manifest.permission.READ_PHONE_STATE;
+
 public class MainActivity extends BaseActivity {
 
     private ImageView main_img_home, main_img_find, main_img_mine;
@@ -27,7 +29,7 @@ public class MainActivity extends BaseActivity {
      * @param mContext
      */
     public static void startMainActivity(Activity mContext) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.READ_PHONE_STATE})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, READ_PHONE_STATE)) {
 
             return;
         }

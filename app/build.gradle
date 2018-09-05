@@ -81,6 +81,7 @@ dependencies {
     implementation externalGithubVerticalViewPager
     implementation externalEventBus
 
+    implementation project(path: ':musicPlay')
     implementation project(path: ':okserver')
     implementation project(path: ':zxing')
     implementation project(path: ':okgo')
@@ -91,5 +92,6 @@ dependencies {
     implementation externalTencentCrashreportUpgrade
     implementation externalTencentNativeCrashReport
     implementation externalTencentTinkerAndroidLib
+
 
 }

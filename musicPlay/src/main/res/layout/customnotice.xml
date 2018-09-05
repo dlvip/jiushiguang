@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notice"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="60dp"
     android:background="#37383D"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/widget_album"
-        android:layout_width="65dp"
-        android:layout_height="90dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:scaleType="centerCrop" />
 
     <RelativeLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="60dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -43,7 +43,7 @@
                 android:id="@+id/widget_artist"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/layout_10"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -68,14 +68,15 @@
                 android:layout_height="15dp"
                 android:layout_weight="1"
                 android:scaleType="centerInside"
-                android:src="@drawable/widget_prev" />
+                android:src="@mipmap/ic_skip_previous_white_36dp" />
 
             <ImageView
                 android:id="@+id/widget_play"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_weight="1"
-                android:scaleType="centerInside" />
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_pause_white_36dp" />
 
             <ImageView
                 android:id="@+id/widget_next"
@@ -83,7 +84,7 @@
                 android:layout_height="15dp"
                 android:layout_weight="1"
                 android:scaleType="centerInside"
-                android:src="@drawable/widget_next" />
+                android:src="@mipmap/ic_skip_next_white_36dp" />
 
         </LinearLayout>
 
@@ -91,10 +92,11 @@
 
     <ImageView
         android:id="@+id/widget_close"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:padding="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:padding="15dp"
         android:scaleType="centerInside"
-        android:src="@drawable/widget_close" />
+        android:src="@mipmap/icon_dialog_close" />
 
 </LinearLayout>

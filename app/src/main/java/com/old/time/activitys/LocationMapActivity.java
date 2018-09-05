@@ -35,11 +35,13 @@ import com.old.time.views.SearchEditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+
 public class LocationMapActivity extends BaseActivity {
 
 
     public static void startLocationMapActivity(Activity mContext) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, ACCESS_COARSE_LOCATION)) {
 
             return;
         }

@@ -51,10 +51,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 public class MusicActivity extends BaseActivity {
 
     public static void startMusicActivity(Context mContext, CourseBean mCourseBean) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 
             return;
         }

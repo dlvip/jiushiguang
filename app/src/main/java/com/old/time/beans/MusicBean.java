@@ -1,12 +1,12 @@
 package com.old.time.beans;
 
-import java.io.Serializable;
+import com.old.time.music.client.model.IMusicInfo;
 
 /**
  * Created by wcl on 2018/8/14.
  */
 
-public class MusicBean implements Serializable {
+public class MusicBean implements IMusicInfo {
 
     private String id;
 
@@ -30,8 +30,58 @@ public class MusicBean implements Serializable {
         this.id = id;
     }
 
+    @Override
+    public String getMediaId() {
+        return id;
+    }
+
+    @Override
+    public String getSource() {
+        return musicUrl;
+    }
+
+    @Override
+    public String getArtUrl() {
+        return musicPic;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    @Override
+    public String getDescription() {
+        return "";
+    }
+
+    @Override
+    public String getArtist() {
+        return "";
+    }
+
+    @Override
+    public String getAlbum() {
+        return "";
+    }
+
+    @Override
+    public String getAlbumArtUrl() {
+        return musicPic;
+    }
+
+    @Override
+    public String getGenre() {
+        return "";
+    }
+
+    @Override
+    public String freeType() {
+        return null;
+    }
+
+    @Override
+    public long getDuration() {
+        return musicTime;
     }
 
     public void setTitle(String title) {

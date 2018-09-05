@@ -1,17 +1,17 @@
 package com.old.time.activitys;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 public class DownLoadActivity extends CBaseActivity {
 
     public static void startDownLoadActivity(Context mContext) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext,
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, WRITE_EXTERNAL_STORAGE)) {
 
             return;
         }
