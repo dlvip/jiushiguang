@@ -24,6 +24,11 @@ public class SpUtils {
     public static final String CONFIGFILE = "config";
     static Context context = MyApplication.getInstance();
 
+    /**
+     * 播放索引
+     */
+    public static final String MUSIC_CURRENT_POSITION = "music_current_position";
+
     public static void setInt(String key, int value) {
         SharedPreferences sp = context.getSharedPreferences(CONFIGFILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();

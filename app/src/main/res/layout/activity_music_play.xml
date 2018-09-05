@@ -7,6 +7,7 @@
     android:background="@color/coloBGNormal">
 
     <LinearLayout
+        android:id="@+id/linear_layout_down"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_40">
 
@@ -140,7 +141,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="x1.2"
+            android:text="x1.0"
             android:textColor="@color/color_fff"
             android:textSize="@dimen/text_16" />
 

@@ -334,7 +334,6 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     public void onPrepared() {
         if (mPlayer != null) {
             mPlayer.start();//开始播放
-//            sentPreparedMessageToMain();
             sentPositionToMainByTimer();
 
         }

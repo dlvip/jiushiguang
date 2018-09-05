@@ -8,10 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Surface;
 import android.view.SurfaceHolder;
-import android.widget.SeekBar;
-
-import com.dueeeke.videoplayer.player.AbstractPlayer;
-import com.dueeeke.videoplayer.player.RawDataSourceProvider;
 
 import java.util.Map;
 
@@ -44,6 +40,7 @@ public class IjkPlayer extends AbstractPlayer {
         mMediaPlayer.setOnNativeInvokeListener(new IjkMediaPlayer.OnNativeInvokeListener() {
             @Override
             public boolean onNativeInvoke(int i, Bundle bundle) {
+
                 return true;
             }
         });
@@ -61,8 +58,10 @@ public class IjkPlayer extends AbstractPlayer {
             if (uri.getScheme().equals(ContentResolver.SCHEME_ANDROID_RESOURCE)) {
                 RawDataSourceProvider rawDataSourceProvider = RawDataSourceProvider.create(mAppContext, uri);
                 mMediaPlayer.setDataSource(rawDataSourceProvider);
+
             } else {
                 mMediaPlayer.setDataSource(mAppContext, uri, headers);
+
             }
 
         } catch (Exception e) {

@@ -7,14 +7,15 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Parcelable;
 import android.support.v7.graphics.Palette;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.beans.CourseBean;
-import com.old.time.beans.MusicBean;
 import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogChapterList;
 import com.old.time.glideUtils.GlideUtils;
@@ -28,6 +29,7 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
+import com.old.time.utils.UIHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,6 +61,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     }
 
     private static final String TAG = "MusicPlayActivity";
+    private LinearLayout linear_layout_down;
     private ProgressBar mProgressBar;
     private View mainView;
     private ImageView img_book_pic;
@@ -70,8 +73,6 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     private boolean mIsPlaying = false;
     private TextView tv_speed, tv_progress_time, tv_title_time;
 
-    private Mp3Info mMp3Info;
-
     private MusicBroadReceiver receiver;
 
     public void initView() {
@@ -81,7 +82,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
 
         }
         registerReceiver(receiver, MusicBroadReceiver.getIntentFilter());
-
+        linear_layout_down = findViewById(R.id.linear_layout_down);
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
         mSinger = findViewById(R.id.textViewSinger);//歌手
@@ -129,8 +130,12 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
 
             return;
         }
+        if (tv_speed != null) {
+            tv_speed.setText("x" + floats[MusicService.PLAY_SPEED % floats.length]);
+
+        }
         // 1.获取播放数据
-        mMp3Info = mMusicList.get(position);
+        Mp3Info mMp3Info = mMusicList.get(position);
         // 2.设置歌曲名，歌手
         String mSongTitle = mMp3Info.getTitle();
         String mSingerArtist = mMp3Info.getArtist();
@@ -154,7 +159,10 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
             }
         });
         updateMpv(isPlaying);
+        if (dialogChapterList != null) {
+            dialogChapterList.showChapterListDialog(mMusicList, mPosition);
 
+        }
     }
 
     /**
@@ -173,17 +181,42 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     @Override
     protected void initEvent() {
         super.initEvent();
+        linear_layout_down.setOnClickListener(this);
         img_more.setOnClickListener(this);
         img_previous.setOnClickListener(this);
         img_play.setOnClickListener(this);
         img_next.setOnClickListener(this);
         tv_speed.setOnClickListener(this);
+        mainView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                float y1 = 0, y2 = 0;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        y1 = event.getY();
 
+                        break;
+                    case MotionEvent.ACTION_POINTER_UP:
+                        y2 = event.getY();
+
+                        break;
+                }
+                if (y2 - y1 > UIHelper.dip2px(30)) {
+                    onBackPressed();
+
+                }
+                return false;
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.linear_layout_down:
+                onBackPressed();
+
+                break;
             case R.id.img_more:
                 showListDialog();
 
@@ -206,7 +239,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
                 sendBroadcast(Constant.ACTION_NEXT);
 
                 break;
-            case R.id.tv_speed://切换播放模式
+            case R.id.tv_speed://切换播放速率
                 sendSpeedBroadcast();
 
                 break;
@@ -240,7 +273,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
                 }
             });
         }
-        dialogChapterList.showChapterListDialog(mMusicList);
+        dialogChapterList.showChapterListDialog(mMusicList, mPosition);
 
     }
 
@@ -338,7 +371,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SpUtils.setInt("music_current_position", mPosition);
+        SpUtils.setInt(SpUtils.MUSIC_CURRENT_POSITION, mPosition);
         unregisterReceiver(receiver);
 
     }
@@ -352,7 +385,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
 
         }
         mIsPlaying = true;
-        updateMpv(mIsPlaying);
+        switchSongUI(mPosition, mIsPlaying);
     }
 
     @Override
@@ -388,7 +421,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
 
         }
         mIsPlaying = true;
-        updateMpv(mIsPlaying);
+        switchSongUI(mPosition, mIsPlaying);
     }
 
     @Override
@@ -402,7 +435,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
 
         }
         mIsPlaying = true;
-        updateMpv(mIsPlaying);
+        switchSongUI(mPosition, mIsPlaying);
     }
 
     @Override

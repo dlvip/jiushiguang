@@ -3,6 +3,7 @@ package com.old.time.dialogs;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -47,9 +48,20 @@ public class DialogChapterList extends BaseDialog {
             @Override
             protected void convert(BaseViewHolder helper, Mp3Info item) {
                 int position = helper.getLayoutPosition() - getHeaderLayoutCount() + 1;
+                int colorSrc;
+                if (position - 1 == cPosition) {
+                    colorSrc = mContext.getResources().getColor(R.color.color_ff4444);
+
+                } else {
+                    colorSrc = mContext.getResources().getColor(R.color.color_000);
+
+                }
                 helper.setText(R.id.tv_music_index, position + " .")//
+                        .setTextColor(R.id.tv_music_index, colorSrc)//
                         .setText(R.id.tv_music_title, item.getTitle())//
-                        .setText(R.id.tv_music_time, item.getDurationStr());
+                        .setTextColor(R.id.tv_music_title, colorSrc)//
+                        .setText(R.id.tv_music_time, item.getDurationStr())//
+                        .setTextColor(R.id.tv_music_time, colorSrc);
 
             }
         };
@@ -63,19 +75,30 @@ public class DialogChapterList extends BaseDialog {
         });
     }
 
+    private int cPosition;
+
     /**
      * 显示弹框
      *
      * @param mp3Infos
      */
-    public void showChapterListDialog(List<Mp3Info> mp3Infos) {
+    public void showChapterListDialog(List<Mp3Info> mp3Infos, int cPosition) {
         if (mp3Infos == null || mp3Infos.size() == 0) {
 
             return;
         }
+        this.cPosition = cPosition;
         show();
         mAdapter.setNewData(mp3Infos);
+        recycler_view.stopScroll();
+        LinearLayoutManager manager = (LinearLayoutManager) recycler_view.getLayoutManager();
+        if (cPosition - 2 > -1) {
+            manager.scrollToPositionWithOffset(cPosition - 2, 0);
 
+        } else {
+            manager.scrollToPositionWithOffset(0, 0);
+
+        }
     }
 
     @Override
