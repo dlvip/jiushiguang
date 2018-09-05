@@ -64,7 +64,6 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     private ImageView img_book_pic;
     private ImageView img_more, img_previous, img_next, img_play;
     private List<Mp3Info> mMusicList = new ArrayList<>();
-    private List<MusicBean> musicInfos = new ArrayList<>();
     private TextView mSong;
     private TextView mSinger;
     private int mPosition;
@@ -265,17 +264,18 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
         try {
             JSONObject jsonObject = new JSONObject(string);
             JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
-            musicInfos.clear();
+            mMusicList.clear();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject musicObj = jsonArray.getJSONObject(i);
-                MusicBean mMusicBean = new MusicBean();
-                mMusicBean.setAlbumId(musicObj.getString("albumId"));
-                mMusicBean.setMusicUrl(musicObj.getString("playUrl64"));
-                mMusicBean.setMusicTime(Long.parseLong(musicObj.getString("duration")));
-                mMusicBean.setMusicPic(musicObj.getString("coverLarge"));
-                mMusicBean.setTitle(musicObj.getString("title"));
-                mMusicBean.setMusicUrl(musicObj.getString("playUrl64"));
-                musicInfos.add(mMusicBean);
+                Mp3Info mp3Info = new Mp3Info();
+                mp3Info.setAlbum(musicObj.getString("coverLarge"));
+                mp3Info.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
+                mp3Info.setAudio(musicObj.getString("playUrl64"));
+                mp3Info.setDuration(Long.parseLong(musicObj.getString("duration")));
+                mp3Info.setPicUrl(musicObj.getString("coverLarge"));
+                mp3Info.setTitle(musicObj.getString("title"));
+                mp3Info.setUrl(musicObj.getString("playUrl64"));
+                mMusicList.add(mp3Info);
 
             }
             startMusicService();

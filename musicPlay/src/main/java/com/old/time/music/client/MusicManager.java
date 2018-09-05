@@ -39,6 +39,7 @@ public class MusicManager {
         if (instance == null) {
             synchronized (MusicManager.class) {
                 if (instance == null) instance = new MusicManager();
+
             }
         }
         return instance;
@@ -113,10 +114,12 @@ public class MusicManager {
     public <T extends IMusicInfo> void playMusicList(final List<T> list, final int playIndex) {
         // 数据为空
         if (list == null || list.isEmpty()) {
+
             return;
         }
         //
         if (mMediaController == null) {
+
             return;
         }
         //相同的列表则不刷新播放队列
@@ -192,8 +195,8 @@ public class MusicManager {
     public void skipToNext() {
         if (mTransportControls != null) {
             mTransportControls.skipToNext();
-        }
 
+        }
     }
 
     /**
@@ -202,8 +205,8 @@ public class MusicManager {
     public void seekTo(long pos) {
         if (mTransportControls != null) {
             mTransportControls.seekTo(pos);
-        }
 
+        }
     }
 
 
