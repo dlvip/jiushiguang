@@ -26,6 +26,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginRight="@dimen/layout_10"
         android:layout_marginTop="@dimen/layout_120"
+        android:background="@color/color_666"
         android:scaleType="centerCrop" />
 
     <TextView
@@ -66,7 +67,7 @@
             android:layout_width="@dimen/layout_60"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="12:32"
+            android:text="00:00"
             android:textColor="@color/color_fff"
             android:textSize="@dimen/text_12" />
 
@@ -85,7 +86,7 @@
             android:layout_width="@dimen/layout_60"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="12:32"
+            android:text="00:00"
             android:textColor="@color/color_fff"
             android:textSize="@dimen/text_12" />
 

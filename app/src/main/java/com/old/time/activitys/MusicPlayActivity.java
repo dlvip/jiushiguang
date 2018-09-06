@@ -50,7 +50,8 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
      * @param mCourseBean
      */
     public static void startMusicPlayActivity(Context mContext, CourseBean mCourseBean) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 
             return;
         }
@@ -99,11 +100,18 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
         img_book_pic = findViewById(R.id.img_book_pic);
 
         mCourseBean = (CourseBean) getIntent().getSerializableExtra("mCourseBean");
-        getMusics(mCourseBean.albumId);
+        if (mCourseBean == null) {
+            mCourseBean = SpUtils.getObject(SpUtils.MUSIC_CURRENT_COURSEBEAN);
+
+        }
+        if (mCourseBean != null) {
+            getMusics(mCourseBean.albumId);
+
+        }
 
         mIsPlaying = MusicService.isPlaying;
         //初始化控件UI，默认显示历史播放歌曲
-        mPosition = SpUtils.getInt("music_current_position", 0);
+        mPosition = SpUtils.getInt(SpUtils.MUSIC_CURRENT_POSITION, 0);
         switchSongUI(mPosition, mIsPlaying);
 
     }
@@ -375,6 +383,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     protected void onDestroy() {
         super.onDestroy();
         SpUtils.setInt(SpUtils.MUSIC_CURRENT_POSITION, mPosition);
+        SpUtils.setObject(SpUtils.MUSIC_CURRENT_COURSEBEAN, mCourseBean);
         unregisterReceiver(receiver);
 
     }

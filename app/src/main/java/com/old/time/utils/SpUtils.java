@@ -28,6 +28,7 @@ public class SpUtils {
      * 播放索引
      */
     public static final String MUSIC_CURRENT_POSITION = "music_current_position";
+    public static final String MUSIC_CURRENT_COURSEBEAN = "mCourseBean";
 
     public static void setInt(String key, int value) {
         SharedPreferences sp = context.getSharedPreferences(CONFIGFILE, Context.MODE_PRIVATE);
