@@ -66,6 +66,8 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     private View mainView;
     private ImageView img_book_pic;
     private ImageView img_more, img_previous, img_next, img_play;
+
+    private CourseBean mCourseBean;
     private List<Mp3Info> mMusicList = new ArrayList<>();
     private TextView mSong;
     private TextView mSinger;
@@ -96,7 +98,8 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
         tv_speed = findViewById(R.id.tv_speed);
         img_book_pic = findViewById(R.id.img_book_pic);
 
-        getMusics();
+        mCourseBean = (CourseBean) getIntent().getSerializableExtra("mCourseBean");
+        getMusics(mCourseBean.albumId);
 
         mIsPlaying = MusicService.isPlaying;
         //初始化控件UI，默认显示历史播放歌曲
@@ -292,8 +295,8 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     /**
      * 获取章节列表
      */
-    private void getMusics() {
-        String string = StringUtils.getJson("289105.json", mContext);
+    private void getMusics(String fileName) {
+        String string = StringUtils.getJson(fileName + ".json", mContext);
         try {
             JSONObject jsonObject = new JSONObject(string);
             JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
@@ -453,12 +456,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     @Override
     public void close() {
         DebugLog.d(TAG, "close");
-        if (img_play != null) {
-            img_play.setImageResource(R.mipmap.ic_play_white_36dp);
 
-        }
-        mIsPlaying = false;
-        updateMpv(mIsPlaying);
     }
 
     private float[] floats = {0.7f, 1.0f, 1.5f, 2.0f, 2.5f, 3.0f};

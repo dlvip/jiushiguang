@@ -75,7 +75,6 @@ public class MusicBroadReceiver extends BroadcastReceiver {
 
                 break;
             case AudioManager.ACTION_HEADSET_PLUG://如果耳机插入时开始播放
-                mMusicPlayCallBackListener.play();
 
                 break;
         }

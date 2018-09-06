@@ -31,10 +31,14 @@ import java.util.concurrent.TimeUnit;
 public class MusicService extends Service implements PlayerEventListener, MusicBroadReceiver.MusicPlayCallBackListener {
 
     public static int playMode = 2;//1.单曲循环 2.列表循环 0.随机播放
-    public static int PLAY_SPEED = 2;//播放速率 0.7、1.0、1.5、2.0、2.5、3.0
+    public static int PLAY_SPEED = 1;//播放速率 0.7、1.0、1.5、2.0、2.5、3.0
     private static final String TAG = "MusicService";
     public static boolean isPlaying = false;
 
+    /**
+     * 是否是第一次播放
+     */
+    private boolean isFirst = true;
     private int mPosition;
     private IjkPlayer mPlayer;
     private MusicBroadReceiver receiver;
@@ -181,17 +185,6 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     }
 
     /**
-     * 开始
-     */
-    private void sentPreparedMessageToMain() {
-        Intent intent = new Intent();
-        intent.putExtra(MusicBroadReceiver.START_POSITION, mPosition);
-        intent.setAction(Constant.ACTION_START);
-        sendBroadcast(intent);
-
-    }
-
-    /**
      * 播放进度
      */
     private void sentPositionToMainByTimer() {
@@ -213,15 +206,20 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
         }, 0, 1000, TimeUnit.MILLISECONDS);
     }
 
+    private float[] floats = {0.7f, 1.0f, 1.5f, 2.0f, 2.5f, 3.0f};
+
     /**
-     * 播放
+     * 切换播放
      */
-    private void play(int position) {
-        if (mPlayer != null && mMusic_list.size() > 0) {
+    private void start() {
+        if (mPlayer != null && mMusic_list.size() > 0 && mPosition < mMusic_list.size()) {
+            isFirst = false;
             mPlayer.reset();
-            mPlayer.setDataSource(mMusic_list.get(position).getUrl(), null);
+            mPlayer.setDataSource(mMusic_list.get(mPosition).getUrl(), null);
             mPlayer.prepareAsync();
+            mPlayer.setSpeed(floats[PLAY_SPEED % floats.length]);
             isPlaying = true;
+            sentPositionToMainByTimer();
             updateNotification();
 
         }
@@ -231,15 +229,21 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     public void start(int position) {
         DebugLog.d(TAG, "start");
         this.mPosition = position;
-        play(mPosition);
-
+        start();
     }
 
     @Override
     public void play() {
         DebugLog.d(TAG, "play");
-        play(mPosition);
+        if (mPlayer != null && !isPlaying && !isFirst) {
+            mPlayer.start();
+            isPlaying = true;
+            updateNotification();
 
+        } else {
+            start();
+
+        }
     }
 
     /**
@@ -248,10 +252,11 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     @Override
     public void pause() {
         DebugLog.d(TAG, "pause");
-        if (mPlayer != null) {
+        if (mPlayer != null && isPlaying) {
             mPlayer.pause();
             isPlaying = false;
             updateNotification();
+
         }
     }
 
@@ -266,7 +271,7 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
                 mPosition = mMusic_list.size() - 1;
 
             }
-            play(mPosition);
+            start();
         }
     }
 
@@ -281,7 +286,7 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
                 mPosition = 0;
 
             }
-            play(mPosition);
+            start();
         }
     }
 
@@ -294,8 +299,10 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     @Override
     public void close() {
         DebugLog.d(TAG, "close");
-        onDestroy();
+        if (mNotificationManager != null) {
+            mNotificationManager.cancel(Constant.NOTIFICATION_CEDE);
 
+        }
     }
 
     @Override
@@ -316,11 +323,24 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
 
     }
 
+    /**
+     * 播放完成
+     */
     @Override
     public void onCompletion() {
+        DebugLog.d(TAG, "onCompletion");
         Intent intent = new Intent();
         intent.setAction(Constant.ACTION_NEXT);
         sendBroadcast(intent);
+
+    }
+
+    /**
+     * 准备完成
+     */
+    @Override
+    public void onPrepared() {
+        DebugLog.d(TAG, "onPrepared");
 
     }
 
@@ -330,14 +350,6 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
 
     }
 
-    @Override
-    public void onPrepared() {
-        if (mPlayer != null) {
-            mPlayer.start();//开始播放
-            sentPositionToMainByTimer();
-
-        }
-    }
 
     @Override
     public void onVideoSizeChanged(int width, int height) {
