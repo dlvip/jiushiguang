@@ -179,7 +179,7 @@ public class MusicPlayerView extends View implements OnPlayPauseToggleListener {
     /**
      * Play/Pause button radius.(default = 120)
      */
-    private float mButtonRadius = 120f;
+    private float mButtonRadius = 140f;
 
     /**
      * Play/Pause button color(Default = dark gray)
@@ -322,13 +322,13 @@ public class MusicPlayerView extends View implements OnPlayPauseToggleListener {
         mPaintProgressEmpty.setAntiAlias(true);
         mPaintProgressEmpty.setColor(mProgressEmptyColor);
         mPaintProgressEmpty.setStyle(Paint.Style.STROKE);
-        mPaintProgressEmpty.setStrokeWidth(12.0f);
+        mPaintProgressEmpty.setStrokeWidth(5.0f);
 
         mPaintProgressLoaded = new Paint();
         mPaintProgressEmpty.setAntiAlias(true);
         mPaintProgressLoaded.setColor(mProgressLoadedColor);
         mPaintProgressLoaded.setStyle(Paint.Style.STROKE);
-        mPaintProgressLoaded.setStrokeWidth(12.0f);
+        mPaintProgressLoaded.setStrokeWidth(5.0f);
 
         mPaintTime = new Paint();
         mPaintTime.setColor(mTextColor);
@@ -360,7 +360,7 @@ public class MusicPlayerView extends View implements OnPlayPauseToggleListener {
         mCenterY = mHeight / 2f;
 
         //set RectF left, top, right, bottom coordiantes
-        rectF.set(20.0f, 20.0f, mWidth - 20.0f, mHeight - 20.0f);
+        rectF.set(10.0f, 10.0f, mWidth - 10.0f, mHeight - 10.0f);
 
         //button size is about to 1/4 of image size then we divide it to 8.
         mButtonRadius = mWidth / 8.0f;
