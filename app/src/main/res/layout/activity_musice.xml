@@ -33,7 +33,7 @@
         android:textSize="15sp"
         android:visibility="gone" />
 
-    <com.old.time.mp3Utils.MusicPlayerView
+    <com.old.time.musicPlay.MusicPlayerView
         android:id="@+id/mpv"
         android:layout_width="200dp"
         android:layout_height="200dp"

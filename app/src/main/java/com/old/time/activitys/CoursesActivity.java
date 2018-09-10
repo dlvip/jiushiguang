@@ -19,7 +19,7 @@ import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
-import com.old.time.mp3Utils.MusicService;
+import com.old.time.musicPlay.MusicService;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;

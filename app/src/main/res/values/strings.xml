@@ -64,4 +64,11 @@
 
     <string name="title_talk">\“别人家的孩子\”\n对孩子是打击还是激励？</string>
 
+    <string name="error_non_sheet_existent">歌单不存在 :(</string>
+    <string name="error_sheet_already_exits">歌单已存在 :(</string>
+    <string name="error_name_required">名称不能为空 :(</string>
+
+    <string name="main_sheet_favorite">我的收藏</string>
+    <string name="main_sheet_recent">最近播放</string>
+    <string name="main_sheet_all">全部歌曲</string>
 </resources>

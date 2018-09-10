@@ -155,5 +155,6 @@ public class MusicBroadReceiver extends BroadcastReceiver {
          */
         void speed(float speed);
 
+
     }
 }

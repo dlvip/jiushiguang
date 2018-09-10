@@ -1,10 +1,13 @@
 package com.old.time.activitys;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.IBinder;
 import android.os.Parcelable;
 import android.support.v7.graphics.Palette;
 import android.view.MotionEvent;
@@ -21,8 +24,8 @@ import com.old.time.dialogs.DialogChapterList;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.interfaces.OnClickManagerCallBack;
-import com.old.time.mp3Utils.Mp3Info;
-import com.old.time.mp3Utils.MusicService;
+import com.old.time.beans.ChapterBean;
+import com.old.time.musicPlay.MusicService;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.receivers.MusicBroadReceiver;
 import com.old.time.utils.ActivityUtils;
@@ -69,7 +72,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     private ImageView img_more, img_previous, img_next, img_play;
 
     private CourseBean mCourseBean;
-    private List<Mp3Info> mMusicList = new ArrayList<>();
+    private List<ChapterBean> mChapterBeans = new ArrayList<>();
     private TextView mSong;
     private TextView mSinger;
     private int mPosition;
@@ -128,7 +131,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     private void startMusicService() {
         Intent musicService = new Intent();
         musicService.setClass(getApplicationContext(), MusicService.class);
-        musicService.putParcelableArrayListExtra("music_list", (ArrayList<? extends Parcelable>) mMusicList);
+        musicService.putParcelableArrayListExtra("music_list", (ArrayList<? extends Parcelable>) mChapterBeans);
         startService(musicService);
 
     }
@@ -137,7 +140,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
      * 刷新播放控件的歌名，歌手，图片，按钮的形状
      */
     private void switchSongUI(int position, final boolean isPlaying) {
-        if (mMusicList == null || mMusicList.size() == 0 || position > mMusicList.size() - 1) {
+        if (mChapterBeans == null || mChapterBeans.size() == 0 || position > mChapterBeans.size() - 1) {
 
             return;
         }
@@ -146,13 +149,13 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
 
         }
         // 1.获取播放数据
-        Mp3Info mMp3Info = mMusicList.get(position);
+        ChapterBean mChapterBean = mChapterBeans.get(position);
         // 2.设置歌曲名，歌手
-        String mSongTitle = mMp3Info.getTitle();
-        String mSingerArtist = mMp3Info.getArtist();
+        String mSongTitle = mChapterBean.getTitle();
+        String mSingerArtist = mChapterBean.getArtist();
         mSong.setText(mSongTitle);
         mSinger.setText(mSingerArtist);
-        GlideUtils.getInstance().downLoadBitmap(mContext, mMp3Info.getPicUrl(), new ImageDownLoadCallBack() {
+        GlideUtils.getInstance().downLoadBitmap(mContext, mChapterBean.getPicUrl(), new ImageDownLoadCallBack() {
             @Override
             public void onDownLoadSuccess(Bitmap resource) {
                 // 4.更换音乐背景
@@ -171,7 +174,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
         });
         updateMpv(isPlaying);
         if (dialogChapterList != null) {
-            dialogChapterList.showChapterListDialog(mMusicList, mPosition);
+            dialogChapterList.showChapterListDialog(mChapterBeans, mPosition);
 
         }
     }
@@ -284,7 +287,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
                 }
             });
         }
-        dialogChapterList.showChapterListDialog(mMusicList, mPosition);
+        dialogChapterList.showChapterListDialog(mChapterBeans, mPosition);
 
     }
 
@@ -308,55 +311,24 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
         try {
             JSONObject jsonObject = new JSONObject(string);
             JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
-            mMusicList.clear();
+            mChapterBeans.clear();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject musicObj = jsonArray.getJSONObject(i);
-                Mp3Info mp3Info = new Mp3Info();
-                mp3Info.setAlbum(musicObj.getString("coverLarge"));
-                mp3Info.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
-                mp3Info.setAudio(musicObj.getString("playUrl64"));
-                mp3Info.setDuration(Long.parseLong(musicObj.getString("duration")));
-                mp3Info.setPicUrl(musicObj.getString("coverLarge"));
-                mp3Info.setTitle(musicObj.getString("title"));
-                mp3Info.setUrl(musicObj.getString("playUrl64"));
-                mMusicList.add(mp3Info);
+                ChapterBean chapterBean = new ChapterBean();
+                chapterBean.setAlbum(musicObj.getString("coverLarge"));
+                chapterBean.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
+                chapterBean.setAudio(musicObj.getString("playUrl64"));
+                chapterBean.setDuration(Long.parseLong(musicObj.getString("duration")));
+                chapterBean.setPicUrl(musicObj.getString("coverLarge"));
+                chapterBean.setTitle(musicObj.getString("title"));
+                chapterBean.setUrl(musicObj.getString("playUrl64"));
+                mChapterBeans.add(chapterBean);
 
             }
             startMusicService();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        HttpParams params = new HttpParams();
-//        params.put("albumId", mCourseBean.albumId);
-//        params.put("pageNum", "1");
-//        params.put("pageSize", "15");
-//        OkGoUtils.getInstance().postNetForData(params, Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<MusicBean>>>() {
-//
-//            @Override
-//            public void onSuccess(ResultBean<List<MusicBean>> mResultBean) {
-//                mMusicList.clear();
-//                for (MusicBean mMusicBean : mResultBean.data) {
-//                    Mp3Info mp3Info = new Mp3Info();
-//                    mp3Info.setAlbum(mMusicBean.getMusicPic());
-//                    mp3Info.setAlbumId(Long.parseLong(mMusicBean.getAlbumId()));
-//                    mp3Info.setAudio(mMusicBean.getMusicUrl());
-//                    mp3Info.setDuration(mMusicBean.getMusicTime());
-//                    mp3Info.setPicUrl(mMusicBean.getMusicPic());
-//                    mp3Info.setTitle(mMusicBean.getMusicTitle());
-//                    mp3Info.setUrl(mMusicBean.getMusicUrl());
-//
-//                    mMusicList.add(mp3Info);
-//                }
-//                startMusicService();
-//
-//            }
-//
-//            @Override
-//            public void onError(ResultBean<List<MusicBean>> mResultBean) {
-//
-//            }
-//        });
     }
 
     /**
@@ -384,7 +356,6 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
         super.onDestroy();
         SpUtils.setInt(SpUtils.MUSIC_CURRENT_POSITION, mPosition);
         SpUtils.setObject(SpUtils.MUSIC_CURRENT_COURSEBEAN, mCourseBean);
-        unregisterReceiver(receiver);
 
     }
 
@@ -429,7 +400,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
             mPosition--;
 
         } else {
-            mPosition = mMusicList.size() - 1;
+            mPosition = mChapterBeans.size() - 1;
 
         }
         mIsPlaying = true;
@@ -439,7 +410,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     @Override
     public void next() {
         DebugLog.d(TAG, "next");
-        if (mPosition + 1 < mMusicList.size()) {
+        if (mPosition + 1 < mChapterBeans.size()) {
             mPosition++;
 
         } else {

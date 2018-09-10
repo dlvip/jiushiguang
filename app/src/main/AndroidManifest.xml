@@ -44,6 +44,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+    <permission
+        android:name="com.old.time.permission.ACCESS_PLAY_SERVICE"
+        android:protectionLevel="normal" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -77,9 +81,32 @@
         <service android:name="com.amap.api.location.APSService" />
         <!-- 定位配置结束 -->
 
+        <service
+            android:name=".services.PlayService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.old.time.permission.ACCESS_PLAY_SERVICE"
+            android:process=":playService">
+            <intent-filter>
+                <action android:name="com.old.time.action.PLAY_SERVICE" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </service>
 
         <!-- 音乐播放 -->
-        <service android:name=".mp3Utils.MusicService" />
+        <service
+            android:name=".musicPlay.MusicService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="com.old.time.permission.ACCESS_PLAY_SERVICE"
+            android:process=":MusicService">
+            <intent-filter>
+                <action android:name="com.old.time.action.PLAY_SERVICE" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </service>
 
         <activity android:name=".activitys.SplishActivity">
             <intent-filter>
@@ -90,12 +117,15 @@
         </activity>
         <activity
             android:name=".activitys.MainActivity"
+            android:alwaysRetainTaskState="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activitys.UserLoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+
         <activity android:name=".activitys.PhotoPagerActivity" />
         <activity android:name=".activitys.TakePicActivity" />
         <activity android:name=".activitys.PhotoPickActivity" />

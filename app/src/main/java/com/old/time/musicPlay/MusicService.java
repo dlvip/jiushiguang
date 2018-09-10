@@ -1,22 +1,19 @@
-package com.old.time.mp3Utils;
+package com.old.time.musicPlay;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 
-import com.dueeeke.videoplayer.listener.PlayerEventListener;
 import com.dueeeke.videoplayer.player.IjkPlayer;
 import com.old.time.R;
 import com.old.time.activitys.MusicPlayActivity;
+import com.old.time.beans.ChapterBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
@@ -28,9 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class MusicService extends Service implements PlayerEventListener, MusicBroadReceiver.MusicPlayCallBackListener {
+public class MusicService extends BaseService  {
 
-    public static int playMode = 2;//1.单曲循环 2.列表循环 0.随机播放
     public static int PLAY_SPEED = 1;//播放速率 0.7、1.0、1.5、2.0、2.5、3.0
     private static final String TAG = "MusicService";
     public static boolean isPlaying = false;
@@ -42,24 +38,17 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     private int mPosition;
     private IjkPlayer mPlayer;
     private MusicBroadReceiver receiver;
-    private List<Mp3Info> mMusic_list = new ArrayList<>();
+    private List<ChapterBean> mMusic_list = new ArrayList<>();
 
     @Override
     public void onCreate() {
+        DebugLog.d(TAG, "onCreate");
         //创建广播接受者
         if (receiver == null) {
             receiver = new MusicBroadReceiver(this);
+            registerReceiver(receiver, MusicBroadReceiver.getIntentFilter());
 
         }
-        registerReceiver(receiver, MusicBroadReceiver.getIntentFilter());
-
-        //初始化播放器
-        if (mPlayer == null) {
-            mPlayer = new IjkPlayer(this);
-
-        }
-        mPlayer.bindVideoView(this);
-        mPlayer.initPlayer();
 
         createNotification();
         super.onCreate();
@@ -176,11 +165,20 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        DebugLog.d(TAG, "onStartCommand");
         if (intent != null) {
             mMusic_list = intent.getParcelableArrayListExtra("music_list");
             mPosition = SpUtils.getInt("music_current_position", 0);
 
         }
+        //初始化播放器
+        if (mPlayer == null) {
+            mPlayer = new IjkPlayer(this);
+            mPlayer.bindVideoView(this);
+            mPlayer.initPlayer();
+
+        }
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -291,12 +289,6 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     }
 
     @Override
-    public void progress(int current, int total) {
-        DebugLog.d(TAG, "progress");
-
-    }
-
-    @Override
     public void close() {
         DebugLog.d(TAG, "close");
         if (mNotificationManager != null) {
@@ -335,37 +327,9 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
 
     }
 
-    /**
-     * 准备完成
-     */
-    @Override
-    public void onPrepared() {
-        DebugLog.d(TAG, "onPrepared");
-
-    }
-
-    @Override
-    public void onInfo(int what, int extra) {
-
-
-    }
-
-
-    @Override
-    public void onVideoSizeChanged(int width, int height) {
-
-
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-
-        return null;
-    }
-
     @Override
     public void onDestroy() {
+        DebugLog.d(TAG, "onDestroy");
         if (mNotificationManager != null) {
             mNotificationManager.cancel(Constant.NOTIFICATION_CEDE);
 
@@ -381,5 +345,6 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
 
         }
         isPlaying = false;
+        super.onDestroy();
     }
 }

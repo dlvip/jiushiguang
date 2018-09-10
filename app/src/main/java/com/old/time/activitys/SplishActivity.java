@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.old.time.MyApplication;
 import com.old.time.R;
 import com.old.time.constants.Constant;
+import com.old.time.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AnimUtil;
@@ -53,8 +54,16 @@ public class SplishActivity extends BaseActivity {
             }
         });
         img_splish.startAnimation(AnimUtil.getAnimSet(null, AnimUtil.getAlphaAnim(),AnimUtil.getScaleAnim()));
-
+        startService();
         startClock();
+    }
+
+    /**
+     * 启动服务，应确保获得文件读写权限后再启动，启动服务后再绑定，这样即使绑定这解除绑定，
+     * 服务端也能继续运行 ？？？
+     */
+    protected void startService() {
+        PlayServiceManager.startPlayService(this);
     }
 
     private void startClock() {

@@ -1,4 +1,4 @@
-package com.old.time.mp3Utils;
+package com.old.time.beans;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * 序列化bean对象，使之能在activity和service中传递信息
  */
-public class Mp3Info implements Parcelable {
+public class ChapterBean implements Parcelable {
 
     private long id;
     private long albumId;
@@ -131,15 +131,15 @@ public class Mp3Info implements Parcelable {
         this.audio = audio;
     }
 
-    public static Creator<Mp3Info> getCREATOR() {
+    public static Creator<ChapterBean> getCREATOR() {
         return CREATOR;
     }
 
-    public Mp3Info() {
+    public ChapterBean() {
 
     }
 
-    protected Mp3Info(Parcel in) {
+    protected ChapterBean(Parcel in) {
         id = in.readLong();
         title = in.readString();
         artist = in.readString();
@@ -175,20 +175,20 @@ public class Mp3Info implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Mp3Info> CREATOR = new Creator<Mp3Info>() {
+    public static final Creator<ChapterBean> CREATOR = new Creator<ChapterBean>() {
         @Override
-        public Mp3Info createFromParcel(Parcel in) {
-            return new Mp3Info(in);
+        public ChapterBean createFromParcel(Parcel in) {
+            return new ChapterBean(in);
         }
 
         @Override
-        public Mp3Info[] newArray(int size) {
-            return new Mp3Info[size];
+        public ChapterBean[] newArray(int size) {
+            return new ChapterBean[size];
         }
     };
 
     @Override
     public String toString() {
-        return "Mp3Info{" + "id=" + id + ", title='" + title + '\'' + ", artist='" + artist + '\'' + ", album='" + album + '\'' + ", albumId=" + albumId + ", duration=" + duration + ", size=" + size + ", url='" + url + '\'' + ", songId='" + songId + '\'' + ", songName='" + songName + '\'' + ", picUrl='" + picUrl + '\'' + ", audio='" + audio + '\'' + '}';
+        return "ChapterBean{" + "id=" + id + ", title='" + title + '\'' + ", artist='" + artist + '\'' + ", album='" + album + '\'' + ", albumId=" + albumId + ", duration=" + duration + ", size=" + size + ", url='" + url + '\'' + ", songId='" + songId + '\'' + ", songName='" + songName + '\'' + ", picUrl='" + picUrl + '\'' + ", audio='" + audio + '\'' + '}';
     }
 }

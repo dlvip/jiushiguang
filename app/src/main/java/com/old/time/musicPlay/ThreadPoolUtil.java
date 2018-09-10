@@ -1,4 +1,4 @@
-package com.old.time.mp3Utils;
+package com.old.time.musicPlay;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -11,6 +11,7 @@ public final class ThreadPoolUtil {
     private static ScheduledExecutorService scheduledExecutor;
 
     private ThreadPoolUtil() {
+
     }
 
     public static ScheduledExecutorService getScheduledExecutor() {

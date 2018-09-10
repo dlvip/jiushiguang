@@ -1,8 +1,9 @@
 package com.old.time.activitys;
 
-import android.Manifest;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -10,15 +11,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.old.time.R;
+import com.old.time.aidl.IPlayControl;
+import com.old.time.db.DBMusicocoController;
 import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
+import com.old.time.interfaces.ContentUpdatable;
+import com.old.time.interfaces.OnServiceConnect;
+import com.old.time.interfaces.OnUpdateStatusChanged;
+import com.old.time.manager.PlayServiceManager;
 import com.old.time.permission.PermissionUtil;
+import com.old.time.services.PlayServiceConnection;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DebugLog;
+import com.old.time.views.MusicBottomView;
 
 import static android.Manifest.permission.READ_PHONE_STATE;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnServiceConnect, ContentUpdatable {
 
     private ImageView main_img_home, main_img_find, main_img_mine;
     private TextView tv_main_home, tv_main_find, tv_main_mine;
@@ -41,13 +51,31 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        playServiceManager = new PlayServiceManager(this);
+        dbController = new DBMusicocoController(this, true);
+
         main_img_home = findViewById(R.id.main_img_home);
         main_img_find = findViewById(R.id.main_img_find);
         main_img_mine = findViewById(R.id.main_img_mine);
         tv_main_home = findViewById(R.id.tv_main_home);
         tv_main_find = findViewById(R.id.tv_main_find);
         tv_main_mine = findViewById(R.id.tv_main_mine);
+        mMusicBottomView = findViewById(R.id.music_bottom_view);
         selectFragment(0);
+
+        bindService();
+    }
+
+    private DBMusicocoController dbController;
+
+    private static PlayServiceConnection sServiceConnection;
+    private PlayServiceManager playServiceManager;
+    private MusicBottomView mMusicBottomView;
+
+    private void bindService() {
+        sServiceConnection = new PlayServiceConnection(mMusicBottomView, this, this);
+        // 绑定成功后回调 onConnected
+        playServiceManager.bindService(sServiceConnection);
 
     }
 
@@ -187,7 +215,41 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        if (sServiceConnection != null) {
+            sServiceConnection.unregisterListener();
+
+        }
+        super.onDestroy();
+    }
+
+    @Override
     protected int getLayoutID() {
         return R.layout.activity_main;
+    }
+
+    private IPlayControl control;
+
+    @Override
+    public void onConnected(ComponentName name, IBinder service) {
+        DebugLog.d(TAG, "onConnected");
+        this.control = IPlayControl.Stub.asInterface(service);
+        mMusicBottomView.initData(control, dbController);
+
+    }
+
+    @Override
+    public void disConnected(ComponentName name) {
+        DebugLog.d(TAG, "disConnected");
+    }
+
+    @Override
+    public void update(Object obj, OnUpdateStatusChanged statusChanged) {
+
+    }
+
+    @Override
+    public void noData() {
+
     }
 }
