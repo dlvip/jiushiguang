@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.interfaces.OnClickManagerCallBack;
-import com.old.time.mp3Utils.Mp3Info;
+import com.old.time.aidl.ChapterBean;
 import com.old.time.utils.MyLinearLayoutManager;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class DialogChapterList extends BaseDialog {
 
     }
 
-    private BaseQuickAdapter<Mp3Info, BaseViewHolder> mAdapter;
+    private BaseQuickAdapter<ChapterBean, BaseViewHolder> mAdapter;
     private TextView tv_dialog_title;
     private RecyclerView recycler_view;
 
@@ -44,9 +44,9 @@ public class DialogChapterList extends BaseDialog {
         tv_dialog_title.setText("音频列表");
         recycler_view = findViewbyId(R.id.recycler_view);
         recycler_view.setLayoutManager(new MyLinearLayoutManager(mContext));
-        mAdapter = new BaseQuickAdapter<Mp3Info, BaseViewHolder>(R.layout.adapter_music, new ArrayList<Mp3Info>()) {
+        mAdapter = new BaseQuickAdapter<ChapterBean, BaseViewHolder>(R.layout.adapter_music, new ArrayList<ChapterBean>()) {
             @Override
-            protected void convert(BaseViewHolder helper, Mp3Info item) {
+            protected void convert(BaseViewHolder helper, ChapterBean item) {
                 int position = helper.getLayoutPosition() - getHeaderLayoutCount() + 1;
                 int colorSrc;
                 if (position - 1 == cPosition) {
@@ -80,16 +80,16 @@ public class DialogChapterList extends BaseDialog {
     /**
      * 显示弹框
      *
-     * @param mp3Infos
+     * @param chapterBeans
      */
-    public void showChapterListDialog(List<Mp3Info> mp3Infos, int cPosition) {
-        if (mp3Infos == null || mp3Infos.size() == 0) {
+    public void showChapterListDialog(List<ChapterBean> chapterBeans, int cPosition) {
+        if (chapterBeans == null || chapterBeans.size() == 0) {
 
             return;
         }
         this.cPosition = cPosition;
         show();
-        mAdapter.setNewData(mp3Infos);
+        mAdapter.setNewData(chapterBeans);
         recycler_view.stopScroll();
         LinearLayoutManager manager = (LinearLayoutManager) recycler_view.getLayoutManager();
         if (cPosition - 2 > -1) {

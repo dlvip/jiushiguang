@@ -1,4 +1,4 @@
-package com.old.time.beans;
+package com.old.time.aidl;
 
 import android.os.Parcel;
 import android.os.Parcelable;

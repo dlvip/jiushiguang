@@ -17,6 +17,7 @@ import com.dueeeke.videoplayer.listener.PlayerEventListener;
 import com.dueeeke.videoplayer.player.IjkPlayer;
 import com.old.time.R;
 import com.old.time.activitys.MusicPlayActivity;
+import com.old.time.aidl.ChapterBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
@@ -42,7 +43,7 @@ public class MusicService extends Service implements PlayerEventListener, MusicB
     private int mPosition;
     private IjkPlayer mPlayer;
     private MusicBroadReceiver receiver;
-    private List<Mp3Info> mMusic_list = new ArrayList<>();
+    private List<ChapterBean> mMusic_list = new ArrayList<>();
 
     @Override
     public void onCreate() {

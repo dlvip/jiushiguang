@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import com.old.time.R;
+import com.old.time.aidl.ChapterBean;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -39,7 +40,7 @@ public class MediaUtil {
      *
      * @return
      */
-    public static List<Mp3Info> getMp3Infos(Context context) {
+    public static List<ChapterBean> getMp3Infos(Context context) {
         Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
         int mId = cursor.getColumnIndex(MediaStore.Audio.Media._ID);
         int mTitle = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
@@ -51,10 +52,10 @@ public class MediaUtil {
         int mUrl = cursor.getColumnIndex(MediaStore.Audio.Media.DATA);
         int mIsMusic = cursor.getColumnIndex(MediaStore.Audio.Media.IS_MUSIC);
 
-        List<Mp3Info> mp3Infos = new ArrayList<>();
+        List<ChapterBean> chapterBeans = new ArrayList<>();
         for (int i = 0, p = cursor.getCount(); i < p; i++) {
             cursor.moveToNext();
-            Mp3Info mp3Info = new Mp3Info();
+            ChapterBean chapterBean = new ChapterBean();
             long id = cursor.getLong(mId); // 音乐id
             String title = cursor.getString(mTitle); // 音乐标题
             String artist = cursor.getString(mArtist); // 艺术家
@@ -66,39 +67,39 @@ public class MediaUtil {
             int isMusic = cursor.getInt(mIsMusic); // 是否为音乐
             if (isMusic != 0 && url.matches(".*\\.mp3$") && duration > 30 * 1000 && !artist.equals("<unknown>") && !artist.equals("")) { // 只把音乐添加到集合当中
                 Log.d("song", "id:" + id + " title: " + title + " artist:" + artist + " album:" + album + " size:" + size + " duration: " + duration);
-                mp3Info.setId(id);
-                mp3Info.setTitle(title);
-                mp3Info.setArtist(artist);
-                mp3Info.setAlbum(album);
-                mp3Info.setAlbumId(albumId);
-                mp3Info.setDuration(duration);
-                mp3Info.setSize(size);
-                mp3Info.setUrl(url);
-                mp3Infos.add(mp3Info);
+                chapterBean.setId(id);
+                chapterBean.setTitle(title);
+                chapterBean.setArtist(artist);
+                chapterBean.setAlbum(album);
+                chapterBean.setAlbumId(albumId);
+                chapterBean.setDuration(duration);
+                chapterBean.setSize(size);
+                chapterBean.setUrl(url);
+                chapterBeans.add(chapterBean);
             }
         }
         cursor.close();
-        return mp3Infos;
+        return chapterBeans;
     }
 
     /**
      * 往List集合中添加Map对象数据，每一个Map对象存放一首音乐的所有属性
      *
-     * @param mp3Infos
+     * @param chapterBeans
      * @return
      */
-    public static List<HashMap<String, String>> getMusicMaps(List<Mp3Info> mp3Infos) {
+    public static List<HashMap<String, String>> getMusicMaps(List<ChapterBean> chapterBeans) {
         List<HashMap<String, String>> mp3list = new ArrayList<>();
-        for (Iterator iterator = mp3Infos.iterator(); iterator.hasNext(); ) {
-            Mp3Info mp3Info = (Mp3Info) iterator.next();
+        for (Iterator iterator = chapterBeans.iterator(); iterator.hasNext(); ) {
+            ChapterBean chapterBean = (ChapterBean) iterator.next();
             HashMap<String, String> map = new HashMap<>();
-            map.put("title", mp3Info.getTitle());
-            map.put("Artist", mp3Info.getArtist());
-            map.put("album", mp3Info.getAlbum());
-            map.put("albumId", String.valueOf(mp3Info.getAlbumId()));
-            map.put("duration", formatTime(mp3Info.getDuration()));
-            map.put("size", String.valueOf(mp3Info.getSize()));
-            map.put("url", mp3Info.getUrl());
+            map.put("title", chapterBean.getTitle());
+            map.put("Artist", chapterBean.getArtist());
+            map.put("album", chapterBean.getAlbum());
+            map.put("albumId", String.valueOf(chapterBean.getAlbumId()));
+            map.put("duration", formatTime(chapterBean.getDuration()));
+            map.put("size", String.valueOf(chapterBean.getSize()));
+            map.put("url", chapterBean.getUrl());
             mp3list.add(map);
         }
         return mp3list;

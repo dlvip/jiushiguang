@@ -21,7 +21,7 @@ import com.old.time.dialogs.DialogChapterList;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.interfaces.OnClickManagerCallBack;
-import com.old.time.mp3Utils.Mp3Info;
+import com.old.time.aidl.ChapterBean;
 import com.old.time.mp3Utils.MusicService;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.receivers.MusicBroadReceiver;
@@ -69,7 +69,7 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
     private ImageView img_more, img_previous, img_next, img_play;
 
     private CourseBean mCourseBean;
-    private List<Mp3Info> mMusicList = new ArrayList<>();
+    private List<ChapterBean> mMusicList = new ArrayList<>();
     private TextView mSong;
     private TextView mSinger;
     private int mPosition;
@@ -146,13 +146,13 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
 
         }
         // 1.获取播放数据
-        Mp3Info mMp3Info = mMusicList.get(position);
+        ChapterBean mChapterBean = mMusicList.get(position);
         // 2.设置歌曲名，歌手
-        String mSongTitle = mMp3Info.getTitle();
-        String mSingerArtist = mMp3Info.getArtist();
+        String mSongTitle = mChapterBean.getTitle();
+        String mSingerArtist = mChapterBean.getArtist();
         mSong.setText(mSongTitle);
         mSinger.setText(mSingerArtist);
-        GlideUtils.getInstance().downLoadBitmap(mContext, mMp3Info.getPicUrl(), new ImageDownLoadCallBack() {
+        GlideUtils.getInstance().downLoadBitmap(mContext, mChapterBean.getPicUrl(), new ImageDownLoadCallBack() {
             @Override
             public void onDownLoadSuccess(Bitmap resource) {
                 // 4.更换音乐背景
@@ -311,15 +311,15 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
             mMusicList.clear();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject musicObj = jsonArray.getJSONObject(i);
-                Mp3Info mp3Info = new Mp3Info();
-                mp3Info.setAlbum(musicObj.getString("coverLarge"));
-                mp3Info.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
-                mp3Info.setAudio(musicObj.getString("playUrl64"));
-                mp3Info.setDuration(Long.parseLong(musicObj.getString("duration")));
-                mp3Info.setPicUrl(musicObj.getString("coverLarge"));
-                mp3Info.setTitle(musicObj.getString("title"));
-                mp3Info.setUrl(musicObj.getString("playUrl64"));
-                mMusicList.add(mp3Info);
+                ChapterBean chapterBean = new ChapterBean();
+                chapterBean.setAlbum(musicObj.getString("coverLarge"));
+                chapterBean.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
+                chapterBean.setAudio(musicObj.getString("playUrl64"));
+                chapterBean.setDuration(Long.parseLong(musicObj.getString("duration")));
+                chapterBean.setPicUrl(musicObj.getString("coverLarge"));
+                chapterBean.setTitle(musicObj.getString("title"));
+                chapterBean.setUrl(musicObj.getString("playUrl64"));
+                mMusicList.add(chapterBean);
 
             }
             startMusicService();
