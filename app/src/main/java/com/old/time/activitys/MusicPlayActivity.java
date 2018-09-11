@@ -326,37 +326,6 @@ public class MusicPlayActivity extends BaseActivity implements MusicBroadReceive
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        HttpParams params = new HttpParams();
-//        params.put("albumId", mCourseBean.albumId);
-//        params.put("pageNum", "1");
-//        params.put("pageSize", "15");
-//        OkGoUtils.getInstance().postNetForData(params, Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<MusicBean>>>() {
-//
-//            @Override
-//            public void onSuccess(ResultBean<List<MusicBean>> mResultBean) {
-//                mMusicList.clear();
-//                for (MusicBean mMusicBean : mResultBean.data) {
-//                    Mp3Info mp3Info = new Mp3Info();
-//                    mp3Info.setAlbum(mMusicBean.getMusicPic());
-//                    mp3Info.setAlbumId(Long.parseLong(mMusicBean.getAlbumId()));
-//                    mp3Info.setAudio(mMusicBean.getMusicUrl());
-//                    mp3Info.setDuration(mMusicBean.getMusicTime());
-//                    mp3Info.setPicUrl(mMusicBean.getMusicPic());
-//                    mp3Info.setTitle(mMusicBean.getMusicTitle());
-//                    mp3Info.setUrl(mMusicBean.getMusicUrl());
-//
-//                    mMusicList.add(mp3Info);
-//                }
-//                startMusicService();
-//
-//            }
-//
-//            @Override
-//            public void onError(ResultBean<List<MusicBean>> mResultBean) {
-//
-//            }
-//        });
     }
 
     /**
