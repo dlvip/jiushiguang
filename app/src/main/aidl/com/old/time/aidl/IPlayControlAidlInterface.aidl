@@ -68,6 +68,14 @@ interface IPlayControlAidlInterface {
         //########################设置播放属性##############
 
         /**
+         * 设置播放列表并开启播放
+         *
+         * @param mChapterBeans
+         * @param position
+         */
+        void setStartList(in List<ChapterBean> mChapterBeans, int position);
+
+        /**
          * 设置播放列表
          *
          * @param mChapterBeans

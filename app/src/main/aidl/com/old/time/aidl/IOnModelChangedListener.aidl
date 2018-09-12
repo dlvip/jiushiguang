@@ -21,5 +21,18 @@ interface IOnModelChangedListener {
      */
     void updateProgress(int progress, int total);
 
+    /**
+     * 播放有误
+     *
+     */
+    void updateError();
+
+    /**
+     * 更新播放状态
+     *
+     * @param isPlaying 播放状态
+     */
+    void updateIsPlaying(boolean isPlaying);
+
 
 }
