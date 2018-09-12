@@ -45,8 +45,7 @@ public class PlayNotifyManager extends OnModelChangedListener {
      */
     public PlayNotifyManager(Context mContext) {
         this.mContext = mContext;
-        remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.customnotice);//通知栏布局
-
+        createNotification();
     }
 
     /**
@@ -54,6 +53,7 @@ public class PlayNotifyManager extends OnModelChangedListener {
      */
     @SuppressLint("NewApi")
     private void createNotification() {
+        remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.customnotice);//通知栏布局
         //创建mNotificationManager
         mNotificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
         // 点击跳转到主界面
