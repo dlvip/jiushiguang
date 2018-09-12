@@ -4,12 +4,14 @@ import android.content.Context;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
+import com.old.time.mp3Utils.ThreadPoolUtil;
 import com.old.time.service.MediaPlayManager;
 import com.old.time.service.PlayMusicService;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by NING on 2018/9/12.
@@ -28,12 +30,33 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     private float speed = 1;                        //播放速率
     private int mode = 0;                           //0:顺序、1：单曲、2：随机
 
+    private float[] floats = {0.7f, 1.0f, 1.5f, 2.0f, 2.5f, 3.0f};
+
     public PlayServiceIBinder(Context mContext) {
         this.mMediaPlayManager = new MediaPlayManager(mContext, this);
         this.mIOnModelChangedListeners = new RemoteCallbackList<>();
         this.mChapterBeans = SpUtils.getObject(PlayMusicService.SERVICE_MODEL_LIST);
         this.position = SpUtils.getInt(PlayMusicService.SERVICE_PLAY_INDEX, 0);
 
+        sentPositionToMainByTimer();
+    }
+
+    /**
+     * 播放进度
+     */
+    private void sentPositionToMainByTimer() {
+        ThreadPoolUtil.getScheduledExecutor().scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                if (mMediaPlayManager != null && mMediaPlayManager.isPlaying()) {
+                    //1.准备好的时候.告诉activity,当前歌曲的总时长
+                    int currentPosition = mMediaPlayManager.getProgress();
+                    int totalDuration = mMediaPlayManager.getTotalProgress();
+                    updateProgress(currentPosition, totalDuration);
+
+                }
+            }
+        }, 0, 1000, TimeUnit.MILLISECONDS);
     }
 
     @Override

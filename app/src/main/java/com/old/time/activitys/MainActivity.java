@@ -1,8 +1,11 @@
 package com.old.time.activitys;
 
-import android.Manifest;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -10,11 +13,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.old.time.R;
+import com.old.time.aidl.ChapterBean;
+import com.old.time.aidl.IOnModelChangedListener;
+import com.old.time.aidl.IPlayControlAidlInterface;
+import com.old.time.aidl.PlayServiceIBinder;
 import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
 import com.old.time.permission.PermissionUtil;
+import com.old.time.service.PlayServiceManager;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DebugLog;
+import com.old.time.utils.StringUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.Manifest.permission.READ_PHONE_STATE;
 
@@ -39,6 +56,9 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    private PlayServiceManager mPlayServiceManager;
+    private IPlayControlAidlInterface iPlayServiceIBinder;
+
     @Override
     protected void initView() {
         main_img_home = findViewById(R.id.main_img_home);
@@ -49,6 +69,87 @@ public class MainActivity extends BaseActivity {
         tv_main_mine = findViewById(R.id.tv_main_mine);
         selectFragment(0);
 
+        mPlayServiceManager = new PlayServiceManager(mContext);
+        mPlayServiceManager.bindService(conn, null);
+    }
+
+    private ServiceConnection conn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            iPlayServiceIBinder = IPlayControlAidlInterface.Stub.asInterface(service);
+            try {
+                List<ChapterBean> chapterBeans = getModelList("289105");
+                iPlayServiceIBinder.setPlayList(chapterBeans, chapterBeans.size() - 1);
+                iPlayServiceIBinder.registerIOnModelChangedListener(new OnModelChangedListener());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            iPlayServiceIBinder = null;
+
+        }
+    };
+
+    private class OnModelChangedListener extends IOnModelChangedListener.Stub {
+
+        @Override
+        public void updatePlayModel(ChapterBean mChapterBean) throws RemoteException {
+            DebugLog.d(TAG, "updatePlayModel=" + mChapterBean.toString());
+
+        }
+
+        @Override
+        public void updateProgress(int progress, int total) throws RemoteException {
+            DebugLog.d(TAG, "progress=" + progress + ":::total=" + total);
+        }
+
+        @Override
+        public void updateError() throws RemoteException {
+            DebugLog.d(TAG, "updateError");
+        }
+
+        @Override
+        public void updateIsPlaying(boolean isPlaying) throws RemoteException {
+            DebugLog.d(TAG, "updateIsPlaying:::isPlaying=" + isPlaying);
+        }
+
+        @Override
+        public IBinder asBinder() {
+            return null;
+        }
+    }
+
+    /**
+     * 获取章节列表
+     */
+    private List<ChapterBean> getModelList(String fileName) {
+        String string = StringUtils.getJson(fileName + ".json", mContext);
+        List<ChapterBean> chapterBeans = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
+            chapterBeans.clear();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject musicObj = jsonArray.getJSONObject(i);
+                ChapterBean chapterBean = new ChapterBean();
+                chapterBean.setAlbum(musicObj.getString("coverLarge"));
+                chapterBean.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
+                chapterBean.setAudio(musicObj.getString("playUrl64"));
+                chapterBean.setDuration(Long.parseLong(musicObj.getString("duration")));
+                chapterBean.setPicUrl(musicObj.getString("coverLarge"));
+                chapterBean.setTitle(musicObj.getString("title"));
+                chapterBean.setUrl(musicObj.getString("playUrl64"));
+                chapterBeans.add(chapterBean);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+        return chapterBeans;
     }
 
     @Override
@@ -182,8 +283,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(false);//将此任务转向后台
+        moveTaskToBack(true);//将此任务转向后台
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (conn != null) {
+            unbindService(conn);
+
+        }
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.old.time.MyApplication;
 import com.old.time.R;
 import com.old.time.constants.Constant;
+import com.old.time.service.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AnimUtil;
@@ -53,6 +54,9 @@ public class SplishActivity extends BaseActivity {
             }
         });
         img_splish.startAnimation(AnimUtil.getAnimSet(null, AnimUtil.getAlphaAnim(),AnimUtil.getScaleAnim()));
+
+
+        PlayServiceManager.startPlayService(mContext);
 
         startClock();
     }

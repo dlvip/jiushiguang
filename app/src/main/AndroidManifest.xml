@@ -79,6 +79,16 @@
 
 
         <!-- 音乐播放 -->
+        <service
+            android:name=".service.PlayMusicService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":playService">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </service>
+
         <service android:name=".mp3Utils.MusicService" />
 
         <activity android:name=".activitys.SplishActivity">
@@ -90,8 +100,12 @@
         </activity>
         <activity
             android:name=".activitys.MainActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+            android:alwaysRetainTaskState="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".activitys.UserLoginActivity"
             android:launchMode="singleTop"
