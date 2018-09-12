@@ -5,12 +5,15 @@ import android.text.TextUtils;
 
 import com.dueeeke.videoplayer.listener.PlayerEventListener;
 import com.dueeeke.videoplayer.player.IjkPlayer;
+import com.old.time.utils.DebugLog;
 
 /**
  * Created by NING on 2018/9/12.
  */
 
-public class MediaSessionManager implements PlayerEventListener {
+public class MediaPlayManager implements PlayerEventListener {
+
+    private static final String TAG = "MediaPlayManager";
 
     private OnMediaPlayCallBackListener onMediaPlayCallBackListener;
     private IjkPlayer mPlayer;
@@ -20,7 +23,7 @@ public class MediaSessionManager implements PlayerEventListener {
     /**
      * 音频播放管理类
      */
-    public MediaSessionManager(Context mContext, OnMediaPlayCallBackListener onMediaPlayCallBackListener) {
+    public MediaPlayManager(Context mContext, OnMediaPlayCallBackListener onMediaPlayCallBackListener) {
         this.mContext = mContext;
         this.onMediaPlayCallBackListener = onMediaPlayCallBackListener;
         if (mPlayer == null) {
@@ -43,6 +46,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * 播放
      */
     public void play(String playUrl) {
+        DebugLog.d(TAG, "play-->playUrl=" + playUrl);
         if (TextUtils.isEmpty(playUrl)) {
 
             return;
@@ -67,6 +71,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * 播放
      */
     public void play() {
+        DebugLog.d(TAG, "play");
         if (mPlayer != null) {
             mPlayer.start();
 
@@ -77,6 +82,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * 暂停
      */
     public void pause() {
+        DebugLog.d(TAG, "pause");
         if (mPlayer != null) {
             mPlayer.pause();
 
@@ -89,6 +95,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * @return
      */
     public boolean isPlaying() {
+        DebugLog.d(TAG, "isPlaying");
         if (mPlayer != null) {
 
             return mPlayer.isPlaying();
@@ -103,6 +110,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * @return
      */
     public int getProgress() {
+        DebugLog.d(TAG, "getProgress");
         if (mPlayer != null) {
 
             return (int) mPlayer.getCurrentPosition();
@@ -116,6 +124,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * @return
      */
     public int getTotalProgress() {
+        DebugLog.d(TAG, "getTotalProgress");
         if (mPlayer != null) {
 
             return (int) mPlayer.getDuration();
@@ -130,6 +139,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * @param speed
      */
     public void setSpeed(float speed) {
+        DebugLog.d(TAG, "setSpeed-->speed=" + speed);
         if (mPlayer != null) {
             mPlayer.setSpeed(speed);
 
@@ -142,6 +152,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * @return
      */
     public float getSpeed() {
+        DebugLog.d(TAG, "getSpeed");
         if (mPlayer != null) {
 
             return mPlayer.getTcpSpeed();
@@ -155,6 +166,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * @param time
      */
     public void seekTo(long time) {
+        DebugLog.d(TAG, "seekTo-->time=" + time);
         if (mPlayer != null) {
             mPlayer.seekTo(time);
 
@@ -172,6 +184,7 @@ public class MediaSessionManager implements PlayerEventListener {
      * @param playUrl
      */
     public void setPlayUrl(String playUrl) {
+        DebugLog.d(TAG, "setPlayUrl-->playUrl=" + playUrl);
         if (TextUtils.isEmpty(playUrl)) {
 
             return;
@@ -182,6 +195,7 @@ public class MediaSessionManager implements PlayerEventListener {
 
     @Override
     public void onError() {
+        DebugLog.d(TAG, "onError");
         if (onMediaPlayCallBackListener != null) {
             onMediaPlayCallBackListener.onError();
 
@@ -190,6 +204,7 @@ public class MediaSessionManager implements PlayerEventListener {
 
     @Override
     public void onCompletion() {
+        DebugLog.d(TAG, "onCompletion");
         if (onMediaPlayCallBackListener != null) {
             onMediaPlayCallBackListener.onCompletion();
 
