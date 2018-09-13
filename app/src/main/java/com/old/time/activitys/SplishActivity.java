@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.old.time.MyApplication;
 import com.old.time.R;
 import com.old.time.constants.Constant;
-import com.old.time.service.PlayServiceManager;
+import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AnimUtil;

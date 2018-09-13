@@ -6,7 +6,11 @@ import android.os.IBinder;
  * Created by wcl on 2018/9/12.
  */
 
+/**
+ * 服务回调  在非主线程
+ */
 public abstract class OnModelChangedListener extends IOnModelChangedListener.Stub {
+
 
     private static final String TAG = "OnModelChangedListener";
 

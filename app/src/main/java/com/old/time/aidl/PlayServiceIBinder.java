@@ -1,11 +1,14 @@
 package com.old.time.aidl;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
 import com.old.time.mp3Utils.ThreadPoolUtil;
-import com.old.time.service.MediaPlayManager;
+import com.old.time.service.manager.BroadcastManager;
+import com.old.time.service.manager.MediaPlayManager;
 import com.old.time.service.PlayMusicService;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
@@ -30,13 +33,50 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     private float speed = 1;                        //播放速率
     private int mode = 0;                           //0:顺序、1：单曲、2：随机
 
+    private BroadcastReceiver mBroadcastReceiver;
+    private Context mContext;
+
     public PlayServiceIBinder(Context mContext) {
+        this.mContext = mContext;
         this.mMediaPlayManager = new MediaPlayManager(mContext, this);
         this.mIOnModelChangedListeners = new RemoteCallbackList<>();
         this.mChapterBeans = SpUtils.getObject(PlayMusicService.SERVICE_MODEL_LIST);
         this.position = SpUtils.getInt(PlayMusicService.SERVICE_PLAY_INDEX, 0);
 
         sentPositionToMainByTimer();
+        mBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                try {
+                    switch (intent.getAction()) {
+                        case BroadcastManager.ACTION_PLAY:
+                            play();
+
+                            break;
+                        case BroadcastManager.ACTION_PAUSE:
+                            pause();
+
+                            break;
+                        case BroadcastManager.ACTION_PRV:
+                            previous();
+
+                            break;
+                        case BroadcastManager.ACTION_NEXT:
+                            next();
+
+                            break;
+                        case BroadcastManager.ACTION_CLOSE:
+                            close();
+
+                            break;
+                    }
+                } catch (RemoteException e) {
+                    DebugLog.d(TAG, e.getMessage());
+
+                }
+            }
+        };
+        BroadcastManager.getInstance().registerBroadReceiver(mContext, mBroadcastReceiver);
     }
 
     /**
@@ -248,6 +288,10 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     @Override
     public void close() throws RemoteException {
         DebugLog.d(TAG, "close");
+        if (mBroadcastReceiver != null) {
+            BroadcastManager.getInstance().unregisterReceiver(mContext, mBroadcastReceiver);
+
+        }
         if (mMediaPlayManager != null) {
             mMediaPlayManager.stop();
             mMediaPlayManager = null;
@@ -309,17 +353,18 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
      * 更新model
      */
     public void updatePlayModel(ChapterBean mChapterBean) {
+        DebugLog.d(TAG, "updatePlayModel");
         if (mChapterBean == null) {
 
             return;
         }
-        DebugLog.d(TAG, "updatePlayModel");
         if (mIOnModelChangedListeners != null) {
             int count = mIOnModelChangedListeners.beginBroadcast();
             for (int i = 0; i < count; i++) {
                 IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(i);
                 try {
                     mIOnModelChangedListener.updatePlayModel(mChapterBean);
+                    mIOnModelChangedListener.updateIsPlaying(getIsPlaying());
 
                 } catch (RemoteException e) {
                     DebugLog.d(TAG, e.getMessage());

@@ -1,10 +1,12 @@
-package com.old.time.service;
+package com.old.time.service.manager;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+
+import com.old.time.service.PlayMusicService;
 
 /**
  * Created by NING on 2018/9/12.

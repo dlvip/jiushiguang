@@ -13,9 +13,9 @@ import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
 import com.old.time.permission.PermissionUtil;
-import com.old.time.service.PlayNotifyManager;
+import com.old.time.service.manager.PlayNotifyManager;
 import com.old.time.service.PlayServiceConnection;
-import com.old.time.service.PlayServiceManager;
+import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.utils.ActivityUtils;
 
 import static android.Manifest.permission.READ_PHONE_STATE;
