@@ -12,6 +12,7 @@ import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.NotificationTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.old.time.R;
@@ -20,6 +21,8 @@ import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
+
+import java.util.concurrent.ExecutionException;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
@@ -71,6 +74,22 @@ public class GlideUtils {
             return;
         }
         manager.load(resourceId).apply(new RequestOptions().placeholder(resourceId)).into(imageView);
+    }
+
+    /**
+     * 设置资源图片
+     *
+     * @param context
+     * @param imageView
+     * @param resourceId
+     */
+    public void setImageView(Context context, String picUrl, NotificationTarget imageView, int resourceId) {
+        RequestManager manager = getRequestManager(context);
+        if (manager == null) {
+
+            return;
+        }
+        manager.asBitmap().load(picUrl).apply(new RequestOptions().placeholder(resourceId)).into(imageView);
     }
 
     /**
@@ -391,13 +410,47 @@ public class GlideUtils {
                 .into(imageView);
     }
 
-    public void getBitmap(Context context, String url, int[] WH, final ImageDownLoadCallBack downLoadCallBack) {
+    /**
+     * 获取图片
+     *
+     * @param context
+     * @param url
+     * @param w
+     * @param h
+     * @return
+     */
+    public Bitmap getBitmap(Context context, String url, int w, int h) {
+        RequestManager manager = getRequestManager(context);
+        if (manager == null || TextUtils.isEmpty(url)) {
+
+            return null;
+        }
+        url = getPicUrl(url, w, h);
+        Bitmap bitmap = null;
+        try {
+            bitmap = manager.asBitmap().load(url).submit(w, h).get();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return bitmap;
+    }
+
+    /**
+     * 获取图片
+     *
+     * @param context
+     * @param url
+     * @param downLoadCallBack
+     */
+    public void downLoadBitmap(Context context, String url, int[] WH, final ImageDownLoadCallBack downLoadCallBack) {
         RequestManager manager = getRequestManager(context);
         if (manager == null) {
 
             return;
         }
-        url = getPicUrl(url, WH[0], WH[1]);
+        url = getPicUrl(url, UIHelper.dip2px(50), UIHelper.dip2px(50));
         RequestBuilder<Bitmap> requestBuilder;
         if (TextUtils.isEmpty(url)) {
             requestBuilder = manager.asBitmap().load(R.mipmap.ic_launcher);
@@ -406,7 +459,7 @@ public class GlideUtils {
             requestBuilder = manager.asBitmap().load(url);
 
         }
-        requestBuilder.into(new SimpleTarget<Bitmap>() {
+        requestBuilder.apply(new RequestOptions().override(UIHelper.dip2px(50))).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                 if (downLoadCallBack != null) {

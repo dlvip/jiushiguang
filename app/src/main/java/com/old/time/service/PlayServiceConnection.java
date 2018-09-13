@@ -73,9 +73,10 @@ public class PlayServiceConnection implements ServiceConnection {
     public void onServiceConnected(ComponentName name, IBinder service) {
         iPlayControlAidlInterface = IPlayControlAidlInterface.Stub.asInterface(service);
         try {
-            iPlayControlAidlInterface.setStartList(chapterBeans, chapterBeans.size() - 1);
             if (onModelChangedListener != null)
                 iPlayControlAidlInterface.registerIOnModelChangedListener(onModelChangedListener);
+
+            iPlayControlAidlInterface.setStartList(chapterBeans, chapterBeans.size() - 1);
 
         } catch (RemoteException e) {
             e.printStackTrace();

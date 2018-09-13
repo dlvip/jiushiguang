@@ -7,21 +7,20 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.widget.RemoteViews;
 
+import com.bumptech.glide.request.target.NotificationTarget;
 import com.old.time.R;
 import com.old.time.activitys.MusicPlayActivity;
 import com.old.time.aidl.ChapterBean;
 import com.old.time.aidl.OnModelChangedListener;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
-import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.utils.DebugLog;
-import com.old.time.utils.UIHelper;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static com.old.time.constants.Constant.NOTIFICATION_CEDE;
 
 /**
  * Created by wcl on 2018/9/12.
@@ -107,10 +106,12 @@ public class PlayNotifyManager extends OnModelChangedListener {
                 .setOngoing(true).build();
     }
 
+    private NotificationTarget notificationTarget;
+
     /**
      * 更新通知栏
      */
-    private void updateNotification(ChapterBean chapterBean) {
+    private void updateNotification(final ChapterBean chapterBean) {
         if (chapterBean == null) {
 
             return;
@@ -120,14 +121,12 @@ public class PlayNotifyManager extends OnModelChangedListener {
 
         }
         remoteViews.setTextViewText(R.id.widget_title, chapterBean.getTitle());
-        GlideUtils.getInstance().getBitmap(mContext, chapterBean.getPicUrl(), new int[]{UIHelper.dip2px(65), UIHelper.dip2px(90)}, new ImageDownLoadCallBack() {
-            @Override
-            public void onDownLoadSuccess(Bitmap resource) {
-                remoteViews.setImageViewBitmap(R.id.widget_album, resource);
+        if (notificationTarget == null) {
+            notificationTarget = new NotificationTarget(mContext, R.id.widget_album, remoteViews, notification, NOTIFICATION_CEDE);
 
-            }
-        });
-        mNotificationManager.notify(Constant.NOTIFICATION_CEDE, notification);
+        }
+        GlideUtils.getInstance().setImageView(mContext, chapterBean.getPicUrl(), notificationTarget, R.mipmap.img_default);
+        mNotificationManager.notify(NOTIFICATION_CEDE, notification);
     }
 
     /**
@@ -159,7 +158,7 @@ public class PlayNotifyManager extends OnModelChangedListener {
 
         }
         remoteViews.setOnClickPendingIntent(R.id.widget_play, pending_intent_play);
-        mNotificationManager.notify(Constant.NOTIFICATION_CEDE, notification);
+        mNotificationManager.notify(NOTIFICATION_CEDE, notification);
 
     }
 
@@ -203,7 +202,7 @@ public class PlayNotifyManager extends OnModelChangedListener {
      */
     public void onClose() {
         if (mNotificationManager != null) {
-            mNotificationManager.cancel(Constant.NOTIFICATION_CEDE);
+            mNotificationManager.cancel(NOTIFICATION_CEDE);
 
         }
     }
