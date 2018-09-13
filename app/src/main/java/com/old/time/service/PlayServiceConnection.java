@@ -8,6 +8,7 @@ import android.os.RemoteException;
 
 import com.old.time.aidl.ChapterBean;
 import com.old.time.aidl.IPlayControlAidlInterface;
+import com.old.time.aidl.OnModelChangedListener;
 import com.old.time.utils.StringUtils;
 
 import org.json.JSONArray;
@@ -26,13 +27,15 @@ public class PlayServiceConnection implements ServiceConnection {
     private static final String TAG = "PlayServiceConnection";
 
     private Context mContext;
+    private List<ChapterBean> chapterBeans;
 
-    private PlayNotifyManager playNotifyManager;
     private IPlayControlAidlInterface iPlayControlAidlInterface;
+    private OnModelChangedListener onModelChangedListener;
 
-    public PlayServiceConnection(Context mContext) {
+    public PlayServiceConnection(Context mContext, OnModelChangedListener onModelChangedListener) {
         this.mContext = mContext;
-        this.playNotifyManager = new PlayNotifyManager(mContext);
+        this.onModelChangedListener = onModelChangedListener;
+        this.chapterBeans = getModelList("289105");
 
     }
 
@@ -70,9 +73,9 @@ public class PlayServiceConnection implements ServiceConnection {
     public void onServiceConnected(ComponentName name, IBinder service) {
         iPlayControlAidlInterface = IPlayControlAidlInterface.Stub.asInterface(service);
         try {
-            List<ChapterBean> chapterBeans = getModelList("289105");
             iPlayControlAidlInterface.setStartList(chapterBeans, chapterBeans.size() - 1);
-            iPlayControlAidlInterface.registerIOnModelChangedListener(playNotifyManager);
+            if (onModelChangedListener != null)
+                iPlayControlAidlInterface.registerIOnModelChangedListener(onModelChangedListener);
 
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -83,7 +86,8 @@ public class PlayServiceConnection implements ServiceConnection {
     @Override
     public void onServiceDisconnected(ComponentName name) {
         try {
-            iPlayControlAidlInterface.unregisterIOnModelChangedListener(playNotifyManager);
+            if (onModelChangedListener != null)
+                iPlayControlAidlInterface.unregisterIOnModelChangedListener(onModelChangedListener);
 
         } catch (RemoteException e) {
             e.printStackTrace();

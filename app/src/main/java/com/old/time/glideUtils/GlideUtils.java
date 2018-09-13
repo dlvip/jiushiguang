@@ -391,6 +391,32 @@ public class GlideUtils {
                 .into(imageView);
     }
 
+    public void getBitmap(Context context, String url, int[] WH, final ImageDownLoadCallBack downLoadCallBack) {
+        RequestManager manager = getRequestManager(context);
+        if (manager == null) {
+
+            return;
+        }
+        url = getPicUrl(url, WH[0], WH[1]);
+        RequestBuilder<Bitmap> requestBuilder;
+        if (TextUtils.isEmpty(url)) {
+            requestBuilder = manager.asBitmap().load(R.mipmap.ic_launcher);
+
+        } else {
+            requestBuilder = manager.asBitmap().load(url);
+
+        }
+        requestBuilder.into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                if (downLoadCallBack != null) {
+                    downLoadCallBack.onDownLoadSuccess(resource);
+
+                }
+            }
+        });
+    }
+
     /**
      * 获取图片
      *

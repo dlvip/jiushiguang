@@ -143,7 +143,14 @@
             android:name=".activitys.MusicActivity"
             android:launchMode="singleTask" />
         <activity android:name=".activitys.TopicsActivity" />
-        <activity android:name=".activitys.CoursesActivity" />
+        <activity
+            android:name=".activitys.CoursesActivity"
+            android:alwaysRetainTaskState="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
         <activity android:name=".activitys.MusicsActivity" />
         <activity android:name=".activitys.VideoPagerActivity" />
         <activity android:name=".activitys.TalksActivity" />

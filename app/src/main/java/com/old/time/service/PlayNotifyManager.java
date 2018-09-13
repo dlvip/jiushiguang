@@ -1,15 +1,14 @@
 package com.old.time.service;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.os.RemoteException;
 import android.widget.RemoteViews;
 
 import com.old.time.R;
@@ -19,6 +18,8 @@ import com.old.time.aidl.OnModelChangedListener;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
+import com.old.time.utils.DebugLog;
+import com.old.time.utils.UIHelper;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -28,7 +29,9 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class PlayNotifyManager extends OnModelChangedListener {
 
-    private Context mContext;
+    private static final String TAG = "PlayNotifyManager";
+
+    private Activity mContext;
     private RemoteViews remoteViews;
     private Notification notification;
     private NotificationManager mNotificationManager;
@@ -36,16 +39,15 @@ public class PlayNotifyManager extends OnModelChangedListener {
     private static final String DEFAULT_CHANNEL_ID = "1234567";
     private static final String MY_CHANNEL_ID = "my_channel_01";
 
-    private boolean isPlaying;
-
     /**
      * 通知栏
      *
      * @param mContext
      */
-    public PlayNotifyManager(Context mContext) {
+    public PlayNotifyManager(Activity mContext) {
         this.mContext = mContext;
         createNotification();
+
     }
 
     /**
@@ -79,19 +81,11 @@ public class PlayNotifyManager extends OnModelChangedListener {
         // 设置播放暂停
         Intent intent_play_pause;
         PendingIntent pending_intent_play;
-        if (isPlaying) {//如果正在播放——》暂停
-            intent_play_pause = new Intent();
-            intent_play_pause.setAction(Constant.ACTION_PAUSE);
-            pending_intent_play = PendingIntent.getBroadcast(mContext, 4//
-                    , intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent_play_pause = new Intent();
+        intent_play_pause.setAction(Constant.ACTION_PLAY);
+        pending_intent_play = PendingIntent.getBroadcast(mContext, 5//
+                , intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        } else {//如果暂停——》播放
-            intent_play_pause = new Intent();
-            intent_play_pause.setAction(Constant.ACTION_PLAY);
-            pending_intent_play = PendingIntent.getBroadcast(mContext, 5//
-                    , intent_play_pause, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        }
         remoteViews.setOnClickPendingIntent(R.id.widget_play, pending_intent_play);
         // 下一曲
         Intent intent_next = new Intent();
@@ -126,7 +120,7 @@ public class PlayNotifyManager extends OnModelChangedListener {
 
         }
         remoteViews.setTextViewText(R.id.widget_title, chapterBean.getTitle());
-        GlideUtils.getInstance().downLoadBitmap(mContext, chapterBean.getPicUrl(), new ImageDownLoadCallBack() {
+        GlideUtils.getInstance().getBitmap(mContext, chapterBean.getPicUrl(), new int[]{UIHelper.dip2px(65), UIHelper.dip2px(90)}, new ImageDownLoadCallBack() {
             @Override
             public void onDownLoadSuccess(Bitmap resource) {
                 remoteViews.setImageViewBitmap(R.id.widget_album, resource);
@@ -170,25 +164,37 @@ public class PlayNotifyManager extends OnModelChangedListener {
     }
 
     @Override
-    public void updatePlayModel(ChapterBean mChapterBean) throws RemoteException {
-        updateNotification(mChapterBean);
+    public void updatePlayModel(final ChapterBean mChapterBean) {
+        DebugLog.d(TAG, "updatePlayModel");
+        mContext.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                updateNotification(mChapterBean);
+
+            }
+        });
+    }
+
+    @Override
+    public void updateIsPlaying(final boolean isPlaying) {
+        DebugLog.d(TAG, "updateIsPlaying");
+        mContext.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                updatePalyState(isPlaying);
+
+            }
+        });
+    }
+
+    @Override
+    public void updateProgress(int progress, int total) {
+        DebugLog.d(TAG, "progress-->" + progress + ":::total-->" + total);
 
     }
 
     @Override
-    public void updateIsPlaying(boolean isPlaying) throws RemoteException {
-        this.isPlaying = isPlaying;
-        updatePalyState(isPlaying);
-
-    }
-
-    @Override
-    public void updateProgress(int progress, int total) throws RemoteException {
-
-    }
-
-    @Override
-    public void updateError() throws RemoteException {
+    public void updateError() {
 
     }
 
@@ -197,7 +203,7 @@ public class PlayNotifyManager extends OnModelChangedListener {
      */
     public void onClose() {
         if (mNotificationManager != null) {
-            mNotificationManager.cancelAll();
+            mNotificationManager.cancel(Constant.NOTIFICATION_CEDE);
 
         }
     }

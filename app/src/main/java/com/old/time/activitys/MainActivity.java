@@ -13,6 +13,7 @@ import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
 import com.old.time.permission.PermissionUtil;
+import com.old.time.service.PlayNotifyManager;
 import com.old.time.service.PlayServiceConnection;
 import com.old.time.service.PlayServiceManager;
 import com.old.time.utils.ActivityUtils;
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity {
 
     private PlayServiceConnection playServiceConnection;
     private PlayServiceManager mPlayServiceManager;
+    private PlayNotifyManager playNotifyManager;
 
     @Override
     protected void initView() {
@@ -53,8 +55,9 @@ public class MainActivity extends BaseActivity {
         tv_main_mine = findViewById(R.id.tv_main_mine);
         selectFragment(0);
 
+        playNotifyManager = new PlayNotifyManager(mContext);
         mPlayServiceManager = new PlayServiceManager(mContext);
-        playServiceConnection = new PlayServiceConnection(mContext);
+        playServiceConnection = new PlayServiceConnection(mContext, playNotifyManager);
         mPlayServiceManager.bindService(playServiceConnection, null);
     }
 

@@ -2,9 +2,11 @@ package com.old.time.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
+import com.old.time.R;
 import com.old.time.adapters.CourseAdapter;
 import com.old.time.beans.CourseBean;
 import com.old.time.beans.ResultBean;
@@ -24,6 +26,7 @@ public class CoursesActivity extends CBaseActivity {
     public static void startCoursesActivity(Activity mContext) {
         Intent intent = new Intent(mContext, CoursesActivity.class);
         ActivityUtils.startActivity(mContext, intent);
+        ActivityUtils.finishActivity(mContext);
 
     }
 
@@ -34,6 +37,7 @@ public class CoursesActivity extends CBaseActivity {
     @Override
     protected void initView() {
         super.initView();
+        findViewById(R.id.left_layout).setVisibility(View.GONE);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         courseBeans = new ArrayList<>();
         courseAdapter = new CourseAdapter(courseBeans);
@@ -102,5 +106,11 @@ public class CoursesActivity extends CBaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);//将此任务转向后台
+
     }
 }

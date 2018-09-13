@@ -42,6 +42,18 @@ public class MediaPlayManager implements PlayerEventListener {
 
     }
 
+    private boolean isStarted = false;
+
+    /**
+     * 是否已经开始过播放
+     *
+     * @return
+     */
+    public boolean isStarted() {
+
+        return isStarted;
+    }
+
     /**
      * 播放
      */
@@ -60,6 +72,7 @@ public class MediaPlayManager implements PlayerEventListener {
 
             return;
         }
+        this.isStarted = true;
         this.playUrl = playUrl;
         mPlayer.reset();
         mPlayer.setDataSource(playUrl, null);

@@ -30,8 +30,6 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     private float speed = 1;                        //播放速率
     private int mode = 0;                           //0:顺序、1：单曲、2：随机
 
-    private float[] floats = {0.7f, 1.0f, 1.5f, 2.0f, 2.5f, 3.0f};
-
     public PlayServiceIBinder(Context mContext) {
         this.mMediaPlayManager = new MediaPlayManager(mContext, this);
         this.mIOnModelChangedListeners = new RemoteCallbackList<>();
@@ -50,8 +48,8 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
             public void run() {
                 if (mMediaPlayManager != null && mMediaPlayManager.isPlaying()) {
                     //1.准备好的时候.告诉activity,当前歌曲的总时长
-                    int currentPosition = mMediaPlayManager.getProgress();
-                    int totalDuration = mMediaPlayManager.getTotalProgress();
+                    final int currentPosition = mMediaPlayManager.getProgress();
+                    final int totalDuration = mMediaPlayManager.getTotalProgress();
                     updateProgress(currentPosition, totalDuration);
 
                 }
@@ -144,11 +142,7 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
         DebugLog.d(TAG, "setPlayList");
         this.mChapterBeans = mChapterBeans;
         this.position = position;
-        if (mMediaPlayManager != null && mChapterBeans != null && mChapterBeans.size() > 0) {
-            mMediaPlayManager.setPlayUrl(mChapterBeans.get(position).getUrl());
-            updatePlayModel(mChapterBeans.get(position));
 
-        }
     }
 
     @Override
@@ -159,8 +153,13 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
             return;
         }
         if (mMediaPlayManager != null) {
-            mMediaPlayManager.play();
+            if (mMediaPlayManager.isStarted()) {
+                mMediaPlayManager.play();
 
+            } else {
+                mMediaPlayManager.play(mChapterBeans.get(position).getUrl());
+
+            }
         }
         updatePlayModel(mChapterBeans.get(position));
     }
@@ -292,18 +291,17 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
      */
     public void updateError() {
         DebugLog.d(TAG, "onError");
-        try {
-            if (mIOnModelChangedListeners != null) {
-                int count = mIOnModelChangedListeners.beginBroadcast();
-                for (int i = 0; i < count; i++) {
-                    IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(0);
+        if (mIOnModelChangedListeners != null) {
+            int count = mIOnModelChangedListeners.beginBroadcast();
+            for (int i = 0; i < count; i++) {
+                IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(i);
+                try {
                     mIOnModelChangedListener.updateError();
-
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (RemoteException e) {
-            DebugLog.d(TAG, e.getMessage());
-
+            mIOnModelChangedListeners.finishBroadcast();
         }
     }
 
@@ -316,19 +314,19 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
             return;
         }
         DebugLog.d(TAG, "updatePlayModel");
-        try {
-            if (mIOnModelChangedListeners != null) {
-                int count = mIOnModelChangedListeners.beginBroadcast();
-                for (int i = 0; i < count; i++) {
-                    IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(0);
+        if (mIOnModelChangedListeners != null) {
+            int count = mIOnModelChangedListeners.beginBroadcast();
+            for (int i = 0; i < count; i++) {
+                IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(i);
+                try {
                     mIOnModelChangedListener.updatePlayModel(mChapterBean);
-                    mIOnModelChangedListener.updateIsPlaying(getIsPlaying());
+
+                } catch (RemoteException e) {
+                    DebugLog.d(TAG, e.getMessage());
 
                 }
             }
-        } catch (RemoteException e) {
-            DebugLog.d(TAG, e.getMessage());
-
+            mIOnModelChangedListeners.finishBroadcast();
         }
     }
 
@@ -337,18 +335,18 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
      */
     private void updateProgress(int progress, int total) {
         DebugLog.d(TAG, "updateProgress");
-        try {
-            if (mIOnModelChangedListeners != null) {
-                int count = mIOnModelChangedListeners.beginBroadcast();
-                for (int i = 0; i < count; i++) {
-                    IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(0);
+        if (mIOnModelChangedListeners != null) {
+            int count = mIOnModelChangedListeners.beginBroadcast();
+            for (int i = 0; i < count; i++) {
+                IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(i);
+                try {
                     mIOnModelChangedListener.updateProgress(progress, total);
 
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
             }
-        } catch (RemoteException e) {
-            DebugLog.d(TAG, e.getMessage());
-
+            mIOnModelChangedListeners.finishBroadcast();
         }
     }
 }
