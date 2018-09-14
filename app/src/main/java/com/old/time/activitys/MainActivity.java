@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity {
         playNotifyManager = new PlayNotifyManager(mContext);
         mPlayServiceManager = new PlayServiceManager(mContext);
         playServiceConnection = new PlayServiceConnection(mContext, playNotifyManager);
-        mPlayServiceManager.bindService(playServiceConnection, null);
+        mPlayServiceManager.bindService(playServiceConnection);
     }
 
     @Override

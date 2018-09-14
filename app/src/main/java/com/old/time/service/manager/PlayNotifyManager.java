@@ -111,30 +111,11 @@ public class PlayNotifyManager extends OnModelChangedListener {
     /**
      * 更新通知栏
      */
-    private void updateNotification(final ChapterBean chapterBean) {
+    private void updateNotification(final ChapterBean chapterBean, boolean isPlaying) {
         if (chapterBean == null) {
 
             return;
         }
-        if (notification == null) {
-            createNotification();
-
-        }
-        remoteViews.setTextViewText(R.id.widget_title, chapterBean.getTitle());
-        if (notificationTarget == null) {
-            notificationTarget = new NotificationTarget(mContext, R.id.widget_album, remoteViews, notification, NOTIFICATION_CEDE);
-
-        }
-        GlideUtils.getInstance().setImageView(mContext, chapterBean.getPicUrl(), notificationTarget, R.mipmap.img_default);
-        mNotificationManager.notify(NOTIFICATION_CEDE, notification);
-    }
-
-    /**
-     * 修改播放状态
-     *
-     * @param isPlaying
-     */
-    public void updatePalyState(boolean isPlaying) {
         if (notification == null) {
             createNotification();
 
@@ -158,29 +139,19 @@ public class PlayNotifyManager extends OnModelChangedListener {
 
         }
         remoteViews.setOnClickPendingIntent(R.id.widget_play, pending_intent_play);
+        remoteViews.setTextViewText(R.id.widget_title, chapterBean.getTitle());
+        notificationTarget = new NotificationTarget(mContext, R.id.widget_album, remoteViews, notification, NOTIFICATION_CEDE);
+        GlideUtils.getInstance().setImageView(mContext, chapterBean.getPicUrl(), notificationTarget, R.mipmap.img_default);
         mNotificationManager.notify(NOTIFICATION_CEDE, notification);
-
     }
 
     @Override
-    public void updatePlayModel(final ChapterBean mChapterBean) {
+    public void updatePlayModel(final ChapterBean mChapterBean, final boolean isPlaying) {
         DebugLog.d(TAG, "updatePlayModel");
         mContext.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                updateNotification(mChapterBean);
-
-            }
-        });
-    }
-
-    @Override
-    public void updateIsPlaying(final boolean isPlaying) {
-        DebugLog.d(TAG, "updateIsPlaying");
-        mContext.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                updatePalyState(isPlaying);
+                updateNotification(mChapterBean, isPlaying);
 
             }
         });
@@ -193,17 +164,20 @@ public class PlayNotifyManager extends OnModelChangedListener {
     }
 
     @Override
-    public void updateError() {
+    public void close() {
+        mContext.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mNotificationManager != null) {
+                    mNotificationManager.cancel(NOTIFICATION_CEDE);
 
+                }
+            }
+        });
     }
 
-    /**
-     * 关闭通知栏
-     */
-    public void onClose() {
-        if (mNotificationManager != null) {
-            mNotificationManager.cancel(NOTIFICATION_CEDE);
+    @Override
+    public void updateError() {
 
-        }
     }
 }

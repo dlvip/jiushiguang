@@ -28,6 +28,18 @@ public class PlayServiceManager {
     }
 
     //绑定服务
+    public void bindService(ServiceConnection connection) {
+        Intent intent = new Intent(context, PlayMusicService.class);
+        context.bindService(intent, connection, Service.BIND_AUTO_CREATE);
+
+    }
+
+    /**
+     * 绑定服务
+     *
+     * @param connection
+     * @param bundle
+     */
     public void bindService(ServiceConnection connection, Bundle bundle) {
         Intent intent = new Intent(context, PlayMusicService.class);
         if (bundle != null) {
@@ -35,6 +47,5 @@ public class PlayServiceManager {
 
         }
         context.bindService(intent, connection, Service.BIND_AUTO_CREATE);
-
     }
 }

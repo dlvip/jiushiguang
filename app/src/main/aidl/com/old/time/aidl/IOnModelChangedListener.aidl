@@ -11,7 +11,7 @@ interface IOnModelChangedListener {
      *
      * @param mChapterBean
      */
-    void updatePlayModel(in ChapterBean mChapterBean);
+    void updatePlayModel(in ChapterBean mChapterBean, boolean isPlaying);
 
     /**
      * 更新进度
@@ -28,11 +28,10 @@ interface IOnModelChangedListener {
     void updateError();
 
     /**
-     * 更新播放状态
+     * 关闭
      *
-     * @param isPlaying 播放状态
      */
-    void updateIsPlaying(boolean isPlaying);
+    void close();
 
 
 }

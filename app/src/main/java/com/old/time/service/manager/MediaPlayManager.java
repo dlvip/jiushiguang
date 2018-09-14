@@ -44,6 +44,8 @@ public class MediaPlayManager implements PlayerEventListener {
 
     private boolean isStarted = false;
 
+    private boolean isPlaying;
+
     /**
      * 是否已经开始过播放
      *
@@ -74,6 +76,7 @@ public class MediaPlayManager implements PlayerEventListener {
         }
         this.isStarted = true;
         this.playUrl = playUrl;
+        this.isPlaying = true;
         mPlayer.reset();
         mPlayer.setDataSource(playUrl, null);
         mPlayer.prepareAsync();
@@ -86,6 +89,7 @@ public class MediaPlayManager implements PlayerEventListener {
     public void play() {
         DebugLog.d(TAG, "play");
         if (mPlayer != null) {
+            this.isPlaying = true;
             mPlayer.start();
 
         }
@@ -97,6 +101,7 @@ public class MediaPlayManager implements PlayerEventListener {
     public void pause() {
         DebugLog.d(TAG, "pause");
         if (mPlayer != null) {
+            this.isPlaying = false;
             mPlayer.pause();
 
         }
@@ -111,7 +116,7 @@ public class MediaPlayManager implements PlayerEventListener {
         DebugLog.d(TAG, "isPlaying");
         if (mPlayer != null) {
 
-            return mPlayer.isPlaying();
+            return isPlaying;
         }
 
         return false;
@@ -248,6 +253,7 @@ public class MediaPlayManager implements PlayerEventListener {
             this.mPlayer.release();
             this.mPlayer = null;
             this.mContext = null;
+            this.isPlaying = false;
 
         }
     }

@@ -1,7 +1,7 @@
 package com.old.time.service;
 
+import android.app.Activity;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -26,13 +26,13 @@ public class PlayServiceConnection implements ServiceConnection {
 
     private static final String TAG = "PlayServiceConnection";
 
-    private Context mContext;
+    private Activity mContext;
     private List<ChapterBean> chapterBeans;
 
     private IPlayControlAidlInterface iPlayControlAidlInterface;
     private OnModelChangedListener onModelChangedListener;
 
-    public PlayServiceConnection(Context mContext, OnModelChangedListener onModelChangedListener) {
+    public PlayServiceConnection(Activity mContext, OnModelChangedListener onModelChangedListener) {
         this.mContext = mContext;
         this.onModelChangedListener = onModelChangedListener;
         this.chapterBeans = getModelList("289105");
@@ -92,6 +92,69 @@ public class PlayServiceConnection implements ServiceConnection {
 
         } catch (RemoteException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 播放
+     */
+    public void play(boolean isPlaying) {
+        if (iPlayControlAidlInterface != null) {
+            try {
+                if (isPlaying) {
+                    iPlayControlAidlInterface.pause();
+
+                } else {
+                    iPlayControlAidlInterface.play();
+
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 上一首
+     */
+    public void previous() {
+        if (iPlayControlAidlInterface != null) {
+            try {
+                iPlayControlAidlInterface.previous();
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 下一首
+     */
+    public void next() {
+        if (iPlayControlAidlInterface != null) {
+            try {
+                iPlayControlAidlInterface.next();
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 播放速率
+     *
+     * @param speed
+     */
+    public void speed(float speed) {
+        if (iPlayControlAidlInterface != null) {
+            try {
+                iPlayControlAidlInterface.speed(speed);
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

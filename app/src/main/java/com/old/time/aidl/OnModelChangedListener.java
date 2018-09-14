@@ -11,19 +11,18 @@ import android.os.IBinder;
  */
 public abstract class OnModelChangedListener extends IOnModelChangedListener.Stub {
 
-
-    private static final String TAG = "OnModelChangedListener";
-
     @Override
     public IBinder asBinder() {
         return super.asBinder();
     }
 
-    public abstract void updatePlayModel(ChapterBean mChapterBean);
+    public abstract void updatePlayModel(ChapterBean mChapterBean, boolean isPlaying);
 
     public abstract void updateProgress(int progress, int total);
 
-    public abstract void updateIsPlaying(boolean isPlaying);
-
     public abstract void updateError();
+
+    public abstract void close();
+
+
 }

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 
-import com.old.time.mp3Utils.ThreadPoolUtil;
+import com.old.time.service.ThreadPoolUtil;
 import com.old.time.service.manager.BroadcastManager;
 import com.old.time.service.manager.MediaPlayManager;
 import com.old.time.service.PlayMusicService;
@@ -327,6 +327,7 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
 
         } catch (RemoteException e) {
             e.printStackTrace();
+
         }
     }
 
@@ -341,8 +342,10 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
                 IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(i);
                 try {
                     mIOnModelChangedListener.updateError();
+
                 } catch (RemoteException e) {
                     e.printStackTrace();
+
                 }
             }
             mIOnModelChangedListeners.finishBroadcast();
@@ -363,8 +366,7 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
             for (int i = 0; i < count; i++) {
                 IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(i);
                 try {
-                    mIOnModelChangedListener.updatePlayModel(mChapterBean);
-                    mIOnModelChangedListener.updateIsPlaying(getIsPlaying());
+                    mIOnModelChangedListener.updatePlayModel(mChapterBean, getIsPlaying());
 
                 } catch (RemoteException e) {
                     DebugLog.d(TAG, e.getMessage());
@@ -389,6 +391,7 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
 
                 } catch (RemoteException e) {
                     e.printStackTrace();
+
                 }
             }
             mIOnModelChangedListeners.finishBroadcast();
