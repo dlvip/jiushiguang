@@ -144,16 +144,15 @@ public class PlayServiceConnection implements ServiceConnection {
 
     /**
      * 播放速率
-     *
-     * @param speed
      */
-    public void speed(float speed) {
+    public void speed() {
         if (iPlayControlAidlInterface != null) {
             try {
-                iPlayControlAidlInterface.speed(speed);
+                iPlayControlAidlInterface.speed();
 
             } catch (RemoteException e) {
                 e.printStackTrace();
+
             }
         }
     }

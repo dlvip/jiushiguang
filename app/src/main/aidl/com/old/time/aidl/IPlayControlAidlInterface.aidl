@@ -98,7 +98,7 @@ interface IPlayControlAidlInterface {
          *
          * @param speed
          */
-        void speed(float speed);
+        void speed();
 
         /**
          * 设置播放模式

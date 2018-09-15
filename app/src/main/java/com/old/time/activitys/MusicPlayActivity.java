@@ -239,6 +239,7 @@ public class MusicPlayActivity extends BaseActivity {
 
                 break;
             case R.id.tv_speed://切换播放速率
+                mPlayServiceConnection.speed();
 
                 break;
         }
