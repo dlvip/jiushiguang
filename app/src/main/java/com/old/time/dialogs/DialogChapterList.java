@@ -70,12 +70,38 @@ public class DialogChapterList extends BaseDialog {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 onClickManagerCallBack.onClickRankManagerCallBack(position, "");
+                dismiss();
 
             }
         });
     }
 
     private int cPosition;
+
+
+    /**
+     * 更新播放
+     *
+     * @param chapterBeans
+     * @param cPosition
+     */
+    public void notifyItemChanged(List<ChapterBean> chapterBeans, int cPosition) {
+        if (chapterBeans == null || chapterBeans.size() == 0 || mAdapter == null) {
+
+            return;
+        }
+        this.cPosition = cPosition;
+        mAdapter.setNewData(chapterBeans);
+        recycler_view.stopScroll();
+        LinearLayoutManager manager = (LinearLayoutManager) recycler_view.getLayoutManager();
+        if (cPosition - 2 > -1) {
+            manager.scrollToPositionWithOffset(cPosition - 2, 0);
+
+        } else {
+            manager.scrollToPositionWithOffset(0, 0);
+
+        }
+    }
 
     /**
      * 显示弹框

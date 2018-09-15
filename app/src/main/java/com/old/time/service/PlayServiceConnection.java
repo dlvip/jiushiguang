@@ -96,6 +96,23 @@ public class PlayServiceConnection implements ServiceConnection {
     }
 
     /**
+     * 设置播放列表并开启播放
+     *
+     * @param mChapterBeans
+     * @param position
+     */
+    public void setStartList(List<ChapterBean> mChapterBeans, int position) {
+        if (iPlayControlAidlInterface != null) {
+            try {
+                iPlayControlAidlInterface.setStartList(mChapterBeans, position);
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * 播放
      */
     public void play(boolean isPlaying) {
@@ -152,8 +169,45 @@ public class PlayServiceConnection implements ServiceConnection {
 
             } catch (RemoteException e) {
                 e.printStackTrace();
-
             }
         }
     }
+
+    /**
+     * 获取播放列表
+     *
+     * @return
+     */
+    public List<ChapterBean> getPlayList() {
+        List<ChapterBean> chapterBeans = null;
+        if (iPlayControlAidlInterface != null) {
+            try {
+                chapterBeans = iPlayControlAidlInterface.getPlayList();
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return chapterBeans;
+    }
+
+    /**
+     * 获取播放索引
+     *
+     * @return
+     */
+    public int getPlayIndex() {
+        int position = 0;
+        if (iPlayControlAidlInterface != null) {
+            try {
+                position = iPlayControlAidlInterface.getPlayIndex();
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+
+            }
+        }
+        return position;
+    }
+
 }

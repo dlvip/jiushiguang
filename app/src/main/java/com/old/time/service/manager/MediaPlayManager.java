@@ -165,20 +165,6 @@ public class MediaPlayManager implements PlayerEventListener {
     }
 
     /**
-     * 获取播放速率
-     *
-     * @return
-     */
-    public float getSpeed() {
-        DebugLog.d(TAG, "getSpeed");
-        if (mPlayer != null) {
-
-            return mPlayer.getTcpSpeed();
-        }
-        return 0;
-    }
-
-    /**
      * 设置进度
      *
      * @param time
