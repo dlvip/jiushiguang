@@ -27,7 +27,6 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -60,10 +59,8 @@ public class MusicPlayActivity extends BaseActivity {
     private ImageView img_book_pic;
     private ImageView img_more, img_previous, img_next, img_play;
 
-    private List<ChapterBean> mMusicList = new ArrayList<>();
     private TextView mSong;
     private TextView mSinger;
-    private int mPosition;
     private boolean mIsPlaying = false;
     private TextView tv_speed, tv_progress_time, tv_title_time;
     private OnModelChangedListener onModelChangedListener;
@@ -160,6 +157,8 @@ public class MusicPlayActivity extends BaseActivity {
      * 刷新播放控件的歌名，歌手，图片，按钮的形状
      */
     private void switchSongUI(ChapterBean mChapterBean, final boolean isPlaying) {
+        mMusicList = mPlayServiceConnection.getPlayList();
+        mPosition = mPlayServiceConnection.getPlayIndex();
         String mSongTitle = mChapterBean.getTitle();
         String mSingerArtist = mChapterBean.getArtist();
         mSong.setText(mSongTitle);
@@ -184,7 +183,7 @@ public class MusicPlayActivity extends BaseActivity {
         });
         updateMpv(isPlaying);
         if (dialogChapterList != null) {
-            dialogChapterList.showChapterListDialog(mMusicList, mPosition);
+            dialogChapterList.notifyItemChanged(mMusicList, mPosition);
 
         }
     }
@@ -244,6 +243,8 @@ public class MusicPlayActivity extends BaseActivity {
         }
     }
 
+    private int mPosition;
+    private List<ChapterBean> mMusicList;
     private DialogChapterList dialogChapterList;
 
     /**
@@ -254,7 +255,7 @@ public class MusicPlayActivity extends BaseActivity {
             dialogChapterList = new DialogChapterList(mContext, new OnClickManagerCallBack() {
                 @Override
                 public void onClickRankManagerCallBack(int position, String typeName) {
-
+                    mPlayServiceConnection.setStartList(mMusicList, position);
 
                 }
             });

@@ -30,8 +30,10 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     private List<ChapterBean> mChapterBeans;        //播放列表
     private int position;                           //播放索引
 
-    private float speed = 1;                        //播放速率
+    private int speed = 1;                        //播放速率 0.7、1.0、1.5、2.0、2.5、3.0
     private int mode = 0;                           //0:顺序、1：单曲、2：随机
+
+    private
 
     private BroadcastReceiver mBroadcastReceiver;
     private Context mContext;
@@ -154,7 +156,7 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
         DebugLog.d(TAG, "getSpeed");
         if (mMediaPlayManager != null) {
 
-            return mMediaPlayManager.getSpeed();
+            return speed;
         }
         return speed;
     }
@@ -219,9 +221,9 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     }
 
     @Override
-    public void speed(float speed) throws RemoteException {
+    public void speed() throws RemoteException {
         DebugLog.d(TAG, "speed");
-        this.speed = speed;
+        this.speed++;
         if (mMediaPlayManager != null) {
             mMediaPlayManager.setSpeed(speed);
 
