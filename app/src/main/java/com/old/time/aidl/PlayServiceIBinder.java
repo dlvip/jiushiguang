@@ -49,6 +49,18 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
             public void onReceive(Context context, Intent intent) {
                 try {
                     switch (intent.getAction()) {
+                        case BroadcastManager.ACTION_PLUG:
+                            if (intent.hasExtra("state")) {
+                                if (intent.getIntExtra("state", 0) == 0) { // 耳机拔出
+                                    pause();
+
+                                } else if (intent.getIntExtra("state", 0) == 1) { // 耳机插入
+                                    play();
+
+                                }
+                            }
+
+                            break;
                         case BroadcastManager.ACTION_PLAY:
                             play();
 

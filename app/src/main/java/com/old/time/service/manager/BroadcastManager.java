@@ -15,6 +15,9 @@ import com.old.time.constants.Constant;
 
 public class BroadcastManager {
 
+    // 耳机插入和拔出事件
+    public static final String ACTION_PLUG = "android.intent.action.HEADSET_PLUG";
+
     //播放
     public static final String ACTION_PLAY = "com.old.time.play";
 
@@ -60,6 +63,7 @@ public class BroadcastManager {
      */
     public void registerBroadReceiver(Context context, BroadcastReceiver receiver) {
         IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_PLUG);
         filter.addAction(ACTION_PLAY);
         filter.addAction(ACTION_PAUSE);
         filter.addAction(ACTION_PRV);

@@ -24,7 +24,6 @@ public class CoursesActivity extends CBaseActivity {
     public static void startCoursesActivity(Activity mContext) {
         Intent intent = new Intent(mContext, CoursesActivity.class);
         ActivityUtils.startActivity(mContext, intent);
-        ActivityUtils.finishActivity(mContext);
 
     }
 

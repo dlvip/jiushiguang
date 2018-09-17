@@ -269,10 +269,10 @@ public class MusicPlayActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         if (mPlayServiceConnection == null) {
             unbindService(mPlayServiceConnection);
 
         }
+        super.onDestroy();
     }
 }

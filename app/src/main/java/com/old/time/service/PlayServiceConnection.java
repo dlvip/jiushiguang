@@ -192,7 +192,7 @@ public class PlayServiceConnection implements ServiceConnection {
     public String getSpeed() {
         if (iPlayControlAidlInterface != null) {
             try {
-                return String.valueOf(iPlayControlAidlInterface.getSpeed());
+                return "x" + String.valueOf(iPlayControlAidlInterface.getSpeed());
 
             } catch (RemoteException e) {
                 e.printStackTrace();
