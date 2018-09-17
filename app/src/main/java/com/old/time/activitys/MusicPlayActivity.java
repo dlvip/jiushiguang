@@ -118,13 +118,7 @@ public class MusicPlayActivity extends BaseActivity {
 
             @Override
             public void close() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MusicPlayActivity.this.updateMpv(false);
 
-                    }
-                });
             }
         };
 
@@ -163,6 +157,7 @@ public class MusicPlayActivity extends BaseActivity {
         String mSingerArtist = mChapterBean.getArtist();
         mSong.setText(mSongTitle);
         mSinger.setText(mSingerArtist);
+        tv_speed.setText(mPlayServiceConnection.getSpeed());
         GlideUtils.getInstance().downLoadBitmap(mContext, mChapterBean.getPicUrl(), new ImageDownLoadCallBack() {
 
             @Override
@@ -238,7 +233,7 @@ public class MusicPlayActivity extends BaseActivity {
 
                 break;
             case R.id.tv_speed://切换播放速率
-                mPlayServiceConnection.speed();
+               tv_speed.setText(mPlayServiceConnection.speed());
 
                 break;
         }

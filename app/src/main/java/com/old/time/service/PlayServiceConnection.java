@@ -162,7 +162,7 @@ public class PlayServiceConnection implements ServiceConnection {
     /**
      * 播放速率
      */
-    public void speed() {
+    public String speed() {
         if (iPlayControlAidlInterface != null) {
             try {
                 iPlayControlAidlInterface.speed();
@@ -171,6 +171,35 @@ public class PlayServiceConnection implements ServiceConnection {
                 e.printStackTrace();
             }
         }
+
+        if (iPlayControlAidlInterface != null) {
+            try {
+                return "x" + String.valueOf(iPlayControlAidlInterface.getSpeed());
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return "x1.0";
+    }
+
+    /**
+     * 获取播放速率
+     *
+     * @return
+     */
+    public String getSpeed() {
+        if (iPlayControlAidlInterface != null) {
+            try {
+                return String.valueOf(iPlayControlAidlInterface.getSpeed());
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return "x1.0";
     }
 
     /**
@@ -209,5 +238,4 @@ public class PlayServiceConnection implements ServiceConnection {
         }
         return position;
     }
-
 }

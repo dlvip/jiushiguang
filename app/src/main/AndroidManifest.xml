@@ -142,8 +142,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".activitys.TopicsActivity" />
         <activity
-            android:name=".activitys.CoursesActivity"
-            android:launchMode="singleTask" />
+            android:name=".activitys.CoursesActivity"/>
 
         <activity android:name=".activitys.MusicsActivity" />
         <activity android:name=".activitys.VideoPagerActivity" />

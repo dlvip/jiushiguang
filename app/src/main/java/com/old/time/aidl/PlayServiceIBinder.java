@@ -154,9 +154,9 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
         DebugLog.d(TAG, "getSpeed");
         if (mMediaPlayManager != null) {
 
-            return speed;
+            return floats[speed % floats.length];
         }
-        return speed;
+        return 1.0f;
     }
 
     @Override
@@ -290,15 +290,16 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     @Override
     public void close() throws RemoteException {
         DebugLog.d(TAG, "close");
-        if (mBroadcastReceiver != null) {
-            BroadcastManager.getInstance().unregisterReceiver(mContext, mBroadcastReceiver);
-
-        }
-        if (mMediaPlayManager != null) {
-            mMediaPlayManager.stop();
-            mMediaPlayManager = null;
-
-        }
+        closeNotify();
+//        if (mBroadcastReceiver != null) {
+//            BroadcastManager.getInstance().unregisterReceiver(mContext, mBroadcastReceiver);
+//
+//        }
+//        if (mMediaPlayManager != null) {
+//            mMediaPlayManager.stop();
+//            mMediaPlayManager = null;
+//
+//        }
     }
 
     @Override
@@ -329,6 +330,25 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
 
         } catch (RemoteException e) {
             e.printStackTrace();
+
+        }
+    }
+
+    public void closeNotify() {
+        DebugLog.d(TAG, "closeNotify");
+        if (mIOnModelChangedListeners != null) {
+            int count = mIOnModelChangedListeners.beginBroadcast();
+            for (int i = 0; i < count; i++) {
+                IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(i);
+                try {
+                    mIOnModelChangedListener.close();
+
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+
+                }
+            }
+            mIOnModelChangedListeners.finishBroadcast();
 
         }
     }
