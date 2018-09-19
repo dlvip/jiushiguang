@@ -141,9 +141,9 @@ public class MusicPlayActivity extends BaseActivity {
             @Override
             public void onServiceConnected() {
                 mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
-                albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, "");
+                albumId = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID);
                 if (TextUtils.isEmpty(albumId) && mCourseBean != null) {
-                    SpUtils.setObject(PlayServiceIBinder.SP_PLAY_POSITION, mCourseBean.albumId);
+                    SpUtils.setObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID, mCourseBean.albumId);
 
                 }
                 if (mCourseBean == null || mCourseBean.albumId.equals(albumId)) {
@@ -152,7 +152,7 @@ public class MusicPlayActivity extends BaseActivity {
                         int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
                         boolean isPlaying = mPlayServiceConnection.isPlaying();
                         switchSongUI(chapterBeans.get(position), isPlaying);
-                        SpUtils.setObject(PlayServiceIBinder.SP_PLAY_POSITION, albumId);
+                        SpUtils.setObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID, albumId);
 
                     }
                 } else {
