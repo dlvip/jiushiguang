@@ -142,24 +142,19 @@ public class MusicPlayActivity extends BaseActivity {
             public void onServiceConnected() {
                 mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
                 albumId = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID);
-                if (TextUtils.isEmpty(albumId) && mCourseBean != null) {
+                if (TextUtils.isEmpty(albumId) || (mCourseBean != null && !albumId.equals(mCourseBean.albumId))) {
                     SpUtils.setObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID, mCourseBean.albumId);
-
-                }
-                if (mCourseBean == null || mCourseBean.albumId.equals(albumId)) {
-                    List<ChapterBean> chapterBeans = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_MODELS);
-                    if (chapterBeans != null && chapterBeans.size() > 0) {
-                        int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
-                        boolean isPlaying = mPlayServiceConnection.isPlaying();
-                        switchSongUI(chapterBeans.get(position), isPlaying);
-                        SpUtils.setObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID, albumId);
-
-                    }
-                } else {
                     List<ChapterBean> chapterBeans = getModelList(mCourseBean.albumId);
                     mPlayServiceConnection.setStartList(chapterBeans, 0);
 
+                } else if (!mPlayServiceConnection.isPlaying()) {
+                    List<ChapterBean> chapterBeans = getModelList(mCourseBean.albumId);
+                    int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
+                    mPlayServiceConnection.setStartList(chapterBeans, position);
+
                 }
+                ChapterBean chapterBean = mPlayServiceConnection.getPlayModel();
+                switchSongUI(chapterBean, mPlayServiceConnection.isPlaying());
             }
 
             @Override
@@ -169,7 +164,6 @@ public class MusicPlayActivity extends BaseActivity {
             }
         });
         mPlayServiceManager.bindService(mPlayServiceConnection);
-
     }
 
     /**
@@ -226,6 +220,10 @@ public class MusicPlayActivity extends BaseActivity {
      * 刷新播放控件的歌名，歌手，图片，按钮的形状
      */
     private void switchSongUI(ChapterBean mChapterBean, final boolean isPlaying) {
+        if (mChapterBean == null) {
+
+            return;
+        }
         mMusicList = mPlayServiceConnection.getPlayList();
         mPosition = mPlayServiceConnection.getPlayIndex();
         String mSongTitle = mChapterBean.getTitle();

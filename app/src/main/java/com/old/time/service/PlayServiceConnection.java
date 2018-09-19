@@ -1,7 +1,6 @@
 package com.old.time.service;
 
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
@@ -10,8 +9,6 @@ import android.os.RemoteException;
 import com.old.time.aidl.ChapterBean;
 import com.old.time.aidl.IOnModelChangedListener;
 import com.old.time.aidl.IPlayControlAidlInterface;
-import com.old.time.aidl.OnModelChangedListener;
-import com.old.time.service.manager.PlayNotifyManager;
 
 import java.util.List;
 
@@ -40,12 +37,10 @@ public class PlayServiceConnection implements ServiceConnection {
 
     private OnServiceConnectedListener onServiceConnectedListener;
     private IPlayControlAidlInterface iPlayControlAidlInterface;
-    private PlayNotifyManager playNotifyManager;
 
     public PlayServiceConnection(Activity mContext, OnServiceConnectedListener onServiceConnectedListener) {
         this.mContext = mContext;
         this.onServiceConnectedListener = onServiceConnectedListener;
-        this.playNotifyManager = PlayNotifyManager.getInstance(mContext);
 
     }
 
@@ -192,6 +187,23 @@ public class PlayServiceConnection implements ServiceConnection {
     }
 
     /**
+     * 获取正在播放的model
+     *
+     * @return
+     */
+    public ChapterBean getPlayModel() {
+        if (iPlayControlAidlInterface != null) {
+            try {
+                return iPlayControlAidlInterface.getPlayModel();
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
      * 获取播放索引
      *
      * @return
@@ -230,6 +242,40 @@ public class PlayServiceConnection implements ServiceConnection {
     }
 
     /**
+     * 获取播放进度
+     *
+     * @return
+     */
+    public int getProgress() {
+        if (iPlayControlAidlInterface != null) {
+            try {
+
+                return iPlayControlAidlInterface.getProgress();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * 获取播放总进度
+     *
+     * @return
+     */
+    public int getTotalProgress() {
+        if (iPlayControlAidlInterface != null) {
+            try {
+
+                return iPlayControlAidlInterface.getTotalProgress();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
+
+    /**
      * 注册监听
      *
      * @param listener
@@ -260,5 +306,4 @@ public class PlayServiceConnection implements ServiceConnection {
             }
         }
     }
-
 }
