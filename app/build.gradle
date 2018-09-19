@@ -1,0 +1,96 @@
+apply plugin: 'com.android.application'
+
+// 依赖插件脚本
+apply from: 'tinker-support.gradle'
+android {
+    compileSdkVersion externalCompileSdkVersion
+    buildToolsVersion externalBuildToolsVersion
+
+    defaultConfig {
+        applicationId "com.old.time"
+        minSdkVersion externalMinSdkVersion
+        targetSdkVersion externalTargetSdkVersion
+        versionCode externalVersionCode
+        versionName externalVersionName
+        multiDexEnabled true
+
+        vectorDrawables.useSupportLibrary = true
+
+        //设置支持的SO库架构
+        ndk {
+            abiFilters 'armeabi-v7a' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+
+    }
+    signingConfigs {
+        key {
+            keyAlias 'jiushiguang'
+            keyPassword 'jiushiguang2018'
+            storePassword 'jiushiguang2018'
+            storeFile file('../jiushiguang_key_store')
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.key
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+        debug {
+            signingConfig signingConfigs.key
+
+        }
+    }
+
+    allprojects {
+        repositories {
+            maven { url "https://jitpack.io" }
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+
+        }
+    }
+    dexOptions {
+        javaMaxHeapSize "2g"
+        jumboMode = true
+
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation files('libs/AMap3DMap_6.1.0_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330.jar')
+
+    implementation externalAndroidPalette
+    implementation externalGSON
+    implementation externalOKHTTP
+    implementation externalAndroidDesign
+    implementation externalAndroidAppCompatV7
+    implementation externalAndroidRecyclerView
+    implementation externalAndroidAppConstraint
+    implementation externalGithubPluginGlide
+    implementation externalGithubTransform
+    implementation externalGithubAdapterHelper
+    implementation externalAndroidCardView
+    implementation externalGithubIjkplayer
+    implementation externalGithubGravitySnapHelper
+    implementation externalGithubVerticalViewPager
+    implementation externalEventBus
+
+    implementation project(path: ':okserver')
+    implementation project(path: ':zxing')
+    implementation project(path: ':okgo')
+    implementation project(path: ':dkplayer')
+
+    //热修复相关
+    implementation externalAndroidMultiDex
+    implementation externalTencentCrashreportUpgrade
+    implementation externalTencentNativeCrashReport
+    implementation externalTencentTinkerAndroidLib
+
+
+}
