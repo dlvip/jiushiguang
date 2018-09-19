@@ -1,10 +1,17 @@
 package com.old.time.activitys;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
+import android.view.View;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
+import com.old.time.R;
 import com.old.time.adapters.CourseAdapter;
 import com.old.time.beans.CourseBean;
 import com.old.time.beans.ResultBean;
@@ -31,6 +38,10 @@ public class CoursesActivity extends CBaseActivity {
     private CourseAdapter courseAdapter;
     private List<CourseBean> courseBeans;
 
+    private View play_music_view;
+    private ImageView img_music_pic;
+    private ValueAnimator rotateAnim;
+
     @Override
     protected void initView() {
         super.initView();
@@ -46,7 +57,49 @@ public class CoursesActivity extends CBaseActivity {
             }
         }, mRecyclerView);
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
+        linear_layout_more.setVisibility(View.VISIBLE);
+        linear_layout_more.removeAllViews();
+        play_music_view = View.inflate(mContext, R.layout.play_music_bottom, null);
+        img_music_pic = play_music_view.findViewById(R.id.img_music_pic);
+        linear_layout_more.addView(play_music_view);
+        rotateAnim = ObjectAnimator.ofFloat(0, 360);
+        rotateAnim.setDuration(15 * 1000);
+        rotateAnim.setRepeatMode(ValueAnimator.RESTART);
+        rotateAnim.setRepeatCount(ValueAnimator.INFINITE);
+        rotateAnim.setInterpolator(new LinearInterpolator());
+        rotateAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float value = (float) animation.getAnimatedValue();
+                img_music_pic.setRotation(value);
 
+            }
+        });
+        startSpin();
+    }
+
+    public void startSpin() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (rotateAnim.isPaused()) {
+                rotateAnim.resume();
+            } else {
+                rotateAnim.start();
+            }
+        } else {
+            rotateAnim.start();
+        }
+    }
+
+    public void stopSpin() {
+        if (rotateAnim.isRunning()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                rotateAnim.pause();
+
+            } else {
+                rotateAnim.cancel();
+
+            }
+        }
     }
 
     private int pageNum = 1;
@@ -102,5 +155,11 @@ public class CoursesActivity extends CBaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopSpin();
+        super.onDestroy();
     }
 }

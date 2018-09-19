@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v7.graphics.Palette;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.aidl.OnModelChangedListener;
+import com.old.time.aidl.PlayServiceIBinder;
 import com.old.time.beans.CourseBean;
 import com.old.time.dialogs.DialogChapterList;
 import com.old.time.glideUtils.GlideUtils;
@@ -24,15 +26,23 @@ import com.old.time.permission.PermissionUtil;
 import com.old.time.service.PlayServiceConnection;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MusicPlayActivity extends BaseActivity {
+
+    public static final String PLAY_COURSE_BEAN = "mCourseBean";
 
     /**
      * 播放页面
@@ -47,7 +57,7 @@ public class MusicPlayActivity extends BaseActivity {
             return;
         }
         Intent intent = new Intent(mContext, MusicPlayActivity.class);
-        intent.putExtra("mCourseBean", mCourseBean);
+        intent.putExtra(PLAY_COURSE_BEAN, mCourseBean);
         ActivityUtils.startLoginActivity((Activity) mContext, intent);
 
     }
@@ -67,7 +77,11 @@ public class MusicPlayActivity extends BaseActivity {
     private PlayServiceManager mPlayServiceManager;
     private PlayServiceConnection mPlayServiceConnection;
 
+    private CourseBean mCourseBean;
+    private String albumId;
+
     public void initView() {
+        mCourseBean = (CourseBean) getIntent().getSerializableExtra(PLAY_COURSE_BEAN);
         linear_layout_down = findViewById(R.id.linear_layout_down);
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
@@ -123,8 +137,69 @@ public class MusicPlayActivity extends BaseActivity {
         };
 
         mPlayServiceManager = new PlayServiceManager(mContext);
-        mPlayServiceConnection = new PlayServiceConnection(mContext, onModelChangedListener);
+        mPlayServiceConnection = new PlayServiceConnection(mContext, new PlayServiceConnection.OnServiceConnectedListener() {
+            @Override
+            public void onServiceConnected() {
+                mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
+                albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, "");
+                if (TextUtils.isEmpty(albumId) && mCourseBean != null) {
+                    SpUtils.setObject(PlayServiceIBinder.SP_PLAY_POSITION, mCourseBean.albumId);
+
+                }
+                if (mCourseBean == null || mCourseBean.albumId.equals(albumId)) {
+                    List<ChapterBean> chapterBeans = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_MODELS);
+                    if (chapterBeans != null && chapterBeans.size() > 0) {
+                        int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
+                        boolean isPlaying = mPlayServiceConnection.isPlaying();
+                        switchSongUI(chapterBeans.get(position), isPlaying);
+                        SpUtils.setObject(PlayServiceIBinder.SP_PLAY_POSITION, albumId);
+
+                    }
+                } else {
+                    List<ChapterBean> chapterBeans = getModelList(mCourseBean.albumId);
+                    mPlayServiceConnection.setStartList(chapterBeans, 0);
+
+                }
+            }
+
+            @Override
+            public void onServiceDisconnected() {
+                mPlayServiceConnection.unregisterIOnModelChangedListener(onModelChangedListener);
+
+            }
+        });
         mPlayServiceManager.bindService(mPlayServiceConnection);
+
+    }
+
+    /**
+     * 获取章节列表
+     */
+    private List<ChapterBean> getModelList(String fileName) {
+        String string = StringUtils.getJson(fileName + ".json", mContext);
+        List<ChapterBean> chapterBeans = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
+            chapterBeans.clear();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject musicObj = jsonArray.getJSONObject(i);
+                ChapterBean chapterBean = new ChapterBean();
+                chapterBean.setAlbum(musicObj.getString("coverLarge"));
+                chapterBean.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
+                chapterBean.setAudio(musicObj.getString("playUrl64"));
+                chapterBean.setDuration(Long.parseLong(musicObj.getString("duration")));
+                chapterBean.setPicUrl(musicObj.getString("coverLarge"));
+                chapterBean.setTitle(musicObj.getString("title"));
+                chapterBean.setUrl(musicObj.getString("playUrl64"));
+                chapterBeans.add(chapterBean);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+        return chapterBeans;
     }
 
     @Override
@@ -233,7 +308,7 @@ public class MusicPlayActivity extends BaseActivity {
 
                 break;
             case R.id.tv_speed://切换播放速率
-               tv_speed.setText(mPlayServiceConnection.speed());
+                tv_speed.setText(mPlayServiceConnection.speed());
 
                 break;
         }

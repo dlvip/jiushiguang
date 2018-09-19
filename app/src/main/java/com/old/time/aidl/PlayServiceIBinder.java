@@ -303,15 +303,7 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     public void close() throws RemoteException {
         DebugLog.d(TAG, "close");
         closeNotify();
-//        if (mBroadcastReceiver != null) {
-//            BroadcastManager.getInstance().unregisterReceiver(mContext, mBroadcastReceiver);
-//
-//        }
-//        if (mMediaPlayManager != null) {
-//            mMediaPlayManager.stop();
-//            mMediaPlayManager = null;
-//
-//        }
+
     }
 
     @Override
@@ -387,6 +379,13 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     }
 
     /**
+     * 播放记录
+     */
+    public static final String SP_PLAY_ALBUM_ID = "sp_play_album_id";
+    public static final String SP_PLAY_MODELS = "sp_play_models";
+    public static final String SP_PLAY_POSITION = "sp_play_position";
+
+    /**
      * 更新model
      */
     public void updatePlayModel(ChapterBean mChapterBean) {
@@ -401,6 +400,8 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
                 IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(i);
                 try {
                     mIOnModelChangedListener.updatePlayModel(mChapterBean, getIsPlaying());
+                    SpUtils.setObject(SP_PLAY_MODELS, mChapterBeans);
+                    SpUtils.setInt(SP_PLAY_POSITION, position);
 
                 } catch (RemoteException e) {
                     DebugLog.d(TAG, e.getMessage());

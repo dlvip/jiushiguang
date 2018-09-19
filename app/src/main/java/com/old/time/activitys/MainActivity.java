@@ -55,9 +55,21 @@ public class MainActivity extends BaseActivity {
         tv_main_mine = findViewById(R.id.tv_main_mine);
         selectFragment(0);
 
-        playNotifyManager = new PlayNotifyManager(mContext);
+        playNotifyManager = PlayNotifyManager.getInstance(mContext);
         mPlayServiceManager = new PlayServiceManager(mContext);
-        playServiceConnection = new PlayServiceConnection(mContext, playNotifyManager);
+        playServiceConnection = new PlayServiceConnection(mContext, new PlayServiceConnection.OnServiceConnectedListener() {
+            @Override
+            public void onServiceConnected() {
+                playServiceConnection.registerIOnModelChangedListener(playNotifyManager);
+
+            }
+
+            @Override
+            public void onServiceDisconnected() {
+                playServiceConnection.unregisterIOnModelChangedListener(playNotifyManager);
+
+            }
+        });
         mPlayServiceManager.bindService(playServiceConnection);
     }
 
@@ -207,4 +219,5 @@ public class MainActivity extends BaseActivity {
     protected int getLayoutID() {
         return R.layout.activity_main;
     }
+
 }

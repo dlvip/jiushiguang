@@ -38,12 +38,23 @@ public class PlayNotifyManager extends OnModelChangedListener {
     private static final String DEFAULT_CHANNEL_ID = "1234567";
     private static final String MY_CHANNEL_ID = "my_channel_01";
 
+    private static PlayNotifyManager mPlayNotifyManager;
+
+    public static PlayNotifyManager getInstance(Activity activity) {
+        if (mPlayNotifyManager == null) {
+            mPlayNotifyManager = new PlayNotifyManager(activity);
+
+        }
+
+        return mPlayNotifyManager;
+    }
+
     /**
      * 通知栏
      *
      * @param mContext
      */
-    public PlayNotifyManager(Activity mContext) {
+    private PlayNotifyManager(Activity mContext) {
         this.mContext = mContext;
         createNotification();
 

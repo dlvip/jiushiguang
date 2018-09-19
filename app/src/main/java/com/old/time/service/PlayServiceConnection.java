@@ -1,21 +1,18 @@
 package com.old.time.service;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
 
 import com.old.time.aidl.ChapterBean;
+import com.old.time.aidl.IOnModelChangedListener;
 import com.old.time.aidl.IPlayControlAidlInterface;
 import com.old.time.aidl.OnModelChangedListener;
-import com.old.time.utils.StringUtils;
+import com.old.time.service.manager.PlayNotifyManager;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,74 +21,48 @@ import java.util.List;
 
 public class PlayServiceConnection implements ServiceConnection {
 
-    private static final String TAG = "PlayServiceConnection";
+    /**
+     * 链接回调
+     */
+    public interface OnServiceConnectedListener {
 
-    private Activity mContext;
-    private List<ChapterBean> chapterBeans;
+        void onServiceConnected();
 
-    private IPlayControlAidlInterface iPlayControlAidlInterface;
-    private OnModelChangedListener onModelChangedListener;
+        void onServiceDisconnected();
 
-    public PlayServiceConnection(Activity mContext, OnModelChangedListener onModelChangedListener) {
-        this.mContext = mContext;
-        this.onModelChangedListener = onModelChangedListener;
-        this.chapterBeans = getModelList("289105");
 
     }
 
-    /**
-     * 获取章节列表
-     */
-    private List<ChapterBean> getModelList(String fileName) {
-        String string = StringUtils.getJson(fileName + ".json", mContext);
-        List<ChapterBean> chapterBeans = new ArrayList<>();
-        try {
-            JSONObject jsonObject = new JSONObject(string);
-            JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
-            chapterBeans.clear();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject musicObj = jsonArray.getJSONObject(i);
-                ChapterBean chapterBean = new ChapterBean();
-                chapterBean.setAlbum(musicObj.getString("coverLarge"));
-                chapterBean.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
-                chapterBean.setAudio(musicObj.getString("playUrl64"));
-                chapterBean.setDuration(Long.parseLong(musicObj.getString("duration")));
-                chapterBean.setPicUrl(musicObj.getString("coverLarge"));
-                chapterBean.setTitle(musicObj.getString("title"));
-                chapterBean.setUrl(musicObj.getString("playUrl64"));
-                chapterBeans.add(chapterBean);
+    private static final String TAG = "PlayServiceConnection";
 
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+    private Activity mContext;
 
-        }
-        return chapterBeans;
+
+    private OnServiceConnectedListener onServiceConnectedListener;
+    private IPlayControlAidlInterface iPlayControlAidlInterface;
+    private PlayNotifyManager playNotifyManager;
+
+    public PlayServiceConnection(Activity mContext, OnServiceConnectedListener onServiceConnectedListener) {
+        this.mContext = mContext;
+        this.onServiceConnectedListener = onServiceConnectedListener;
+        this.playNotifyManager = PlayNotifyManager.getInstance(mContext);
+
     }
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         iPlayControlAidlInterface = IPlayControlAidlInterface.Stub.asInterface(service);
-        try {
-            if (onModelChangedListener != null)
-                iPlayControlAidlInterface.registerIOnModelChangedListener(onModelChangedListener);
-
-            iPlayControlAidlInterface.setStartList(chapterBeans, chapterBeans.size() - 1);
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        if (onServiceConnectedListener != null) {
+            onServiceConnectedListener.onServiceConnected();
 
         }
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-        try {
-            if (onModelChangedListener != null)
-                iPlayControlAidlInterface.unregisterIOnModelChangedListener(onModelChangedListener);
+        if (onServiceConnectedListener != null) {
+            onServiceConnectedListener.onServiceDisconnected();
 
-        } catch (RemoteException e) {
-            e.printStackTrace();
         }
     }
 
@@ -238,4 +209,56 @@ public class PlayServiceConnection implements ServiceConnection {
         }
         return position;
     }
+
+    /**
+     * 获取播放状态
+     *
+     * @return
+     */
+    public boolean isPlaying() {
+        if (iPlayControlAidlInterface != null) {
+            try {
+
+                return iPlayControlAidlInterface.getIsPlaying();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 注册监听
+     *
+     * @param listener
+     */
+    public void registerIOnModelChangedListener(IOnModelChangedListener listener) {
+        if (iPlayControlAidlInterface != null) {
+            try {
+                iPlayControlAidlInterface.registerIOnModelChangedListener(listener);
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 取消监听
+     *
+     * @param listener
+     */
+    public void unregisterIOnModelChangedListener(IOnModelChangedListener listener) {
+        if (iPlayControlAidlInterface != null) {
+            try {
+                iPlayControlAidlInterface.unregisterIOnModelChangedListener(listener);
+
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

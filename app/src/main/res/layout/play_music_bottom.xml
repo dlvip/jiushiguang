@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tc="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_60"
+    android:background="#cc999999"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/layout_5"
+    android:paddingRight="@dimen/layout_5">
+
+    <ImageView
+        android:id="@+id/img_music_pic"
+        android:layout_width="@dimen/layout_45"
+        android:layout_height="@dimen/layout_45"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/head_circle" />
+
+    <TextView
+        android:id="@+id/tv_music_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_10"
+        android:layout_toRightOf="@+id/img_music_pic"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/layout_3"
+        android:maxLines="2"
+        android:text="@string/title_detail"
+        android:textColor="@color/color_fff"
+        android:textSize="@dimen/text_14" />
+
+    <FrameLayout
+        android:id="@+id/frame_layout_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.old.time.views.CompletedView
+            android:id="@+id/tasks_view"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            tc:circleColor="@color/transparent"
+            tc:radius="20dp"
+            tc:ringBgColor="@android:color/white"
+            tc:ringColor="@color/dkplayer_theme_color"
+            tc:strokeWidth="2dip" />
+
+        <ImageView
+            android:id="@+id/img_play_btn"
+            android:layout_width="@dimen/layout_45"
+            android:layout_height="@dimen/layout_45"
+            android:padding="@dimen/layout_10"
+            android:src="@mipmap/ic_player_pause" />
+
+    </FrameLayout>
+
+</LinearLayout>
