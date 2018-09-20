@@ -93,7 +93,7 @@ public class PlayMusicBottomView extends LinearLayout {
                 mContext.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        PlayMusicBottomView.this.switchSongUI(mChapterBean, isPlaying);
 
                     }
                 });
@@ -104,8 +104,10 @@ public class PlayMusicBottomView extends LinearLayout {
                 mContext.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if (tasks_view != null) {
+                            tasks_view.setProgress(progress / total * 100);
 
-
+                        }
                     }
                 });
             }
@@ -160,10 +162,13 @@ public class PlayMusicBottomView extends LinearLayout {
         GlideUtils.getInstance().setImageView(mContext, mChapterBean.getPicUrl(), img_music_pic);
         tv_music_title.setText(mChapterBean.getTitle());
         img_play_btn.setImageResource(isPlaying ? R.mipmap.ic_player_pause : R.mipmap.ic_player_start);
+        if (isPlaying) {
+            startSpin();
 
+        }
     }
 
-    public void startSpin() {
+    private void startSpin() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (rotateAnim.isPaused()) {
                 rotateAnim.resume();
@@ -178,7 +183,7 @@ public class PlayMusicBottomView extends LinearLayout {
         }
     }
 
-    public void stopSpin() {
+    private void stopSpin() {
         if (rotateAnim.isRunning()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 rotateAnim.pause();
@@ -192,6 +197,10 @@ public class PlayMusicBottomView extends LinearLayout {
 
     public void onDestroy() {
         stopSpin();
+        if (mPlayServiceConnection == null) {
+            mPlayServiceConnection.unregisterIOnModelChangedListener(onModelChangedListener);
+            mContext.unbindService(mPlayServiceConnection);
 
+        }
     }
 }
