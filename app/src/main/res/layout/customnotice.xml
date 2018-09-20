@@ -55,16 +55,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_alignLeft="@+id/remote_top"
             android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/layout_25"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="1dp">
 
             <ImageView
                 android:id="@+id/widget_prev"
-                android:layout_width="15dp"
+                android:layout_width="0dp"
                 android:layout_height="15dp"
                 android:layout_weight="1"
                 android:scaleType="centerInside"
@@ -72,14 +73,14 @@
 
             <ImageView
                 android:id="@+id/widget_play"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:scaleType="centerInside" />
 
             <ImageView
                 android:id="@+id/widget_next"
-                android:layout_width="15dp"
+                android:layout_width="0dp"
                 android:layout_height="15dp"
                 android:layout_weight="1"
                 android:scaleType="centerInside"

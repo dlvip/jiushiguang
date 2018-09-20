@@ -33,6 +33,7 @@ public class CoursesActivity extends CBaseActivity {
     private CustomNetView mCustomNetView;
     private CourseAdapter courseAdapter;
     private List<CourseBean> courseBeans;
+    private PlayMusicBottomView mPlayMusicBottomView;
 
     @Override
     protected void initView() {
@@ -53,14 +54,9 @@ public class CoursesActivity extends CBaseActivity {
         layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
         linear_layout_more.setLayoutParams(layoutParams);
         linear_layout_more.removeAllViews();
-        linear_layout_more.addView(new PlayMusicBottomView(mContext));
-        linear_layout_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MusicPlayActivity.startMusicPlayActivity(mContext, null);
+        mPlayMusicBottomView = new PlayMusicBottomView(mContext);
+        linear_layout_more.addView(mPlayMusicBottomView);
 
-            }
-        });
     }
 
     private int pageNum = 1;
@@ -116,5 +112,14 @@ public class CoursesActivity extends CBaseActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPlayMusicBottomView != null) {
+            mPlayMusicBottomView.onDestroy();
+
+        }
     }
 }

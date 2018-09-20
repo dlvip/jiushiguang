@@ -10,6 +10,7 @@ import com.old.time.service.ThreadPoolUtil;
 import com.old.time.service.manager.BroadcastManager;
 import com.old.time.service.manager.MediaPlayManager;
 import com.old.time.service.PlayMusicService;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
 
@@ -201,7 +202,12 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     public void play() throws RemoteException {
         DebugLog.d(TAG, "play");
         if (mChapterBeans == null || mChapterBeans.size() == 0) {
+            String alumId = SpUtils.getObject(SP_PLAY_ALBUM_ID);
+            mChapterBeans = DataUtils.getModelBeans(alumId, mContext);
+            if (mChapterBeans != null && mChapterBeans.size() > 0) {
+                play();
 
+            }
             return;
         }
         if (mMediaPlayManager != null) {

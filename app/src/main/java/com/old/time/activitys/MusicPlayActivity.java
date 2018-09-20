@@ -143,8 +143,13 @@ public class MusicPlayActivity extends BaseActivity {
                     List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
                     mPlayServiceConnection.setStartList(chapterBeans, 0);
 
-                } else if (!mPlayServiceConnection.isPlaying()) {
+                } else if (!mPlayServiceConnection.isPlaying() && mCourseBean != null) {
                     List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
+                    int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
+                    mPlayServiceConnection.setStartList(chapterBeans, position);
+
+                } else if (!mPlayServiceConnection.isPlaying() && mCourseBean == null) {
+                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(albumId, mContext);
                     int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
                     mPlayServiceConnection.setStartList(chapterBeans, position);
 
@@ -308,11 +313,11 @@ public class MusicPlayActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        if (mPlayServiceConnection == null) {
+        super.onDestroy();
+        if (mPlayServiceConnection != null) {
             mPlayServiceConnection.unregisterIOnModelChangedListener(onModelChangedListener);
             unbindService(mPlayServiceConnection);
 
         }
-        super.onDestroy();
     }
 }

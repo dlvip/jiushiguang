@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.old.time.aidl.PlayServiceIBinder;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.service.PlayServiceConnection;
 import com.old.time.service.manager.PlayServiceManager;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.UIHelper;
 
@@ -56,6 +58,7 @@ public class PlayMusicBottomView extends LinearLayout {
 
     private TextView tv_music_title;
     private CompletedView tasks_view;
+    private FrameLayout frame_layout_play;
 
 
     private void initView() {
@@ -65,6 +68,7 @@ public class PlayMusicBottomView extends LinearLayout {
         img_play_btn = play_music_view.findViewById(R.id.img_play_btn);
         tv_music_title = play_music_view.findViewById(R.id.tv_music_title);
         tasks_view = play_music_view.findViewById(R.id.tasks_view);
+        frame_layout_play = play_music_view.findViewById(R.id.frame_layout_play);
         rotateAnim = ObjectAnimator.ofFloat(0, 360);
         rotateAnim.setDuration(10 * 1000);
         rotateAnim.setRepeatMode(ValueAnimator.RESTART);
@@ -79,12 +83,29 @@ public class PlayMusicBottomView extends LinearLayout {
             }
         });
         bindService();
+        play_music_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MusicPlayActivity.startMusicPlayActivity(mContext, null);
+
+            }
+        });
+        frame_layout_play.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPlayServiceConnection != null) {
+                    mPlayServiceConnection.play(mPlayServiceConnection.isPlaying());
+
+                }
+            }
+        });
     }
 
     private OnModelChangedListener onModelChangedListener;
     private PlayServiceConnection mPlayServiceConnection;
     private PlayServiceManager mPlayServiceManager;
     private String albumId;
+    private int position;
 
     private void bindService() {
         onModelChangedListener = new OnModelChangedListener() {
@@ -105,7 +126,7 @@ public class PlayMusicBottomView extends LinearLayout {
                     @Override
                     public void run() {
                         if (tasks_view != null) {
-                            tasks_view.setProgress(progress / total * 100);
+                            tasks_view.setProgress(progress * 100 / total);
 
                         }
                     }
@@ -135,7 +156,14 @@ public class PlayMusicBottomView extends LinearLayout {
             public void onServiceConnected() {
                 mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
                 albumId = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID);
+                position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
+                if (!TextUtils.isEmpty(albumId)) {
+                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(albumId, mContext);
+                    if (chapterBeans != null && chapterBeans.size() > position) {
+                        switchSongUI(chapterBeans.get(position), mPlayServiceConnection.isPlaying());
 
+                    }
+                }
             }
 
             @Override
@@ -159,11 +187,14 @@ public class PlayMusicBottomView extends LinearLayout {
 
             return;
         }
-        GlideUtils.getInstance().setImageView(mContext, mChapterBean.getPicUrl(), img_music_pic);
+        GlideUtils.getInstance().setRoundImageView(mContext, mChapterBean.getPicUrl(), img_music_pic);
         tv_music_title.setText(mChapterBean.getTitle());
         img_play_btn.setImageResource(isPlaying ? R.mipmap.ic_player_pause : R.mipmap.ic_player_start);
         if (isPlaying) {
             startSpin();
+
+        } else {
+            stopSpin();
 
         }
     }
@@ -197,7 +228,7 @@ public class PlayMusicBottomView extends LinearLayout {
 
     public void onDestroy() {
         stopSpin();
-        if (mPlayServiceConnection == null) {
+        if (mPlayServiceConnection != null) {
             mPlayServiceConnection.unregisterIOnModelChangedListener(onModelChangedListener);
             mContext.unbindService(mPlayServiceConnection);
 
