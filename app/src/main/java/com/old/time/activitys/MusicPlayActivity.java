@@ -26,15 +26,11 @@ import com.old.time.permission.PermissionUtil;
 import com.old.time.service.PlayServiceConnection;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -144,11 +140,11 @@ public class MusicPlayActivity extends BaseActivity {
                 albumId = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID);
                 if (TextUtils.isEmpty(albumId) || (mCourseBean != null && !albumId.equals(mCourseBean.albumId))) {
                     SpUtils.setObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID, mCourseBean.albumId);
-                    List<ChapterBean> chapterBeans = getModelList(mCourseBean.albumId);
+                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
                     mPlayServiceConnection.setStartList(chapterBeans, 0);
 
                 } else if (!mPlayServiceConnection.isPlaying()) {
-                    List<ChapterBean> chapterBeans = getModelList(mCourseBean.albumId);
+                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
                     int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
                     mPlayServiceConnection.setStartList(chapterBeans, position);
 
@@ -164,36 +160,6 @@ public class MusicPlayActivity extends BaseActivity {
             }
         });
         mPlayServiceManager.bindService(mPlayServiceConnection);
-    }
-
-    /**
-     * 获取章节列表
-     */
-    private List<ChapterBean> getModelList(String fileName) {
-        String string = StringUtils.getJson(fileName + ".json", mContext);
-        List<ChapterBean> chapterBeans = new ArrayList<>();
-        try {
-            JSONObject jsonObject = new JSONObject(string);
-            JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
-            chapterBeans.clear();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject musicObj = jsonArray.getJSONObject(i);
-                ChapterBean chapterBean = new ChapterBean();
-                chapterBean.setAlbum(musicObj.getString("coverLarge"));
-                chapterBean.setAlbumId(Long.parseLong(musicObj.getString("albumId")));
-                chapterBean.setAudio(musicObj.getString("playUrl64"));
-                chapterBean.setDuration(Long.parseLong(musicObj.getString("duration")));
-                chapterBean.setPicUrl(musicObj.getString("coverLarge"));
-                chapterBean.setTitle(musicObj.getString("title"));
-                chapterBean.setUrl(musicObj.getString("playUrl64"));
-                chapterBeans.add(chapterBean);
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-
-        }
-        return chapterBeans;
     }
 
     @Override
@@ -343,6 +309,7 @@ public class MusicPlayActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         if (mPlayServiceConnection == null) {
+            mPlayServiceConnection.unregisterIOnModelChangedListener(onModelChangedListener);
             unbindService(mPlayServiceConnection);
 
         }
