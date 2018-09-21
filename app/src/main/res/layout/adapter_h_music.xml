@@ -18,8 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/img_book_pic"
         android:lineSpacingExtra="@dimen/layout_3"
-        android:maxLines="2"
-        android:minLines="2"
+        android:maxLines="1"
+        android:minLines="1"
         android:text="@string/title"
         android:textColor="@color/color_000"
         android:textSize="@dimen/text_16" />
@@ -28,8 +28,9 @@
         android:id="@+id/tv_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_book_name"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/img_book_pic"
+        android:paddingTop="@dimen/layout_5"
         android:text="@string/book_name"
         android:textColor="@color/color_666"
         android:textSize="@dimen/text_14" />
@@ -56,7 +57,8 @@
         android:padding="@dimen/layout_3"
         android:text="限时免费"
         android:textColor="@color/color_666"
-        android:textSize="@dimen/text_14" />
+        android:textSize="@dimen/text_14"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

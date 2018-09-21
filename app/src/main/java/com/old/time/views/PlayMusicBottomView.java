@@ -25,7 +25,6 @@ import com.old.time.service.PlayServiceConnection;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.utils.DataUtils;
 import com.old.time.utils.SpUtils;
-import com.old.time.utils.UIHelper;
 
 import java.util.List;
 
@@ -125,7 +124,7 @@ public class PlayMusicBottomView extends LinearLayout {
                 mContext.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (tasks_view != null) {
+                        if (tasks_view != null && total != 0) {
                             tasks_view.setProgress(progress * 100 / total);
 
                         }
@@ -135,13 +134,7 @@ public class PlayMusicBottomView extends LinearLayout {
 
             @Override
             public void updateError() {
-                mContext.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UIHelper.ToastMessage(mContext, "播放出错");
 
-                    }
-                });
             }
 
             @Override
@@ -187,16 +180,16 @@ public class PlayMusicBottomView extends LinearLayout {
 
             return;
         }
-        GlideUtils.getInstance().setRoundImageView(mContext, mChapterBean.getPicUrl(), img_music_pic);
+        GlideUtils.getInstance().setRadiusImageView(mContext, mChapterBean.getPicUrl(), img_music_pic, 10);
         tv_music_title.setText(mChapterBean.getTitle());
         img_play_btn.setImageResource(isPlaying ? R.mipmap.ic_player_pause : R.mipmap.ic_player_start);
-        if (isPlaying) {
-            startSpin();
-
-        } else {
-            stopSpin();
-
-        }
+//        if (isPlaying) {
+//            startSpin();
+//
+//        } else {
+//            stopSpin();
+//
+//        }
     }
 
     private void startSpin() {
@@ -227,7 +220,6 @@ public class PlayMusicBottomView extends LinearLayout {
     }
 
     public void onDestroy() {
-        stopSpin();
         if (mPlayServiceConnection != null) {
             mPlayServiceConnection.unregisterIOnModelChangedListener(onModelChangedListener);
             mContext.unbindService(mPlayServiceConnection);

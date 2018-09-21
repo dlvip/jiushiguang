@@ -3,7 +3,7 @@
     xmlns:tc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cc999999"
+    android:background="@color/main_bg"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="@dimen/layout_5">
@@ -26,8 +26,14 @@
         android:lineSpacingExtra="@dimen/layout_3"
         android:maxLines="2"
         android:text="@string/title_detail"
-        android:textColor="@color/color_fff"
+        android:textColor="@color/color_000"
         android:textSize="@dimen/text_14" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="@dimen/layout_10"
+        android:src="@mipmap/public_arrow_up" />
 
     <FrameLayout
         android:id="@+id/frame_layout_play"
@@ -42,7 +48,7 @@
             android:layout_height="match_parent"
             tc:circleColor="@color/transparent"
             tc:radius="15dp"
-            tc:ringBgColor="@android:color/white"
+            tc:ringBgColor="@color/color_666"
             tc:ringColor="@color/dkplayer_theme_color"
             tc:strokeWidth="2dip" />
 
