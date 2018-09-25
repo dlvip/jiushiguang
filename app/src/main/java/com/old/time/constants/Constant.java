@@ -90,6 +90,14 @@ public class Constant {
     //获取文章列表
     public static final String GET_ARTICLE_LIST = BASE_TEST_URL + "article/getArticleList";
 
+    //保存话题
+    public static final String INSERT_TOPIC = BASE_TEST_URL + "topic/insertTopic";
+
+    /**
+     * 获取话题列表
+     */
+    public static final String GET_TOPIC_LIST = BASE_TEST_URL + "topic/getTopicList";
+
     //获取活动列表
     public static final String GET_EVENT_LIST = BASE_TEST_URL + "event/getEventList";
 

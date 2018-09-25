@@ -17,7 +17,6 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.CustomNetView;
-import com.old.time.views.PlayMusicBottomView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,6 @@ public class CoursesActivity extends CBaseActivity {
     private CustomNetView mCustomNetView;
     private CourseAdapter courseAdapter;
     private List<CourseBean> courseBeans;
-    private PlayMusicBottomView mPlayMusicBottomView;
 
     @Override
     protected void initView() {
@@ -54,17 +52,15 @@ public class CoursesActivity extends CBaseActivity {
         layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
         linear_layout_more.setLayoutParams(layoutParams);
         linear_layout_more.removeAllViews();
-        mPlayMusicBottomView = new PlayMusicBottomView(mContext);
-        linear_layout_more.addView(mPlayMusicBottomView);
 
     }
 
-    private int pageNum = 1;
+    private int pageNum = 0;
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
         if (isRefresh) {
-            pageNum = 1;
+            pageNum = 0;
 
         } else {
             pageNum++;
@@ -112,14 +108,5 @@ public class CoursesActivity extends CBaseActivity {
                 }
             }
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mPlayMusicBottomView != null) {
-            mPlayMusicBottomView.onDestroy();
-
-        }
     }
 }

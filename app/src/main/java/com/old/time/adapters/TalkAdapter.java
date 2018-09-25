@@ -11,7 +11,7 @@ import java.util.List;
  * Created by wcl on 2018/8/12.
  */
 
-public class TalkAdapter extends BaseQuickAdapter<String,BaseViewHolder> {
+public class TalkAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
 
     public TalkAdapter(int layoutResId, @Nullable List<String> data) {

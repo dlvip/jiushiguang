@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.widget.LinearLayout;
 
 import com.old.time.R;
 import com.old.time.constants.Code;
@@ -13,6 +14,7 @@ import com.old.time.constants.Constant;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
+import com.old.time.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,8 @@ public abstract class CBaseFragment extends BaseFragment {
     public SwipeRefreshLayout mSwipeRefreshLayout;
     public RecyclerView mRecyclerView;
     public LinearLayoutManager mLayoutManager;
+    public LinearLayout linear_layout_more;
+    public LinearLayout.LayoutParams layoutParams;
     public List<String> strings = new ArrayList<>();
     public Handler loadHandler = new Handler() {
         @Override
@@ -72,6 +76,9 @@ public abstract class CBaseFragment extends BaseFragment {
         mRecyclerView = findViewById(R.id.c_recycler_view);
         mLayoutManager = new MyLinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        linear_layout_more = findViewById(R.id.linear_layout_more);
+        layoutParams = (LinearLayout.LayoutParams) linear_layout_more.getLayoutParams();
+        layoutParams.height = UIHelper.dip2px(50);
 
         //去除recyclerView 默认动画
         ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);

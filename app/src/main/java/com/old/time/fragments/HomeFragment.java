@@ -4,14 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
-import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.CoursesActivity;
 import com.old.time.activitys.MusicsActivity;
-import com.old.time.adapters.CourseAdapter;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
 import com.old.time.adapters.HomeAdapter;
@@ -29,6 +28,7 @@ import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
+import com.old.time.views.PlayMusicBottomView;
 import com.old.time.views.banner.BannerLayout;
 import com.old.time.views.banner.adapter.MzBannerAdapter;
 
@@ -40,6 +40,8 @@ import java.util.List;
  */
 
 public class HomeFragment extends CBaseFragment {
+
+    private PlayMusicBottomView mPlayMusicBottomView;
 
     private List<BannerBean> bannerBeans;
     private BannerLayout recycler_banner;
@@ -63,6 +65,13 @@ public class HomeFragment extends CBaseFragment {
     @Override
     protected void lazyLoad() {
         super.lazyLoad();
+        linear_layout_more.setVisibility(View.VISIBLE);
+        layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        linear_layout_more.setLayoutParams(layoutParams);
+        linear_layout_more.removeAllViews();
+        mPlayMusicBottomView = new PlayMusicBottomView(mContext);
+        linear_layout_more.addView(mPlayMusicBottomView);
+
         View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
         recycler_banner = headerView.findViewById(R.id.recycler_banner);
         bannerBeans = new ArrayList<>();
@@ -82,7 +91,8 @@ public class HomeFragment extends CBaseFragment {
         tv_course_title.setText("精品课堂");
         recycler_course = include_course.findViewById(R.id.recycler_content);
         recycler_course.setLayoutManager(new MyLinearLayoutManager(mContext, RecyclerView.HORIZONTAL, false));
-        recycler_course.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10, R.color.color_fff));
+        recycler_course.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST//
+                , 10, R.color.color_fff));
         courseBeans = new ArrayList<>();
         hCourseAdapter = new HCourseAdapter(courseBeans);
         recycler_course.setAdapter(hCourseAdapter);
@@ -287,5 +297,14 @@ public class HomeFragment extends CBaseFragment {
 
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPlayMusicBottomView != null) {
+            mPlayMusicBottomView.onDestroy();
+
+        }
     }
 }

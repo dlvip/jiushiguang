@@ -62,12 +62,24 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * @param text
      */
     public void setTitleText(String text) {
-        if(tv_title == null){
+        if (tv_title == null) {
             tv_title = findViewById(R.id.top_title);
 
         }
         if (tv_title != null) tv_title.setText(text);
 
+    }
+
+    /**
+     * 设置发送按钮显示
+     */
+    public void setRightSendVisibility() {
+        View right_layout_send = findViewById(R.id.right_layout_send);
+        if (right_layout_send != null) {
+            right_layout_send.setVisibility(View.VISIBLE);
+            right_layout_send.setOnClickListener(this);
+
+        }
     }
 
     private DialogPromptCentre mDialogPromptCentre;

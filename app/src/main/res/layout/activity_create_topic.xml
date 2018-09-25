@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_main" />
+
+    <EditText
+        android:id="@+id/edt_topic_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_15"
+        android:background="@color/color_fff"
+        android:hint="请输入问题并以问号结束"
+        android:minHeight="@dimen/layout_44"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16" />
+
+    <EditText
+        android:id="@+id/edt_topic_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/line_height"
+        android:background="@color/color_fff"
+        android:gravity="top"
+        android:hint="问题描述（选填）"
+        android:padding="@dimen/layout_10"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_12" />
+
+
+</LinearLayout>
