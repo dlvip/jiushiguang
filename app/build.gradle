@@ -91,7 +91,5 @@ dependencies {
     implementation externalTencentCrashreportUpgrade
     implementation externalTencentNativeCrashReport
     implementation externalTencentTinkerAndroidLib
-
-
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    
 }
