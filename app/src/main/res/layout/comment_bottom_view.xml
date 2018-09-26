@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radius0_stroke_line_bgfff"
+    android:padding="@dimen/layout_10">
+
+    <TextView
+        android:layout_width="@dimen/layout_140"
+        android:layout_height="@dimen/layout_30"
+        android:background="@drawable/shape_radius20_bgffff_stroke3c4"
+        android:drawableLeft="@mipmap/shop_address_modify"
+        android:drawablePadding="@dimen/layout_10"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        android:text="我有想法..."
+        android:textColor="@color/color_4a4a4a"
+        android:textSize="@dimen/text_12" />
+
+</LinearLayout>

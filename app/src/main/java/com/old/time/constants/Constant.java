@@ -98,6 +98,21 @@ public class Constant {
      */
     public static final String GET_TOPIC_LIST = BASE_TEST_URL + "topic/getTopicList";
 
+    /**
+     * 获取话题详情
+     */
+    public static final String GET_TOPIC_DETAIL = BASE_TEST_URL + "topic/getTopicDetail";
+
+    /**
+     * 添加评论
+     */
+    public static final String GET_INSERT_COMMENT = BASE_TEST_URL + "comment/insertComment";
+
+    /**
+     * 获取评论列表
+     */
+    public static final String GET_COMMENT_LIST = BASE_TEST_URL + "comment/getCommentList";
+
     //获取活动列表
     public static final String GET_EVENT_LIST = BASE_TEST_URL + "event/getEventList";
 

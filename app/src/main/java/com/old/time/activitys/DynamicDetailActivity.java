@@ -8,11 +8,15 @@ import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.adapters.CommentAdapter;
+import com.old.time.beans.CommentBean;
 import com.old.time.beans.DynamicBean;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.views.ExpandableTextView;
 import com.old.time.views.NineImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DynamicDetailActivity extends CBaseActivity {
 
@@ -30,6 +34,7 @@ public class DynamicDetailActivity extends CBaseActivity {
 
     }
 
+    private List<CommentBean> commentBeans = new ArrayList<>();
     private CommentAdapter mAdapter;
     private DynamicBean mDynamicBean;
 
@@ -59,7 +64,7 @@ public class DynamicDetailActivity extends CBaseActivity {
             mNineImageView.setDataForView(mDynamicBean.conetentImages);
 
         }
-        mAdapter = new CommentAdapter(strings);
+        mAdapter = new CommentAdapter(commentBeans);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext));
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.addHeaderView(headerView);

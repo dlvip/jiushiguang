@@ -61,7 +61,7 @@ public abstract class CBaseActivity extends BaseActivity {
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         linear_layout_more = findViewById(R.id.linear_layout_more);
         layoutParams = (LinearLayout.LayoutParams) linear_layout_more.getLayoutParams();
-        layoutParams.height = UIHelper.dip2px(50);
+        layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
 
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         mRecyclerView = findViewById(R.id.c_recycler_view);
