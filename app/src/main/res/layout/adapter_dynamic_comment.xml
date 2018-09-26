@@ -13,11 +13,13 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/img_user_header"
             android:layout_width="@dimen/layout_30"
             android:layout_height="@dimen/layout_30"
             android:src="@mipmap/head_circle" />
 
         <TextView
+            android:id="@+id/tv_user_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_10"
@@ -27,6 +29,7 @@
             android:textSize="@dimen/text_12" />
 
         <TextView
+            android:id="@+id/tv_create_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="09/16 12:35"
@@ -36,11 +39,14 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_comment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/layout_10"
         android:layout_marginLeft="40dp"
+        android:layout_marginTop="@dimen/layout_10"
         android:lineSpacingExtra="@dimen/layout_3"
-        android:text="@string/title_detail"
+        android:text=""
         android:textColor="@color/color_000"
         android:textSize="@dimen/text_14" />
 

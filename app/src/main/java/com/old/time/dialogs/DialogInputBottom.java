@@ -30,6 +30,9 @@ public class DialogInputBottom extends BaseDialog {
 
             return;
         }
+        edt_input_content.setFocusable(true);
+        edt_input_content.setFocusableInTouchMode(true);
+        edt_input_content.requestFocus();
         edt_input_content.setText("");
         edt_input_content.setHint(getContext().getString(hintId));
         tv_send_true.setText(getContext().getString(btnId));

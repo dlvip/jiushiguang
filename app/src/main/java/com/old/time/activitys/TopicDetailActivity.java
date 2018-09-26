@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.adapters.CommentAdapter;
@@ -84,6 +85,13 @@ public class TopicDetailActivity extends CBaseActivity {
 
             }
         });
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                getDataFromNet(false);
+
+            }
+        }, mRecyclerView);
     }
 
     private DialogInputBottom dialogInputBottom;
