@@ -137,7 +137,7 @@ public class CreateActionActivity extends BaseActivity {
 
                     return;
                 }
-                GlideUtils.getInstance().setRoundImageView(mContext, outputPath, img_select_pic);
+                GlideUtils.getInstance().setImageView(mContext, outputPath, img_select_pic);
                 picPaths.clear();
                 picPaths.add(outputPath);
                 sendAliyunPic(picPaths);
@@ -160,8 +160,8 @@ public class CreateActionActivity extends BaseActivity {
             public void getImagesPath(List<PhotoInfoBean> onlineFileName) {
                 UIHelper.dissmissProgressDialog(pd);
                 if (onlineFileName == null || onlineFileName.size() == 0) {
-
                     UIHelper.ToastMessage(mContext, "上传图片失败");
+
                     return;
                 }
                 String picKey = onlineFileName.get(0).picKey;

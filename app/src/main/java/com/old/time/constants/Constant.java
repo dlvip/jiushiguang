@@ -114,7 +114,7 @@ public class Constant {
     public static final String GET_COMMENT_LIST = BASE_TEST_URL + "comment/getCommentList";
 
     //获取活动列表
-    public static final String GET_EVENT_LIST = BASE_TEST_URL + "event/getEventList";
+    public static final String GET_ACTION_LIST = BASE_TEST_URL + "action/getActionList";
 
     public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 

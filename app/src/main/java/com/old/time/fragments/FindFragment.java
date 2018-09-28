@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.dueeeke.videoplayer.demo.DataUtil;
 import com.dueeeke.videoplayer.demo.VideoBean;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.TalksActivity;
 import com.old.time.activitys.TopicsActivity;
@@ -32,6 +33,7 @@ import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,6 +115,7 @@ public class FindFragment extends CBaseFragment {
         mAdapter.addHeaderView(headerView);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setHeaderAndEmpty(true);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 
             @Override
@@ -124,9 +127,15 @@ public class FindFragment extends CBaseFragment {
         });
     }
 
+    private int pageNum = 0;
+
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_EVENT_LIST, new JsonCallBack<ResultBean<List<ActionBean>>>() {
+        HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        params.put("pageNum", pageNum);
+        params.put("pageSize", Constant.PageSize);
+        OkGoUtils.getInstance().postNetForData(Constant.GET_ACTION_LIST, new JsonCallBack<ResultBean<List<ActionBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<ActionBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
