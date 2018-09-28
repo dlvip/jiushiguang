@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.zxing.activity.CaptureActivity;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
+import com.old.time.activitys.CreateActionActivity;
 import com.old.time.activitys.PicsManageActivity;
 import com.old.time.activitys.SettingActivity;
 import com.old.time.activitys.UserDressActivity;
@@ -182,8 +183,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.relative_layout_setting:
-                intent = new Intent(mContext, SettingActivity.class);
-
+//                intent = new Intent(mContext, SettingActivity.class);
+                CreateActionActivity.startCreateActionActivity(mContext);
                 break;
         }
         if (intent != null) {

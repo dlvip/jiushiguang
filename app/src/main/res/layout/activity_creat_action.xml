@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_fff"
+    android:orientation="vertical"
+    tools:context="com.old.time.activitys.CreateActionActivity">
+
+    <include layout="@layout/header_main" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:id="@+id/relative_layout_select_pic"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/color_fff"
+                    android:gravity="center"
+                    app:layout_constraintDimensionRatio="2190:1277"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img_select_pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY" />
+
+                    <ImageView
+                        android:id="@+id/img_add_pic"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerInParent="true"
+                        android:background="@mipmap/navi_add_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_add_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_add_pic"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/layout_15"
+                        android:text="点击上传图片"
+                        android:textColor="#FFAAAAAA"
+                        android:textSize="13sp" />
+
+                </RelativeLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_44"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="主题:"
+                    android:textColor="@color/color_000"
+                    android:textSize="@dimen/text_16" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/layout_15"
+                    android:background="@color/color_fff"
+                    android:gravity="center_vertical"
+                    android:hint="活动主题"
+                    android:text=""
+                    android:textColor="@color/color_969696"
+                    android:textSize="@dimen/text_14" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_bg" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10">
+
+                <TextView
+                    android:id="@+id/tv_text_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/layout_10"
+                    android:text="时间:"
+                    android:textColor="@color/color_000"
+                    android:textSize="@dimen/text_16" />
+
+                <TextView
+                    android:id="@+id/tv_start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginLeft="@dimen/layout_5"
+                    android:layout_toRightOf="@+id/tv_text_time"
+                    android:gravity="center_vertical"
+                    android:hint="开始时间"
+                    android:textColor="@color/color_000"
+                    android:textSize="@dimen/text_14" />
+
+                <View
+                    android:id="@+id/view_line_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/line_height"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_text_time"
+                    android:background="@color/line_bg" />
+
+                <TextView
+                    android:id="@+id/tv_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_below="@+id/view_line_time"
+                    android:layout_marginLeft="@dimen/layout_5"
+                    android:layout_toRightOf="@+id/tv_text_time"
+                    android:gravity="center_vertical"
+                    android:hint="结束时间"
+                    android:textColor="@color/color_000"
+                    android:textSize="@dimen/text_14" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_44"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="费用:"
+                    android:textColor="@color/color_000"
+                    android:textSize="@dimen/text_16" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/layout_15"
+                    android:background="@color/color_fff"
+                    android:gravity="center_vertical"
+                    android:hint="门票价格"
+                    android:text=""
+                    android:textColor="@color/color_969696"
+                    android:textSize="@dimen/text_14" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_44"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地点:"
+                    android:textColor="@color/color_000"
+                    android:textSize="@dimen/text_16" />
+
+                <TextView
+                    android:id="@+id/tv_action_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/layout_15"
+                    android:background="@color/color_fff"
+                    android:drawablePadding="@dimen/layout_10"
+                    android:drawableRight="@mipmap/public_arrow_right"
+                    android:gravity="center_vertical|right"
+                    android:hint="请选择"
+                    android:text=""
+                    android:textColor="@color/color_969696"
+                    android:textSize="@dimen/text_14" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/line_height"
+                android:background="@color/line_bg" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="详情描述"
+                android:minHeight="@dimen/layout_120"
+                android:padding="@dimen/layout_10"
+                android:textColor="@color/color_969696"
+                android:textSize="@dimen/text_16" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

@@ -798,20 +798,23 @@ public class TimeUtil {
         long minute = (between / 60) % 60 == 0 ? 1 : (between / 60) % 60;
         String duiHuanStr = "";
 
-        if (day1 > 3) {
-            duiHuanStr = (timeStr).substring(0, 10).replace("-", "/");
-        } else if (day1 < 1) {
+         if (day1 < 1) {
             if (between - get0dianTime() > 0) {
                 duiHuanStr = "昨天";
+
             } else if (hour1 > 1) {
                 duiHuanStr = hour1 + "小时前";
+
             } else if (minute > 1) {
                 duiHuanStr = minute + "分钟前";
+
             } else {
                 duiHuanStr = "刚刚";
+
             }
         } else {
-            duiHuanStr = day1 + "天前";
+             duiHuanStr = (timeStr).substring(0, 10).replace("-", "/");
+
         }
         return duiHuanStr;
     }

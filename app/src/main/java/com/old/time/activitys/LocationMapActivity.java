@@ -1,6 +1,5 @@
 package com.old.time.activitys;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

@@ -87,7 +87,7 @@ public class CoursesActivity extends CBaseActivity {
 
                 }
                 courseAdapter.addData(mResultBean.data);
-                if (courseAdapter.getItemCount() == 0) {
+                if (courseAdapter.getItemCount() - courseAdapter.getHeaderLayoutCount() == 0) {
                     mCustomNetView.setDataForView(CustomNetView.NO_DATA);
                     courseAdapter.setEmptyView(mCustomNetView);
 

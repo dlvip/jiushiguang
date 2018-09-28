@@ -21,7 +21,7 @@ import com.old.time.activitys.VideoPagerActivity;
 import com.old.time.activitys.VideosActivity;
 import com.old.time.adapters.TalkAdapter;
 import com.old.time.adapters.VideoFindAdapter;
-import com.old.time.beans.EventBean;
+import com.old.time.beans.ActionBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
@@ -46,8 +46,8 @@ public class FindFragment extends CBaseFragment {
     private VideoFindAdapter vFAdapter;
     private RecyclerView recycler_view_video;
 
-    private BaseQuickAdapter<EventBean, BaseViewHolder> mAdapter;
-    private List<EventBean> eventBeans;
+    private BaseQuickAdapter<ActionBean, BaseViewHolder> mAdapter;
+    private List<ActionBean> actionBeans;
 
     private TextView tv_talk_title;
     private RecyclerView talkRecycler;
@@ -56,15 +56,15 @@ public class FindFragment extends CBaseFragment {
     @Override
     protected void lazyLoad() {
         super.lazyLoad();
-        eventBeans = new ArrayList<>();
-        mAdapter = new BaseQuickAdapter<EventBean, BaseViewHolder>(R.layout.adapter_find_type_pic, eventBeans) {
+        actionBeans = new ArrayList<>();
+        mAdapter = new BaseQuickAdapter<ActionBean, BaseViewHolder>(R.layout.adapter_find_type_pic, actionBeans) {
 
             @Override
-            protected void convert(BaseViewHolder helper, EventBean item) {
+            protected void convert(BaseViewHolder helper, ActionBean item) {
                 helper.setText(R.id.tv_event_title, item.getTitle()).setText(R.id.tv_event_price, "￥ " + item.getPrice())//
-                        .setText(R.id.tv_join_count, item.getJoinCount() + " 人参与");
+                        .setText(R.id.tv_join_count, "0 人参与");
                 ImageView img_event_pic = helper.getView(R.id.img_event_pic);
-                GlideUtils.getInstance().setImageView(mContext, item.getPicUrl(), img_event_pic);
+                GlideUtils.getInstance().setImageView(mContext, item.getPic(), img_event_pic);
 
             }
         };
@@ -126,18 +126,18 @@ public class FindFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_EVENT_LIST, new JsonCallBack<ResultBean<List<EventBean>>>() {
+        OkGoUtils.getInstance().postNetForData(Constant.GET_EVENT_LIST, new JsonCallBack<ResultBean<List<ActionBean>>>() {
             @Override
-            public void onSuccess(ResultBean<List<EventBean>> mResultBean) {
+            public void onSuccess(ResultBean<List<ActionBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (isRefresh) {
-                    eventBeans.clear();
-                    mAdapter.setNewData(eventBeans);
+                    actionBeans.clear();
+                    mAdapter.setNewData(actionBeans);
 
                 }
                 if (mResultBean.status == Constant.STATUS_FRIEND_00) {
-                    eventBeans.addAll(mResultBean.data);
-                    mAdapter.setNewData(eventBeans);
+                    actionBeans.addAll(mResultBean.data);
+                    mAdapter.setNewData(actionBeans);
 
                 } else {
                     UIHelper.ToastMessage(mContext, mResultBean.msg);
@@ -146,7 +146,7 @@ public class FindFragment extends CBaseFragment {
             }
 
             @Override
-            public void onError(ResultBean<List<EventBean>> mResultBean) {
+            public void onError(ResultBean<List<ActionBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 UIHelper.ToastMessage(mContext, mResultBean.msg);
 

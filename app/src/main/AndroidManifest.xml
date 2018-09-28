@@ -149,7 +149,8 @@
             android:name=".activitys.MusicPlayActivity"
             android:launchMode="singleTask" />
         <activity android:name=".activitys.CreateTopicActivity" />
-        <activity android:name=".activitys.TopicDetailActivity"></activity>
+        <activity android:name=".activitys.TopicDetailActivity" />
+        <activity android:name=".activitys.CreateActionActivity"></activity>
     </application>
 
 </manifest>
