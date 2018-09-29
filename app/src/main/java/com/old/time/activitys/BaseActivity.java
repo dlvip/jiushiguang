@@ -70,18 +70,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    /**
-     * 设置发送按钮显示
-     */
-    public void setRightSendVisibility() {
-        View right_layout_send = findViewById(R.id.right_layout_send);
-        if (right_layout_send != null) {
-            right_layout_send.setVisibility(View.VISIBLE);
-            right_layout_send.setOnClickListener(this);
-
-        }
-    }
-
     private DialogPromptCentre mDialogPromptCentre;
 
     @Override

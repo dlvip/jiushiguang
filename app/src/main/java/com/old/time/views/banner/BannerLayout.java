@@ -139,6 +139,7 @@ public class BannerLayout extends FrameLayout {
         //recyclerView部分
         mRecyclerView = new RecyclerView(context);
         LayoutParams vpLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        vpLayoutParams.gravity = Gravity.CENTER_VERTICAL;
         addView(mRecyclerView, vpLayoutParams);
         mLayoutManager = new BannerLayoutManager(getContext(), orientation);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -320,7 +321,6 @@ public class BannerLayout extends FrameLayout {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
             ImageView bannerPoint = new ImageView(getContext());
             RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.setMargins(indicatorMargin, indicatorMargin, indicatorMargin, indicatorMargin);

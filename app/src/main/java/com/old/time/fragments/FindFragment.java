@@ -16,14 +16,14 @@ import com.dueeeke.videoplayer.demo.VideoBean;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
-import com.old.time.activitys.TalksActivity;
 import com.old.time.activitys.TopicsActivity;
 import com.old.time.activitys.VideoPagerActivity;
 import com.old.time.activitys.VideosActivity;
-import com.old.time.adapters.TalkAdapter;
+import com.old.time.adapters.TopicAdapter;
 import com.old.time.adapters.VideoFindAdapter;
 import com.old.time.beans.ActionBean;
 import com.old.time.beans.ResultBean;
+import com.old.time.beans.TopicBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
@@ -41,7 +41,6 @@ import java.util.List;
 /**
  * Created by NING on 2018/3/5.
  */
-
 public class FindFragment extends CBaseFragment {
 
     private List<VideoBean> videoBeans;
@@ -53,7 +52,8 @@ public class FindFragment extends CBaseFragment {
 
     private TextView tv_talk_title;
     private RecyclerView talkRecycler;
-    private TalkAdapter talkAdapter;
+    private TopicAdapter topicAdapter;
+    private List<TopicBean> topicBeans = new ArrayList<>();
 
     @Override
     protected void lazyLoad() {
@@ -63,7 +63,8 @@ public class FindFragment extends CBaseFragment {
 
             @Override
             protected void convert(BaseViewHolder helper, ActionBean item) {
-                helper.setText(R.id.tv_event_title, item.getTitle()).setText(R.id.tv_event_price, "￥ " + item.getPrice())//
+                helper.setText(R.id.tv_event_title, item.getTitle())//
+                        .setText(R.id.tv_event_price, "￥ " + item.getPrice())//
                         .setText(R.id.tv_join_count, "0 人参与");
                 ImageView img_event_pic = helper.getView(R.id.img_event_pic);
                 GlideUtils.getInstance().setImageView(mContext, item.getPic(), img_event_pic);
@@ -83,24 +84,16 @@ public class FindFragment extends CBaseFragment {
         tv_talk_title.setText("热议话题");
         talkRecycler = talkView.findViewById(R.id.recycler_content);
         talkRecycler.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayout.HORIZONTAL, false));
-        talkAdapter = new TalkAdapter(R.layout.adapter_find_talk, strings);
-        talkRecycler.setAdapter(talkAdapter);
+        topicAdapter = new TopicAdapter(topicBeans);
+        talkRecycler.setAdapter(topicAdapter);
         SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
         snapHelperStart.attachToRecyclerView(talkRecycler);
-        headerView.findViewById(R.id.tv_topic_more).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                TopicsActivity.startTopicsActivity(mContext);
-
-            }
-        });
 
         headerView.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                TalksActivity.startTalksActivity(mContext);
+                TopicsActivity.startTopicsActivity(mContext);
 
             }
         });
@@ -131,11 +124,12 @@ public class FindFragment extends CBaseFragment {
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
+        getTopicList();
         HttpParams params = new HttpParams();
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
         params.put("pageNum", pageNum);
         params.put("pageSize", Constant.PageSize);
-        OkGoUtils.getInstance().postNetForData(Constant.GET_ACTION_LIST, new JsonCallBack<ResultBean<List<ActionBean>>>() {
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_ACTION_LIST, new JsonCallBack<ResultBean<List<ActionBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<ActionBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
@@ -158,6 +152,30 @@ public class FindFragment extends CBaseFragment {
             public void onError(ResultBean<List<ActionBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
+    }
+
+    /**
+     * 获取话题列表
+     */
+    private void getTopicList() {
+        HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        params.put("pageNum", "0");
+        params.put("pageSize", "5");
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_TOPIC_LIST, new JsonCallBack<ResultBean<List<TopicBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<TopicBean>> mResultBean) {
+                if (mResultBean != null && mResultBean.data != null && mResultBean.data.size() > 0) {
+                    topicAdapter.setNewData(mResultBean.data);
+
+                }
+            }
+
+            @Override
+            public void onError(ResultBean<List<TopicBean>> mResultBean) {
 
             }
         });

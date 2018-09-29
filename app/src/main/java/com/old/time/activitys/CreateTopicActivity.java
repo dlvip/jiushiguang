@@ -43,7 +43,6 @@ public class CreateTopicActivity extends BaseActivity {
     protected void initView() {
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         setTitleText("提问");
-        setRightSendVisibility();
         edt_topic_title = findViewById(R.id.edt_topic_title);
         edt_topic_detail = findViewById(R.id.edt_topic_detail);
 
@@ -51,14 +50,9 @@ public class CreateTopicActivity extends BaseActivity {
     }
 
     @Override
-    public void onClick(View view) {
-        super.onClick(view);
-        switch (view.getId()) {
-            case R.id.right_layout_send:
-                createTopic();
-
-                break;
-        }
+    public void save(View view) {
+        super.save(view);
+        createTopic();
     }
 
     private ProgressDialog pd;

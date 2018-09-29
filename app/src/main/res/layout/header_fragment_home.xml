@@ -9,8 +9,9 @@
     <com.old.time.views.banner.BannerLayout
         android:id="@+id/recycler_banner"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="160dp"
         app:indicatorGravity="center"
+        app:indicatorMarginBottom="@dimen/layout_10"
         app:showIndicator="true" />
 
     <android.support.v7.widget.RecyclerView

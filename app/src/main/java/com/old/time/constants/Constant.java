@@ -69,6 +69,9 @@ public class Constant {
     //获取轮播图列表
     public static final String GET_HOME_BANNERS = BASE_TEST_URL + "banner/getBanners";
 
+    //添加轮播图
+    public static final String INSERT_HOME_BANNERS = BASE_TEST_URL + "banner/insertBanner";
+
     //获取icon列表
     public static final String GET_HOME_ICONS = BASE_TEST_URL + "icon/getIconList";
 
@@ -115,6 +118,11 @@ public class Constant {
 
     //获取活动列表
     public static final String GET_ACTION_LIST = BASE_TEST_URL + "action/getActionList";
+
+    /**
+     * 添加活动
+     */
+    public static final String INSTER_ACTION_BEAN = BASE_TEST_URL + "action/insertAction";
 
     public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 

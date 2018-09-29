@@ -81,6 +81,7 @@
                     android:textSize="@dimen/text_16" />
 
                 <EditText
+                    android:id="@+id/edt_action_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/layout_15"
@@ -88,7 +89,7 @@
                     android:gravity="center_vertical"
                     android:hint="活动主题"
                     android:text=""
-                    android:textColor="@color/color_969696"
+                    android:textColor="@color/color_000"
                     android:textSize="@dimen/text_14" />
 
             </LinearLayout>
@@ -169,6 +170,7 @@
                     android:textSize="@dimen/text_16" />
 
                 <EditText
+                    android:id="@+id/edt_action_price"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/layout_15"
@@ -176,7 +178,7 @@
                     android:gravity="center_vertical"
                     android:hint="门票价格"
                     android:text=""
-                    android:textColor="@color/color_969696"
+                    android:textColor="@color/color_000"
                     android:textSize="@dimen/text_14" />
 
             </LinearLayout>

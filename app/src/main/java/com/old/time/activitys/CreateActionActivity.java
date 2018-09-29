@@ -6,22 +6,29 @@ import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
+import com.old.time.beans.ActionBean;
 import com.old.time.beans.PhotoInfoBean;
+import com.old.time.beans.ResultBean;
 import com.old.time.constants.Code;
+import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogChoseTime;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.UploadImagesCallBack;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AliyPostUtil;
-import com.old.time.utils.DebugLog;
 import com.old.time.utils.FileUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.TimeUtil;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,13 +50,18 @@ public class CreateActionActivity extends BaseActivity {
     private ImageView img_select_pic;
     private TextView tv_start_time, tv_end_time, tv_action_address;
 
+    private EditText edt_action_title, edt_action_price;
 
     @Override
     protected void initView() {
+        findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
+        edt_action_title = findViewById(R.id.edt_action_title);
         img_select_pic = findViewById(R.id.img_select_pic);
         tv_start_time = findViewById(R.id.tv_start_time);
         tv_end_time = findViewById(R.id.tv_end_time);
+        edt_action_price = findViewById(R.id.edt_action_price);
         tv_action_address = findViewById(R.id.tv_action_address);
+        findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
 
     }
 
@@ -76,7 +88,7 @@ public class CreateActionActivity extends BaseActivity {
 
                 break;
             case R.id.tv_end_time:
-                showTimeDialog("结束时间", 0);
+                showTimeDialog("结束时间", 1);
 
                 break;
             case R.id.tv_action_address:
@@ -84,6 +96,53 @@ public class CreateActionActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    @Override
+    public void save(View view) {
+        super.save(view);
+        if (TextUtils.isEmpty(picKey)) {
+
+            return;
+        }
+        String titleStr = edt_action_title.getText().toString().trim();
+        if (TextUtils.isEmpty(titleStr)) {
+
+            return;
+        }
+        String startTimeStr = tv_start_time.getText().toString().trim();
+        if (TextUtils.isEmpty(startTimeStr)) {
+
+            return;
+        }
+        String endTimeStr = tv_end_time.getText().toString().trim();
+        if (TextUtils.isEmpty(endTimeStr)) {
+
+            return;
+        }
+        HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        params.put("title", titleStr);
+        params.put("pic", picKey);
+        params.put("url", "www.baidu.com");
+        params.put("brief", getString(R.string.title_detail));
+        params.put("startTime", startTimeStr);
+        params.put("endTime", endTimeStr);
+        params.put("longitude", "97.25");
+        params.put("latitude", "97.25");
+        params.put("address", "北京市海淀区金隅嘉华大厦");
+        OkGoUtils.getInstance().postNetForData(params, Constant.INSTER_ACTION_BEAN, new JsonCallBack<ResultBean<ActionBean>>() {
+
+            @Override
+            public void onSuccess(ResultBean<ActionBean> mResultBean) {
+
+            }
+
+            @Override
+            public void onError(ResultBean<ActionBean> mResultBean) {
+
+            }
+        });
     }
 
     private DialogChoseTime mDialogChoseTime;
@@ -99,7 +158,13 @@ public class CreateActionActivity extends BaseActivity {
             mDialogChoseTime = new DialogChoseTime(mContext, new DialogChoseTime.OnChooseTimeCallBack() {
                 @Override
                 public void timeCallBack(int type, String timeStr) {
+                    if (type == 0) {
+                        tv_start_time.setText(timeStr);
 
+                    } else {
+                        tv_end_time.setText(timeStr);
+
+                    }
                 }
             });
         }
@@ -120,6 +185,10 @@ public class CreateActionActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+
+            return;
+        }
         switch (requestCode) {
             case Code.REQUEST_CODE_30:
                 List<String> pathStrs = data.getStringArrayListExtra(PhotoPickActivity.SELECT_PHOTO_LIST);
@@ -146,7 +215,9 @@ public class CreateActionActivity extends BaseActivity {
         }
     }
 
+    private List<String> picPaths = new ArrayList<>();
     private ProgressDialog pd;
+    private String picKey;
 
     /**
      * 上传图片到阿里云
@@ -164,13 +235,11 @@ public class CreateActionActivity extends BaseActivity {
 
                     return;
                 }
-                String picKey = onlineFileName.get(0).picKey;
-                DebugLog.d(TAG, picKey);
+                picKey = onlineFileName.get(0).picKey;
+
             }
         });
     }
-
-    private List<String> picPaths = new ArrayList<>();
 
     @Override
     protected int getLayoutID() {

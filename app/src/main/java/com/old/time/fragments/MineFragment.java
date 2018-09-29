@@ -183,8 +183,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.relative_layout_setting:
-//                intent = new Intent(mContext, SettingActivity.class);
-                CreateActionActivity.startCreateActionActivity(mContext);
+                intent = new Intent(mContext, SettingActivity.class);
+
                 break;
         }
         if (intent != null) {

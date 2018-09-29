@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lzy.okgo.model.HttpParams;
+import com.old.time.BuildConfig;
 import com.old.time.R;
 import com.old.time.beans.CourseBean;
 import com.old.time.beans.ResultBean;
@@ -55,7 +56,12 @@ public class SettingActivity extends BaseActivity {
         findViewById(R.id.relative_layout_opinion).setOnClickListener(this);
         findViewById(R.id.relative_layout_about).setOnClickListener(this);
         findViewById(R.id.tv_user_logout).setOnClickListener(this);
+        if (BuildConfig.DEBUG) {
+            View tv_more = findViewById(R.id.tv_more);
+            tv_more.setVisibility(View.VISIBLE);
+            tv_more.setOnClickListener(this);
 
+        }
     }
 
     @Override
@@ -72,12 +78,16 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.relative_layout_about:
-//                WebViewActivity.startWebViewActivity(mContext);
-                addCourse();
+                WebViewActivity.startWebViewActivity(mContext);
+//                addCourse();
                 break;
             case R.id.tv_user_logout:
                 UserLocalInfoUtils.instance().setUserLogOut();
                 ActivityUtils.finishActivity(mContext);
+
+                break;
+            case R.id.tv_more:
+                CreateActivity.startCreateActivity(mContext);
 
                 break;
 

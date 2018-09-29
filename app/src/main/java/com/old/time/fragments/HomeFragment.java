@@ -229,6 +229,13 @@ public class HomeFragment extends CBaseFragment {
                     UIHelper.ToastMessage(mContext, mResultBean.msg);
 
                 }
+                if(iconAdapter.getItemCount() == 0){
+                    recycler_icons.setVisibility(View.GONE);
+
+                } else {
+                    recycler_icons.setVisibility(View.VISIBLE);
+
+                }
             }
 
             @Override
