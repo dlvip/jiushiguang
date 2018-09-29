@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:text="你听过孩子说的最可怕的一句话是什么？"
         android:textColor="@color/color_000"
-        android:textSize="@dimen/text_18"
-        android:textStyle="bold" />
+        android:textSize="@dimen/text_18" />
 
     <TextView
         android:id="@+id/tv_topic_detail"

@@ -141,7 +141,17 @@ public class ActionBean implements Serializable {
     }
 
     public double getPrice() {
+
         return price;
+    }
+
+    public String getPriceStr() {
+        if (price <= 0) {
+
+            return "免费";
+        }
+        return "￥ " + price;
+
     }
 
     public void setPrice(double price) {

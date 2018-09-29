@@ -24,6 +24,16 @@ public class TopicBean implements Serializable {
 
     private String createTime;
 
+    private String commentContent;
+
+    public String getCommentContent() {
+        return commentContent;
+    }
+
+    public void setCommentContent(String commentContent) {
+        this.commentContent = commentContent;
+    }
+
     public String getId() {
         return id;
     }

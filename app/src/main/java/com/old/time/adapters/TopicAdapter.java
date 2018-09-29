@@ -2,6 +2,7 @@ package com.old.time.adapters;
 
 import android.app.Activity;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,7 +27,7 @@ public class TopicAdapter extends BaseQuickAdapter<TopicBean, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, final TopicBean item) {
         helper.setText(R.id.tv_topic_title, item.getTopicTitle())//
-                .setText(R.id.tv_topic_detail, "")//
+                .setText(R.id.tv_topic_detail, item.getTopicContent())//
                 .setText(R.id.tv_topic_count, item.getTopicCount());
 
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
