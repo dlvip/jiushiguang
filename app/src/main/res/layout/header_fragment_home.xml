@@ -45,13 +45,8 @@
         android:layout_marginTop="@dimen/layout_10"
         android:background="@color/main_bg" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_44"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/layout_15"
-        android:text="家长专栏"
-        android:textColor="@color/color_000"
-        android:textSize="@dimen/text_18" />
+    <include
+        android:id="@+id/include_article"
+        layout="@layout/title_recycler_view" />
 
 </LinearLayout>

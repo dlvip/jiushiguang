@@ -11,6 +11,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.old.time.R;
 import com.old.time.activitys.CoursesActivity;
 import com.old.time.activitys.MusicsActivity;
+import com.old.time.adapters.EmptyAdapter;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
 import com.old.time.adapters.HomeAdapter;
@@ -48,6 +49,7 @@ public class HomeFragment extends CBaseFragment {
     private MzBannerAdapter mzBannerAdapter;
 
     private List<ArticleBean> articleBeans;
+    private RecyclerView recycle_article;
     private HomeAdapter mAdapter;
 
     private List<IconBean> iconBeans;
@@ -61,6 +63,8 @@ public class HomeFragment extends CBaseFragment {
     private List<TeacherBean> teacherBeans;
     private RecyclerView recycler_music;
     private HMusicAdapter hMusicAdapter;
+
+
 
     @Override
     protected void lazyLoad() {
@@ -124,12 +128,26 @@ public class HomeFragment extends CBaseFragment {
         });
 
         //家长专栏
+        View include_article = headerView.findViewById(R.id.include_article);
+        TextView tv_article_title = include_article.findViewById(R.id.tv_recycler_title);
+        tv_article_title.setText("名师优讲");
+        recycle_article = include_article.findViewById(R.id.recycler_content);
+        recycle_article.setLayoutManager(new MyLinearLayoutManager(mContext));
         articleBeans = new ArrayList<>();
         mAdapter = new HomeAdapter(articleBeans);
-        mRecyclerView.setAdapter(mAdapter);
+        recycle_article.setAdapter(mAdapter);
+        include_article.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+        List<String> list = new ArrayList<>();
         mAdapter.removeAllHeaderView();
         mAdapter.addHeaderView(headerView);
         mAdapter.setHeaderAndEmpty(true);
+        mRecyclerView.setAdapter(new EmptyAdapter(list));
 
     }
 
