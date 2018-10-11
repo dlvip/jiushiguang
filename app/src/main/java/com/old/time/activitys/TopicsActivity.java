@@ -46,16 +46,6 @@ public class TopicsActivity extends CBaseActivity {
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mTopicAdapter = new TopicAdapter(topicBeans);
         mRecyclerView.setAdapter(mTopicAdapter);
-        View headerView = View.inflate(mContext, R.layout.header_create_talk, null);
-        mTopicAdapter.removeAllHeaderView();
-        mTopicAdapter.addHeaderView(headerView);
-        headerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreateTopicActivity.startCreateTalkActivity(mContext);
-
-            }
-        });
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
         mTopicAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -64,6 +54,20 @@ public class TopicsActivity extends CBaseActivity {
 
             }
         }, mRecyclerView);
+        mRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                showSuspensionPopupWindow();
+
+            }
+        });
+    }
+
+    @Override
+    public void setmSuspensionPopupWindowClick() {
+        super.setmSuspensionPopupWindowClick();
+        CreateTopicActivity.startCreateTalkActivity(mContext);
+
     }
 
     private int pageNum = 0;

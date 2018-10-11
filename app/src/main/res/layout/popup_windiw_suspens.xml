@@ -5,6 +5,6 @@
     android:layout_height="60dp"
     android:background="@drawable/shape_green_circle"
     android:gravity="center"
-    android:text=""
+    android:text="+"
     android:textColor="@color/color_fff"
-    android:textSize="@dimen/text_18" />
+    android:textSize="@dimen/text_30" />

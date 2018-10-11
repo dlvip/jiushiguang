@@ -28,9 +28,6 @@ public class PicsManageActivity extends CBaseActivity {
         super.initView();
         setTitleText("照片管理");
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
-        ScreenTools mScreenTools = ScreenTools.instance(this);
-        W = mScreenTools.getScreenWidth();
-        H = mScreenTools.getScreenHeight();
         mRecyclerView.setPadding(UIHelper.dip2px(5), 0, UIHelper.dip2px(5), 0);
         mRecyclerView.setBackgroundResource(R.color.color_fff);
         mAdapter = new PicsManageAdapter(mPicsManageBeans);
@@ -70,26 +67,10 @@ public class PicsManageActivity extends CBaseActivity {
         });
     }
 
-    private int W, H;
-    private int showX, showY;
-    private SuspensionPopupWindow mSuspensionPopupWindow;
-
-    /**
-     * 发送内容入口
-     */
-    private void showSuspensionPopupWindow() {
-        if (mSuspensionPopupWindow == null) {
-            showX = W / 2 - UIHelper.dip2px(40);
-            showY = H - UIHelper.dip2px(80);
-            mSuspensionPopupWindow = new SuspensionPopupWindow(this, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TakePicActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
-
-                }
-            });
-        }
-        mSuspensionPopupWindow.showAtLocationXY(getWindow().getDecorView(), Gravity.TOP, showX, showY);
+    @Override
+    public void setmSuspensionPopupWindowClick() {
+        super.setmSuspensionPopupWindowClick();
+        TakePicActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
 
     }
 

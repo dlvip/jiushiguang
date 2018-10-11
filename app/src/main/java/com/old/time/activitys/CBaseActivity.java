@@ -5,13 +5,16 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.old.time.R;
 import com.old.time.constants.Code;
 import com.old.time.utils.MyLinearLayoutManager;
+import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
+import com.old.time.views.SuspensionPopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +106,50 @@ public abstract class CBaseActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
+
+    }
+
+    private int W, H;
+    private int showX, showY;
+    private SuspensionPopupWindow mSuspensionPopupWindow;
+
+    /**
+     * 发送内容入口
+     */
+    public void showSuspensionPopupWindow() {
+        if (mSuspensionPopupWindow == null) {
+            ScreenTools mScreenTools = ScreenTools.instance(this);
+            W = mScreenTools.getScreenWidth();
+            H = mScreenTools.getScreenHeight();
+            showX = W / 2 - UIHelper.dip2px(40);
+            showY = H - UIHelper.dip2px(80);
+            mSuspensionPopupWindow = new SuspensionPopupWindow(this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setmSuspensionPopupWindowClick();
+
+                }
+            });
+        }
+        mSuspensionPopupWindow.showAtLocationXY(getWindow().getDecorView(), Gravity.TOP, showX, showY);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mSuspensionPopupWindow != null) {
+            mSuspensionPopupWindow.dismiss();
+            mSuspensionPopupWindow = null;
+
+        }
+    }
+
+    /**
+     * 按钮点击事件
+     */
+    public void setmSuspensionPopupWindowClick() {
+
 
     }
 

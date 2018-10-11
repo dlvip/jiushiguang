@@ -39,20 +39,31 @@
         android:id="@+id/recycler_view_video"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/layout_10"
         android:background="@color/color_fff"
         android:paddingBottom="@dimen/layout_10"
         android:paddingRight="@dimen/layout_10" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginBottom="@dimen/layout_10"
+        android:background="@color/line_bg" />
 
     <include
         android:id="@+id/linear_layout_item"
         layout="@layout/item_linear_layout" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_marginTop="@dimen/layout_10"
+        android:background="@color/line_bg" />
+
+
     <TextView
         android:id="@+id/tv_recycler_title"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="@dimen/layout_10"
         android:layout_weight="1"
         android:background="@color/color_fff"
         android:gravity="center_vertical"
