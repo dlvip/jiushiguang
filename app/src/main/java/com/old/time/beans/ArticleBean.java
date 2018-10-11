@@ -7,6 +7,18 @@ import java.io.Serializable;
  */
 
 public class ArticleBean implements Serializable {
+
+    public static ArticleBean instance() {
+        ArticleBean articleBean = new ArticleBean();
+        articleBean.setType("0");
+        articleBean.setTitle("我研究了200多个家庭后发现：好的婚姻都做对了这件事！");
+        articleBean.setPicUrl("http://5b0988e595225.cdn.sohucs.com/images/20180921/095ebfe7555845b79594f35bef7a7b0d.jpeg");
+        articleBean.setDetailUrl("https://www.sohu.com/a/255336680_664958");
+        articleBean.setLookCount("189");
+
+        return articleBean;
+    }
+
     private String id;
 
     private String picUrl;

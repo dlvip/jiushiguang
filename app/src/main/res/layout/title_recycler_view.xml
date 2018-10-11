@@ -13,7 +13,8 @@
         android:paddingLeft="@dimen/layout_15"
         android:text="精品课堂"
         android:textColor="@color/color_000"
-        android:textSize="@dimen/text_18" />
+        android:textSize="@dimen/text_16"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/linear_layout_more"

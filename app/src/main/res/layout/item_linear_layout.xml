@@ -14,7 +14,7 @@
         android:text="热议话题"
         android:textStyle="bold"
         android:textColor="@color/color_000"
-        android:textSize="@dimen/text_14" />
+        android:textSize="@dimen/text_16" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_content"

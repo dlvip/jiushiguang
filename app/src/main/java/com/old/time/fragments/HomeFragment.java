@@ -156,7 +156,7 @@ public class HomeFragment extends CBaseFragment {
         getHomeBanners();
         getHomeIcons(isRefresh);
         getHomeCourses(isRefresh);
-        getHomeTeachers(isRefresh);
+//        getHomeTeachers(isRefresh);
         getHomeArticles(isRefresh);
 
     }
@@ -179,6 +179,11 @@ public class HomeFragment extends CBaseFragment {
                 }
                 if (mResultBean.status == Constant.STATUS_FRIEND_00) {
                     articleBeans.addAll(mResultBean.data);
+                    articleBeans.add(ArticleBean.instance());
+                    articleBeans.add(ArticleBean.instance());
+                    articleBeans.add(ArticleBean.instance());
+                    articleBeans.add(ArticleBean.instance());
+                    articleBeans.add(ArticleBean.instance());
                     mAdapter.setNewData(articleBeans);
 
                 } else {
