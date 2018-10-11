@@ -197,7 +197,7 @@ public class CreateActionActivity extends BaseActivity {
                     return;
                 }
                 Uri uri = Uri.fromFile(FileUtils.createPicturePath(System.currentTimeMillis() + ""));
-                PictureUtil.cropPhotoRetrunBitmap3(this, pathStrs.get(0), uri, new int[]{2190, 1277}, Code.REQUEST_CODE_40);
+                PictureUtil.cropPhotoRetrunBitmap3(this, pathStrs.get(0), uri, new int[]{3, 2}, Code.REQUEST_CODE_40);
 
                 break;
             case Code.REQUEST_CODE_40:

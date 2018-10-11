@@ -4,7 +4,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by NING on 2018/10/10.
@@ -12,8 +12,8 @@ import java.util.List;
 
 public class EmptyAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public EmptyAdapter(List<String> list) {
-        super(R.layout.empty_view, list);
+    public EmptyAdapter() {
+        super(R.layout.empty_view, new ArrayList<String>());
 
     }
 

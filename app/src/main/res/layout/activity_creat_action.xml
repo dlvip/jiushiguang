@@ -29,7 +29,7 @@
                     android:layout_height="0dp"
                     android:background="@color/color_fff"
                     android:gravity="center"
-                    app:layout_constraintDimensionRatio="2190:1277"
+                    app:layout_constraintDimensionRatio="3:2"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent">
 

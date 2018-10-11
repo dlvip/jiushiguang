@@ -65,7 +65,6 @@ public class HomeFragment extends CBaseFragment {
     private HMusicAdapter hMusicAdapter;
 
 
-
     @Override
     protected void lazyLoad() {
         super.lazyLoad();
@@ -130,7 +129,7 @@ public class HomeFragment extends CBaseFragment {
         //家长专栏
         View include_article = headerView.findViewById(R.id.include_article);
         TextView tv_article_title = include_article.findViewById(R.id.tv_recycler_title);
-        tv_article_title.setText("名师优讲");
+        tv_article_title.setText("家长专栏");
         recycle_article = include_article.findViewById(R.id.recycler_content);
         recycle_article.setLayoutManager(new MyLinearLayoutManager(mContext));
         articleBeans = new ArrayList<>();
@@ -143,11 +142,12 @@ public class HomeFragment extends CBaseFragment {
 
             }
         });
-        List<String> list = new ArrayList<>();
-        mAdapter.removeAllHeaderView();
-        mAdapter.addHeaderView(headerView);
-        mAdapter.setHeaderAndEmpty(true);
-        mRecyclerView.setAdapter(new EmptyAdapter(list));
+
+        EmptyAdapter emptyAdapter = new EmptyAdapter();
+        emptyAdapter.removeAllHeaderView();
+        emptyAdapter.addHeaderView(headerView);
+        emptyAdapter.setHeaderAndEmpty(true);
+        mRecyclerView.setAdapter(emptyAdapter);
 
     }
 
@@ -247,7 +247,7 @@ public class HomeFragment extends CBaseFragment {
                     UIHelper.ToastMessage(mContext, mResultBean.msg);
 
                 }
-                if(iconAdapter.getItemCount() == 0){
+                if (iconAdapter.getItemCount() == 0) {
                     recycler_icons.setVisibility(View.GONE);
 
                 } else {
