@@ -19,6 +19,7 @@ import com.old.time.R;
 import com.old.time.activitys.TopicsActivity;
 import com.old.time.activitys.VideoPagerActivity;
 import com.old.time.activitys.VideosActivity;
+import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.TopicAdapter;
 import com.old.time.adapters.VideoFindAdapter;
 import com.old.time.beans.ActionBean;
@@ -112,8 +113,7 @@ public class FindFragment extends CBaseFragment {
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(mContext, VideoPagerActivity.class);
-                ActivityUtils.startActivity(mContext, intent);
+                WebViewActivity.startWebViewActivity(mContext, Constant.mHomeUrl, 0);
 
             }
         });

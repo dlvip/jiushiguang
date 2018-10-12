@@ -33,6 +33,15 @@ public class WebViewActivity extends BaseActivity {
 
     }
 
+    public static void startWebViewActivity(Activity mContext, String url, int tag) {
+        Intent intent = new Intent(mContext, WebViewActivity.class);
+        intent.putExtra(WebViewFragment.WEB_VIEW_URL, url);
+        intent.putExtra(WebViewFragment.IS_SHOW_BOTTOM, tag);
+        ActivityUtils.startActivity(mContext, intent);
+
+    }
+
+    private int tag;
     private String url;
     private WebViewFragment mWebFragment;
     private FragmentTransaction fragmentTransaction;
@@ -40,6 +49,7 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void initView() {
         url = getIntent().getStringExtra(WebViewFragment.WEB_VIEW_URL);
+        tag = getIntent().getIntExtra(WebViewFragment.IS_SHOW_BOTTOM, -1);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -50,6 +60,7 @@ public class WebViewActivity extends BaseActivity {
 
         }
         bundle.putString(WebViewFragment.WEB_VIEW_URL, url);
+        bundle.putInt(WebViewFragment.IS_SHOW_BOTTOM, tag);
         mWebFragment.setArguments(bundle);
         fragmentTransaction.add(R.id.web_layout, mWebFragment);
         fragmentTransaction.commit();

@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
+import com.old.time.dialogs.DialogSignUp;
 import com.old.time.fragments.BaseFragment;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.webUtils.WebViewJavaScriptFunction;
@@ -25,6 +26,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 public class WebViewFragment extends BaseFragment {
 
     public static final String WEB_VIEW_URL = "webUrl";
+    public static final String IS_SHOW_BOTTOM = "isShowBottom";
     public static final String IS_SHOW_PROGRESS = "isShowProgress";
 
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener;
@@ -32,6 +34,7 @@ public class WebViewFragment extends BaseFragment {
     private ProgressBar progress_bar_web;
     private X5WebView mWebView;
     private String webUrl;
+    private int isShowBottom;
 
     private LinearLayout linear_layout_more;
     private LinearLayout.LayoutParams layoutParams;
@@ -65,10 +68,14 @@ public class WebViewFragment extends BaseFragment {
     @Override
     protected void lazyLoad() {
         webUrl = getArguments().getString(WEB_VIEW_URL);
+        isShowBottom = getArguments().getInt(IS_SHOW_BOTTOM, -1);
         linear_layout_more = findViewById(R.id.linear_layout_more);
         layoutParams = (LinearLayout.LayoutParams) linear_layout_more.getLayoutParams();
         layoutParams.height = UIHelper.dip2px(50);
+        if (isShowBottom != -1) {
+            linear_layout_more.setVisibility(View.VISIBLE);
 
+        }
         progress_bar_web = findViewById(R.id.progress_bar_web);
         mWebView = findViewById(R.id.x5_web_view);
         mWebView.loadUrl(webUrl);
@@ -87,7 +94,26 @@ public class WebViewFragment extends BaseFragment {
             }
         };
         mSwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+        linear_layout_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogSignUp();
+
+            }
+        });
     }
+
+    private void showDialogSignUp(){
+        if(mDialogSignUp == null){
+            mDialogSignUp = new DialogSignUp(mContext);
+
+        }
+        mDialogSignUp.show();
+
+    }
+
+    private DialogSignUp mDialogSignUp;
+
 
     // 向webview发出信息
     private void enableX5FullscreenFunc() {

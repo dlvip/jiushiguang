@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,6 +15,7 @@ import com.old.time.R;
 import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.aidl.ChapterBean;
 import com.old.time.utils.MyLinearLayoutManager;
+import com.old.time.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,9 @@ public class DialogChapterList extends BaseDialog {
         tv_dialog_title = findViewbyId(R.id.tv_dialog_title);
         tv_dialog_title.setText("音频列表");
         recycler_view = findViewbyId(R.id.recycler_view);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) recycler_view.getLayoutParams();
+        params.height = UIHelper.dip2px(350);
+        recycler_view.setLayoutParams(params);
         recycler_view.setLayoutManager(new MyLinearLayoutManager(mContext));
         mAdapter = new BaseQuickAdapter<ChapterBean, BaseViewHolder>(R.layout.adapter_music, new ArrayList<ChapterBean>()) {
             @Override

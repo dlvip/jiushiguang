@@ -128,7 +128,7 @@ public class Constant {
 
     public static String MP4_PATH_URL = "http://o1.longbeidata.com//filekey/b245e7761b2e4600884b1cf828bd5a7f.mp4";
 
-    public static String mHomeUrl = "http://yst.longbei.ren/html/yst/index.html";
+    public static String mHomeUrl = "https://www.baidu.com";
 
     /**
      * 请求code值
