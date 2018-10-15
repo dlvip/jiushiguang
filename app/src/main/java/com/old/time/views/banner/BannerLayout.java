@@ -1,12 +1,16 @@
 package com.old.time.views.banner;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.ColorRes;
@@ -222,12 +226,30 @@ public class BannerLayout extends FrameLayout {
         mMzBannerAdapter.setOnBannerItemClickListener(new OnBannerItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                String detailUrl = bannerBeans.get(position).getDetailUrl();
-                if (TextUtils.isEmpty(detailUrl)) {
+//                String detailUrl = bannerBeans.get(position).getDetailUrl();
+//                if (TextUtils.isEmpty(detailUrl)) {
+//
+//                    return;
+//                }
+//                detailUrl = "https://h5.m.jd.com/dev/XN1cqLK9PCzrXM45QJkA83FbpXf/index.html";
+//                WebViewActivity.startWebViewActivity(mContext, detailUrl);
 
-                    return;
-                }
-                WebViewActivity.startWebViewActivity(mContext, detailUrl);
+//                Intent intent = new Intent();
+//                intent.setAction("android.intent.action.VIEW");
+//                Uri uri = Uri.parse("https://detail.tmall.com/item.htm?id=575181668074"); // 商品地址
+//                intent.setData(uri);
+//                intent.setClassName("com.taobao.taobao", "com.taobao.tao.detail.activity.DetailActivity");
+//                mContext.startActivity(intent);
+
+                //获取剪贴板管理器：
+                ClipboardManager cm = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 创建普通字符型ClipData
+                ClipData mClipData = ClipData.newPlainText("Label", "领券中心】http://m.tb.cn/h.3ih6tXE?sm=7952cf 点击链接，再选择浏览器咑閞；或復|制这段描述€e8OUbTkNATx€后到\uD83D\uDC49淘♂寳♀\uD83D\uDC48");
+                // 将ClipData内容放到系统剪贴板里。
+                cm.setPrimaryClip(mClipData);
+
+                Intent intent = mContext.getPackageManager().getLaunchIntentForPackage("com.taobao.taobao");
+                mContext.startActivity(intent);
 
             }
         });
