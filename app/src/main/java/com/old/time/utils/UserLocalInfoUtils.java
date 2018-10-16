@@ -51,6 +51,21 @@ public class UserLocalInfoUtils {
     }
 
     /**
+     * 是否是admin账户
+     *
+     * @return
+     */
+    public boolean isAdmin() {
+        if (mUserInfoBean == null) {
+
+            return false;
+        }
+
+        return "15093073252".equals(mUserInfoBean.getMobile());
+
+    }
+
+    /**
      * 设置用户信息
      *
      * @param mUserInfoBean

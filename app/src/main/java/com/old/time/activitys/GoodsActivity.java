@@ -1,12 +1,19 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.view.View;
+import android.widget.TextView;
+
 import com.lzy.okgo.model.HttpParams;
+import com.old.time.R;
 import com.old.time.adapters.GoodsAdapter;
 import com.old.time.beans.GoodsBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
@@ -15,6 +22,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GoodsActivity extends CBaseActivity {
+
+    /**
+     * 宝贝列表
+     *
+     * @param mContext
+     */
+    public static void startGoodsActivity(Activity mContext) {
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UserLoginActivity.startUserLoginActivity(mContext);
+
+            return;
+        }
+        Intent intent = new Intent(mContext, GoodsActivity.class);
+        ActivityUtils.startActivity(mContext, intent);
+
+    }
 
     private List<GoodsBean> goodsBeans = new ArrayList<>();
 
@@ -28,7 +51,14 @@ public class GoodsActivity extends CBaseActivity {
         adapter = new GoodsAdapter(goodsBeans);
         mRecyclerView.setAdapter(adapter);
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
+        setTitleText("宝贝列表");
 
+        if (!UserLocalInfoUtils.instance().isAdmin()) {
+            findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
+            TextView tv_send = findViewById(R.id.tv_send);
+            tv_send.setText("新建");
+
+        }
     }
 
     private int pageNum = 0;
