@@ -152,7 +152,9 @@
         <activity android:name=".activitys.TopicDetailActivity" />
         <activity android:name=".activitys.CreateActionActivity" />
         <activity android:name=".activitys.CreateActivity" />
-        <activity android:name=".activitys.CreateBannerActivity"></activity>
+        <activity android:name=".activitys.CreateBannerActivity" />
+        <activity android:name=".activitys.GoodsActivity" />
+        <activity android:name=".activitys.CreateGoodsActivity"></activity>
     </application>
 
 </manifest>

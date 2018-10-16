@@ -119,6 +119,17 @@ public class Constant {
     //获取活动列表
     public static final String GET_ACTION_LIST = BASE_TEST_URL + "action/getActionList";
 
+
+    /**
+     * 保存宝贝信息
+     */
+    public static final String INSERT_GOODS_INFO = BASE_TEST_URL + "goods/insertGoods";
+
+    /**
+     * 获取宝贝列表
+     */
+    public static final String GET_GOODS_LIST = BASE_TEST_URL + "goods/getGoodsList";
+
     /**
      * 添加活动
      */

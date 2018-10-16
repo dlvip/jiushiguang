@@ -244,7 +244,7 @@ public class BannerLayout extends FrameLayout {
                 //获取剪贴板管理器：
                 ClipboardManager cm = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
                 // 创建普通字符型ClipData
-                ClipData mClipData = ClipData.newPlainText("Label", "领券中心】http://m.tb.cn/h.3ih6tXE?sm=7952cf 点击链接，再选择浏览器咑閞；或復|制这段描述€e8OUbTkNATx€后到\uD83D\uDC49淘♂寳♀\uD83D\uDC48");
+                ClipData mClipData = ClipData.newPlainText("Label", "牧鹿男士衬衫长袖格子加绒加厚修身,这款衬衫采用经典的方领设计】，https://m.tb.cn/h.3iKF0Do?sm=340cf1 点击链接，再选择浏览器咑閞；或復·制这段描述￥DJK8bTsjCm5￥后咑閞\uD83D\uDC49淘♂寳♀\uD83D\uDC48");
                 // 将ClipData内容放到系统剪贴板里。
                 cm.setPrimaryClip(mClipData);
 
