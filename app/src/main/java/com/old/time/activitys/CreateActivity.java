@@ -45,6 +45,8 @@ public class CreateActivity extends CBaseActivity {
         createBeans.clear();
         createBeans.add(CreateBean.getInstance("添加活动", CreateActionActivity.class));
         createBeans.add(CreateBean.getInstance("添加轮播", CreateBannerActivity.class));
+        createBeans.add(CreateBean.getInstance("添加宝贝", CreateGoodsActivity.class));
+        createBeans.add(CreateBean.getInstance("显示宝贝", GoodsActivity.class));
         createBeans.add(CreateBean.getInstance("添加课程", null));
         createBeans.add(CreateBean.getInstance("添加章节", null));
 
@@ -59,12 +61,12 @@ public class CreateActivity extends CBaseActivity {
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if(position == 2){
+                if (position == createBeans.size() - 1) {
                     addCourse();
 
                     return;
                 }
-                if(position == 3){
+                if (position == createBeans.size() - 2) {
                     String string = StringUtils.getJson("courses.json", mContext);
                     try {
                         JSONObject jsonObject = new JSONObject(string);

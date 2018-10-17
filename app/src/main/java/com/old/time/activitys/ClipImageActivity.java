@@ -188,8 +188,13 @@ public class ClipImageActivity extends BaseActivity implements View.OnClickListe
                         }
                         setResult(Activity.RESULT_OK, getIntent());
                     } catch (Exception e) {
-                        UIHelper.ToastMessage(mContext, "图片保存失败");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                UIHelper.ToastMessage(mContext, "图片保存失败");
 
+                            }
+                        });
                     } finally {
                         IOUtils.close(fos);
 

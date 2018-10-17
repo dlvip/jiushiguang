@@ -22,5 +22,6 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, GoodsBean item) {
 
+
     }
 }
