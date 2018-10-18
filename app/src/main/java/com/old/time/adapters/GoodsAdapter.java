@@ -1,6 +1,10 @@
 package com.old.time.adapters;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -14,6 +18,7 @@ import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogInputBottom;
 import com.old.time.dialogs.DialogListManager;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
@@ -41,10 +46,17 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHolder> {
                 .setText(R.id.tv_goods_price, item.getPrice())//
                 .setText(R.id.tv_goods_go, item.getDetailStr());
 
-        helper.getConvertView().setOnClickListener(new View.OnClickListener() {
+        helper.getView(R.id.tv_goods_go).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                goodsDetail(item);
+
+            }
+        });
+        helper.getConvertView().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
                 if (UserLocalInfoUtils.instance().isAdmin()) {
                     showDialogInputBottom(item);
 
@@ -52,15 +64,44 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHolder> {
                     showDialogListManager(item);
 
                 }
+                return true;
             }
         });
         img_goods_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!"15093073252".equals(UserLocalInfoUtils.instance().getmUserInfoBean().getMobile())) {
 
+                    return;
+                }
+                GlideUtils.getInstance().downLoadBitmap(mContext, item.getPicKey(), new ImageDownLoadCallBack() {
+                    @Override
+                    public void onDownLoadSuccess(Bitmap bitmap) {
+                        UIHelper.ToastMessage(mContext, "下载成功");
 
+                    }
+                });
             }
         });
+    }
+
+    /**
+     * 商品详情
+     *
+     * @param mGoodsBean
+     */
+    private void goodsDetail(GoodsBean mGoodsBean) {
+        if (mGoodsBean == null || TextUtils.isEmpty(mGoodsBean.getDetailId())) {
+
+            return;
+        }
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri uri = Uri.parse("https://detail.tmall.com/item.htm?id=" + mGoodsBean.getDetailId()); // 商品地址
+        intent.setData(uri);
+        intent.setClassName("com.taobao.taobao", "com.taobao.tao.detail.activity.DetailActivity");
+        mContext.startActivity(intent);
+
     }
 
     private GoodsBean mGoodsBean;
@@ -102,7 +143,7 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHolder> {
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
         params.put("goodsId", goodsBean.getGoodsId());
         params.put("detailId", detailId);
-        OkGoUtils.getInstance().postNetForData(params, Constant.BASE_TEST_URL, new JsonCallBack<ResultBean<GoodsBean>>() {
+        OkGoUtils.getInstance().postNetForData(params, Constant.INSERT_GOODS_DETAIL_ID, new JsonCallBack<ResultBean<GoodsBean>>() {
             @Override
             public void onSuccess(ResultBean<GoodsBean> mResultBean) {
                 int position = getParentPosition(goodsBean);

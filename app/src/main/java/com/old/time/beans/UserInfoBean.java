@@ -27,6 +27,16 @@ public class UserInfoBean implements Serializable {
 
     private String vocation;
 
+    private int goodsCount;
+
+    public int getGoodsCount() {
+        return goodsCount;
+    }
+
+    public void setGoodsCount(int goodsCount) {
+        this.goodsCount = goodsCount;
+    }
+
     public String getId() {
         return id;
     }

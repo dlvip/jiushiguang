@@ -61,6 +61,13 @@ public class GoodsCActivity extends BaseCActivity {
         }
     }
 
+    @Override
+    public void save(View view) {
+        super.save(view);
+        CreateGoodsActivity.startCreateGoodsActivity(mContext);
+
+    }
+
     private int pageNum = 0;
 
     @Override
@@ -76,7 +83,16 @@ public class GoodsCActivity extends BaseCActivity {
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
         params.put("pageNum", pageNum);
         params.put("pageSize", Constant.PageSize);
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_GOODS_LIST, new JsonCallBack<ResultBean<List<GoodsBean>>>() {
+        String url;
+        if ("15093073252".equals(UserLocalInfoUtils.instance().getmUserInfoBean().getMobile())) {
+            url = Constant.GET_ADMIN_GOODS_LIST;
+            params.put("isDispose", "0");
+
+        } else {
+            url = Constant.GET_GOODS_LIST;
+
+        }
+        OkGoUtils.getInstance().postNetForData(params, url, new JsonCallBack<ResultBean<List<GoodsBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<GoodsBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);

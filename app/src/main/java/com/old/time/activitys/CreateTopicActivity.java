@@ -42,6 +42,7 @@ public class CreateTopicActivity extends BaseActivity {
     @Override
     protected void initView() {
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
+        findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
         setTitleText("提问");
         edt_topic_title = findViewById(R.id.edt_topic_title);
         edt_topic_detail = findViewById(R.id.edt_topic_detail);
@@ -53,6 +54,7 @@ public class CreateTopicActivity extends BaseActivity {
     public void save(View view) {
         super.save(view);
         createTopic();
+
     }
 
     private ProgressDialog pd;

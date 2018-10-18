@@ -1,5 +1,6 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.UploadImagesCallBack;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.FileUtils;
 import com.old.time.utils.PictureUtil;
@@ -29,6 +31,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateGoodsActivity extends BaseActivity {
+
+    public static void startCreateGoodsActivity(Activity mContext) {
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UserLoginActivity.startUserLoginActivity(mContext);
+
+            return;
+        }
+        Intent intent = new Intent(mContext, CreateGoodsActivity.class);
+        ActivityUtils.startActivity(mContext, intent);
+
+    }
 
     @Override
     protected void initView() {

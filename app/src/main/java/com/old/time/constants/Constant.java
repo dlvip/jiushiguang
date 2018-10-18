@@ -126,9 +126,24 @@ public class Constant {
     public static final String INSERT_GOODS_INFO = BASE_TEST_URL + "goods/insertGoods";
 
     /**
+     * 获取宝贝用户
+     */
+    public static final String INSERT_GOODS_USER = BASE_TEST_URL + "goods/getGoodsEntityUser";
+
+    /**
+     * 设置宝贝详情
+     */
+    public static final String INSERT_GOODS_DETAIL_ID = BASE_TEST_URL + "goods/updateGoodsEntityDetailId";
+
+    /**
      * 获取宝贝列表
      */
     public static final String GET_GOODS_LIST = BASE_TEST_URL + "goods/getGoodsList";
+
+    /**
+     * 管理员获取宝贝
+     */
+    public static final String GET_ADMIN_GOODS_LIST = BASE_TEST_URL + "goods/getGoodsListByAdmin";
 
     /**
      * 添加活动

@@ -9,14 +9,17 @@
     android:paddingTop="@dimen/layout_5">
 
     <EditText
+        android:id="@+id/edt_search_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/shape_radius0_stroke_line_bgfff"
-        android:hint="@string/title"
+        android:hint="请输入用户手机号"
+        android:inputType="phone"
         android:textColor="@color/color_000"
         android:textSize="@dimen/text_14" />
 
     <TextView
+        android:id="@+id/tv_search_go"
         android:layout_width="@dimen/layout_60"
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
