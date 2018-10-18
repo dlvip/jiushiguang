@@ -1,6 +1,7 @@
 package com.old.time.dialogs;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,8 +19,8 @@ public class DialogInputBottom extends BaseDialog {
 
     private OnClickManagerCallBack mOnClickManagerCallBack;
 
-    public DialogInputBottom(@NonNull Activity context, OnClickManagerCallBack mOnClickManagerCallBack) {
-        super(context, R.style.dialog_setting_edt);
+    public DialogInputBottom(@NonNull Context context, OnClickManagerCallBack mOnClickManagerCallBack) {
+        super((Activity) context, R.style.dialog_setting_edt);
         this.mOnClickManagerCallBack = mOnClickManagerCallBack;
 
     }

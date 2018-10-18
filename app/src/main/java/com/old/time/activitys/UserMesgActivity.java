@@ -17,7 +17,6 @@ import com.old.time.beans.ResultBean;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
-import com.old.time.constants.Key;
 import com.old.time.dialogs.DialogChoseAddress;
 import com.old.time.dialogs.DialogInputBottom;
 import com.old.time.glideUtils.GlideUtils;
@@ -28,9 +27,7 @@ import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.FileUtils;
-import com.old.time.utils.NetworkUtil;
 import com.old.time.utils.PictureUtil;
-import com.old.time.utils.SpUtils;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 
