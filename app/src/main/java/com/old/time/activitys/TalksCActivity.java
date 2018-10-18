@@ -10,10 +10,10 @@ import com.old.time.adapters.TalkAdapter;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
-public class TalksActivity extends CBaseActivity {
+public class TalksCActivity extends BaseCActivity {
 
     public static void startTalksActivity(Context mContext) {
-        Intent intent = new Intent(mContext, TalksActivity.class);
+        Intent intent = new Intent(mContext, TalksCActivity.class);
         ActivityUtils.startActivity((Activity) mContext, intent);
 
     }

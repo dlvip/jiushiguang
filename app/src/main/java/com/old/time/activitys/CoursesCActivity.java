@@ -21,10 +21,10 @@ import com.old.time.views.CustomNetView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoursesActivity extends CBaseActivity {
+public class CoursesCActivity extends BaseCActivity {
 
     public static void startCoursesActivity(Activity mContext) {
-        Intent intent = new Intent(mContext, CoursesActivity.class);
+        Intent intent = new Intent(mContext, CoursesCActivity.class);
         ActivityUtils.startActivity(mContext, intent);
 
     }

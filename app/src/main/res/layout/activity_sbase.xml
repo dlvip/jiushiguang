@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg"
     android:orientation="vertical"
-    tools:context="com.old.time.activitys.SBaseActivity">
+    tools:context="com.old.time.activitys.BaseSActivity">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"

@@ -8,7 +8,7 @@ import com.old.time.utils.ActivityUtils;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class DownLoadActivity extends CBaseActivity {
+public class DownLoadCActivity extends BaseCActivity {
 
     public static void startDownLoadActivity(Context mContext) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext, WRITE_EXTERNAL_STORAGE)) {
@@ -16,7 +16,7 @@ public class DownLoadActivity extends CBaseActivity {
             return;
         }
 
-        Intent intent = new Intent(mContext, DownLoadActivity.class);
+        Intent intent = new Intent(mContext, DownLoadCActivity.class);
         ActivityUtils.startActivity((Activity) mContext, intent);
 
     }

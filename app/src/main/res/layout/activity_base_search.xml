@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.old.time.activitys.BaseCActivity">
 
-    <include layout="@layout/header_main" />
+    <include layout="@layout/header_base_search" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"

@@ -24,7 +24,7 @@ import java.util.List;
  * Created by NING on 2018/3/22.
  */
 
-public abstract class SBaseActivity extends BaseActivity {
+public abstract class BaseSActivity extends BaseActivity {
 
     public BaseActivity mContext;
 

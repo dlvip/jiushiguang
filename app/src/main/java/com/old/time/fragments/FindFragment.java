@@ -1,6 +1,5 @@
 package com.old.time.fragments;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
@@ -16,9 +15,8 @@ import com.dueeeke.videoplayer.demo.VideoBean;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
-import com.old.time.activitys.TopicsActivity;
-import com.old.time.activitys.VideoPagerActivity;
-import com.old.time.activitys.VideosActivity;
+import com.old.time.activitys.TopicsCActivity;
+import com.old.time.activitys.VideosCActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.TopicAdapter;
 import com.old.time.adapters.VideoFindAdapter;
@@ -29,7 +27,6 @@ import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
-import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
@@ -94,14 +91,14 @@ public class FindFragment extends CBaseFragment {
 
             @Override
             public void onClick(View v) {
-                TopicsActivity.startTopicsActivity(mContext);
+                TopicsCActivity.startTopicsActivity(mContext);
 
             }
         });
         headerView.findViewById(R.id.linear_layout_find_video).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                VideosActivity.startVideosActivity(mContext);
+                VideosCActivity.startVideosActivity(mContext);
 
             }
         });

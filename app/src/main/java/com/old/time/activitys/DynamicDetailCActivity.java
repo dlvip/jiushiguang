@@ -12,13 +12,12 @@ import com.old.time.beans.CommentBean;
 import com.old.time.beans.DynamicBean;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
-import com.old.time.views.ExpandableTextView;
 import com.old.time.views.NineImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DynamicDetailActivity extends CBaseActivity {
+public class DynamicDetailCActivity extends BaseCActivity {
 
     public static final String DYNAMIC_BEAN = "mDynamicBean";
 
@@ -28,7 +27,7 @@ public class DynamicDetailActivity extends CBaseActivity {
      * @param mContext
      */
     public static void startDynamicDetailActivity(Activity mContext, DynamicBean mDynamicBean) {
-        Intent intent = new Intent(mContext, DynamicDetailActivity.class);
+        Intent intent = new Intent(mContext, DynamicDetailCActivity.class);
         intent.putExtra(DYNAMIC_BEAN, mDynamicBean);
         ActivityUtils.startActivity(mContext, intent);
 
