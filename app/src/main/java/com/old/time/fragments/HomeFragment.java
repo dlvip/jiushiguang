@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.old.time.R;
-import com.old.time.activitys.CoursesActivity;
-import com.old.time.activitys.MusicsActivity;
+import com.old.time.activitys.CoursesCActivity;
+import com.old.time.activitys.MusicsCActivity;
 import com.old.time.adapters.EmptyAdapter;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
@@ -104,7 +104,7 @@ public class HomeFragment extends CBaseFragment {
         include_course.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CoursesActivity.startCoursesActivity(mContext);
+                CoursesCActivity.startCoursesActivity(mContext);
 
             }
         });
@@ -121,7 +121,7 @@ public class HomeFragment extends CBaseFragment {
         include_music.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicsActivity.startMusicsActivity(mContext);
+                MusicsCActivity.startMusicsActivity(mContext);
 
             }
         });

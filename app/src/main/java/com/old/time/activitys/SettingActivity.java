@@ -1,30 +1,16 @@
 package com.old.time.activitys;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.lzy.okgo.model.HttpParams;
 import com.old.time.BuildConfig;
 import com.old.time.R;
-import com.old.time.beans.CourseBean;
-import com.old.time.beans.ResultBean;
-import com.old.time.constants.Constant;
-import com.old.time.okhttps.JsonCallBack;
-import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DataCleanManager;
-import com.old.time.utils.DebugLog;
 import com.old.time.utils.StringUtils;
-import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class SettingActivity extends BaseActivity {
 
@@ -74,7 +60,7 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.relative_layout_opinion:
-                DownLoadActivity.startDownLoadActivity(mContext);
+                DownLoadCActivity.startDownLoadActivity(mContext);
 
                 break;
             case R.id.relative_layout_about:
@@ -87,7 +73,7 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.tv_more:
-                CreateActivity.startCreateActivity(mContext);
+                CreateCActivity.startCreateActivity(mContext);
 
                 break;
 

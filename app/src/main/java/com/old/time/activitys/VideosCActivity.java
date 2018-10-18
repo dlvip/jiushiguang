@@ -12,10 +12,10 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 
-public class VideosActivity extends CBaseActivity {
+public class VideosCActivity extends BaseCActivity {
 
     public static void startVideosActivity(Context mContext) {
-        Intent intent = new Intent(mContext, VideosActivity.class);
+        Intent intent = new Intent(mContext, VideosCActivity.class);
         ActivityUtils.startActivity((Activity) mContext, intent);
 
     }

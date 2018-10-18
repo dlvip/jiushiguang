@@ -1,7 +1,6 @@
 package com.old.time.activitys;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,14 +10,12 @@ import com.old.time.adapters.PicsManageAdapter;
 import com.old.time.beans.PicsManageBean;
 import com.old.time.constants.Code;
 import com.old.time.utils.MyGridLayoutManager;
-import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
-import com.old.time.views.SuspensionPopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PicsManageActivity extends CBaseActivity {
+public class PicsManageCActivity extends BaseCActivity {
 
     private PicsManageAdapter mAdapter;
     private List<PicsManageBean> mPicsManageBeans = new ArrayList<>();

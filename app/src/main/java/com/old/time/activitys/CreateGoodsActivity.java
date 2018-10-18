@@ -23,6 +23,7 @@ import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.FileUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +78,7 @@ public class CreateGoodsActivity extends BaseActivity {
 
                     return;
                 }
-                GlideUtils.getInstance().setRoundImageView(mContext, outputPath, img_goods_pic);
+                GlideUtils.getInstance().setImageViewWH(mContext, outputPath, img_goods_pic, UIHelper.dip2px(150));
                 picPaths.clear();
                 picPaths.add(outputPath);
 
@@ -134,6 +135,7 @@ public class CreateGoodsActivity extends BaseActivity {
         edtGoodsTitleStr = tv_goods_title.getText().toString().trim();
         edtGoodsPriceStr = tv_goods_price.getText().toString().trim();
         HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
         params.put("picKey", picKey);
         params.put("title", edtGoodsTitleStr);
         params.put("price", edtGoodsPriceStr);

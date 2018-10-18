@@ -27,7 +27,7 @@ import com.old.time.views.SuspensionPopupWindow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DynamicActivity extends SBaseActivity {
+public class DynamicSActivity extends BaseSActivity {
 
     private List<DynamicBean> mDynamicBeans = new ArrayList<>();
     private DynamicAdapter mAdapter;
@@ -51,7 +51,7 @@ public class DynamicActivity extends SBaseActivity {
             userId = UserLocalInfoUtils.instance().getUserId();
 
         }
-        Intent intent = new Intent(mContext, DynamicActivity.class);
+        Intent intent = new Intent(mContext, DynamicSActivity.class);
         intent.putExtra(USER_ID, userId);
         ActivityUtils.startActivity(mContext, intent);
 

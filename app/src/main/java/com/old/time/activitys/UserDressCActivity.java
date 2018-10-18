@@ -7,7 +7,7 @@ import com.old.time.R;
 import com.old.time.adapters.UserDressAdapter;
 import com.old.time.utils.RecyclerItemDecoration;
 
-public class UserDressActivity extends CBaseActivity {
+public class UserDressCActivity extends BaseCActivity {
 
     private UserDressAdapter mAdapter;
 

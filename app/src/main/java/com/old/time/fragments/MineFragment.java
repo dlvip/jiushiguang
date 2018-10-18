@@ -13,14 +13,13 @@ import android.widget.TextView;
 import com.google.zxing.activity.CaptureActivity;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
-import com.old.time.activitys.CreateActionActivity;
-import com.old.time.activitys.PicsManageActivity;
+import com.old.time.activitys.PicsManageCActivity;
 import com.old.time.activitys.SettingActivity;
-import com.old.time.activitys.UserDressActivity;
+import com.old.time.activitys.UserDressCActivity;
 import com.old.time.activitys.UserLoginActivity;
 import com.old.time.activitys.UserMesgActivity;
-import com.old.time.activitys.SystemMsgActivity;
-import com.old.time.activitys.UserOrderActivity;
+import com.old.time.activitys.SystemMsgCActivity;
+import com.old.time.activitys.UserOrderCActivity;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
@@ -29,14 +28,8 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DebugLog;
-import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Created by NING on 2018/3/5.
@@ -167,19 +160,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.relative_layout_message:
-                intent = new Intent(mContext, SystemMsgActivity.class);
+                intent = new Intent(mContext, SystemMsgCActivity.class);
 
                 break;
             case R.id.relative_layout_order:
-                intent = new Intent(mContext, UserOrderActivity.class);
+                intent = new Intent(mContext, UserOrderCActivity.class);
 
                 break;
             case R.id.relative_layout_pics:
-                intent = new Intent(mContext, PicsManageActivity.class);
+                intent = new Intent(mContext, PicsManageCActivity.class);
 
                 break;
             case R.id.relative_layout_dress:
-                intent = new Intent(mContext, UserDressActivity.class);
+                intent = new Intent(mContext, UserDressCActivity.class);
 
                 break;
             case R.id.relative_layout_setting:

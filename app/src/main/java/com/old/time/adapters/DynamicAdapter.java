@@ -8,8 +8,8 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
-import com.old.time.activitys.DynamicActivity;
-import com.old.time.activitys.DynamicDetailActivity;
+import com.old.time.activitys.DynamicSActivity;
+import com.old.time.activitys.DynamicDetailCActivity;
 import com.old.time.beans.DynamicBean;
 import com.old.time.views.ExpandableTextView;
 import com.old.time.views.NineImageView;
@@ -75,14 +75,14 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
         helper.getView(R.id.img_user_header).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DynamicActivity.startDynamicActivity((Activity) mContext, "");
+                DynamicSActivity.startDynamicActivity((Activity) mContext, "");
 
             }
         });
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DynamicDetailActivity.startDynamicDetailActivity((Activity) mContext, item);
+                DynamicDetailCActivity.startDynamicDetailActivity((Activity) mContext, item);
 
             }
         });

@@ -19,7 +19,7 @@ import com.old.time.views.SuspensionPopupWindow;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class CBaseActivity extends BaseActivity {
+public abstract class BaseSearchActivity extends BaseActivity {
 
     public BaseActivity mContext;
 
@@ -50,18 +50,12 @@ public abstract class CBaseActivity extends BaseActivity {
     public List<String> strings = new ArrayList<>();
 
     @Override
-    protected int getLayoutID() {
-        return R.layout.activity_cbase;
-    }
-
-    @Override
     protected void initView() {
         mContext = this;
         for (int i = 0; i < 10; i++) {
             strings.add(TAG);
 
         }
-        findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         linear_layout_more = findViewById(R.id.linear_layout_more);
         layoutParams = (LinearLayout.LayoutParams) linear_layout_more.getLayoutParams();
         layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -88,6 +82,11 @@ public abstract class CBaseActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected int getLayoutID() {
+        return R.layout.activity_base_search;
     }
 
     /**
@@ -155,5 +154,4 @@ public abstract class CBaseActivity extends BaseActivity {
 
 
     public abstract void getDataFromNet(boolean isRefresh);
-
 }

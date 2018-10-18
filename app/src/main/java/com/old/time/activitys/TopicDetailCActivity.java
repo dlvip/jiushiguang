@@ -28,7 +28,7 @@ import com.old.time.views.CustomNetView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopicDetailActivity extends CBaseActivity {
+public class TopicDetailCActivity extends BaseCActivity {
 
     public static final String TOPIC_BEAN = "TopicBean";
 
@@ -38,7 +38,7 @@ public class TopicDetailActivity extends CBaseActivity {
      * @param mContext
      */
     public static void startTopicDetailActivity(Activity mContext, TopicBean mTopicBean) {
-        Intent intent = new Intent(mContext, TopicDetailActivity.class);
+        Intent intent = new Intent(mContext, TopicDetailCActivity.class);
         intent.putExtra(TOPIC_BEAN, mTopicBean);
         ActivityUtils.startActivity(mContext, intent);
 

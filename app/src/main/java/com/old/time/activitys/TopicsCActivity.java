@@ -22,7 +22,7 @@ import com.old.time.views.CustomNetView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopicsActivity extends CBaseActivity {
+public class TopicsCActivity extends BaseCActivity {
 
     /**
      * 话题列表
@@ -30,7 +30,7 @@ public class TopicsActivity extends CBaseActivity {
      * @param mContext
      */
     public static void startTopicsActivity(Activity mContext) {
-        Intent intent = new Intent(mContext, TopicsActivity.class);
+        Intent intent = new Intent(mContext, TopicsCActivity.class);
         ActivityUtils.startActivity(mContext, intent);
 
     }

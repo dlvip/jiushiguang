@@ -21,7 +21,7 @@ import com.old.time.views.CustomNetView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoodsActivity extends CBaseActivity {
+public class GoodsCActivity extends BaseCActivity {
 
     /**
      * 宝贝列表
@@ -34,7 +34,7 @@ public class GoodsActivity extends CBaseActivity {
 
             return;
         }
-        Intent intent = new Intent(mContext, GoodsActivity.class);
+        Intent intent = new Intent(mContext, GoodsCActivity.class);
         ActivityUtils.startActivity(mContext, intent);
 
     }

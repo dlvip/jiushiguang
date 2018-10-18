@@ -3,30 +3,30 @@ package com.old.time.activitys;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.old.time.adapters.UserOrderAdapter;
+import com.old.time.adapters.SystemMsgAdapter;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
-public class UserOrderActivity extends CBaseActivity {
+public class SystemMsgCActivity extends BaseCActivity {
 
     /**
-     * 我的订单管理
+     * 消息通知
      *
      * @param mContext
      */
-    public static void startUserOrderActivity(Activity mContext) {
-        Intent intent = new Intent(mContext, UserOrderActivity.class);
+    public static void startUserMsgActivity(Activity mContext) {
+        Intent intent = new Intent(mContext, SystemMsgCActivity.class);
         ActivityUtils.startActivity(mContext, intent);
 
     }
 
-    private UserOrderAdapter mAdapter;
+    private SystemMsgAdapter mAdapter;
 
     @Override
     protected void initView() {
         super.initView();
-        setTitleText("订单管理");
-        mAdapter = new UserOrderAdapter(strings);
+        setTitleText("消息通知");
+        mAdapter = new SystemMsgAdapter(strings);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mAdapter);
 
@@ -36,6 +36,6 @@ public class UserOrderActivity extends CBaseActivity {
     public void getDataFromNet(boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
 
-
     }
+
 }
