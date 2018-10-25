@@ -202,7 +202,7 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     public void play() throws RemoteException {
         DebugLog.d(TAG, "play");
         if (mChapterBeans == null || mChapterBeans.size() == 0) {
-            String alumId = SpUtils.getObject(SP_PLAY_ALBUM_ID);
+            String alumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
             mChapterBeans = DataUtils.getModelBeans(alumId, mContext);
             if (mChapterBeans != null && mChapterBeans.size() > 0) {
                 play();
@@ -384,6 +384,8 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
             mIOnModelChangedListeners.finishBroadcast();
         }
     }
+
+    public static final String DEFAULT_ALBUM_ID = "289105";
 
     /**
      * 播放记录

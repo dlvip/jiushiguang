@@ -148,7 +148,7 @@ public class PlayMusicBottomView extends LinearLayout {
             @Override
             public void onServiceConnected() {
                 mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
-                albumId = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID);
+                albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
                 position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
                 if (!TextUtils.isEmpty(albumId)) {
                     List<ChapterBean> chapterBeans = DataUtils.getModelBeans(albumId, mContext);

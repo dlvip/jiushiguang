@@ -32,6 +32,7 @@ import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
+import com.old.time.views.CustomNetView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,7 @@ public class FindFragment extends CBaseFragment {
     private RecyclerView recycler_view_video;
 
     private BaseQuickAdapter<ActionBean, BaseViewHolder> mAdapter;
+    private CustomNetView mCustomNetView;
     private List<ActionBean> actionBeans;
 
     private TextView tv_talk_title;
@@ -102,6 +104,7 @@ public class FindFragment extends CBaseFragment {
 
             }
         });
+        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
 
         mAdapter.addHeaderView(headerView);
         mRecyclerView.setAdapter(mAdapter);
@@ -114,15 +117,28 @@ public class FindFragment extends CBaseFragment {
 
             }
         });
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                getDataFromNet(false);
+
+            }
+        }, mRecyclerView);
     }
 
     private int pageNum = 0;
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        getTopicList();
+        if (isRefresh) {
+            getTopicList();
+            pageNum = 0;
+
+        } else {
+            pageNum++;
+
+        }
         HttpParams params = new HttpParams();
-        params.put("userId", UserLocalInfoUtils.instance().getUserId());
         params.put("pageNum", pageNum);
         params.put("pageSize", Constant.PageSize);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_ACTION_LIST, new JsonCallBack<ResultBean<List<ActionBean>>>() {
@@ -134,12 +150,17 @@ public class FindFragment extends CBaseFragment {
                     mAdapter.setNewData(actionBeans);
 
                 }
-                if (mResultBean.status == Constant.STATUS_FRIEND_00) {
-                    actionBeans.addAll(mResultBean.data);
-                    mAdapter.setNewData(actionBeans);
+                if (mResultBean.data.size() < Constant.PageSize) {
+                    mAdapter.loadMoreEnd();
 
                 } else {
-                    UIHelper.ToastMessage(mContext, mResultBean.msg);
+                    mAdapter.loadMoreComplete();
+
+                }
+                mAdapter.addData(mResultBean.data);
+                if (mAdapter.getItemCount() - mAdapter.getHeaderLayoutCount() == 0) {
+                    mCustomNetView.setDataForView(CustomNetView.NO_DATA);
+                    mAdapter.setEmptyView(mCustomNetView);
 
                 }
             }
@@ -158,9 +179,8 @@ public class FindFragment extends CBaseFragment {
      */
     private void getTopicList() {
         HttpParams params = new HttpParams();
-        params.put("userId", UserLocalInfoUtils.instance().getUserId());
         params.put("pageNum", "0");
-        params.put("pageSize", "5");
+        params.put("pageSize", "3");
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_TOPIC_LIST, new JsonCallBack<ResultBean<List<TopicBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<TopicBean>> mResultBean) {

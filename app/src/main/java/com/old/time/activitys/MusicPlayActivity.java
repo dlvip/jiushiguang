@@ -17,6 +17,7 @@ import com.old.time.R;
 import com.old.time.aidl.OnModelChangedListener;
 import com.old.time.aidl.PlayServiceIBinder;
 import com.old.time.beans.CourseBean;
+import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogChapterList;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
@@ -137,9 +138,9 @@ public class MusicPlayActivity extends BaseActivity {
             @Override
             public void onServiceConnected() {
                 mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
-                albumId = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID);
+                albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
                 if (TextUtils.isEmpty(albumId) || (mCourseBean != null && !albumId.equals(mCourseBean.albumId))) {
-                    SpUtils.setObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID, mCourseBean.albumId);
+                    SpUtils.put(PlayServiceIBinder.SP_PLAY_ALBUM_ID, mCourseBean.albumId);
                     List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
                     mPlayServiceConnection.setStartList(chapterBeans, 0);
 

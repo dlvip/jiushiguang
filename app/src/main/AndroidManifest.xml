@@ -156,7 +156,8 @@
         <activity android:name=".activitys.GoodsCActivity" />
         <activity android:name=".activitys.CreateGoodsActivity" />
         <activity android:name=".activitys.SearchActivity" />
-        <activity android:name=".activitys.BaseSearchActivity"></activity>
+        <activity android:name=".activitys.BaseSearchActivity" />
+        <activity android:name=".activitys.FArticleActivity"></activity>
     </application>
 
 </manifest>

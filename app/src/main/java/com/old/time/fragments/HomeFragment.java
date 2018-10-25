@@ -8,8 +8,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.CoursesCActivity;
+import com.old.time.activitys.FArticleActivity;
 import com.old.time.activitys.MusicsCActivity;
 import com.old.time.adapters.EmptyAdapter;
 import com.old.time.adapters.HCourseAdapter;
@@ -138,7 +140,7 @@ public class HomeFragment extends CBaseFragment {
         include_article.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FArticleActivity.startFArticleActivity(mContext);
 
             }
         });
@@ -167,7 +169,10 @@ public class HomeFragment extends CBaseFragment {
      * @param isRefresh
      */
     private void getHomeArticles(final boolean isRefresh) {
-        OkGoUtils.getInstance().postNetForData(null, Constant.GET_ARTICLE_LIST, new JsonCallBack<ResultBean<List<ArticleBean>>>() {
+        HttpParams params = new HttpParams();
+        params.put("pageNum", 0);
+        params.put("pageSize", 5);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_ARTICLE_LIST, new JsonCallBack<ResultBean<List<ArticleBean>>>() {
 
             @Override
             public void onSuccess(ResultBean<List<ArticleBean>> mResultBean) {
@@ -205,7 +210,10 @@ public class HomeFragment extends CBaseFragment {
      * 获取轮播图列表
      */
     private void getHomeBanners() {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_HOME_BANNERS, new JsonCallBack<ResultBean<List<BannerBean>>>() {
+        HttpParams params = new HttpParams();
+        params.put("pageNum", 0);
+        params.put("pageSize", 5);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_HOME_BANNERS, new JsonCallBack<ResultBean<List<BannerBean>>>() {
 
             @Override
             public void onSuccess(ResultBean<List<BannerBean>> resultBean) {
@@ -236,7 +244,10 @@ public class HomeFragment extends CBaseFragment {
      * @param isRefresh
      */
     private void getHomeIcons(final boolean isRefresh) {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_HOME_ICONS, new JsonCallBack<ResultBean<List<IconBean>>>() {
+        HttpParams params = new HttpParams();
+        params.put("pageNum", 0);
+        params.put("pageSize", 5);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_HOME_ICONS, new JsonCallBack<ResultBean<List<IconBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<IconBean>> mResultBean) {
                 if (isRefresh) {
@@ -273,7 +284,10 @@ public class HomeFragment extends CBaseFragment {
      * 精品课堂
      */
     private void getHomeCourses(final boolean isRefresh) {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_HOME_COURSES, new JsonCallBack<ResultBean<List<CourseBean>>>() {
+        HttpParams params = new HttpParams();
+        params.put("pageNum", 0);
+        params.put("pageSize", 10);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_HOME_COURSES, new JsonCallBack<ResultBean<List<CourseBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<CourseBean>> mResultBean) {
                 if (isRefresh) {
@@ -303,7 +317,10 @@ public class HomeFragment extends CBaseFragment {
      * 获取名师优讲
      */
     private void getHomeTeachers(final boolean isRefresh) {
-        OkGoUtils.getInstance().postNetForData(Constant.GET_HONE_TEACHERS, new JsonCallBack<ResultBean<List<TeacherBean>>>() {
+        HttpParams params = new HttpParams();
+        params.put("pageNum", 0);
+        params.put("pageSize", 5);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_HONE_TEACHERS, new JsonCallBack<ResultBean<List<TeacherBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<TeacherBean>> mResultBean) {
                 if (isRefresh) {
