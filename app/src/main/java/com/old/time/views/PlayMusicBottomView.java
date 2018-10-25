@@ -22,6 +22,7 @@ import com.old.time.aidl.OnModelChangedListener;
 import com.old.time.aidl.PlayServiceIBinder;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.service.PlayServiceConnection;
+import com.old.time.service.manager.PlayNotifyManager;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.utils.DataUtils;
 import com.old.time.utils.SpUtils;
@@ -74,6 +75,7 @@ public class PlayMusicBottomView extends LinearLayout {
         rotateAnim.setRepeatCount(ValueAnimator.INFINITE);
         rotateAnim.setInterpolator(new LinearInterpolator());
         rotateAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 float value = (float) animation.getAnimatedValue();
@@ -103,6 +105,7 @@ public class PlayMusicBottomView extends LinearLayout {
     private OnModelChangedListener onModelChangedListener;
     private PlayServiceConnection mPlayServiceConnection;
     private PlayServiceManager mPlayServiceManager;
+    private PlayNotifyManager playNotifyManager;
     private String albumId;
     private int position;
 
@@ -142,13 +145,14 @@ public class PlayMusicBottomView extends LinearLayout {
 
             }
         };
-
+        playNotifyManager = PlayNotifyManager.getInstance(mContext);
         mPlayServiceManager = new PlayServiceManager(mContext);
-        mPlayServiceConnection = new PlayServiceConnection(mContext, new PlayServiceConnection.OnServiceConnectedListener() {
+        mPlayServiceConnection = new PlayServiceConnection(new PlayServiceConnection.OnServiceConnectedListener() {
             @Override
             public void onServiceConnected() {
+                mPlayServiceConnection.registerIOnModelChangedListener(playNotifyManager);
                 mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
-                albumId = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID);
+                albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
                 position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
                 if (!TextUtils.isEmpty(albumId)) {
                     List<ChapterBean> chapterBeans = DataUtils.getModelBeans(albumId, mContext);
@@ -161,6 +165,7 @@ public class PlayMusicBottomView extends LinearLayout {
 
             @Override
             public void onServiceDisconnected() {
+                mPlayServiceConnection.unregisterIOnModelChangedListener(playNotifyManager);
                 mPlayServiceConnection.unregisterIOnModelChangedListener(onModelChangedListener);
 
             }

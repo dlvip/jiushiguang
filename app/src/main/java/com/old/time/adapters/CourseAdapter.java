@@ -1,5 +1,6 @@
 package com.old.time.adapters;
 
+import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
+import com.old.time.activitys.MusicDetailActivity;
 import com.old.time.activitys.MusicPlayActivity;
 import com.old.time.beans.CourseBean;
 import com.old.time.glideUtils.GlideUtils;
@@ -34,7 +36,7 @@ public class CourseAdapter extends BaseQuickAdapter<CourseBean, BaseViewHolder> 
             @Override
             public void onClick(View v) {
                 CourseBean mCourseBean = getItem(position);
-                MusicPlayActivity.startMusicPlayActivity(mContext, mCourseBean);
+                MusicDetailActivity.startMusicDetailActivity((Activity) mContext, mCourseBean);
 
             }
         });

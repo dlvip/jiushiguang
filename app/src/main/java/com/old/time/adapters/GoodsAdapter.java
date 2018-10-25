@@ -74,7 +74,7 @@ public class GoodsAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHolder> {
 
                     return;
                 }
-                GlideUtils.getInstance().downLoadBitmap(mContext, item.getPicKey(), new ImageDownLoadCallBack() {
+                GlideUtils.getInstance().downLoadBitmap(mContext, item.getPicKey(), 0, new ImageDownLoadCallBack() {
                     @Override
                     public void onDownLoadSuccess(Bitmap bitmap) {
                         UIHelper.ToastMessage(mContext, "下载成功");

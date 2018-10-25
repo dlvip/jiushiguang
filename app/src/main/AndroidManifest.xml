@@ -136,12 +136,9 @@
         <activity
             android:name=".activitys.VideoDetailActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden" />
-        <activity
-            android:name=".activitys.MusicActivity"
-            android:launchMode="singleTask" />
         <activity android:name=".activitys.TopicsCActivity" />
         <activity android:name=".activitys.CoursesCActivity" />
-        <activity android:name=".activitys.MusicsCActivity" />
+        <activity android:name=".activitys.MusicsUsersActivity" />
         <activity android:name=".activitys.VideoPagerActivity" />
         <activity android:name=".activitys.TalksCActivity" />
         <activity android:name=".activitys.VideosCActivity" />
@@ -156,8 +153,9 @@
         <activity android:name=".activitys.GoodsCActivity" />
         <activity android:name=".activitys.CreateGoodsActivity" />
         <activity android:name=".activitys.SearchActivity" />
-        <activity android:name=".activitys.BaseSearchActivity" />
-        <activity android:name=".activitys.ArticleActivity"></activity>
+        <activity android:name=".activitys.ArticleActivity"/>
+        <activity android:name=".activitys.FArticleActivity" />
+        <activity android:name=".activitys.MusicDetailActivity"/>
     </application>
 
 </manifest>

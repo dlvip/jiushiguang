@@ -1,6 +1,5 @@
 package com.old.time.service;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
@@ -32,14 +31,10 @@ public class PlayServiceConnection implements ServiceConnection {
 
     private static final String TAG = "PlayServiceConnection";
 
-    private Activity mContext;
-
-
     private OnServiceConnectedListener onServiceConnectedListener;
     private IPlayControlAidlInterface iPlayControlAidlInterface;
 
-    public PlayServiceConnection(Activity mContext, OnServiceConnectedListener onServiceConnectedListener) {
-        this.mContext = mContext;
+    public PlayServiceConnection(OnServiceConnectedListener onServiceConnectedListener) {
         this.onServiceConnectedListener = onServiceConnectedListener;
 
     }

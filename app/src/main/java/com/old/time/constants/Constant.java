@@ -1,7 +1,5 @@
 package com.old.time.constants;
 
-import com.old.time.utils.StringUtils;
-
 /**
  * Created by NING on 2018/3/5.
  */
@@ -116,9 +114,10 @@ public class Constant {
      */
     public static final String GET_COMMENT_LIST = BASE_TEST_URL + "comment/getCommentList";
 
-    //获取活动列表
+    /**
+     * 获取活动列表
+     */
     public static final String GET_ACTION_LIST = BASE_TEST_URL + "action/getActionList";
-
 
     /**
      * 保存宝贝信息

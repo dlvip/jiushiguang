@@ -133,13 +133,13 @@ public class MusicPlayActivity extends BaseActivity {
         };
 
         mPlayServiceManager = new PlayServiceManager(mContext);
-        mPlayServiceConnection = new PlayServiceConnection(mContext, new PlayServiceConnection.OnServiceConnectedListener() {
+        mPlayServiceConnection = new PlayServiceConnection(new PlayServiceConnection.OnServiceConnectedListener() {
             @Override
             public void onServiceConnected() {
                 mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
-                albumId = SpUtils.getObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID);
-                if (TextUtils.isEmpty(albumId) || (mCourseBean != null && !albumId.equals(mCourseBean.albumId))) {
-                    SpUtils.setObject(PlayServiceIBinder.SP_PLAY_ALBUM_ID, mCourseBean.albumId);
+                albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
+                if ((TextUtils.isEmpty(albumId) && mCourseBean != null) || (mCourseBean != null && !albumId.equals(mCourseBean.albumId))) {
+                    SpUtils.put(PlayServiceIBinder.SP_PLAY_ALBUM_ID, mCourseBean.albumId);
                     List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
                     mPlayServiceConnection.setStartList(chapterBeans, 0);
 
@@ -202,7 +202,7 @@ public class MusicPlayActivity extends BaseActivity {
         mSong.setText(mSongTitle);
         mSinger.setText(mSingerArtist);
         tv_speed.setText(mPlayServiceConnection.getSpeed());
-        GlideUtils.getInstance().downLoadBitmap(mContext, mChapterBean.getPicUrl(), new ImageDownLoadCallBack() {
+        GlideUtils.getInstance().downLoadBitmap(mContext, mChapterBean.getPicUrl(), 0, new ImageDownLoadCallBack() {
 
             @Override
             public void onDownLoadSuccess(Bitmap resource) {

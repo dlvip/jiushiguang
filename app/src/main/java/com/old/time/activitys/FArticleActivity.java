@@ -2,13 +2,11 @@ package com.old.time.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
-import com.old.time.adapters.CourseAdapter;
-import com.old.time.beans.CourseBean;
+import com.old.time.adapters.HomeAdapter;
+import com.old.time.beans.ArticleBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
@@ -21,26 +19,25 @@ import com.old.time.views.CustomNetView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CoursesCActivity extends BaseCActivity {
+public class FArticleActivity extends BaseCActivity {
 
-    public static void startCoursesActivity(Activity mContext) {
-        Intent intent = new Intent(mContext, CoursesCActivity.class);
+    public static void startFArticleActivity(Activity mContext) {
+        Intent intent = new Intent(mContext, FArticleActivity.class);
         ActivityUtils.startActivity(mContext, intent);
 
     }
 
+    private HomeAdapter mAdapter;
     private CustomNetView mCustomNetView;
-    private CourseAdapter courseAdapter;
-    private List<CourseBean> courseBeans;
+    private List<ArticleBean> articleBeans = new ArrayList<>();
 
     @Override
     protected void initView() {
         super.initView();
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
-        courseBeans = new ArrayList<>();
-        courseAdapter = new CourseAdapter(courseBeans);
-        mRecyclerView.setAdapter(courseAdapter);
-        courseAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+        mAdapter = new HomeAdapter(articleBeans);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 getDataFromNet(false);
@@ -48,10 +45,6 @@ public class CoursesCActivity extends BaseCActivity {
             }
         }, mRecyclerView);
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
-        linear_layout_more.setVisibility(View.VISIBLE);
-        layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        linear_layout_more.setLayoutParams(layoutParams);
-        linear_layout_more.removeAllViews();
 
     }
 
@@ -69,40 +62,40 @@ public class CoursesCActivity extends BaseCActivity {
         HttpParams params = new HttpParams();
         params.put("pageNum", pageNum);
         params.put("pageSize", Constant.PageSize);
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_HOME_COURSES, new JsonCallBack<ResultBean<List<CourseBean>>>() {
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_ARTICLE_LIST, new JsonCallBack<ResultBean<List<ArticleBean>>>() {
             @Override
-            public void onSuccess(ResultBean<List<CourseBean>> mResultBean) {
+            public void onSuccess(ResultBean<List<ArticleBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (isRefresh) {
-                    courseBeans.clear();
-                    courseAdapter.setNewData(courseBeans);
+                    articleBeans.clear();
+                    mAdapter.setNewData(articleBeans);
 
                 }
                 if (mResultBean.data.size() < Constant.PageSize) {
-                    courseAdapter.loadMoreEnd();
+                    mAdapter.loadMoreEnd();
 
                 } else {
-                    courseAdapter.loadMoreComplete();
+                    mAdapter.loadMoreComplete();
 
                 }
-                courseAdapter.addData(mResultBean.data);
-                if (courseAdapter.getItemCount() - courseAdapter.getHeaderLayoutCount() == 0) {
+                mAdapter.addData(mResultBean.data);
+                if (mAdapter.getItemCount() - mAdapter.getHeaderLayoutCount() == 0) {
                     mCustomNetView.setDataForView(CustomNetView.NO_DATA);
-                    courseAdapter.setEmptyView(mCustomNetView);
+                    mAdapter.setEmptyView(mCustomNetView);
 
                 }
             }
 
             @Override
-            public void onError(ResultBean<List<CourseBean>> mResultBean) {
+            public void onError(ResultBean<List<ArticleBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 UIHelper.ToastMessage(mContext, mResultBean.msg);
-                if (courseAdapter.getItemCount() == 0) {
+                if (mAdapter.getItemCount() == 0) {
                     mCustomNetView.setDataForView(CustomNetView.NET_ERREY);
-                    courseAdapter.setEmptyView(mCustomNetView);
+                    mAdapter.setEmptyView(mCustomNetView);
 
                 } else {
-                    courseAdapter.loadMoreFail();
+                    mAdapter.loadMoreFail();
 
                 }
             }

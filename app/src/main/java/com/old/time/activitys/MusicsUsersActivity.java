@@ -15,10 +15,10 @@ import com.old.time.utils.UIHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MusicsCActivity extends BaseCActivity {
+public class MusicsUsersActivity extends BaseCActivity {
 
     public static void startMusicsActivity(Activity mContext) {
-        Intent intent = new Intent(mContext, MusicsCActivity.class);
+        Intent intent = new Intent(mContext, MusicsUsersActivity.class);
         ActivityUtils.startActivity(mContext, intent);
 
     }

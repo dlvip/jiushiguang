@@ -475,9 +475,10 @@ public class GlideUtils {
      *
      * @param context
      * @param url
+     * @param radius
      * @param downLoadCallBack
      */
-    public void downLoadBitmap(Context context, String url, final ImageDownLoadCallBack downLoadCallBack) {
+    public void downLoadBitmap(Context context, String url, int radius, final ImageDownLoadCallBack downLoadCallBack) {
         RequestManager manager = getRequestManager(context);
         if (manager == null) {
 
@@ -492,7 +493,8 @@ public class GlideUtils {
             requestBuilder = manager.asBitmap().load(url);
 
         }
-        requestBuilder.apply(new RequestOptions().override(UIHelper.dip2px(50))).into(new SimpleTarget<Bitmap>() {
+        requestBuilder.apply(new RequestOptions().transform(new GlideRoundTransform(radius))//
+                .override(UIHelper.dip2px(50))).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                 if (downLoadCallBack != null) {
