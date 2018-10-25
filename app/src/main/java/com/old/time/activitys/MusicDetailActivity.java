@@ -102,4 +102,14 @@ public class MusicDetailActivity extends BaseCActivity {
         mAdapter.setNewData(chapterList);
         mAdapter.setcPosition(position);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (albumId.equals(mCourseBean.albumId)) {
+            position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, -1);
+            mAdapter.setcPosition(position);
+            
+        }
+    }
 }

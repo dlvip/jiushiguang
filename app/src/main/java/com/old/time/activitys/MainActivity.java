@@ -13,9 +13,6 @@ import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
 import com.old.time.permission.PermissionUtil;
-import com.old.time.service.manager.PlayNotifyManager;
-import com.old.time.service.PlayServiceConnection;
-import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.utils.ActivityUtils;
 
 import static android.Manifest.permission.READ_PHONE_STATE;
@@ -41,10 +38,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    private PlayServiceConnection playServiceConnection;
-    private PlayServiceManager mPlayServiceManager;
-    private PlayNotifyManager playNotifyManager;
-
     @Override
     protected void initView() {
         main_img_home = findViewById(R.id.main_img_home);
@@ -55,22 +48,6 @@ public class MainActivity extends BaseActivity {
         tv_main_mine = findViewById(R.id.tv_main_mine);
         selectFragment(0);
 
-        playNotifyManager = PlayNotifyManager.getInstance(mContext);
-        mPlayServiceManager = new PlayServiceManager(mContext);
-        playServiceConnection = new PlayServiceConnection(mContext, new PlayServiceConnection.OnServiceConnectedListener() {
-            @Override
-            public void onServiceConnected() {
-                playServiceConnection.registerIOnModelChangedListener(playNotifyManager);
-
-            }
-
-            @Override
-            public void onServiceDisconnected() {
-                playServiceConnection.unregisterIOnModelChangedListener(playNotifyManager);
-
-            }
-        });
-        mPlayServiceManager.bindService(playServiceConnection);
     }
 
     @Override
@@ -205,13 +182,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);//将此任务转向后台
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbindService(playServiceConnection);
 
     }
 
