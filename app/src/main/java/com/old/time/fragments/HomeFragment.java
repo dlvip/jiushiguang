@@ -14,7 +14,7 @@ import com.old.time.activitys.MusicsCActivity;
 import com.old.time.adapters.EmptyAdapter;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
-import com.old.time.adapters.HomeAdapter;
+import com.old.time.adapters.ArticleAdapter;
 import com.old.time.adapters.IconTabAdapter;
 import com.old.time.beans.ArticleBean;
 import com.old.time.beans.BannerBean;
@@ -50,7 +50,7 @@ public class HomeFragment extends CBaseFragment {
 
     private List<ArticleBean> articleBeans;
     private RecyclerView recycle_article;
-    private HomeAdapter mAdapter;
+    private ArticleAdapter mAdapter;
 
     private List<IconBean> iconBeans;
     private RecyclerView recycler_icons;
@@ -133,7 +133,7 @@ public class HomeFragment extends CBaseFragment {
         recycle_article = include_article.findViewById(R.id.recycler_content);
         recycle_article.setLayoutManager(new MyLinearLayoutManager(mContext));
         articleBeans = new ArrayList<>();
-        mAdapter = new HomeAdapter(articleBeans);
+        mAdapter = new ArticleAdapter(articleBeans);
         recycle_article.setAdapter(mAdapter);
         include_article.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
             @Override

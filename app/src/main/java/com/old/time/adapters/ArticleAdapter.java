@@ -17,11 +17,11 @@ import java.util.List;
  * Created by wcl on 2018/7/14.
  */
 
-public class HomeAdapter extends BaseQuickAdapter<ArticleBean, BaseViewHolder> {
+public class ArticleAdapter extends BaseQuickAdapter<ArticleBean, BaseViewHolder> {
 
     private String[] strings = new String[]{"爱智康", "教育指导", "家长帮", "学而思"};
 
-    public HomeAdapter(List<ArticleBean> data) {
+    public ArticleAdapter(List<ArticleBean> data) {
         super(R.layout.adapter_article, data);
 
     }
