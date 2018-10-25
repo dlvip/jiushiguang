@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
-import com.old.time.activitys.MusicActivity;
 import com.old.time.beans.TeacherBean;
 import com.old.time.glideUtils.GlideUtils;
 

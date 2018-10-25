@@ -203,7 +203,7 @@ public class MusicPlayActivity extends BaseActivity {
         mSong.setText(mSongTitle);
         mSinger.setText(mSingerArtist);
         tv_speed.setText(mPlayServiceConnection.getSpeed());
-        GlideUtils.getInstance().downLoadBitmap(mContext, mChapterBean.getPicUrl(), new ImageDownLoadCallBack() {
+        GlideUtils.getInstance().downLoadBitmap(mContext, mChapterBean.getPicUrl(), 0, new ImageDownLoadCallBack() {
 
             @Override
             public void onDownLoadSuccess(Bitmap resource) {

@@ -12,7 +12,7 @@ import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.CoursesCActivity;
 import com.old.time.activitys.FArticleActivity;
-import com.old.time.activitys.MusicsCActivity;
+import com.old.time.activitys.MusicsUsersActivity;
 import com.old.time.adapters.EmptyAdapter;
 import com.old.time.adapters.HCourseAdapter;
 import com.old.time.adapters.HMusicAdapter;
@@ -123,7 +123,7 @@ public class HomeFragment extends CBaseFragment {
         include_music.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicsCActivity.startMusicsActivity(mContext);
+                MusicsUsersActivity.startMusicsActivity(mContext);
 
             }
         });
