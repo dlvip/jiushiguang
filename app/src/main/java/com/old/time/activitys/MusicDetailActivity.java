@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.old.time.R;
@@ -37,11 +38,11 @@ public class MusicDetailActivity extends BaseCActivity {
     private int position = -1;
     private String albumId;
     private View headerView;
+    private TextView tv_music_title;
     private ImageView img_music_pic;
     private CourseBean mCourseBean;
     private ChapterAdapter mAdapter;
     private List<ChapterBean> chapterList = new ArrayList<>();
-
 
     @Override
     protected void initView() {
@@ -54,10 +55,12 @@ public class MusicDetailActivity extends BaseCActivity {
         }
         headerView = View.inflate(mContext, R.layout.header_music_detail, null);
         img_music_pic = headerView.findViewById(R.id.img_music_pic);
+        tv_music_title = headerView.findViewById(R.id.tv_music_title);
         mAdapter = new ChapterAdapter(chapterList);
         mAdapter.removeAllHeaderView();
         mAdapter.addHeaderView(headerView);
         mRecyclerView.setAdapter(mAdapter);
+        tv_music_title.setText(mCourseBean.title);
         GlideUtils.getInstance().downLoadBitmap(mContext, mCourseBean.coursePic, 5, new ImageDownLoadCallBack() {
             @Override
             public void onDownLoadSuccess(Bitmap resource) {
@@ -109,7 +112,7 @@ public class MusicDetailActivity extends BaseCActivity {
         if (albumId.equals(mCourseBean.albumId)) {
             position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, -1);
             mAdapter.setcPosition(position);
-            
+
         }
     }
 }

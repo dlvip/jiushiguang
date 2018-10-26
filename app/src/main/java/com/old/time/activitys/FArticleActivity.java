@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
-import com.old.time.adapters.HomeAdapter;
+import com.old.time.adapters.ArticleAdapter;
 import com.old.time.beans.ArticleBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
@@ -27,7 +27,7 @@ public class FArticleActivity extends BaseCActivity {
 
     }
 
-    private HomeAdapter mAdapter;
+    private ArticleAdapter mAdapter;
     private CustomNetView mCustomNetView;
     private List<ArticleBean> articleBeans = new ArrayList<>();
 
@@ -35,7 +35,7 @@ public class FArticleActivity extends BaseCActivity {
     protected void initView() {
         super.initView();
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
-        mAdapter = new HomeAdapter(articleBeans);
+        mAdapter = new ArticleAdapter(articleBeans);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
