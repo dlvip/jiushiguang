@@ -522,7 +522,7 @@ public class GlideUtils {
             return "x-oss-process=image/resize";
         }
         if (!TextUtils.isEmpty(url) && url.contains("storage")) {//手机图片
-            if (!url.startsWith("file:///")) {
+            if (!url.startsWith("file:///") && !url.endsWith(".mp4")) {
                 url = "file:///" + url;
 
             }

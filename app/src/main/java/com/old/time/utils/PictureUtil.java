@@ -1,6 +1,5 @@
 package com.old.time.utils;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -13,13 +12,22 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.google.zxing.activity.CaptureActivity;
 import com.old.time.activitys.ClipImageActivity;
-import com.old.time.permission.PermissionUtil;
 
 import java.io.File;
 
 public class PictureUtil {
 
+    /**
+     * 二维码扫描
+     *
+     * @param context
+     */
+    public static void captureCode(Activity context) {
+        CaptureActivity.startCaptureActivity(context);
+
+    }
 
     /**
      * 照相
@@ -34,6 +42,7 @@ public class PictureUtil {
         Uri photoUri = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
         context.startActivityForResult(intent, requestCode);
+
         return photoUri;
     }
 
@@ -48,20 +57,21 @@ public class PictureUtil {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//调用android自带的照相机
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         context.startActivityForResult(intent, requestCode);
+
     }
 
     /**
-     * 从相册选取一张照片
+     * 从相册选取一张照片  激活系统调用图库
      *
      * @param context     上下文
      * @param requestCode 请求码
      */
     public static void pickPhoto(Activity context, int requestCode) {
-        // 激活系统图库，选择一张图片
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
         context.startActivityForResult(intent, requestCode);
+
     }
 
     /**
@@ -100,10 +110,8 @@ public class PictureUtil {
 
             return;
         }
-        ClipImageActivity.prepare()
-                .aspectX(ints[0]).aspectY(ints[1])
-                .inputPath(srcPath).outputPath(imageUri.getPath())
-                .startForResult(context, requestCode);
+        ClipImageActivity.prepare().aspectX(ints[0]).aspectY(ints[1]).inputPath(srcPath)//
+                .outputPath(imageUri.getPath()).startForResult(context, requestCode);
     }
 
     /**
@@ -119,10 +127,8 @@ public class PictureUtil {
 
             return;
         }
-        ClipImageActivity.prepare()
-                .aspectX(ints[0]).aspectY(ints[1])
-                .inputPath(srcPath).outputPath(imageUri.getPath())
-                .startForResult(context, requestCode);
+        ClipImageActivity.prepare().aspectX(ints[0]).aspectY(ints[1]).inputPath(srcPath)//
+                .outputPath(imageUri.getPath()).startForResult(context, requestCode);
 
     }
 
@@ -146,6 +152,7 @@ public class PictureUtil {
         File f = new File(path);
         Uri contentUri = Uri.fromFile(f);
         notifyGallery(context, contentUri);
+
     }
 
     /**
@@ -155,9 +162,9 @@ public class PictureUtil {
      * @param uri     注意uri必须为file类型 Uri.fromFile();
      */
     public static void notifyGallery(Context context, Uri uri) {
-        Intent mediaScanIntent = new Intent(
-                Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(uri);
         context.sendBroadcast(mediaScanIntent);
+
     }
 }

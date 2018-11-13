@@ -61,10 +61,12 @@ public class PhotoPagerActivity extends FragmentActivity {
 
             @Override
             public void onPageScrollStateChanged(int arg0) {
+
             }
 
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
+
             }
 
             @Override
@@ -72,7 +74,6 @@ public class PhotoPagerActivity extends FragmentActivity {
                 CharSequence text = getString(R.string.viewpager_indicator, arg0 + 1, mPager.getAdapter().getCount());
                 indicator.setText(text);
             }
-
         });
         if (savedInstanceState != null) {
             pagerPosition = savedInstanceState.getInt(STATE_POSITION);
