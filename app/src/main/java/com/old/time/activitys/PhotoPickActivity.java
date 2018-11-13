@@ -55,8 +55,10 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
     private int width;
     private ImageSize imageSize;
 
-    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount, Serializable picPaths, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
+    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount//
+            , Serializable picPaths, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 
             return;
         }
@@ -68,8 +70,10 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
 
     }
 
-    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
+    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount//
+            , int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 
             return;
         }
@@ -81,7 +85,8 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
     }
 
     public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 
             return;
         }
@@ -92,7 +97,8 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
     }
 
     public static void startPhotoPickActivity(Activity mContext, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 
             return;
         }

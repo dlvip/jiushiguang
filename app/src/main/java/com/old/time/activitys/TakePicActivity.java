@@ -154,7 +154,8 @@ public class TakePicActivity extends BaseActivity implements SurfaceHolder.Callb
 
                 break;
             case R.id.tv_btn_pics:
-                PhotoPickActivity.startPhotoPickActivity(mContext, false, PIC_COUNT_SIZE, (Serializable) picPaths, Code.REQUEST_CODE_30);
+                PhotoPickActivity.startPhotoPickActivity(mContext, false, PIC_COUNT_SIZE//
+                        , (Serializable) picPaths, Code.REQUEST_CODE_30);
 
                 break;
             case R.id.img_btn_lights:
