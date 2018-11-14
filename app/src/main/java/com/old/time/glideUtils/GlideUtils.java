@@ -11,9 +11,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.NotificationTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.old.time.R;
 import com.old.time.constants.Constant;
@@ -22,6 +24,7 @@ import com.old.time.utils.DebugLog;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 
+import java.io.File;
 import java.util.concurrent.ExecutionException;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -58,6 +61,26 @@ public class GlideUtils {
 
         }
         return manager;
+    }
+
+    /**
+     * 获取glide之前缓存过的图片地址
+     *
+     * @param url 网络图片的地址
+     * @return
+     */
+    public String getImgPathFromCache(Context context, String url) {
+        FutureTarget<File> future = getRequestManager(context).load(url).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+        try {
+            File cacheFile = future.get();
+            String absolutePath = cacheFile.getAbsolutePath();
+            return absolutePath;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -429,6 +452,31 @@ public class GlideUtils {
         Bitmap bitmap = null;
         try {
             bitmap = manager.asBitmap().load(url).submit(w, h).get();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return bitmap;
+    }
+
+    /**
+     * 获取图片
+     *
+     * @param context
+     * @param url
+     * @return
+     */
+    public Bitmap getBitmap(Context context, String url) {
+        RequestManager manager = getRequestManager(context);
+        if (manager == null || TextUtils.isEmpty(url)) {
+
+            return null;
+        }
+        url = getPicUrl(url);
+        Bitmap bitmap = null;
+        try {
+            bitmap = manager.asBitmap().load(url).submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
 
         } catch (Exception e) {
             e.printStackTrace();

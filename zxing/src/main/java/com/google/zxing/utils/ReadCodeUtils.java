@@ -1,8 +1,5 @@
 package com.google.zxing.utils;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -29,10 +26,10 @@ public class ReadCodeUtils {
     /**
      * 扫描二维码图片的方法，word线程
      *
-     * @param path
+     * @param path 图片本地地址
      * @return
      */
-    public static Result scanningImage(String path) {
+    public static String scanningImage(String path) {
         if (TextUtils.isEmpty(path)) {
 
             return null;
@@ -80,8 +77,12 @@ public class ReadCodeUtils {
             scanBitmap.getPixels(pixels, 0, width, 0, 0, width, height);
             source = new RGBLuminanceSource(width, height, pixels);
             result = new MultiFormatReader().decode(new BinaryBitmap(new HybridBinarizer(source)));
-            if (scanBitmap != null && !scanBitmap.isRecycled()) scanBitmap.recycle();
-            return result;
+            if (!scanBitmap.isRecycled()) scanBitmap.recycle();
+            if(result == null){
+
+                return "";
+            }
+            return result.getText();
 
         } catch (NotFoundException e) {
             e.printStackTrace();
@@ -89,8 +90,12 @@ public class ReadCodeUtils {
         }
 
         result = syncDecodeQRCode(scanBitmap);
-        if (scanBitmap != null && !scanBitmap.isRecycled()) scanBitmap.recycle();
-        return result;
+        if (!scanBitmap.isRecycled()) scanBitmap.recycle();
+        if(result == null){
+
+            return "";
+        }
+        return result.getText();
     }
 
     /**

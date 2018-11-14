@@ -147,11 +147,11 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        Result result = ReadCodeUtils.scanningImage(list.get(0));
-                        if (result != null) {
+                        String result = ReadCodeUtils.scanningImage(list.get(0));
+                        if (TextUtils.isEmpty(result)) {
                             Intent resultIntent = new Intent();
                             Bundle bundle = new Bundle();
-                            bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, result.getText());
+                            bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, result);
                             resultIntent.putExtras(bundle);
                             CaptureActivity.this.setResult(RESULT_OK, resultIntent);
 
