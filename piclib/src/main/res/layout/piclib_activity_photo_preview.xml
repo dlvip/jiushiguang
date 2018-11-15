@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <RelativeLayout
+        android:id="@+id/layout_sel_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffffff"
+        android:clickable="true"
+        android:paddingBottom="10dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/checkbox_sel_flag"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:src="@drawable/piclib_selector_checkbox_photo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/checkbox_sel_flag"
+            android:text="@string/select"
+            android:textColor="?colorPrimary"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_to_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/piclib_selector_blue_to_gray"
+            android:paddingBottom="3dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="3dp"
+            android:text="@string/sure"
+            android:textColor="#58ad2c" />
+    </RelativeLayout>
+
+    <com.pic.lib.views.HackyViewPager
+        android:id="@+id/viewpager_preview_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/layout_sel_bar" />
+
+    <TextView
+        android:id="@+id/tv_preview_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layout_sel_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="12dp"
+        android:background="#80000000"
+        android:includeFontPadding="false"
+        android:paddingBottom="4dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="4dp"
+        android:textColor="#ffffff" />
+
+</RelativeLayout>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.pic.lib.views.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants">
+
+    <ImageView
+        android:id="@+id/ic_image_pick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/ic_check_box"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="@dimen/layout_15"
+        android:paddingLeft="@dimen/layout_15"
+        android:paddingRight="@dimen/layout_10"
+        android:paddingTop="@dimen/layout_10"
+        android:src="@drawable/piclib_selector_checkbox_photo" />
+
+</com.pic.lib.views.SquareRelativeLayout>

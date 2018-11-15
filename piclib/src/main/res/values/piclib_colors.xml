@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="main_bg">#f8f8f8</color>
+    <color name="pic_lib_color_666">#666</color>
+    <color name="color_fff">#fff</color>
+    <color name="color_484848">#484848</color>
+    <color name="color_58ad2c">#58ad2c</color>
+    <color name="line_bg">#efefef</color>
+    <color name="color_60000000">#60000000</color>
+
+</resources>

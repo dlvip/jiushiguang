@@ -63,6 +63,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation files('libs/Ad_Android_SDK.jar')
     implementation files('libs/AMap3DMap_6.1.0_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330.jar')
     implementation externalAndroidPalette
     implementation externalGSON
@@ -88,5 +89,4 @@ dependencies {
     implementation externalTencentCrashreportUpgrade
     implementation externalTencentNativeCrashReport
     implementation externalTencentTinkerAndroidLib
-    implementation files('libs/Ad_Android_SDK.jar')
 }

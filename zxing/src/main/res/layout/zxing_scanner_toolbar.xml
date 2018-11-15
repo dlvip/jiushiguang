@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="二维码/条形码"
+            android:text="@string/code_barcode_text"
             android:textColor="#fff"
             android:textSize="16sp" />
 
@@ -33,7 +33,7 @@
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="相册"
+            android:text="@string/album_text"
             android:textColor="#fff"
             android:textSize="16sp" />
 

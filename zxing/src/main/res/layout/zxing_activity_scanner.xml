@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             app:corner_color="@color/corner_color"
             app:frame_color="@color/viewfinder_frame"
-            app:label_text="将二维码/条形码放入框内，即可自动扫描"
+            app:label_text="@string/set_code_text"
             app:label_text_color="@color/colorAccent"
             app:laser_color="@color/laser_color"
             app:mask_color="@color/viewfinder_mask"

@@ -61,8 +61,6 @@ public class MyApplication extends MultiDexApplication {
 
     private void init() {
         initBugly();
-        mTaskMgr = new TaskManager();
-        mTaskMgr.init(0);
         client = new ReadClient();//初始化客户端配置信息管理者
         initLoadSirs();
         initQbSdk();
@@ -88,11 +86,8 @@ public class MyApplication extends MultiDexApplication {
         Beta.installTinker();
     }
 
-
-    private TaskManager mTaskMgr;
-
     public TaskManager getTaskManager() {
-        return mTaskMgr;
+        return client.getTaskManager();
     }
 
     public static ReadClient client;

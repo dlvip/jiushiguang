@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">zxing</string>
-    <string name="encode_qrcode">生成二维码</string>
-    <string name="dencode_qrcode">扫描二维码</string>
-    <string name="code_text">请输入生成二维码的文本信息</string>
-    <string name="qrcodetext">这里显示扫描结果</string>
+    <string name="album_text">相册</string>
+    <string name="code_barcode_text">二维码/条形码</string>
+    <string name="set_code_text">将二维码/条形码放入框内，即可自动扫描</string>
 
 
 </resources>

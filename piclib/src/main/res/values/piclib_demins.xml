@@ -1,0 +1,17 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="main_header_height">40dp</dimen>
+    <dimen name="line_height">0.5dp</dimen>
+    <dimen name="layout_10">10dp</dimen>
+    <dimen name="layout_15">15dp</dimen>
+    <dimen name="layout_23">23dp</dimen>
+    <dimen name="layout_50">50dp</dimen>
+    <dimen name="layout_100">100dp</dimen>
+
+
+
+    <dimen name="text_14">14sp</dimen>
+    <dimen name="text_16">16sp</dimen>
+    <dimen name="text_18">18sp</dimen>
+
+</resources>

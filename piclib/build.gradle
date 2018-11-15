@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion externalCompileSdkVersion
+    buildToolsVersion externalBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion externalMinSdkVersion
+        targetSdkVersion externalTargetSdkVersion
+        versionCode externalVersionCode
+
+        vectorDrawables.useSupportLibrary = true
+
+    }
+    allprojects {
+        repositories {
+            maven { url "https://jitpack.io" }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation externalGithubAdapterHelper
+    implementation externalAndroidAppCompatV7
+    implementation externalAndroidRecyclerView
+    implementation externalGithubTransform
+    implementation externalGithubPluginGlide
+    implementation externalSimpleZXing
+
+    implementation 'com.android.support:exifinterface:28.0.0'
+}

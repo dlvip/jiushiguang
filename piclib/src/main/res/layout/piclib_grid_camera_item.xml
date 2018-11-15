@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.pic.lib.views.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3C3C3D"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/ic_camera_pick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/piclib_ic_camera_n" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ic_camera_pick"
+        android:layout_centerHorizontal="true"
+        android:text="@string/take_pic"
+        android:textColor="#dddddd"
+        android:textSize="12sp" />
+
+</com.pic.lib.views.SquareRelativeLayout>

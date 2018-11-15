@@ -110,4 +110,16 @@
         <attr name="ringBgColor" format="color"/>
     </declare-styleable>
 
+    <!--取景框-->
+    <declare-styleable name="ClipImageView">
+        <attr name="civHeight" format="integer" />
+        <attr name="civWidth" format="integer" />
+        <attr name="civTipText" format="string" />
+        <attr name="civTipTextSize" format="dimension" />
+        <attr name="civMaskColor" format="color" />
+        <attr name="civClipPadding" format="dimension" />
+        <attr name="civClipRoundCorner" format="dimension|reference" />
+        <attr name="civClipCircle" format="boolean" />
+    </declare-styleable>
+
 </resources>

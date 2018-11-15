@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -11,6 +12,7 @@ import com.old.time.R;
 import com.old.time.adapters.AlbumListAdapter;
 import com.old.time.models.AlbumModel;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.PhotoSelectorHelper;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
 public class PhotoAlbumActivity extends BaseActivity implements PhotoSelectorHelper.OnLoadAlbumListener {
 
     private PhotoSelectorHelper mHelper;
+    private List<AlbumModel> albumModels;
     private RecyclerView mRecyclerView;
     private AlbumListAdapter mAdapter;
     public static final String ALBUM_NAME = "album_name";
@@ -43,7 +46,10 @@ public class PhotoAlbumActivity extends BaseActivity implements PhotoSelectorHel
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
 
         mRecyclerView = findViewById(R.id.lv_show_album);
-        mRecyclerView.setAdapter(mAdapter = new AlbumListAdapter(new ArrayList<AlbumModel>()));
+        mRecyclerView.setLayoutManager(new MyLinearLayoutManager(mContext));
+        albumModels = new ArrayList<>();
+        mAdapter = new AlbumListAdapter(albumModels);
+        mRecyclerView.setAdapter(mAdapter);
 
         mHelper = new PhotoSelectorHelper(this);
         mHelper.getAlbumList(this);
@@ -56,7 +62,9 @@ public class PhotoAlbumActivity extends BaseActivity implements PhotoSelectorHel
 
     @Override
     public void onAlbumLoaded(List<AlbumModel> albums) {
-        mAdapter.setNewData(albums);
+        albumModels.clear();
+        albumModels.addAll(albums);
+        mAdapter.notifyDataSetChanged();
 
     }
 
