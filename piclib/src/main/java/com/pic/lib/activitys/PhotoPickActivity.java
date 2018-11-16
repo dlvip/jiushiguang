@@ -53,65 +53,13 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
     private int width;
     private ImageSize imageSize;
 
-    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount//
-            , Serializable picPaths, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
-                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
-
-            return;
-        }
-        Intent intent = new Intent(mContext, PhotoPickActivity.class);
-        intent.putExtra(PicCode.IS_SHOW_CAMERA, isShowCamera);
-        intent.putExtra(PicCode.MAX_PICK_COUNT, maxPickCount);
-        intent.putExtra(PicCode.SELECT_PHOTO_LIST, picPaths);
-        mContext.startActivityForResult(intent, requestCode);
-
-    }
-
-    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount//
-            , int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
-                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
-
-            return;
-        }
-        Intent intent = new Intent(mContext, PhotoPickActivity.class);
-        intent.putExtra(PicCode.IS_SHOW_CAMERA, isShowCamera);
-        intent.putExtra(PicCode.MAX_PICK_COUNT, maxPickCount);
-        mContext.startActivityForResult(intent, requestCode);
-
-    }
-
-    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
-                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
-
-            return;
-        }
-        Intent intent = new Intent(mContext, PhotoPickActivity.class);
-        intent.putExtra(PicCode.IS_SHOW_CAMERA, isShowCamera);
-        mContext.startActivityForResult(intent, requestCode);
-
-    }
-
-    public static void startPhotoPickActivity(Activity mContext, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
-                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
-
-            return;
-        }
-        Intent intent = new Intent(mContext, PhotoPickActivity.class);
-        mContext.startActivityForResult(intent, requestCode);
-
-    }
-
     @Override
     protected void initEvent() {
         mPickAlbumView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PhotoPickActivity.this, PhotoAlbumActivity.class);
-                startActivityForResult(intent, TO_PICK_ALBUM);
+                ActivityUtils.startActivityForResult(mContext, intent, TO_PICK_ALBUM);
 
             }
         });

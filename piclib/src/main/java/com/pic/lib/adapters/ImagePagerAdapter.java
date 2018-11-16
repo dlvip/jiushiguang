@@ -16,10 +16,12 @@ import java.util.List;
 public class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
     private List<String> fileList;
+    private boolean isShowScan = false;
 
-    public ImagePagerAdapter(FragmentManager fm, List<String> fileList) {
+    public ImagePagerAdapter(FragmentManager fm, List<String> fileList, boolean isShowScan) {
         super(fm);
         this.fileList = fileList;
+        this.isShowScan = isShowScan;
     }
 
     @Override
@@ -30,6 +32,6 @@ public class ImagePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         String url = GlideUtils.getPicUrl(fileList.get(position));
-        return ImageDetailFragment.newInstance(url);
+        return ImageDetailFragment.newInstance(url, isShowScan);
     }
 }

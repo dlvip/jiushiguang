@@ -104,7 +104,7 @@ public class PhotoPreviewActivity extends BaseLibActivity implements PhotoSelect
         mCountText = this.findViewById(R.id.tv_to_confirm);
         mViewPager.addOnPageChangeListener(this);
         mList = new ArrayList<>();
-        mPhotoAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mList);
+        mPhotoAdapter = new ImagePagerAdapter(getSupportFragmentManager(), mList, false);
         mViewPager.setAdapter(mPhotoAdapter);
 
         if (albumName != null && !albumName.equals(AlbumController.RECENT_PHOTO)) {

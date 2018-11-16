@@ -31,12 +31,14 @@ import com.pic.lib.utils.ReadCodeUtils;
 public class ImageDetailFragment extends BaseFragment {
 
     private LargeImageView mImageView;
+    private boolean isShowScan = false;
 
-    public static ImageDetailFragment newInstance(String imageUrl) {
+    public static ImageDetailFragment newInstance(String imageUrl, boolean isShowScan) {
         final ImageDetailFragment f = new ImageDetailFragment();
 
         final Bundle args = new Bundle();
         args.putString("url", imageUrl);
+        args.putBoolean("isShowScan", isShowScan);
         f.setArguments(args);
 
         return f;
@@ -49,6 +51,7 @@ public class ImageDetailFragment extends BaseFragment {
         Bundle bundle = getArguments();
         assert bundle != null;
         this.imgUrl = bundle.getString("url");
+        this.isShowScan = bundle.getBoolean("isShowScan", false);
 
         mImageView = findViewById(R.id.image);
         mImageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -84,7 +87,7 @@ public class ImageDetailFragment extends BaseFragment {
         mImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (!PicCode.PHOTO_IS_SHOW_SCAN) {
+                if (!isShowScan) {
 
                     return false;
                 }

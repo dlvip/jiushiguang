@@ -12,11 +12,121 @@ import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.pic.lib.PicCode;
 import com.pic.lib.activitys.ClipImageActivity;
+import com.pic.lib.activitys.PhotoPagerActivity;
+import com.pic.lib.activitys.PhotoPickActivity;
+import com.pic.lib.permission.PermissionUtil;
 
 import java.io.File;
+import java.io.Serializable;
 
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+/**
+ * 相册辅助类
+ */
 public class PictureUtil {
+
+
+    /**
+     * 相册
+     *
+     * @param mContext
+     * @param isShowCamera
+     * @param maxPickCount
+     * @param picPaths
+     * @param requestCode
+     */
+    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount//
+            , Serializable picPaths, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, PhotoPickActivity.class);
+        intent.putExtra(PicCode.IS_SHOW_CAMERA, isShowCamera);
+        intent.putExtra(PicCode.MAX_PICK_COUNT, maxPickCount);
+        intent.putExtra(PicCode.SELECT_PHOTO_LIST, picPaths);
+        mContext.startActivityForResult(intent, requestCode);
+
+    }
+
+    /**
+     * 相册
+     *
+     * @param mContext
+     * @param isShowCamera
+     * @param maxPickCount
+     * @param requestCode
+     */
+    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount//
+            , int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, PhotoPickActivity.class);
+        intent.putExtra(PicCode.IS_SHOW_CAMERA, isShowCamera);
+        intent.putExtra(PicCode.MAX_PICK_COUNT, maxPickCount);
+        mContext.startActivityForResult(intent, requestCode);
+
+    }
+
+    /**
+     * 相册
+     *
+     * @param mContext
+     * @param isShowCamera
+     * @param requestCode
+     */
+    public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, PhotoPickActivity.class);
+        intent.putExtra(PicCode.IS_SHOW_CAMERA, isShowCamera);
+        mContext.startActivityForResult(intent, requestCode);
+
+    }
+
+    /**
+     * 相册
+     *
+     * @param mContext
+     * @param requestCode
+     */
+    public static void startPhotoPickActivity(Activity mContext, int requestCode) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
+
+            return;
+        }
+        Intent intent = new Intent(mContext, PhotoPickActivity.class);
+        mContext.startActivityForResult(intent, requestCode);
+
+    }
+
+    /**
+     * 图片浏览
+     *
+     * @param mContext
+     * @param picPaths
+     * @param position
+     */
+    public static void startPhotoPagerActivity(Activity mContext, Serializable picPaths, int position) {
+        Intent intent = new Intent(mContext, PhotoPagerActivity.class);
+        intent.putExtra(PicCode.EXTRA_IMAGE_URLS, picPaths);
+        intent.putExtra(PicCode.EXTRA_IMAGE_INDEX, position);
+        ActivityUtils.startPicActivity(mContext, intent);
+
+    }
 
     /**
      * 照相

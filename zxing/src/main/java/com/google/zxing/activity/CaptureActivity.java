@@ -33,6 +33,7 @@ import com.google.zxing.decoding.InactivityTimer;
 import com.google.zxing.utils.ReadCodeUtils;
 import com.google.zxing.view.ViewfinderView;
 import com.pic.lib.activitys.PhotoPickActivity;
+import com.pic.lib.utils.PictureUtil;
 
 
 import java.io.IOException;
@@ -127,7 +128,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         findViewById(R.id.tv_select_pic).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PhotoPickActivity.startPhotoPickActivity(CaptureActivity.this, false, REQUEST_CODE_SCAN_GALLERY);
+                PictureUtil.startPhotoPickActivity(CaptureActivity.this, false, REQUEST_CODE_SCAN_GALLERY);
 
             }
         });
