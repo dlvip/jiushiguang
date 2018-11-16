@@ -29,7 +29,6 @@ import java.io.IOException;
 
 public class ClipImageActivity extends BaseLibActivity implements View.OnClickListener {
 
-    public static final String OUT_PUT_PATH = "outputPath";
     private ClipImageView mClipImageView;
     private TextView mCancel;
     private TextView mClip;

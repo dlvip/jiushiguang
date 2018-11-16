@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
-    public List<String> fileList;
+    private List<String> fileList;
 
     public ImagePagerAdapter(FragmentManager fm, List<String> fileList) {
         super(fm);

@@ -6,9 +6,6 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class TaskManager {
 
-    //线程名称
-    public static final String IMAGEDOWNLOAD_THREAD_NAME = "ImageDownLoad";
-
     private ScheduledExecutorService mThreadPool;
     private HashMap<String, Task> mMapTask;
 

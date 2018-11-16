@@ -24,8 +24,8 @@ public class PhotoGalleyAdapter extends BaseAdapter {
     private static final int ITME_VIEW = 1;
     private static final int ITME_CAMERA = 0;
     protected Context mContext;
-    protected List<String> mList;
-    protected LayoutInflater mLayoutInflater;
+    private List<String> mList;
+    private LayoutInflater mLayoutInflater;
     private boolean isShowCamera;
     private int maxCount;
 

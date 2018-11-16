@@ -459,7 +459,7 @@ public class GlideUtils {
     }
 
     /**
-     * 获取图片
+     * 获取图片 非UI线程调用
      *
      * @param context
      * @param url

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 
+import com.pic.lib.PicCode;
 import com.pic.lib.task.CallBackTask;
 import com.pic.lib.task.TaskManager;
 import com.pic.lib.R;
@@ -24,8 +25,8 @@ public class GlideDealUtils {
      * 使用glide读取缓存图片 并保存到本地
      */
     public static void onDownLoad(final Context mContext, final String imgUrl, final ImageDownLoadCallBack downLoadCallBack) {
-        TaskManager.getInstance().delTask(TaskManager.IMAGEDOWNLOAD_THREAD_NAME);
-        TaskManager.getInstance().addTask(new CallBackTask(TaskManager.IMAGEDOWNLOAD_THREAD_NAME) {
+        TaskManager.getInstance().delTask(PicCode.IMAGEDOWNLOAD_THREAD_NAME);
+        TaskManager.getInstance().addTask(new CallBackTask(PicCode.IMAGEDOWNLOAD_THREAD_NAME) {
             @Override
             protected void doTask() {
                 Bitmap bitmap = null;//glide的缓存图片

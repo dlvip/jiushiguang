@@ -1,13 +1,16 @@
 package com.pic.lib.activitys;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pic.lib.activitys.BaseLibActivity;
+import com.pic.lib.PicCode;
 import com.pic.lib.utils.ActivityUtils;
 import com.pic.lib.utils.ScreenTools;
 import com.pic.lib.R;
@@ -20,19 +23,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PhotoPreviewActivity extends BaseLibActivity implements PhotoSelectorHelper.OnLoadPhotoListener, ViewPager.OnPageChangeListener {
+
     private ViewPager mViewPager;
     private ImageView mCheckBox;
     private TextView mCountText;
     private TextView mPreviewNum;
-    public static final String PHOTO_INDEX_IN_ALBUM = "photo_index_in_album";
+
     private int index, maxPickCount;
     private String albumName;
     private List<String> mList;
     private ImagePagerAdapter mPhotoAdapter;
 
+    /**
+     * 图片浏览
+     *
+     * @param index
+     * @param maxPickCount
+     * @param albumName
+     */
+    public static void startPhotoPreviewActivity(Context mContext, int index, int maxPickCount, String albumName, int requestCode) {
+        Intent intent = new Intent(mContext, PhotoPreviewActivity.class);
+        intent.putExtra(PicCode.EXTRA_IMAGE_INDEX, index);
+        intent.putExtra(PicCode.MAX_PICK_COUNT, maxPickCount);
+        intent.putExtra(PicCode.ALBUM_NAME, albumName);
+        ActivityUtils.startActivityForResult((Activity) mContext, intent, requestCode);
+
+    }
+
     @Override
     protected void initEvent() {
         mCheckBox.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 int selCount = PhotoGalleyAdapter.mSelectedImage.size();
@@ -64,11 +85,13 @@ public class PhotoPreviewActivity extends BaseLibActivity implements PhotoSelect
         });
     }
 
+
     @Override
     protected void initView() {
-        index = getIntent().getIntExtra(PHOTO_INDEX_IN_ALBUM, 0);
-        maxPickCount = getIntent().getIntExtra(PhotoPickActivity.MAX_PICK_COUNT, 1);
-        albumName = getIntent().getStringExtra(PhotoAlbumActivity.ALBUM_NAME);
+        Intent intent = getIntent();
+        this.maxPickCount = intent.getIntExtra(PicCode.MAX_PICK_COUNT, 1);
+        this.albumName = intent.getStringExtra(PicCode.ALBUM_NAME);
+        this.index = intent.getIntExtra(PicCode.EXTRA_IMAGE_INDEX, 0);
         ActionBar mActionBar = getActionBar();
         if (mActionBar != null) {
             mActionBar.setTitle(albumName);

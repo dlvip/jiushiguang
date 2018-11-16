@@ -13,6 +13,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pic.lib.PicCode;
 import com.pic.lib.activitys.BaseLibActivity;
 import com.pic.lib.utils.ActivityUtils;
 import com.pic.lib.utils.ScreenTools;
@@ -41,10 +42,6 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
     private PhotoGalleyAdapter mGalleyAdapter;
     private View mPickAlbumView;
     private TextView mCountText;
-    public static final String MAX_PICK_COUNT = "max_pick_count";
-    public static final String IS_SHOW_CAMERA = "is_show_camera";
-    public static final String SELECT_PHOTO_LIST = "select_photo_list";
-    public static final String IS_OPEN_CAMERA = "is_open_camera";
     private static final int TO_PICK_ALBUM = 1;
     private static final int TO_PRIVIEW_PHOTO = 2;
     private static final int TO_TAKE_PHOTO = 3;
@@ -64,9 +61,9 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
             return;
         }
         Intent intent = new Intent(mContext, PhotoPickActivity.class);
-        intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, isShowCamera);
-        intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, maxPickCount);
-        intent.putExtra(PhotoPickActivity.SELECT_PHOTO_LIST, picPaths);
+        intent.putExtra(PicCode.IS_SHOW_CAMERA, isShowCamera);
+        intent.putExtra(PicCode.MAX_PICK_COUNT, maxPickCount);
+        intent.putExtra(PicCode.SELECT_PHOTO_LIST, picPaths);
         mContext.startActivityForResult(intent, requestCode);
 
     }
@@ -79,8 +76,8 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
             return;
         }
         Intent intent = new Intent(mContext, PhotoPickActivity.class);
-        intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, isShowCamera);
-        intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, maxPickCount);
+        intent.putExtra(PicCode.IS_SHOW_CAMERA, isShowCamera);
+        intent.putExtra(PicCode.MAX_PICK_COUNT, maxPickCount);
         mContext.startActivityForResult(intent, requestCode);
 
     }
@@ -92,7 +89,7 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
             return;
         }
         Intent intent = new Intent(mContext, PhotoPickActivity.class);
-        intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, isShowCamera);
+        intent.putExtra(PicCode.IS_SHOW_CAMERA, isShowCamera);
         mContext.startActivityForResult(intent, requestCode);
 
     }
@@ -129,11 +126,7 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
 
             @Override
             public void onItemImageClick(Context context, int index, List<String> list) {
-                Intent intent = new Intent(PhotoPickActivity.this, PhotoPreviewActivity.class);
-                intent.putExtra(PhotoPreviewActivity.PHOTO_INDEX_IN_ALBUM, index);
-                intent.putExtra(MAX_PICK_COUNT, maxPickCount);
-                intent.putExtra(PhotoAlbumActivity.ALBUM_NAME, mLastAlbumName);
-                startActivityForResult(intent, TO_PRIVIEW_PHOTO);
+                PhotoPreviewActivity.startPhotoPreviewActivity(mContext, index, maxPickCount, mLastAlbumName, TO_PRIVIEW_PHOTO);
 
             }
 
@@ -165,7 +158,7 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
         TextView tv_send = findViewById(R.id.tv_send);
         tv_send.setText(getString(R.string.main_right));
 
-        List<String> list = getIntent().getStringArrayListExtra(SELECT_PHOTO_LIST);
+        List<String> list = getIntent().getStringArrayListExtra(PicCode.SELECT_PHOTO_LIST);
         if (list != null) {
             for (String s : list) {
                 if (!TextUtils.isEmpty(s)) {
@@ -174,8 +167,8 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
                 }
             }
         }
-        maxPickCount = getIntent().getIntExtra(MAX_PICK_COUNT, 1);
-        isShowCamera = getIntent().getBooleanExtra(IS_SHOW_CAMERA, false);
+        maxPickCount = getIntent().getIntExtra(PicCode.MAX_PICK_COUNT, 1);
+        isShowCamera = getIntent().getBooleanExtra(PicCode.IS_SHOW_CAMERA, false);
         mGridView = findViewById(R.id.mp_galley_gridView);
         mGridView.setOnItemClickListener(this);
         mCountText = findViewById(R.id.tv_to_confirm);
@@ -228,7 +221,7 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
 
         switch (requestCode) {
             case TO_PICK_ALBUM:
-                String name = data.getStringExtra(PhotoAlbumActivity.ALBUM_NAME);
+                String name = data.getStringExtra(PicCode.ALBUM_NAME);
                 if (mLastAlbumName.equals(name)) {
 
                     return;
@@ -301,7 +294,7 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
         }
         PhotoGalleyAdapter.mSelectedImage.clear();
         Intent intent = new Intent();
-        intent.putStringArrayListExtra(SELECT_PHOTO_LIST, list);
+        intent.putStringArrayListExtra(PicCode.SELECT_PHOTO_LIST, list);
         setResult(RESULT_OK, intent);
         ActivityUtils.finishActivity(this);
     }

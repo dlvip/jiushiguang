@@ -1,4 +1,4 @@
-package com.old.time.activitys;
+package com.pic.lib.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,31 +9,33 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.old.time.R;
-import com.old.time.adapters.ImagePagerAdapter;
-import com.old.time.utils.ActivityUtils;
-import com.old.time.views.HackyViewPager;
+import com.pic.lib.PicCode;
+import com.pic.lib.R;
+import com.pic.lib.adapters.ImagePagerAdapter;
+import com.pic.lib.utils.ActivityUtils;
+import com.pic.lib.views.HackyViewPager;
 
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * 图片查看器
- */
 public class PhotoPagerActivity extends FragmentActivity {
-    private static final String STATE_POSITION = "STATE_POSITION";
-    public static final String EXTRA_IMAGE_INDEX = "image_index";
-    public static final String EXTRA_IMAGE_URLS = "image_urls";
 
     private HackyViewPager mPager;
     private int pagerPosition;
     private TextView indicator;
     private List<String> urls;
 
+    /**
+     * 图片查看器
+     *
+     * @param mContext
+     * @param picPaths
+     * @param position
+     */
     public static void startPhotoPagerActivity(Activity mContext, Serializable picPaths, int position) {
         Intent intent = new Intent(mContext, PhotoPagerActivity.class);
-        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_URLS, picPaths);
-        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_INDEX, position);
+        intent.putExtra(PicCode.EXTRA_IMAGE_URLS, picPaths);
+        intent.putExtra(PicCode.EXTRA_IMAGE_INDEX, position);
         ActivityUtils.startPicActivity(mContext, intent);
 
     }
@@ -41,14 +43,14 @@ public class PhotoPagerActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        PicCode.PHOTO_IS_SHOW_SCAN = true;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.piclib_activity_image_detail_pager);
-
-        pagerPosition = getIntent().getIntExtra(EXTRA_IMAGE_INDEX, 0);
-        urls = getIntent().getStringArrayListExtra(EXTRA_IMAGE_URLS);
+        Intent intent = getIntent();
+        pagerPosition = intent.getIntExtra(PicCode.EXTRA_IMAGE_INDEX, 0);
+        urls = intent.getStringArrayListExtra(PicCode.EXTRA_IMAGE_URLS);
         mPager = findViewById(R.id.pager);
         ImagePagerAdapter mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), urls);
         mPager.setAdapter(mAdapter);
@@ -57,26 +59,28 @@ public class PhotoPagerActivity extends FragmentActivity {
         CharSequence text = getString(R.string.viewpager_indicator, 1, mPager.getAdapter().getCount());
         indicator.setText(text);
         // 更新下标
-        mPager.setOnPageChangeListener(new OnPageChangeListener() {
+        mPager.addOnPageChangeListener(new OnPageChangeListener() {
 
             @Override
-            public void onPageScrollStateChanged(int arg0) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
 
             @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-            }
-
-            @Override
-            public void onPageSelected(int arg0) {
-                CharSequence text = getString(R.string.viewpager_indicator, arg0 + 1, mPager.getAdapter().getCount());
+            public void onPageSelected(int position) {
+                CharSequence text = getString(R.string.viewpager_indicator, position + 1, mPager.getAdapter().getCount());
                 indicator.setText(text);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
         if (savedInstanceState != null) {
-            pagerPosition = savedInstanceState.getInt(STATE_POSITION);
+            pagerPosition = savedInstanceState.getInt(PicCode.STATE_POSITION);
+
         }
 
         mPager.setCurrentItem(pagerPosition);
@@ -85,7 +89,7 @@ public class PhotoPagerActivity extends FragmentActivity {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(STATE_POSITION, mPager.getCurrentItem());
-    }
+        outState.putInt(PicCode.STATE_POSITION, mPager.getCurrentItem());
 
+    }
 }

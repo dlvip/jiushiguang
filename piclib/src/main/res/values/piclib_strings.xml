@@ -7,4 +7,5 @@
     <string name="select_pic">选择相册</string>
     <string name="recent_pic">最近照片</string>
     <string name="take_pic">拍摄照片</string>
+    <string name="viewpager_indicator">%1$d/%2$d</string>
 </resources>

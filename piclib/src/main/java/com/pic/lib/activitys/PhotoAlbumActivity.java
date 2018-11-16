@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.pic.lib.PicCode;
 import com.pic.lib.activitys.BaseLibActivity;
 import com.pic.lib.utils.ActivityUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,6 +16,7 @@ import com.pic.lib.adapters.AlbumListAdapter;
 import com.pic.lib.models.AlbumModel;
 import com.pic.lib.utils.MyLinearLayoutManager;
 import com.pic.lib.utils.PhotoSelectorHelper;
+import com.pic.lib.utils.RecyclerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,6 @@ public class PhotoAlbumActivity extends BaseLibActivity implements PhotoSelector
     private List<AlbumModel> albumModels;
     private RecyclerView mRecyclerView;
     private AlbumListAdapter mAdapter;
-    public static final String ALBUM_NAME = "album_name";
 
     @Override
     protected void initEvent() {
@@ -33,7 +34,7 @@ public class PhotoAlbumActivity extends BaseLibActivity implements PhotoSelector
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent();
-                intent.putExtra(ALBUM_NAME, mAdapter.getItem(position).getName());
+                intent.putExtra(PicCode.ALBUM_NAME, mAdapter.getItem(position).getName());
                 setResult(RESULT_OK, intent);
                 ActivityUtils.finishActivity(mContext);
 
@@ -49,6 +50,7 @@ public class PhotoAlbumActivity extends BaseLibActivity implements PhotoSelector
 
         mRecyclerView = findViewById(R.id.lv_show_album);
         mRecyclerView.setLayoutManager(new MyLinearLayoutManager(mContext));
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext));
         albumModels = new ArrayList<>();
         mAdapter = new AlbumListAdapter(albumModels);
         mRecyclerView.setAdapter(mAdapter);

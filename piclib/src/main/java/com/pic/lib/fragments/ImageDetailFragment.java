@@ -13,7 +13,9 @@ import android.view.View;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
-import com.pic.lib.fragments.BaseFragment;
+import com.pic.lib.PicCode;
+import com.pic.lib.task.CallBackTask;
+import com.pic.lib.task.TaskManager;
 import com.pic.lib.utils.ActivityUtils;
 import com.pic.lib.utils.ScreenTools;
 import com.pic.lib.R;
@@ -44,7 +46,9 @@ public class ImageDetailFragment extends BaseFragment {
 
     @Override
     protected void loadView() {
-        this.imgUrl = (getArguments() != null ? getArguments().getString("url") : null);
+        Bundle bundle = getArguments();
+        assert bundle != null;
+        this.imgUrl = bundle.getString("url");
 
         mImageView = findViewById(R.id.image);
         mImageView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -80,9 +84,14 @@ public class ImageDetailFragment extends BaseFragment {
         mImageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                new Thread(new Runnable() {
+                if (!PicCode.PHOTO_IS_SHOW_SCAN) {
+
+                    return false;
+                }
+                TaskManager.getInstance().delTask(PicCode.IMAGEDOWNLOAD_THREAD_NAME);
+                TaskManager.getInstance().addTask(new CallBackTask(PicCode.IMAGEDOWNLOAD_THREAD_NAME) {
                     @Override
-                    public void run() {
+                    protected void doTask() {
                         String imgFileUrl = GlideUtils.getInstance().getImgPathFromCache(mContext, imgUrl);
                         codeUrl = ReadCodeUtils.scanningImage(imgFileUrl);
                         mContext.runOnUiThread(new Runnable() {
@@ -93,8 +102,7 @@ public class ImageDetailFragment extends BaseFragment {
                             }
                         });
                     }
-                }).start();
-
+                });
                 return false;
             }
         });
