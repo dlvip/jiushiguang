@@ -20,13 +20,13 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation externalGithubAdapterHelper
     implementation externalAndroidAppCompatV7
     implementation externalAndroidRecyclerView
     implementation externalGithubTransform
     implementation externalGithubPluginGlide
     implementation externalSimpleZXing
+    implementation externalAndroidExifInterface
 
-    implementation 'com.android.support:exifinterface:28.0.0'
 }

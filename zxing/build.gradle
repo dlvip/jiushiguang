@@ -12,11 +12,18 @@ android {
         vectorDrawables.useSupportLibrary = true
 
     }
+
+    allprojects {
+        repositories {
+            maven { url "https://jitpack.io" }
+        }
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation externalSimpleZXing
     implementation externalAndroidAppCompatV7
+    implementation project(':piclib')
 
 }

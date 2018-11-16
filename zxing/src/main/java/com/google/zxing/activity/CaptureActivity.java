@@ -32,6 +32,7 @@ import com.google.zxing.decoding.CaptureActivityHandler;
 import com.google.zxing.decoding.InactivityTimer;
 import com.google.zxing.utils.ReadCodeUtils;
 import com.google.zxing.view.ViewfinderView;
+import com.pic.lib.activitys.PhotoPickActivity;
 
 
 import java.io.IOException;
@@ -123,7 +124,13 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         });
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
+        findViewById(R.id.tv_select_pic).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhotoPickActivity.startPhotoPickActivity(CaptureActivity.this, false, REQUEST_CODE_SCAN_GALLERY);
 
+            }
+        });
     }
 
     @Override
@@ -148,12 +155,13 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
                     @Override
                     public void run() {
                         String result = ReadCodeUtils.scanningImage(list.get(0));
-                        if (TextUtils.isEmpty(result)) {
+                        if (!TextUtils.isEmpty(result)) {
                             Intent resultIntent = new Intent();
                             Bundle bundle = new Bundle();
                             bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, result);
                             resultIntent.putExtras(bundle);
                             CaptureActivity.this.setResult(RESULT_OK, resultIntent);
+                            finish();
 
                         } else {
                             Message m = handler.obtainMessage();
@@ -162,6 +170,15 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
                             handler.sendMessage(m);
 
                         }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (mProgress != null && mProgress.isShowing()) {
+                                    mProgress.dismiss();
+
+                                }
+                            }
+                        });
                     }
                 }).start();
                 break;
