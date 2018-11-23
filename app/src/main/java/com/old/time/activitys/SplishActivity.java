@@ -1,18 +1,24 @@
 package com.old.time.activitys;
 
 import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.old.time.MyApplication;
 import com.old.time.R;
+import com.old.time.beans.SplashBean;
 import com.old.time.constants.Constant;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AnimUtil;
+import com.old.time.utils.ComputeUtils;
+import com.old.time.utils.DebugLog;
+import com.old.time.utils.SplashDownLoadService;
 import com.old.time.utils.StringUtils;
 
 public class SplishActivity extends BaseActivity {
@@ -20,9 +26,11 @@ public class SplishActivity extends BaseActivity {
     private RelativeLayout rootLayout, relative_layout_next;
     private TextView versionText, tv_time_next;
     private ImageView img_splish, img_logo;
+    private int[] WH;
 
     @Override
     protected void initView() {
+        WH = ComputeUtils.computeImageHeight_135_197(this);
         rootLayout = findViewById(R.id.header_mainr);
         relative_layout_next = findViewById(R.id.relative_layout_next);
         relative_layout_next.setPadding(0, getStatusBarHeight(), 0, 0);
@@ -53,7 +61,7 @@ public class SplishActivity extends BaseActivity {
 
             }
         });
-        img_splish.startAnimation(AnimUtil.getAnimSet(null, AnimUtil.getAlphaAnim(),AnimUtil.getScaleAnim()));
+        img_splish.startAnimation(AnimUtil.getAnimSet(null, AnimUtil.getAlphaAnim(), AnimUtil.getScaleAnim()));
 
 
         PlayServiceManager.startPlayService(mContext);
@@ -65,8 +73,42 @@ public class SplishActivity extends BaseActivity {
         countDownTimer.start();
     }
 
+    /**
+     * 应用是否升级
+     */
     private void systemUpGrade() {
+        showSplash();
+        startImageDownLoad();
 
+    }
+
+    private SplashBean mSplash;
+
+    private void showSplash() {
+        try {
+            mSplash = SplashDownLoadService.getSplashLocal(Constant.SPLASH_PATH);
+            if (mSplash != null && !TextUtils.isEmpty(mSplash.savePath)) {
+                img_splish.setVisibility(View.VISIBLE);
+                img_logo.setVisibility(View.VISIBLE);
+                DebugLog.e(TAG, "SplashActivity 获取本地序列化成功" + mSplash);
+                Glide.with(this).load(mSplash.savePath).into(img_splish);
+                startClock();
+
+            } else {
+                startActivity();
+
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+    }
+
+    /**
+     * 下载启动页面
+     */
+    private void startImageDownLoad() {
+        SplashDownLoadService.startDownLoadSplashImage(this, WH);
 
     }
 

@@ -1,10 +1,17 @@
 package com.old.time.constants;
 
+import com.old.time.MyApplication;
+
 /**
  * Created by NING on 2018/3/5.
  */
 
 public class Constant {
+
+    public static final String SPLASH_FILE_NAME = "splash.srr";
+
+    //动态闪屏序列化地址
+    public static final String SPLASH_PATH = MyApplication.getInstance().getFilesDir().getAbsolutePath() + "/alpha/splash";
 
     public static final int PageSize = 15;
 
