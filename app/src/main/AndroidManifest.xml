@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES" />
-
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
@@ -53,7 +52,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -81,26 +80,6 @@
         <service android:name="com.amap.api.location.APSService" />
         <!-- 定位配置结束 -->
 
-        <!-- 讯飞广告 -->
-        <meta-data
-            android:name="IFLYTEK_APPKEY_AD"
-            android:value="5bd16870" />
-
-        <service
-            android:name="com.iflytek.voiceads.update.DownloadService"
-            android:stopWithTask="true" />
-        <activity
-            android:name="com.iflytek.voiceads.request.IFLYBrowser"
-            android:screenOrientation="portrait" />
-        <!--<provider-->
-            <!--android:name="android.support.v4.content.FileProvider"-->
-            <!--android:authorities="com.old.time.fileprovider"-->
-            <!--android:exported="false"-->
-            <!--android:grantUriPermissions="true">-->
-            <!--<meta-data-->
-                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-                <!--android:resource="@xml/file_paths" />-->
-        <!--</provider>-->
 
         <!-- 音乐播放 -->
         <service
@@ -159,7 +138,8 @@
         <activity android:name=".activitys.DownLoadCActivity" />
         <activity
             android:name=".activitys.VideoDetailActivity"
-            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden" />
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity android:name=".activitys.TopicsCActivity" />
         <activity android:name=".activitys.CoursesCActivity" />
         <activity android:name=".activitys.MusicsUsersActivity" />
@@ -179,6 +159,7 @@
         <activity android:name=".activitys.SearchActivity" />
         <activity android:name=".activitys.FArticleActivity" />
         <activity android:name=".activitys.MusicDetailActivity" />
+        <activity android:name=".activitys.VideosActivity"></activity>
     </application>
 
 </manifest>
