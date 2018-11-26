@@ -1,5 +1,6 @@
 package com.old.time.activitys;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.old.time.MyApplication;
 import com.old.time.R;
 import com.old.time.beans.SplashBean;
@@ -37,16 +39,28 @@ public class SplishActivity extends BaseActivity {
         versionText = findViewById(R.id.tv_version);
         tv_time_next = findViewById(R.id.tv_time_next);
         img_splish = findViewById(R.id.img_splish);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) img_splish.getLayoutParams();
+        params.width = WH[0];
+        params.height = WH[1];
+        img_splish.setLayoutParams(params);
         img_logo = findViewById(R.id.img_logo);
 
         versionText.setText(getString(R.string.app_name) + " V：" + StringUtils.getVersion(this));
         rootLayout.postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 systemUpGrade();
 
             }
         }, 1000);
+        img_logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.startMainActivity(mContext);
+
+            }
+        });
         tv_time_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,11 +71,15 @@ public class SplishActivity extends BaseActivity {
         img_splish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity();
+                Intent intent = new Intent(mContext, MainActivity.class);
+                intent.putExtra(VideoDetailActivity.PLAY_URL, Constant.MP4_PATH_URL);
+                ActivityUtils.startActivitys(mContext, new Intent[]{new Intent(mContext, VideosActivity.class), intent});
+                ActivityUtils.finishActivity(mContext);
+//                VideoDetailActivity.startVideoDetailActivity(mContext, Constant.MP4_PATH_URL);
 
             }
         });
-        img_splish.startAnimation(AnimUtil.getAnimSet(null, AnimUtil.getAlphaAnim(), AnimUtil.getScaleAnim()));
+//        img_splish.startAnimation(AnimUtil.getAnimSet(null, AnimUtil.getAlphaAnim(), AnimUtil.getScaleAnim()));
 
 
         PlayServiceManager.startPlayService(mContext);
@@ -91,7 +109,7 @@ public class SplishActivity extends BaseActivity {
                 img_splish.setVisibility(View.VISIBLE);
                 img_logo.setVisibility(View.VISIBLE);
                 DebugLog.e(TAG, "SplashActivity 获取本地序列化成功" + mSplash);
-                Glide.with(this).load(mSplash.savePath).into(img_splish);
+                Glide.with(this).load(mSplash.savePath).apply(new RequestOptions().dontAnimate()).into(img_splish);
                 startClock();
 
             } else {
@@ -155,6 +173,13 @@ public class SplishActivity extends BaseActivity {
 
         }
     };
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cancelDownTimer();
+
+    }
 
     @Override
     protected int getLayoutID() {

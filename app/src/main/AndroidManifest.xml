@@ -92,6 +92,8 @@
             </intent-filter>
         </service>
 
+        <service android:name=".utils.SplashDownLoadService"/>
+
         <activity android:name=".activitys.SplishActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.old.time.R;
 import com.old.time.beans.VideosBean;
+import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DataUtils;
@@ -48,7 +49,7 @@ public class VideosActivity extends BaseCActivity {
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                VideoDetailActivity.startVideoDetailActivity(mContext);
+                VideoDetailActivity.startVideoDetailActivity(mContext, Constant.MP4_PATH_URL);
 
             }
         });
@@ -58,7 +59,7 @@ public class VideosActivity extends BaseCActivity {
     public void getDataFromNet(boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
         videosBeans.clear();
-        videosBeans.addAll(DataUtils.getVideosBeans("mp4",mContext));
+        videosBeans.addAll(DataUtils.getVideosBeans("mp4", mContext));
         adapter.setNewData(videosBeans);
 
     }

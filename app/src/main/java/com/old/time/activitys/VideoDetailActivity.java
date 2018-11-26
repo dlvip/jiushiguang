@@ -18,13 +18,16 @@ import com.old.time.views.WebViewFragment;
 
 public class VideoDetailActivity extends BaseActivity {
 
+    public static String PLAY_URL = "playUrl";
+
     /**
      * 视频详情页
      *
      * @param mContext
      */
-    public static void startVideoDetailActivity(Context mContext) {
+    public static void startVideoDetailActivity(Context mContext, String playUrl) {
         Intent intent = new Intent(mContext, VideoDetailActivity.class);
+        intent.putExtra(PLAY_URL, playUrl);
         ActivityUtils.startLoginActivity((Activity) mContext, intent);
 
     }
@@ -44,7 +47,7 @@ public class VideoDetailActivity extends BaseActivity {
         fragmentTransaction.commit();
 
         mMNVideoPlayer = findViewById(R.id.video_player);
-        StandardVideoController controller =  new StandardVideoController(this);
+        StandardVideoController controller = new StandardVideoController(this);
         //高级设置（可选，须在start()之前调用方可生效）
         PlayerConfig playerConfig = new PlayerConfig.Builder()
                 .autoRotate()//启用重力感应自动进入/退出全屏功能
@@ -61,7 +64,7 @@ public class VideoDetailActivity extends BaseActivity {
 //                    .setCustomMediaPlayer(new ExoMediaPlayer(this))
 //                    .setCustomMediaPlayer(new AndroidMediaPlayer(this))
                 .build());
-        mMNVideoPlayer.setUrl(Constant.MP4_PATH_URL);
+        mMNVideoPlayer.setUrl(getIntent().getStringExtra(PLAY_URL));
         mMNVideoPlayer.setVideoController(controller);
         mMNVideoPlayer.start();
 
