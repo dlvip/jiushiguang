@@ -12,8 +12,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.old.time.MyApplication;
 import com.old.time.R;
+import com.old.time.beans.ResultBean;
 import com.old.time.beans.SplashBean;
 import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
@@ -85,6 +88,20 @@ public class SplishActivity extends BaseActivity {
         PlayServiceManager.startPlayService(mContext);
 
         startClock();
+
+        OkGoUtils.getInstance().postNetForData(Constant.ADD_VIDEO, new JsonCallBack<ResultBean>() {
+            @Override
+            public void onSuccess(ResultBean mResultBean) {
+
+
+            }
+
+            @Override
+            public void onError(ResultBean mResultBean) {
+
+
+            }
+        });
     }
 
     private void startClock() {
