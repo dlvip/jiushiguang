@@ -32,8 +32,11 @@ public class MainActivity extends BaseActivity {
 
             return;
         }
-        Intent intent = new Intent(mContext, MainActivity.class);
-        ActivityUtils.startActivity(mContext, intent);
+        VideosActivity.startVideosActivity(mContext);
+
+
+//        Intent intent = new Intent(mContext, MainActivity.class);
+//        ActivityUtils.startActivity(mContext, intent);
         ActivityUtils.finishActivity(mContext);
 
     }

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.old.time">
 
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
@@ -44,16 +47,12 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
-    <permission
-        android:name="com.old.time.permission.ACCESS_PLAY_SERVICE"
-        android:protectionLevel="normal" />
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -81,32 +80,19 @@
         <service android:name="com.amap.api.location.APSService" />
         <!-- 定位配置结束 -->
 
-        <service
-            android:name=".services.PlayService"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="com.old.time.permission.ACCESS_PLAY_SERVICE"
-            android:process=":playService">
-            <intent-filter>
-                <action android:name="com.old.time.action.PLAY_SERVICE" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </service>
 
         <!-- 音乐播放 -->
         <service
-            android:name=".musicPlay.MusicService"
+            android:name=".service.PlayMusicService"
             android:enabled="true"
             android:exported="true"
-            android:permission="com.old.time.permission.ACCESS_PLAY_SERVICE"
-            android:process=":MusicService">
+            android:process=":playService">
             <intent-filter>
-                <action android:name="com.old.time.action.PLAY_SERVICE" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </service>
+
+        <service android:name=".utils.SplashDownLoadService"/>
 
         <activity android:name=".activitys.SplishActivity">
             <intent-filter>
@@ -118,14 +104,14 @@
         <activity
             android:name=".activitys.MainActivity"
             android:alwaysRetainTaskState="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activitys.UserLoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-
         <activity android:name=".activitys.PhotoPagerActivity" />
         <activity android:name=".activitys.TakePicActivity" />
         <activity android:name=".activitys.PhotoPickActivity" />
@@ -135,38 +121,47 @@
         <activity android:name=".activitys.PuzzleActivity" />
         <activity android:name=".activitys.PuzzleMActivity" />
         <activity android:name=".activitys.SettingActivity" />
-        <activity android:name=".activitys.DynamicActivity" />
-        <activity android:name=".activitys.PicsManageActivity" />
+        <activity android:name=".activitys.DynamicSActivity" />
+        <activity android:name=".activitys.PicsManageCActivity" />
         <activity android:name=".activitys.UserMesgActivity" />
-        <activity android:name=".activitys.UserDressActivity" />
+        <activity android:name=".activitys.UserDressCActivity" />
         <activity android:name=".activitys.CreateDressActivity" />
         <activity android:name=".activitys.WebViewActivity" />
         <activity
             android:name=".activitys.UserRegisterActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activitys.SystemMsgActivity" />
-        <activity android:name=".activitys.UserOrderActivity" />
+        <activity android:name=".activitys.SystemMsgCActivity" />
+        <activity android:name=".activitys.UserOrderCActivity" />
         <activity android:name=".activitys.CreateDynActivity" />
         <activity
             android:name=".activitys.LocationMapActivity"
             android:imeOptions="actionSearch" />
-        <activity android:name=".activitys.DynamicDetailActivity" />
-        <activity android:name=".activitys.DownLoadActivity" />
+        <activity android:name=".activitys.DynamicDetailCActivity" />
+        <activity android:name=".activitys.DownLoadCActivity" />
         <activity
             android:name=".activitys.VideoDetailActivity"
-            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden" />
-        <activity
-            android:name=".activitys.MusicActivity"
-            android:launchMode="singleTask" />
-        <activity android:name=".activitys.TopicsActivity" />
-        <activity android:name=".activitys.CoursesActivity" />
-        <activity android:name=".activitys.MusicsActivity" />
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activitys.TopicsCActivity" />
+        <activity android:name=".activitys.CoursesCActivity" />
+        <activity android:name=".activitys.MusicsUsersActivity" />
         <activity android:name=".activitys.VideoPagerActivity" />
-        <activity android:name=".activitys.TalksActivity" />
-        <activity android:name=".activitys.VideosActivity" />
+        <activity android:name=".activitys.TalksCActivity" />
+        <activity android:name=".activitys.VideosCActivity" />
         <activity
             android:name=".activitys.MusicPlayActivity"
             android:launchMode="singleTask" />
+        <activity android:name=".activitys.CreateTopicActivity" />
+        <activity android:name=".activitys.TopicDetailCActivity" />
+        <activity android:name=".activitys.CreateActionActivity" />
+        <activity android:name=".activitys.CreateCActivity" />
+        <activity android:name=".activitys.CreateBannerActivity" />
+        <activity android:name=".activitys.GoodsCActivity" />
+        <activity android:name=".activitys.CreateGoodsActivity" />
+        <activity android:name=".activitys.SearchActivity" />
+        <activity android:name=".activitys.FArticleActivity" />
+        <activity android:name=".activitys.MusicDetailActivity" />
+        <activity android:name=".activitys.VideosActivity"></activity>
     </application>
 
 </manifest>

@@ -180,7 +180,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
         }
-        intent = new Intent(mContext, CaptureActivity.class);
+//        intent = new Intent(mContext, CaptureActivity.class);
         if (intent != null) {
             ActivityUtils.fStartActivtiyForResult(this, intent, CaptureActivity.REQ_CODE);
 

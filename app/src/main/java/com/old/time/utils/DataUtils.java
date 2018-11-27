@@ -3,6 +3,7 @@ package com.old.time.utils;
 import android.content.Context;
 
 import com.old.time.aidl.ChapterBean;
+import com.old.time.beans.VideosBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,4 +51,36 @@ public class DataUtils {
         }
         return chapterBeans;
     }
+
+    /**
+     * 获取数据
+     *
+     * @param fileName
+     * @param mContext
+     * @return
+     */
+    public static List<VideosBean> getVideosBeans(String fileName, Context mContext) {
+        String string = StringUtils.getJson(fileName + ".json", mContext);
+        List<VideosBean> chapterBeans = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(string);
+            JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
+            chapterBeans.clear();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject musicObj = jsonArray.getJSONObject(i);
+                VideosBean chapterBean = new VideosBean();
+                chapterBean.setD_pic(musicObj.getString("d_pic"));
+                chapterBean.setD_id(musicObj.getString("d_id"));
+                chapterBean.setD_name(musicObj.getString("d_name"));
+                chapterBeans.add(chapterBean);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+        return chapterBeans;
+    }
+
+
 }

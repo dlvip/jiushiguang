@@ -53,6 +53,11 @@ public class SplashDownLoadService extends IntentService {
      * 获取图片信息接口
      */
     private void loadSplashNetDate(final int[] WH) {
+        SplashBean splashBean = new SplashBean();
+        splashBean.photos = "http://tupian.tupianzy.com//pic//upload//vod//2018-11-16//201811161542379015.jpg";
+        splashBean.click_url = Constant.MP4_PATH_URL;
+        splashBean.splashLocal = Constant.SPLASH_PATH;
+        initDownLoadData(splashBean, WH);
 //        NetWorkUtils.getInstance().requestObjData(getApplicationContext(), Constant.GET_SPLISH_BANNER, new XutilParams(), new SplashBean(), new IRequestCallBack() {
 //            @Override
 //            public void getObject(Object o) {
