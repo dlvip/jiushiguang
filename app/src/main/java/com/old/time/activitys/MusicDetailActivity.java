@@ -62,6 +62,7 @@ public class MusicDetailActivity extends BaseCActivity {
         mRecyclerView.setAdapter(mAdapter);
         tv_music_title.setText(mCourseBean.title);
         GlideUtils.getInstance().downLoadBitmap(mContext, mCourseBean.coursePic, 5, new ImageDownLoadCallBack() {
+
             @Override
             public void onDownLoadSuccess(Bitmap resource) {
                 // 4.更换音乐背景

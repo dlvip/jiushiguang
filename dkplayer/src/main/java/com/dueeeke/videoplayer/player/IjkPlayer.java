@@ -48,7 +48,7 @@ public class IjkPlayer extends AbstractPlayer {
 
     @Override
     public void setOptions() {
-
+        mMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_FORMAT, "allowed_extensions", "ALL");
     }
 
     @Override

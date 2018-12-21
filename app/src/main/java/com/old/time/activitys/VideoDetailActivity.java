@@ -41,7 +41,7 @@ public class VideoDetailActivity extends BaseActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         mWebFragment = new WebViewFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(WebViewFragment.WEB_VIEW_URL, Constant.mHomeUrl);
+        bundle.putString(WebViewFragment.WEB_VIEW_URL, Constant.MP4_PATH_URL);
         mWebFragment.setArguments(bundle);
         fragmentTransaction.add(R.id.web_layout, mWebFragment);
         fragmentTransaction.commit();
@@ -49,20 +49,14 @@ public class VideoDetailActivity extends BaseActivity {
         mMNVideoPlayer = findViewById(R.id.video_player);
         StandardVideoController controller = new StandardVideoController(this);
         //高级设置（可选，须在start()之前调用方可生效）
-        PlayerConfig playerConfig = new PlayerConfig.Builder()
-                .autoRotate()//启用重力感应自动进入/退出全屏功能
-//                .enableCache() //启用边播边缓存功能
-//                .savingProgress() //保存播放进度
-//                .disableAudioFocus() //关闭AudioFocusChange监听
-//                .setLooping() //循环播放当前正在播放的视频
-                .build();
-        mMNVideoPlayer.setPlayerConfig(new PlayerConfig.Builder()
+        mMNVideoPlayer.setPlayerConfig(new PlayerConfig.Builder()//
                 .autoRotate()//自动旋转屏幕
-//                    .enableCache()//启用边播边存
-//                    .enableMediaCodec()//启动硬解码
-//                    .usingSurfaceView()//使用SurfaceView
-//                    .setCustomMediaPlayer(new ExoMediaPlayer(this))
-//                    .setCustomMediaPlayer(new AndroidMediaPlayer(this))
+//                .enableCache()//启用边播边存
+                .savingProgress() //保存播放进度
+//                .enableMediaCodec()//启动硬解码
+//                .usingSurfaceView()//使用SurfaceView
+//                .setCustomMediaPlayer(new ExoMediaPlayer(this))//
+//                .setCustomMediaPlayer(new AndroidMediaPlayer(this))//
                 .build());
         mMNVideoPlayer.setUrl(getIntent().getStringExtra(PLAY_URL));
         mMNVideoPlayer.setVideoController(controller);

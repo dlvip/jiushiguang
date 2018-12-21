@@ -60,6 +60,15 @@ public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
 
     }
 
+    public RecyclerItemDecoration(int orientation, int spacing, int resId, Context context) {
+        setOrientation(orientation);
+        this.spacing = spacing;
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaint.setColor(resId);
+        mPaint.setStyle(Paint.Style.FILL);
+
+    }
+
     /**
      * 默认纵向
      *
