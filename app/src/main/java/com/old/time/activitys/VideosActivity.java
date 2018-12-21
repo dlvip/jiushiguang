@@ -58,9 +58,6 @@ public class VideosActivity extends BaseCActivity {
     @Override
     public void getDataFromNet(boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
-        videosBeans.clear();
-        videosBeans.addAll(DataUtils.getVideosBeans("mp4", mContext));
-        adapter.setNewData(videosBeans);
 
     }
 }

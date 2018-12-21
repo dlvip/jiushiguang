@@ -28,15 +28,8 @@ public class MainActivity extends BaseActivity {
      * @param mContext
      */
     public static void startMainActivity(Activity mContext) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, READ_PHONE_STATE)) {
-
-            return;
-        }
-        VideosActivity.startVideosActivity(mContext);
-
-
-//        Intent intent = new Intent(mContext, MainActivity.class);
-//        ActivityUtils.startActivity(mContext, intent);
+        Intent intent = new Intent(mContext, MainActivity.class);
+        ActivityUtils.startActivity(mContext, intent);
         ActivityUtils.finishActivity(mContext);
 
     }

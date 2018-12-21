@@ -70,7 +70,6 @@ public class MusicPlayActivity extends BaseActivity {
     private boolean mIsPlaying = false;
     private TextView tv_speed, tv_progress_time, tv_title_time;
     private OnModelChangedListener onModelChangedListener;
-    private PlayServiceManager mPlayServiceManager;
     private PlayServiceConnection mPlayServiceConnection;
 
     private CourseBean mCourseBean;
@@ -132,7 +131,7 @@ public class MusicPlayActivity extends BaseActivity {
             }
         };
 
-        mPlayServiceManager = new PlayServiceManager(mContext);
+        PlayServiceManager mPlayServiceManager = new PlayServiceManager(mContext);
         mPlayServiceConnection = new PlayServiceConnection(new PlayServiceConnection.OnServiceConnectedListener() {
             @Override
             public void onServiceConnected() {

@@ -98,13 +98,7 @@ public class MusicDetailActivity extends BaseCActivity {
 
         }
         mSwipeRefreshLayout.setRefreshing(false);
-        List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
-        if (chapterBeans != null && chapterBeans.size() > 0) {
-            chapterList.addAll(chapterBeans);
 
-        }
-        mAdapter.setNewData(chapterList);
-        mAdapter.setcPosition(position);
     }
 
     @Override

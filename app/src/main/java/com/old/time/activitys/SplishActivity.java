@@ -70,7 +70,6 @@ public class SplishActivity extends BaseActivity {
                 intent.putExtra(VideoDetailActivity.PLAY_URL, Constant.MP4_PATH_URL);
                 ActivityUtils.startActivitys(mContext, new Intent[]{new Intent(mContext, VideosActivity.class), intent});
                 ActivityUtils.finishActivity(mContext);
-//                VideoDetailActivity.startVideoDetailActivity(mContext, Constant.MP4_PATH_URL);
 
             }
         });

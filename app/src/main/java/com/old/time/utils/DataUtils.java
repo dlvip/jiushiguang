@@ -81,6 +81,4 @@ public class DataUtils {
         }
         return chapterBeans;
     }
-
-
 }
