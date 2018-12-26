@@ -1,15 +1,24 @@
 package com.old.time.activitys;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Result;
 import com.old.time.R;
 import com.old.time.beans.CreateBean;
+import com.old.time.beans.ResultBean;
+import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.UIHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +37,7 @@ public class CreateCActivity extends BaseCActivity {
     protected void initView() {
         super.initView();
         createBeans.clear();
+        createBeans.add(CreateBean.getInstance("添加课程", null));
         createBeans.add(CreateBean.getInstance("添加活动", CreateActionActivity.class));
         createBeans.add(CreateBean.getInstance("添加轮播", CreateBannerActivity.class));
         createBeans.add(CreateBean.getInstance("添加宝贝", CreateGoodsActivity.class));
@@ -45,8 +55,42 @@ public class CreateCActivity extends BaseCActivity {
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(mContext, createBeans.get(position).getaClass());
-                ActivityUtils.startActivity(mContext, intent);
+                CreateBean createBean = createBeans.get(position);
+                if (createBean == null) {
+
+                    return;
+                }
+                switch (createBean.getTitle()) {
+                    case "添加课程":
+                        saveChapter();
+
+                        break;
+                    default:
+                        Intent intent = new Intent(mContext, createBean.getaClass());
+                        ActivityUtils.startActivity(mContext, intent);
+
+                        break;
+                }
+            }
+        });
+    }
+
+    private ProgressDialog pd;
+
+    private void saveChapter() {
+        pd = UIHelper.showProgressMessageDialog(mContext, getString(R.string.please_wait));
+        OkGoUtils.getInstance().postNetForData(new HttpParams(), Constant.MUSIC_ADD_MUSIC, new JsonCallBack<ResultBean<String>>() {
+            @Override
+            public void onSuccess(ResultBean<String> mResultBean) {
+                UIHelper.dissmissProgressDialog(pd);
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+
+            @Override
+            public void onError(ResultBean<String> mResultBean) {
+                UIHelper.dissmissProgressDialog(pd);
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
 
             }
         });

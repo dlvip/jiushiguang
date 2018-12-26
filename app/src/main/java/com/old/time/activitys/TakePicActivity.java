@@ -45,11 +45,9 @@ public class TakePicActivity extends BaseActivity implements SurfaceHolder.Callb
 
     private static final int PIC_COUNT_SIZE = 9;
 
-    private RecyclerView recycler_view_pics;
     private List<String> picPaths = new ArrayList<>();
     private BaseQuickAdapter<String, BaseViewHolder> mAdapter;
     private int width;
-    private LinearLayout linear_layout_pics;
     private TextView tv_pic_detail;
     private SurfaceView mSurfaceView;
     private SurfaceHolder holder;
@@ -84,26 +82,26 @@ public class TakePicActivity extends BaseActivity implements SurfaceHolder.Callb
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // 防止锁屏
         picPaths.clear();
         width = (ScreenTools.instance(this).getScreenWidth() - 5 * UIHelper.dip2px(10)) * 10 / 45;
-        tv_pic_detail = (TextView) findViewById(R.id.tv_pic_detail);
-        mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView);
+        tv_pic_detail = findViewById(R.id.tv_pic_detail);
+        mSurfaceView = findViewById(R.id.surfaceView);
         holder = mSurfaceView.getHolder();
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         holder.addCallback(this); // 回调接口
         findViewById(R.id.tv_btn_back).setOnClickListener(this);
         findViewById(R.id.tv_btn_pics).setOnClickListener(this);
-        img_btn_lights = (ImageView) findViewById(R.id.img_btn_lights);
+        img_btn_lights = findViewById(R.id.img_btn_lights);
         img_btn_lights.setOnClickListener(this);
-        img_btn_reverse = (ImageView) findViewById(R.id.img_btn_reverse);
+        img_btn_reverse = findViewById(R.id.img_btn_reverse);
         img_btn_reverse.setOnClickListener(this);
-        img_take_pic = (ImageView) findViewById(R.id.img_take_pic);
+        img_take_pic = findViewById(R.id.img_take_pic);
         img_take_pic.setOnClickListener(this);
-        tv_pic_upload = (TextView) findViewById(R.id.tv_pic_upload);
+        tv_pic_upload = findViewById(R.id.tv_pic_upload);
         tv_pic_upload.setOnClickListener(this);
-        linear_layout_pics = (LinearLayout) findViewById(R.id.linear_layout_pics);
+        LinearLayout linear_layout_pics = findViewById(R.id.linear_layout_pics);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) linear_layout_pics.getLayoutParams();
         params.height = width + ScreenTools.instance(this).dip2px(20);
         linear_layout_pics.setLayoutParams(params);
-        recycler_view_pics = (RecyclerView) findViewById(R.id.recycler_view_pics);
+        RecyclerView recycler_view_pics = findViewById(R.id.recycler_view_pics);
         recycler_view_pics.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         List<String> pics = (List<String>) getIntent().getSerializableExtra(PhotoPickActivity.SELECT_PHOTO_LIST);
         if (pics != null) {
