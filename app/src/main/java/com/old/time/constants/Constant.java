@@ -15,6 +15,8 @@ public class Constant {
 
     public static final int PageSize = 15;
 
+    public static final int PAGE_ALL = 100;
+
     //热更新App ID
     public static final String TINK_APP_ID = "726aeba59a";
 
@@ -42,7 +44,7 @@ public class Constant {
     /**
      * 测试baseUrl
      */
-    public static String BASE_TEST_URL = "http://localhost:8080/jiushiguang/";
+    public static String BASE_TEST_URL = "http://localhost:9090/jiushiguang/";
 
     //用户登陆
     public static final String USER_LOGIN = BASE_TEST_URL + "loginUser";

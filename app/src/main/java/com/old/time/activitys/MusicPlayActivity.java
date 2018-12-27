@@ -13,20 +13,24 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.aidl.OnModelChangedListener;
 import com.old.time.aidl.PlayServiceIBinder;
 import com.old.time.beans.CourseBean;
+import com.old.time.beans.ResultBean;
+import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogChapterList;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.aidl.ChapterBean;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.service.PlayServiceConnection;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DataUtils;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
@@ -71,7 +75,9 @@ public class MusicPlayActivity extends BaseActivity {
     private TextView tv_speed, tv_progress_time, tv_title_time;
     private OnModelChangedListener onModelChangedListener;
     private PlayServiceConnection mPlayServiceConnection;
+    private PlayServiceManager mPlayServiceManager;
 
+    private List<ChapterBean> chapterBeans;
     private CourseBean mCourseBean;
     private String albumId;
 
@@ -130,8 +136,7 @@ public class MusicPlayActivity extends BaseActivity {
 
             }
         };
-
-        PlayServiceManager mPlayServiceManager = new PlayServiceManager(mContext);
+        mPlayServiceManager = new PlayServiceManager(mContext);
         mPlayServiceConnection = new PlayServiceConnection(new PlayServiceConnection.OnServiceConnectedListener() {
             @Override
             public void onServiceConnected() {
@@ -139,16 +144,13 @@ public class MusicPlayActivity extends BaseActivity {
                 albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
                 if ((TextUtils.isEmpty(albumId) && mCourseBean != null) || (mCourseBean != null && !albumId.equals(mCourseBean.albumId))) {
                     SpUtils.put(PlayServiceIBinder.SP_PLAY_ALBUM_ID, mCourseBean.albumId);
-                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
                     mPlayServiceConnection.setStartList(chapterBeans, 0);
 
                 } else if (!mPlayServiceConnection.isPlaying() && mCourseBean != null) {
-                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
                     int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
                     mPlayServiceConnection.setStartList(chapterBeans, position);
 
                 } else if (!mPlayServiceConnection.isPlaying() && mCourseBean == null) {
-                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(albumId, mContext);
                     int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
                     mPlayServiceConnection.setStartList(chapterBeans, position);
 
@@ -163,7 +165,25 @@ public class MusicPlayActivity extends BaseActivity {
 
             }
         });
-        mPlayServiceManager.bindService(mPlayServiceConnection);
+        HttpParams params = new HttpParams();
+        params.put("albumId", mCourseBean.albumId);
+        params.put("pageNum", 0);
+        params.put("pageSize", Constant.PAGE_ALL);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<ChapterBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<ChapterBean>> mResultBean) {
+                chapterBeans = mResultBean.data;
+                mPlayServiceManager.bindService(mPlayServiceConnection);
+
+            }
+
+            @Override
+            public void onError(ResultBean<List<ChapterBean>> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+                ActivityUtils.finishActivity(mContext);
+
+            }
+        });
     }
 
     @Override

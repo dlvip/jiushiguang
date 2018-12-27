@@ -134,9 +134,6 @@ public class FindFragment extends CBaseFragment {
             getTopicList();
             pageNum = 0;
 
-        } else {
-            pageNum++;
-
         }
         HttpParams params = new HttpParams();
         params.put("pageNum", pageNum);
@@ -144,6 +141,7 @@ public class FindFragment extends CBaseFragment {
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_ACTION_LIST, new JsonCallBack<ResultBean<List<ActionBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<ActionBean>> mResultBean) {
+                pageNum++;
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (isRefresh) {
                     actionBeans.clear();
@@ -168,6 +166,7 @@ public class FindFragment extends CBaseFragment {
             @Override
             public void onError(ResultBean<List<ActionBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
+                mAdapter.loadMoreFail();
                 UIHelper.ToastMessage(mContext, mResultBean.msg);
 
             }

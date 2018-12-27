@@ -3,6 +3,8 @@ package com.old.time.aidl;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.old.time.utils.StringUtils;
+
 /**
  * 序列化bean对象，使之能在activity和service中传递信息
  */
@@ -11,7 +13,6 @@ public class ChapterBean implements Parcelable {
     private long id;
     private long albumId;
     private long duration;
-    private long size;
     private String title;
     private String artist;
     private String album;
@@ -68,27 +69,12 @@ public class ChapterBean implements Parcelable {
     }
 
     public String getDurationStr() {
-        if (duration == 0) {
 
-            return "00:00";
-        }
-        String durationStr;
-        durationStr = duration / 60 > 9 ? "" + duration / 60 : "0" + duration / 60;
-        durationStr += duration % 60 > 9 ? ":" + duration % 60 : ":0" + duration % 60;
-
-        return durationStr;
+        return StringUtils.getDurationStr((int) (duration));
     }
 
     public void setDuration(long duration) {
         this.duration = duration;
-    }
-
-    public long getSize() {
-        return size;
-    }
-
-    public void setSize(long size) {
-        this.size = size;
     }
 
     public String getUrl() {
@@ -146,7 +132,6 @@ public class ChapterBean implements Parcelable {
         album = in.readString();
         albumId = in.readLong();
         duration = in.readLong();
-        size = in.readLong();
         url = in.readString();
         songId = in.readString();
         songName = in.readString();
@@ -162,7 +147,6 @@ public class ChapterBean implements Parcelable {
         dest.writeString(album);
         dest.writeLong(albumId);
         dest.writeLong(duration);
-        dest.writeLong(size);
         dest.writeString(url);
         dest.writeString(songId);
         dest.writeString(songName);
@@ -189,6 +173,6 @@ public class ChapterBean implements Parcelable {
 
     @Override
     public String toString() {
-        return "ChapterBean{" + "id=" + id + ", title='" + title + '\'' + ", artist='" + artist + '\'' + ", album='" + album + '\'' + ", albumId=" + albumId + ", duration=" + duration + ", size=" + size + ", url='" + url + '\'' + ", songId='" + songId + '\'' + ", songName='" + songName + '\'' + ", picUrl='" + picUrl + '\'' + ", audio='" + audio + '\'' + '}';
+        return "ChapterBean{" + "id=" + id + ", title='" + title + '\'' + ", artist='" + artist + '\'' + ", album='" + album + '\'' + ", albumId=" + albumId + ", duration=" + duration + ", url='" + url + '\'' + ", songId='" + songId + '\'' + ", songName='" + songName + '\'' + ", picUrl='" + picUrl + '\'' + ", audio='" + audio + '\'' + '}';
     }
 }
