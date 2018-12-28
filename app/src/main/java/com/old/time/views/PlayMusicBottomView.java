@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -15,16 +14,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.MusicPlayActivity;
 import com.old.time.aidl.ChapterBean;
 import com.old.time.aidl.OnModelChangedListener;
 import com.old.time.aidl.PlayServiceIBinder;
+import com.old.time.beans.ResultBean;
+import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.service.PlayServiceConnection;
 import com.old.time.service.manager.PlayNotifyManager;
 import com.old.time.service.manager.PlayServiceManager;
-import com.old.time.utils.DataUtils;
 import com.old.time.utils.SpUtils;
 
 import java.util.List;
@@ -50,25 +53,21 @@ public class PlayMusicBottomView extends LinearLayout {
         initView();
     }
 
-    private View play_music_view;
     private ImageView img_music_pic, img_play_btn;
     private ValueAnimator rotateAnim;
     private Activity mContext;
 
-
     private TextView tv_music_title;
     private CompletedView tasks_view;
-    private FrameLayout frame_layout_play;
-
 
     private void initView() {
         this.mContext = (Activity) getContext();
-        play_music_view = View.inflate(getContext(), R.layout.play_music_bottom, this);
+        View play_music_view = View.inflate(getContext(), R.layout.play_music_bottom, this);
         img_music_pic = play_music_view.findViewById(R.id.img_music_pic);
         img_play_btn = play_music_view.findViewById(R.id.img_play_btn);
         tv_music_title = play_music_view.findViewById(R.id.tv_music_title);
         tasks_view = play_music_view.findViewById(R.id.tasks_view);
-        frame_layout_play = play_music_view.findViewById(R.id.frame_layout_play);
+        FrameLayout frame_layout_play = play_music_view.findViewById(R.id.frame_layout_play);
         rotateAnim = ObjectAnimator.ofFloat(0, 360);
         rotateAnim.setDuration(10 * 1000);
         rotateAnim.setRepeatMode(ValueAnimator.RESTART);
@@ -87,7 +86,7 @@ public class PlayMusicBottomView extends LinearLayout {
         play_music_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MusicPlayActivity.startMusicPlayActivity(mContext, null);
+                MusicPlayActivity.startMusicPlayActivity(mContext, albumId);
 
             }
         });
@@ -95,6 +94,10 @@ public class PlayMusicBottomView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (mPlayServiceConnection != null) {
+                    if(!mPlayServiceConnection.isPlaying()){
+                        mPlayServiceConnection.setStartList(chapterBeans, position);
+
+                    }
                     mPlayServiceConnection.play(mPlayServiceConnection.isPlaying());
 
                 }
@@ -104,10 +107,12 @@ public class PlayMusicBottomView extends LinearLayout {
 
     private OnModelChangedListener onModelChangedListener;
     private PlayServiceConnection mPlayServiceConnection;
-    private PlayServiceManager mPlayServiceManager;
     private PlayNotifyManager playNotifyManager;
+    private PlayServiceManager mPlayServiceManager;
     private String albumId;
     private int position;
+
+    private List<ChapterBean> chapterBeans;
 
     private void bindService() {
         onModelChangedListener = new OnModelChangedListener() {
@@ -152,14 +157,9 @@ public class PlayMusicBottomView extends LinearLayout {
             public void onServiceConnected() {
                 mPlayServiceConnection.registerIOnModelChangedListener(playNotifyManager);
                 mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
-                albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
-                position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
-                if (!TextUtils.isEmpty(albumId)) {
-                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(albumId, mContext);
-                    if (chapterBeans != null && chapterBeans.size() > position) {
-                        switchSongUI(chapterBeans.get(position), mPlayServiceConnection.isPlaying());
+                if (chapterBeans != null && chapterBeans.size() > position) {
+                    switchSongUI(chapterBeans.get(position), mPlayServiceConnection.isPlaying());
 
-                    }
                 }
             }
 
@@ -170,8 +170,33 @@ public class PlayMusicBottomView extends LinearLayout {
 
             }
         });
-        mPlayServiceManager.bindService(mPlayServiceConnection);
+        albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
+        position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
+        getMusicList();
 
+    }
+
+    /**
+     * 获取播放列表
+     */
+    private void getMusicList() {
+        HttpParams params = new HttpParams();
+        params.put("albumId", albumId);
+        params.put("pageNum", 0);
+        params.put("pageSize", Constant.PAGE_ALL);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<ChapterBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<ChapterBean>> mResultBean) {
+                chapterBeans = mResultBean.data;
+                mPlayServiceManager.bindService(mPlayServiceConnection);
+
+            }
+
+            @Override
+            public void onError(ResultBean<List<ChapterBean>> mResultBean) {
+
+            }
+        });
     }
 
     /**
@@ -180,7 +205,7 @@ public class PlayMusicBottomView extends LinearLayout {
      * @param mChapterBean
      * @param isPlaying
      */
-    private void switchSongUI(ChapterBean mChapterBean, final boolean isPlaying) {
+    private void switchSongUI(ChapterBean mChapterBean, boolean isPlaying) {
         if (mChapterBean == null) {
 
             return;
@@ -225,7 +250,7 @@ public class PlayMusicBottomView extends LinearLayout {
     }
 
     public void onDestroy() {
-        if (mPlayServiceConnection != null) {
+        if (mPlayServiceConnection != null && mContext != null) {
             mPlayServiceConnection.unregisterIOnModelChangedListener(onModelChangedListener);
             mContext.unbindService(mPlayServiceConnection);
 

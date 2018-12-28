@@ -68,7 +68,7 @@ public class PlayNotifyManager extends OnModelChangedListener {
         remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.customnotice);//通知栏布局
         //创建mNotificationManager
         mNotificationManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
-        // 点击跳转到主界面
+        // 点击跳转到播放界面
         Intent intent_main = new Intent(mContext, MusicPlayActivity.class);
         PendingIntent pending_intent_go = PendingIntent.getActivity(mContext, 1//
                 , intent_main, PendingIntent.FLAG_UPDATE_CURRENT);

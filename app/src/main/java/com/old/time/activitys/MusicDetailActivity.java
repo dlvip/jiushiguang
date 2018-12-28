@@ -91,7 +91,7 @@ public class MusicDetailActivity extends BaseCActivity {
 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MusicPlayActivity.startMusicPlayActivity(mContext, mCourseBean);
+                MusicPlayActivity.startMusicPlayActivity(mContext, mCourseBean.albumId);
                 mAdapter.setcPosition(position - mAdapter.getHeaderLayoutCount());
 
             }
