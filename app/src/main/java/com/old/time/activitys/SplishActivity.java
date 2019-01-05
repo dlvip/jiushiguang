@@ -12,12 +12,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.old.time.MyApplication;
 import com.old.time.R;
+import com.old.time.beans.ResultBean;
 import com.old.time.beans.SplashBean;
 import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.AnimUtil;
 import com.old.time.utils.ComputeUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.SplashDownLoadService;
@@ -54,13 +56,6 @@ public class SplishActivity extends BaseActivity {
 
             }
         }, 1000);
-        img_logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.startMainActivity(mContext);
-
-            }
-        });
         tv_time_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,16 +70,27 @@ public class SplishActivity extends BaseActivity {
                 intent.putExtra(VideoDetailActivity.PLAY_URL, Constant.MP4_PATH_URL);
                 ActivityUtils.startActivitys(mContext, new Intent[]{new Intent(mContext, VideosActivity.class), intent});
                 ActivityUtils.finishActivity(mContext);
-//                VideoDetailActivity.startVideoDetailActivity(mContext, Constant.MP4_PATH_URL);
 
             }
         });
-//        img_splish.startAnimation(AnimUtil.getAnimSet(null, AnimUtil.getAlphaAnim(), AnimUtil.getScaleAnim()));
-
 
         PlayServiceManager.startPlayService(mContext);
 
         startClock();
+
+        OkGoUtils.getInstance().postNetForData(Constant.ADD_VIDEO, new JsonCallBack<ResultBean>() {
+            @Override
+            public void onSuccess(ResultBean mResultBean) {
+
+
+            }
+
+            @Override
+            public void onError(ResultBean mResultBean) {
+
+
+            }
+        });
     }
 
     private void startClock() {

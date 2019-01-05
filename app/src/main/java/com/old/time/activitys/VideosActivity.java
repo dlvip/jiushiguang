@@ -14,7 +14,6 @@ import com.old.time.beans.VideosBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DataUtils;
 import com.old.time.utils.MyGridLayoutManager;
 
 import java.util.ArrayList;
@@ -58,9 +57,6 @@ public class VideosActivity extends BaseCActivity {
     @Override
     public void getDataFromNet(boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
-        videosBeans.clear();
-        videosBeans.addAll(DataUtils.getVideosBeans("mp4", mContext));
-        adapter.setNewData(videosBeans);
 
     }
 }

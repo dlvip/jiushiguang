@@ -36,7 +36,7 @@ public class CoursesCActivity extends BaseCActivity {
     @Override
     protected void initView() {
         super.initView();
-        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
+//        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         courseBeans = new ArrayList<>();
         courseAdapter = new CourseAdapter(courseBeans);
         mRecyclerView.setAdapter(courseAdapter);

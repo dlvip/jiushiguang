@@ -39,7 +39,7 @@
         android:gravity="center"
         android:paddingLeft="@dimen/layout_50"
         android:paddingRight="@dimen/layout_50"
-        android:text="@string/title_detail"
+        android:text=""
         android:textColor="@color/color_fff"
         android:textSize="14sp" />
 
@@ -50,7 +50,7 @@
         android:layout_below="@+id/textViewSong"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="@string/app_name"
+        android:text=""
         android:textColor="@color/color_fff"
         android:textSize="15sp" />
 

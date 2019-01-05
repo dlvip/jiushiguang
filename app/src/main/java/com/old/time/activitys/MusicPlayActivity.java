@@ -13,20 +13,23 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.aidl.OnModelChangedListener;
 import com.old.time.aidl.PlayServiceIBinder;
-import com.old.time.beans.CourseBean;
+import com.old.time.beans.ResultBean;
+import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogChapterList;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.ImageDownLoadCallBack;
 import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.aidl.ChapterBean;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.service.PlayServiceConnection;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DataUtils;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
@@ -38,27 +41,30 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MusicPlayActivity extends BaseActivity {
 
-    public static final String PLAY_COURSE_BEAN = "mCourseBean";
+    public static final String PLAY_ALBUM_BEAN = "albumId";
 
     /**
      * 播放页面
      *
      * @param mContext
-     * @param mCourseBean
+     * @param albumId
      */
-    public static void startMusicPlayActivity(Context mContext, CourseBean mCourseBean) {
+    public static void startMusicPlayActivity(Context mContext, String albumId) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext//
                 , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
 
             return;
         }
+        if (TextUtils.isEmpty(albumId)) {
+
+            return;
+        }
         Intent intent = new Intent(mContext, MusicPlayActivity.class);
-        intent.putExtra(PLAY_COURSE_BEAN, mCourseBean);
+        intent.putExtra(PLAY_ALBUM_BEAN, albumId);
         ActivityUtils.startLoginActivity((Activity) mContext, intent);
 
     }
 
-    private static final String TAG = "MusicPlayActivity";
     private LinearLayout linear_layout_down;
     private ProgressBar mProgressBar;
     private View mainView;
@@ -70,14 +76,14 @@ public class MusicPlayActivity extends BaseActivity {
     private boolean mIsPlaying = false;
     private TextView tv_speed, tv_progress_time, tv_title_time;
     private OnModelChangedListener onModelChangedListener;
-    private PlayServiceManager mPlayServiceManager;
     private PlayServiceConnection mPlayServiceConnection;
+    private PlayServiceManager mPlayServiceManager;
 
-    private CourseBean mCourseBean;
+    private List<ChapterBean> chapterBeans;
     private String albumId;
 
     public void initView() {
-        mCourseBean = (CourseBean) getIntent().getSerializableExtra(PLAY_COURSE_BEAN);
+        albumId = getIntent().getStringExtra(PLAY_ALBUM_BEAN);
         linear_layout_down = findViewById(R.id.linear_layout_down);
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
@@ -131,25 +137,21 @@ public class MusicPlayActivity extends BaseActivity {
 
             }
         };
-
         mPlayServiceManager = new PlayServiceManager(mContext);
         mPlayServiceConnection = new PlayServiceConnection(new PlayServiceConnection.OnServiceConnectedListener() {
             @Override
             public void onServiceConnected() {
                 mPlayServiceConnection.registerIOnModelChangedListener(onModelChangedListener);
-                albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
-                if ((TextUtils.isEmpty(albumId) && mCourseBean != null) || (mCourseBean != null && !albumId.equals(mCourseBean.albumId))) {
-                    SpUtils.put(PlayServiceIBinder.SP_PLAY_ALBUM_ID, mCourseBean.albumId);
-                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
+                String albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
+                if (!albumId.equals(MusicPlayActivity.this.albumId)) {
+                    SpUtils.put(PlayServiceIBinder.SP_PLAY_ALBUM_ID, MusicPlayActivity.this.albumId);
                     mPlayServiceConnection.setStartList(chapterBeans, 0);
 
-                } else if (!mPlayServiceConnection.isPlaying() && mCourseBean != null) {
-                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(mCourseBean.albumId, mContext);
+                } else if (!mPlayServiceConnection.isPlaying()) {
                     int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
                     mPlayServiceConnection.setStartList(chapterBeans, position);
 
-                } else if (!mPlayServiceConnection.isPlaying() && mCourseBean == null) {
-                    List<ChapterBean> chapterBeans = DataUtils.getModelBeans(albumId, mContext);
+                } else {
                     int position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, 0);
                     mPlayServiceConnection.setStartList(chapterBeans, position);
 
@@ -164,7 +166,25 @@ public class MusicPlayActivity extends BaseActivity {
 
             }
         });
-        mPlayServiceManager.bindService(mPlayServiceConnection);
+        HttpParams params = new HttpParams();
+        params.put("albumId", MusicPlayActivity.this.albumId);
+        params.put("pageNum", 0);
+        params.put("pageSize", Constant.PAGE_ALL);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_MUSIC_LIST, new JsonCallBack<ResultBean<List<ChapterBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<ChapterBean>> mResultBean) {
+                chapterBeans = mResultBean.data;
+                mPlayServiceManager.bindService(mPlayServiceConnection);
+
+            }
+
+            @Override
+            public void onError(ResultBean<List<ChapterBean>> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+                ActivityUtils.finishActivity(mContext);
+
+            }
+        });
     }
 
     @Override

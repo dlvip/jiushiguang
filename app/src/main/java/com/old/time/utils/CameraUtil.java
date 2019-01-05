@@ -165,8 +165,9 @@ public class CameraUtil {
 
         StringBuilder previewResolutionSb = new StringBuilder();
         for (Size supportedPreviewResolution : supportedPreviewResolutions) {
-            previewResolutionSb.append(supportedPreviewResolution.width).append('x').append(supportedPreviewResolution.height)
-                    .append(' ');
+            previewResolutionSb.append(supportedPreviewResolution.width).append('x')//
+                    .append(supportedPreviewResolution.height).append(' ');
+
         }
 
         // 移除不符合条件的分辨率
@@ -193,8 +194,7 @@ public class CameraUtil {
             double distortion = Math.abs(aspectRatio - screenAspectRatio);
 
             // 找到与屏幕分辨率完全匹配的预览界面分辨率直接返回
-            if (maybeFlippedWidth == screenWidth
-                    && maybeFlippedHeight == screenHeight) {
+            if (maybeFlippedWidth == screenWidth && maybeFlippedHeight == screenHeight) {
                 return supportedPreviewResolution;
             }
 

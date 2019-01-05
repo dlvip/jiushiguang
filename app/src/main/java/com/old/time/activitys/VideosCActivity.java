@@ -10,7 +10,6 @@ import com.old.time.R;
 import com.old.time.adapters.VideoFindAdapter;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyGridLayoutManager;
-import com.old.time.utils.RecyclerItemDecoration;
 
 public class VideosCActivity extends BaseCActivity {
 
@@ -28,7 +27,6 @@ public class VideosCActivity extends BaseCActivity {
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         mVideoFindAdapter = new VideoFindAdapter(DataUtil.getVideoPagerList());
         mRecyclerView.setLayoutManager(new MyGridLayoutManager(mContext, 3));
-        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mVideoFindAdapter);
 
     }

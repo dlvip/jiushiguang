@@ -18,46 +18,46 @@
     </declare-styleable>
 
     <declare-styleable name="RecyclerViewBannerBase">
-        <attr name="interval" format="integer"/>
-        <attr name="showIndicator" format="boolean"/>
-        <attr name="indicatorSelectedSrc" format="color|reference"/>
-        <attr name="indicatorUnselectedSrc" format="color|reference"/>
-        <attr name="indicatorSpace" format="dimension|reference"/>
-        <attr name="indicatorMarginLeft" format="dimension|reference"/>
-        <attr name="indicatorMarginRight" format="dimension|reference"/>
-        <attr name="indicatorMarginBottom" format="dimension|reference"/>
+        <attr name="interval" format="integer" />
+        <attr name="showIndicator" format="boolean" />
+        <attr name="indicatorSelectedSrc" format="color|reference" />
+        <attr name="indicatorUnselectedSrc" format="color|reference" />
+        <attr name="indicatorSpace" format="dimension|reference" />
+        <attr name="indicatorMarginLeft" format="dimension|reference" />
+        <attr name="indicatorMarginRight" format="dimension|reference" />
+        <attr name="indicatorMarginBottom" format="dimension|reference" />
         <attr name="indicatorGravity" format="enum">
-            <enum name="left" value="0"/>
-            <enum name="center" value="1"/>
-            <enum name="right" value="2"/>
+            <enum name="left" value="0" />
+            <enum name="center" value="1" />
+            <enum name="right" value="2" />
         </attr>
         <attr name="orientation" format="enum">
-            <enum name="horizontal" value="0"/>
-            <enum name="vertical" value="1"/>
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
         </attr>
-        <attr name="autoPlaying" format="boolean"/>
+        <attr name="autoPlaying" format="boolean" />
     </declare-styleable>
 
     <!--收起展开textview-->
     <declare-styleable name="ExpandableTextView">
-        <attr name="maxCollapsedLines" format="integer"/>
-        <attr name="animDuration" format="integer"/>
-        <attr name="expandDrawable" format="reference"/>
-        <attr name="collapseDrawable" format="reference"/>
+        <attr name="maxCollapsedLines" format="integer" />
+        <attr name="animDuration" format="integer" />
+        <attr name="expandDrawable" format="reference" />
+        <attr name="collapseDrawable" format="reference" />
         <attr name="contentTextColor" format="color" />
         <attr name="collapseExpandTextColor" format="color" />
         <attr name="contentTextSize" format="dimension" />
         <attr name="collapseExpandTextSize" format="dimension" />
         <attr name="textCollapse" format="string" />
         <attr name="textExpand" format="string" />
-        <attr name="collapseExpandGrarity" >
-            <flag name="left" value="3"/>
-            <flag name="right" value="5"/>
-            <flag name="center" value="17"/>
+        <attr name="collapseExpandGrarity">
+            <flag name="left" value="3" />
+            <flag name="right" value="5" />
+            <flag name="center" value="17" />
         </attr>
-        <attr name="drawableGrarity" >
-            <flag name="left" value="3"/>
-            <flag name="right" value="5"/>
+        <attr name="drawableGrarity">
+            <flag name="left" value="3" />
+            <flag name="right" value="5" />
         </attr>
     </declare-styleable>
 
@@ -67,12 +67,12 @@
         <attr name="selectedTextColor" format="color" />
         <attr name="selectedTextSize" format="dimension" />
         <attr name="unitHight" format="dimension" />
-        <attr name="itemNumber" format="integer"/>
+        <attr name="itemNumber" format="integer" />
         <attr name="lineColor" format="color" />
         <attr name="lineHeight" format="dimension" />
-        <attr name="maskHight" format="dimension"/>
-        <attr name="noEmpty" format="boolean"/>
-        <attr name="isEnable" format="boolean"/>
+        <attr name="maskHight" format="dimension" />
+        <attr name="noEmpty" format="boolean" />
+        <attr name="isEnable" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="ProgressWheel">
@@ -93,21 +93,21 @@
     <!--音乐播放-->
     <declare-styleable name="playerview">
         <attr name="cover" format="integer" />
-        <attr name="buttonColor" format="color"/>
-        <attr name="progressEmptyColor" format="color"/>
-        <attr name="progressLoadedColor" format="color"/>
-        <attr name="textColor" format="color"/>
-        <attr name="textSize" format="dimension"/>
+        <attr name="buttonColor" format="color" />
+        <attr name="progressEmptyColor" format="color" />
+        <attr name="progressLoadedColor" format="color" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
     </declare-styleable>
 
 
     <!--圆弧进度条-->
     <declare-styleable name="CompletedView">
-        <attr name="radius" format="dimension"/>
-        <attr name="strokeWidth" format="dimension"/>
-        <attr name="circleColor" format="color"/>
-        <attr name="ringColor" format="color"/>
-        <attr name="ringBgColor" format="color"/>
+        <attr name="radius" format="dimension" />
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="circleColor" format="color" />
+        <attr name="ringColor" format="color" />
+        <attr name="ringBgColor" format="color" />
     </declare-styleable>
 
     <!--取景框-->
@@ -120,6 +120,18 @@
         <attr name="civClipPadding" format="dimension" />
         <attr name="civClipRoundCorner" format="dimension|reference" />
         <attr name="civClipCircle" format="boolean" />
+    </declare-styleable>
+
+    <!-- 自定义recyclerView属性 -->
+    <declare-styleable name="CustomRecyclerView">
+        <attr name="r_orientation" format="integer">
+            <enum name="HORIZONTAL" value="0" />
+            <enum name="VERTICAL" value="1" />
+        </attr>
+        <attr name="r_spanCount" format="integer" />
+        <attr name="r_dividerHeight" format="dimension" />
+        <attr name="r_dividerColor" format="reference|color" />
+
     </declare-styleable>
 
 </resources>

@@ -35,10 +35,8 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     private int mode = 0;                           //0:顺序、1：单曲、2：随机
 
     private BroadcastReceiver mBroadcastReceiver;
-    private Context mContext;
 
     public PlayServiceIBinder(Context mContext) {
-        this.mContext = mContext;
         this.mMediaPlayManager = new MediaPlayManager(mContext, this);
         this.mIOnModelChangedListeners = new RemoteCallbackList<>();
         this.mChapterBeans = SpUtils.getObject(PlayMusicService.SERVICE_MODEL_LIST);
@@ -97,6 +95,7 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
      */
     private void sentPositionToMainByTimer() {
         ThreadPoolUtil.getScheduledExecutor().scheduleAtFixedRate(new Runnable() {
+
             @Override
             public void run() {
                 if (mMediaPlayManager != null && mMediaPlayManager.isPlaying()) {
@@ -202,12 +201,6 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
     public void play() throws RemoteException {
         DebugLog.d(TAG, "play");
         if (mChapterBeans == null || mChapterBeans.size() == 0) {
-            String alumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
-            mChapterBeans = DataUtils.getModelBeans(alumId, mContext);
-            if (mChapterBeans != null && mChapterBeans.size() > 0) {
-                play();
-
-            }
 
             return;
         }
@@ -391,7 +384,6 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
      * 播放记录
      */
     public static final String SP_PLAY_ALBUM_ID = "sp_play_album_id";
-    public static final String SP_PLAY_MODELS = "sp_play_models";
     public static final String SP_PLAY_POSITION = "sp_play_position";
 
     /**
@@ -409,7 +401,6 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
                 IOnModelChangedListener mIOnModelChangedListener = mIOnModelChangedListeners.getBroadcastItem(i);
                 try {
                     mIOnModelChangedListener.updatePlayModel(mChapterBean, getIsPlaying());
-                    SpUtils.setObject(SP_PLAY_MODELS, mChapterBeans);
                     SpUtils.setInt(SP_PLAY_POSITION, position);
 
                 } catch (RemoteException e) {

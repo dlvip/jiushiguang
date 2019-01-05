@@ -65,7 +65,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.relative_layout_about:
                 WebViewActivity.startWebViewActivity(mContext);
-//                addCourse();
+
                 break;
             case R.id.tv_user_logout:
                 UserLocalInfoUtils.instance().setUserLogOut();
