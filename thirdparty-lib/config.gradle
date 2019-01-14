@@ -47,6 +47,7 @@ ext {
     externalHttpCore = 'org.apache.httpcomponents:httpcore:4.4.1'
 
     //Android SDK/Tools Version
+    externalVersionId = 'com.old.time'
     externalVersionCode = 1
     externalVersionName = '1.0.2'
     externalMinSdkVersion = 16

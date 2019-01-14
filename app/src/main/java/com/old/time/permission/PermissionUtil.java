@@ -53,11 +53,13 @@ public class PermissionUtil {
             for (int i = 0; i < length; i++) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                     positions.add(i);
+
                 }
             }
         }
         if (positions.size() == 0) {
             listener.onSuccess();
+
             return;
         }
         progressNoPermission(cxt, listener, permissions, positions, 0);
@@ -68,11 +70,13 @@ public class PermissionUtil {
         int index = positions.get(i);
         if (ActivityCompat.shouldShowRequestPermissionRationale(cxt, permissions[index])) {
             listener.onShouldShow();
+
             return;
         }
         if (i < positions.size() - 1) {
             i++;
             progressNoPermission(cxt, listener, permissions, positions, i);
+
             return;
         }
         listener.onFailed();
