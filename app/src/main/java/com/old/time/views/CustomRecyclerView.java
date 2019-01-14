@@ -53,4 +53,6 @@ public class CustomRecyclerView extends RecyclerView {
         addItemDecoration(new RecyclerItemDecoration(orientation, dividerHeight, dividerColor, context));
 
     }
+
+
 }
