@@ -84,6 +84,10 @@ public class MusicPlayActivity extends BaseActivity {
 
     public void initView() {
         albumId = getIntent().getStringExtra(PLAY_ALBUM_BEAN);
+        if(TextUtils.isEmpty(albumId)){
+            albumId = SpUtils.getString(mContext, PlayServiceIBinder.SP_PLAY_ALBUM_ID, PlayServiceIBinder.DEFAULT_ALBUM_ID);
+
+        }
         linear_layout_down = findViewById(R.id.linear_layout_down);
         mainView = findViewById(R.id.music_bg);
         mSong = findViewById(R.id.textViewSong);//歌名
@@ -334,7 +338,7 @@ public class MusicPlayActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPlayServiceConnection != null) {
+        if (mPlayServiceConnection != null && onModelChangedListener != null) {
             mPlayServiceConnection.unregisterIOnModelChangedListener(onModelChangedListener);
             unbindService(mPlayServiceConnection);
 
