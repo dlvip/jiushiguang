@@ -44,6 +44,7 @@ android {
 
     allprojects {
         repositories {
+            jcenter()
             maven { url "https://jitpack.io" }
         }
     }
@@ -62,8 +63,6 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation files('libs/Ad_Android_SDK.jar')
-    implementation files('libs/AMap3DMap_6.1.0_AMapSearch_6.1.0_AMapLocation_3.8.0_20180330.jar')
     implementation externalAndroidPalette
     implementation externalGSON
     implementation externalOKHTTP
@@ -88,4 +87,9 @@ dependencies {
     implementation externalTencentCrashreportUpgrade
     implementation externalTencentNativeCrashReport
     implementation externalTencentTinkerAndroidLib
+
+    //高德地图
+    implementation externalMapLocationLib
+    implementation externalMapSearchLib
+    implementation externalMap2DLib
 }

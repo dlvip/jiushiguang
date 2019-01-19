@@ -43,7 +43,6 @@ public class WebViewActivity extends BaseActivity {
     @Override
     protected void initView() {
         String url = getIntent().getStringExtra(WebViewFragment.WEB_VIEW_URL);
-        url = "https://xesapi.speiyou.cn/h5/lighthouse/middlePage?targetUrl=https%3A%2F%2Fstatic-xesapi.speiyou.cn%2Frichmedia%2Farticle%2F154734392148754.html&from=";
         int tag = getIntent().getIntExtra(WebViewFragment.IS_SHOW_BOTTOM, -1);
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
