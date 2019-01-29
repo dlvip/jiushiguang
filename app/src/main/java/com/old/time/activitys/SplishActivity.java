@@ -1,6 +1,5 @@
 package com.old.time.activitys;
 
-import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,6 +16,7 @@ import com.old.time.beans.SplashBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.postcard.PostCardActivity;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
@@ -59,17 +59,14 @@ public class SplishActivity extends BaseActivity {
         tv_time_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.startMainActivity(mContext);
+                PostCardActivity.startPostCardActivity(mContext);
 
             }
         });
         img_splish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MainActivity.class);
-                intent.putExtra(VideoDetailActivity.PLAY_URL, Constant.MP4_PATH_URL);
-                ActivityUtils.startActivitys(mContext, new Intent[]{new Intent(mContext, VideosActivity.class), intent});
-                ActivityUtils.finishActivity(mContext);
+                PostCardActivity.startPostCardActivity(mContext);
 
             }
         });
@@ -145,7 +142,7 @@ public class SplishActivity extends BaseActivity {
         MyApplication.getClient().getTaskManager().addTask(new CallBackTask(Constant.IMAGEDOWNLOAD_THREAD_NAME) {
             @Override
             protected void doTask() {
-                MainActivity.startMainActivity(mContext);
+                PostCardActivity.startPostCardActivity(mContext);
 
             }
         });

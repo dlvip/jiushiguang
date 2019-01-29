@@ -12,9 +12,6 @@ public class Key {
      */
     public static final String GET_USER_INFO_BEAN = "mUserInfoBean";
 
-    //讯飞语音识别APPID
-    public static final String XFYUN_APP_ID = "5a93babf";
-
     //线程名称
     public static final String IMAGEDOWNLOAD_THREAD_NAME = "ImageDownLoad";
     //预览图片的当前角标

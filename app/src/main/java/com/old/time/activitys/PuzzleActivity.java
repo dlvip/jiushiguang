@@ -1,6 +1,5 @@
 package com.old.time.activitys;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -50,6 +49,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 /**
  * 拼图界面
@@ -342,7 +345,7 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
             degreeSeekBar.setVisibility(View.GONE);
             toggleIvMenu(R.id.iv_replace);
             if (null == toClass) {
-                PhotoPickActivity.startPhotoPickActivity(this,true,PIC_COUNT_SIZE,Code.REQUEST_CODE_30);
+                PhotoPickActivity.startPhotoPickActivity(this, true, PIC_COUNT_SIZE, Code.REQUEST_CODE_30);
 
             } else {
                 Intent intent = new Intent(this, toClass.get());
@@ -545,9 +548,10 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
 
     protected String[] getNeedPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            return new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+
+            return new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE};
         }
-        return new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        return new String[]{CAMERA, WRITE_EXTERNAL_STORAGE};
     }
 
     @Override
@@ -562,21 +566,21 @@ public class PuzzleActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onShouldShow() {
-                Snackbar.make(rvPuzzleTemplet, R.string.permissions_again_easy_photos, Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(rvPuzzleTemplet, R.string.permissions_again_easy_photos, Snackbar.LENGTH_INDEFINITE)//
                         .setAction("go", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 if (PermissionUtil.checkAndRequestPermissionsInActivity(PuzzleActivity.this, getNeedPermissions())) {
                                     savePhoto();
+
                                 }
                             }
-                        })
-                        .show();
+                        }).show();
             }
 
             @Override
             public void onFailed() {
-                Snackbar.make(rvPuzzleTemplet, R.string.permissions_die_easy_photos, Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(rvPuzzleTemplet, R.string.permissions_die_easy_photos, Snackbar.LENGTH_INDEFINITE)//
                         .setAction("go", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {

@@ -36,7 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         setOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(getLayoutID());
         initView();
-
         initEvent();
 
     }

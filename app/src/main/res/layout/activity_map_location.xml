@@ -46,7 +46,7 @@
         android:layout_height="@dimen/line_height"
         android:background="@color/line_bg" />
 
-    <com.amap.api.maps.MapView
+    <com.amap.api.maps2d.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="200dp" />

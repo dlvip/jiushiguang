@@ -2,17 +2,20 @@ package com.old.time.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.UiSettings;
-import com.amap.api.maps.model.CameraPosition;
-import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.UiSettings;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CameraPosition;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.MyLocationStyle;
 import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -60,15 +63,24 @@ public class LocationMapActivity extends BaseActivity {
         mMapView.onCreate(savedInstanceState);// 此方法必须重写
 
         aMap = mMapView.getMap();
+
+        // 自定义系统定位小蓝点
+        MyLocationStyle myLocationStyle = new MyLocationStyle();
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory
+                .fromResource(R.drawable.shape_666_bg));// 设置小蓝点的图标
+        myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
+        myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
+        myLocationStyle.strokeWidth(0f);// 设置圆形的边框粗细
+        aMap.setMyLocationStyle(myLocationStyle);
+
         //设置默认定位按钮是否显示，非必需设置。
         UiSettings mUiSettings = aMap.getUiSettings();
-        mUiSettings.setZoomGesturesEnabled(true);
-        mUiSettings.setZoomControlsEnabled(true);
+        mUiSettings.setZoomGesturesEnabled(false);
+        mUiSettings.setZoomControlsEnabled(false);
         mUiSettings.setZoomInByScreenCenter(true);
         mUiSettings.setMyLocationButtonEnabled(true);
         //设置为true表示启动显示定位蓝点
         aMap.setMyLocationEnabled(true);
-        aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
         aMap.moveCamera(CameraUpdateFactory.zoomTo(18));
         aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
             @Override
@@ -90,9 +102,12 @@ public class LocationMapActivity extends BaseActivity {
             @Override
             public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
                 if (rCode == AMapException.CODE_AMAP_SUCCESS) {
-                    if (result != null && result.getRegeocodeAddress() != null
+                    if (result != null && result.getRegeocodeAddress() != null //
                             && result.getRegeocodeAddress().getFormatAddress() != null) {
-                        String address = result.getRegeocodeAddress().getProvince() + result.getRegeocodeAddress().getCity() + result.getRegeocodeAddress().getDistrict() + result.getRegeocodeAddress().getTownship();
+                        String address = result.getRegeocodeAddress().getProvince()//
+                                + result.getRegeocodeAddress().getCity()//
+                                + result.getRegeocodeAddress().getDistrict() //
+                                + result.getRegeocodeAddress().getTownship();
                         firstItem = new PoiItem("regeo", searchLatlonPoint, address, address);
                         doSearchQuery(firstItem.getLatLonPoint().getLatitude(), firstItem.getLatLonPoint().getLongitude());
 
@@ -145,6 +160,7 @@ public class LocationMapActivity extends BaseActivity {
 
         txtSearch = findViewById(R.id.edt_search_name);
         txtSearch.setOnKeyListener(new View.OnKeyListener() {
+
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER) {

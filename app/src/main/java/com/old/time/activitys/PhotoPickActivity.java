@@ -159,7 +159,7 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
         setTitleText("最近照片");
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
-        TextView tv_send = (TextView) findViewById(R.id.tv_send);
+        TextView tv_send =  findViewById(R.id.tv_send);
         tv_send.setText("相册");
 
         List<String> list = getIntent().getStringArrayListExtra(SELECT_PHOTO_LIST);
@@ -173,9 +173,9 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
         }
         maxPickCount = getIntent().getIntExtra(MAX_PICK_COUNT, 1);
         isShowCamera = getIntent().getBooleanExtra(IS_SHOW_CAMERA, false);
-        mGridView = (GridView) findViewById(R.id.mp_galley_gridView);
+        mGridView =  findViewById(R.id.mp_galley_gridView);
         mGridView.setOnItemClickListener(this);
-        mCountText = (TextView) findViewById(R.id.tv_to_confirm);
+        mCountText =  findViewById(R.id.tv_to_confirm);
         mPickAlbumView = findViewById(R.id.right_layout_send);
         mLastAlbumName = AlbumController.RECENT_PHOTO;
         mHelper = new PhotoSelectorHelper(this);

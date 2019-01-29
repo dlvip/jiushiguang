@@ -97,6 +97,9 @@ public class Constant {
     //获取文章列表
     public static final String GET_ARTICLE_LIST = BASE_TEST_URL + "article/getArticleList";
 
+    //修改文章阅读量
+    public static final String UPDATE_ARTICLE_READ_COUNT = "article/updateArticleReadCount";
+
     //保存话题
     public static final String INSERT_TOPIC = BASE_TEST_URL + "topic/insertTopic";
 

@@ -27,6 +27,7 @@ import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.postcard.PostCardActivity;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
@@ -180,7 +181,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
         }
-//        intent = new Intent(mContext, CaptureActivity.class);
+        intent = new Intent(mContext, PostCardActivity.class);
         if (intent != null) {
             ActivityUtils.fStartActivtiyForResult(this, intent, CaptureActivity.REQ_CODE);
 

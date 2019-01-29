@@ -24,7 +24,6 @@ public class TalksCActivity extends BaseCActivity {
     protected void initView() {
         super.initView();
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
-        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mTalkAdapter = new TalkAdapter(R.layout.adapter_talk, strings);
         mRecyclerView.setAdapter(mTalkAdapter);
 

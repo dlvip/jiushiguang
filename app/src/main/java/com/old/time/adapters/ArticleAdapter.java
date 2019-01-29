@@ -6,10 +6,15 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.beans.ArticleBean;
+import com.old.time.beans.ResultBean;
+import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 
 import java.util.List;
 
@@ -39,8 +44,31 @@ public class ArticleAdapter extends BaseQuickAdapter<ArticleBean, BaseViewHolder
             @Override
             public void onClick(View view) {
                 WebViewActivity.startWebViewActivity((Activity) mContext, item.getDetailUrl());
+                updateArticleReadCount(item.getId());
 
             }
         });
+    }
+
+    /**
+     * 修改文章略读量
+     *
+     * @param articleId
+     */
+    private void updateArticleReadCount(String articleId) {
+        HttpParams params = new HttpParams();
+        params.put("articleId", articleId);
+        OkGoUtils.getInstance().postNetForData(params, Constant.UPDATE_ARTICLE_READ_COUNT, new JsonCallBack<ResultBean>() {
+            @Override
+            public void onSuccess(ResultBean mResultBean) {
+
+            }
+
+            @Override
+            public void onError(ResultBean mResultBean) {
+
+            }
+        });
+
     }
 }

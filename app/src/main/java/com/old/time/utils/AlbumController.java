@@ -19,7 +19,7 @@ import java.util.Map;
 public class AlbumController {
 
     private ContentResolver resolver;
-    private static final int IMAGE_SIZE = 1024 * 10;
+    private static final int IMAGE_SIZE = 0;
     public static final String RECENT_PHOTO = "最近照片";
 
     public AlbumController(Context context) {

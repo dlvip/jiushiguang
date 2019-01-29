@@ -15,6 +15,7 @@ import com.old.time.fragments.BaseFragment;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.webUtils.WebViewJavaScriptFunction;
 import com.old.time.utils.webUtils.X5WebView;
+import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -225,6 +226,7 @@ public class WebViewFragment extends BaseFragment {
 
         @Override
         public void onProgressChanged(WebView webView, int newProgress) {
+            webView.loadUrl("javascript:function setTop(){document.querySelector('#app > div > div > div.smart_banner').style.display=\"none\";}setTop();");
             if (newProgress == 100) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 progress_bar_web.setVisibility(View.GONE);//加载完网页进度条消失

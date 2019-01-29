@@ -100,6 +100,6 @@ public class TopicBean implements Serializable {
 
     public String getTopicCount() {
 
-        return "167赞 · " + commentCount + "评论";
+        return commentCount + "条评论";
     }
 }

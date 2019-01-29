@@ -94,12 +94,13 @@ public class PlayMusicBottomView extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (mPlayServiceConnection != null) {
-                    if(!mPlayServiceConnection.isPlaying()){
+                    if (!mPlayServiceConnection.isPlaying()) {
                         mPlayServiceConnection.setStartList(chapterBeans, position);
 
-                    }
-                    mPlayServiceConnection.play(mPlayServiceConnection.isPlaying());
+                    } else {
+                        mPlayServiceConnection.play(mPlayServiceConnection.isPlaying());
 
+                    }
                 }
             }
         });

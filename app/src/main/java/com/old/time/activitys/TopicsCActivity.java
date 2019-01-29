@@ -43,7 +43,6 @@ public class TopicsCActivity extends BaseCActivity {
     protected void initView() {
         super.initView();
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
-        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mTopicAdapter = new TopicAdapter(topicBeans);
         mRecyclerView.setAdapter(mTopicAdapter);
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
