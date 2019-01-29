@@ -31,7 +31,6 @@ import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
-import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
 
 import java.util.ArrayList;
@@ -42,16 +41,10 @@ import java.util.List;
  */
 public class FindFragment extends CBaseFragment {
 
-    private List<VideoBean> videoBeans;
-    private VideoFindAdapter vFAdapter;
-    private RecyclerView recycler_view_video;
-
     private BaseQuickAdapter<ActionBean, BaseViewHolder> mAdapter;
     private CustomNetView mCustomNetView;
     private List<ActionBean> actionBeans;
 
-    private TextView tv_talk_title;
-    private RecyclerView talkRecycler;
     private TopicAdapter topicAdapter;
     private List<TopicBean> topicBeans = new ArrayList<>();
 
@@ -72,18 +65,18 @@ public class FindFragment extends CBaseFragment {
             }
         };
         View headerView = View.inflate(mContext, R.layout.header_find, null);
-        recycler_view_video = headerView.findViewById(R.id.recycler_view_video);
+        RecyclerView recycler_view_video = headerView.findViewById(R.id.recycler_view_video);
         recycler_view_video.setLayoutManager(new MyGridLayoutManager(mContext, 5));
         recycler_view_video.addItemDecoration(new RecyclerItemDecoration(mContext//
                 , RecyclerItemDecoration.HORIZONTAL_LIST, 10));
-        videoBeans = DataUtil.getVideoPagersList();
-        vFAdapter = new VideoFindAdapter(videoBeans);
+        List<VideoBean> videoBeans = DataUtil.getVideoPagersList();
+        VideoFindAdapter vFAdapter = new VideoFindAdapter(videoBeans);
         recycler_view_video.setAdapter(vFAdapter);
 
         View linear_layout_item = headerView.findViewById(R.id.linear_layout_item);
-        tv_talk_title = linear_layout_item.findViewById(R.id.tv_recycler_title);
+        TextView tv_talk_title = linear_layout_item.findViewById(R.id.tv_recycler_title);
         tv_talk_title.setText("热议话题");
-        talkRecycler = linear_layout_item.findViewById(R.id.recycler_content);
+        RecyclerView talkRecycler = linear_layout_item.findViewById(R.id.recycler_content);
         talkRecycler.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayout.VERTICAL, false));
         topicAdapter = new TopicAdapter(topicBeans);
         talkRecycler.setAdapter(topicAdapter);
