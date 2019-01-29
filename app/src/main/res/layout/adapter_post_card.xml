@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_fff"
+    android:gravity="center_vertical">
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_10"
+        android:background="@color/line_bg" />
+
+    <TextView
+        android:id="@+id/tv_name_letter"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_25"
+        android:layout_below="@+id/view_line"
+        android:layout_marginBottom="@dimen/layout_10"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        android:text="#"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16" />
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name_letter">
+
+        <TextView
+            android:id="@+id/tv_user_pic"
+            android:layout_width="@dimen/layout_44"
+            android:layout_height="@dimen/layout_44"
+
+            android:layout_marginLeft="@dimen/layout_10"
+            android:layout_marginRight="@dimen/layout_10"
+            android:background="@drawable/shape_green_circle"
+            android:gravity="center"
+            android:text="张"
+            android:textColor="@color/color_fff"
+            android:textSize="@dimen/text_25" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_user_pic"
+            android:text="@string/sure"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_14" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:layout_below="@+id/relative_layout_user"
+        android:layout_marginLeft="54dp"
+        android:layout_marginTop="@dimen/layout_10"
+        android:background="@color/line_bg" />
+
+</RelativeLayout>

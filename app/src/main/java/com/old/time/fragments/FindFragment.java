@@ -31,7 +31,6 @@ import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
-import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
 
 import java.util.ArrayList;
@@ -64,7 +63,6 @@ public class FindFragment extends CBaseFragment {
             @Override
             protected void convert(BaseViewHolder helper, ActionBean item) {
                 helper.setText(R.id.tv_event_title, item.getTitle())//
-//                        .setText(R.id.tv_event_price, item.getPriceStr())//
                         .setText(R.id.tv_join_count, "0 人参与");
                 ImageView img_event_pic = helper.getView(R.id.img_event_pic);
                 GlideUtils.getInstance().setImageView(mContext, item.getPic(), img_event_pic);
@@ -87,8 +85,6 @@ public class FindFragment extends CBaseFragment {
         talkRecycler.setLayoutManager(new MyLinearLayoutManager(mContext, LinearLayout.VERTICAL, false));
         topicAdapter = new TopicAdapter(topicBeans);
         talkRecycler.setAdapter(topicAdapter);
-        SnapHelper snapHelperStart = new GravitySnapHelper(Gravity.START);
-        snapHelperStart.attachToRecyclerView(talkRecycler);
 
         linear_layout_item.findViewById(R.id.linear_layout_more).setOnClickListener(new View.OnClickListener() {
 

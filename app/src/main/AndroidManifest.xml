@@ -91,8 +91,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </service>
-
-        <service android:name=".utils.SplashDownLoadService"/>
+        <service android:name=".utils.SplashDownLoadService" />
 
         <activity android:name=".activitys.SplishActivity">
             <intent-filter>
@@ -161,7 +160,8 @@
         <activity android:name=".activitys.SearchActivity" />
         <activity android:name=".activitys.FArticleActivity" />
         <activity android:name=".activitys.MusicDetailActivity" />
-        <activity android:name=".activitys.VideosActivity"></activity>
+        <activity android:name=".activitys.VideosActivity" />
+        <activity android:name=".postcard.PostCardActivity"></activity>
     </application>
 
 </manifest>
