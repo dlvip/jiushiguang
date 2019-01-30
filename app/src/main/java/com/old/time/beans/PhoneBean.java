@@ -13,6 +13,8 @@ public class PhoneBean {
         this.phoneInfos = phoneInfos;
     }
 
+    private int colorRes;
+
     private String codeKey;
 
     private List<PhoneInfo> phoneInfos;

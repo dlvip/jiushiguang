@@ -3,15 +3,14 @@ package com.old.time.postcard;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.old.time.R;
-import com.old.time.activitys.BaseCActivity;
+import com.old.time.activitys.BaseActivity;
 import com.old.time.adapters.LetterAdapter;
 import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
@@ -19,12 +18,12 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.RecyclerItemDecoration;
-import com.old.time.utils.UIHelper;
+import com.old.time.utils.ScreenTools;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostCardActivity extends BaseCActivity {
+public class PostCardActivity extends BaseActivity {
 
     /**
      * 通讯录
@@ -47,21 +46,11 @@ public class PostCardActivity extends BaseCActivity {
      */
     private List<String> chars = new ArrayList<>();
 
+    private RecyclerView mRecyclerView;
+    private TextView tv_center_key;
+
     @Override
     protected void initView() {
-        super.initView();
-        findViewById(R.id.left_layout).setVisibility(View.GONE);
-        linear_layout_more.removeAllViews();
-        layoutParams.height = UIHelper.dip2px(45);
-        layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
-        layoutParams.gravity = Gravity.CENTER;
-        linear_layout_more.setLayoutParams(layoutParams);
-        linear_layout_more.setVisibility(View.VISIBLE);
-        RecyclerView mRView = new RecyclerView(mContext);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        mRView.setLayoutParams(params);
-        linear_layout_more.addView(mRView);
-
         phoneBeans.clear();
         chars.clear();
         List<PhoneInfo> phoneInfos = PhoneUtils.getPhoneNumberFromMobile(mContext);
@@ -78,25 +67,67 @@ public class PostCardActivity extends BaseCActivity {
 
             }
         }
+        tv_center_key = findViewById(R.id.tv_center_key);
+        mRecyclerView = findViewById(R.id.c_recycler_view);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         PhoneAdapter adapter = new PhoneAdapter(phoneBeans);
         mRecyclerView.setAdapter(adapter);
 
-        LetterAdapter mLetterAdapter = new LetterAdapter(phoneBeans);
+        RecyclerView mRView = findViewById(R.id.recycler_view_bottom);
         mRView.setLayoutManager(new MyGridLayoutManager(mContext, phoneBeans.size()));
+        LetterAdapter mLetterAdapter = new LetterAdapter(phoneBeans);
         mRView.setAdapter(mLetterAdapter);
-        mRView.addOnItemTouchListener(new OnItemClickListener() {
+        mRView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent event) {
+                int position = (int) (event.getX() * phoneBeans.size() / ScreenTools.instance(mContext).getScreenWidth());
                 seleteToPosition(position);
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    tv_center_key.setVisibility(View.GONE);
+
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent event) {
+
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
 
             }
         });
     }
 
-    @Override
-    public void getDataFromNet(boolean isRefresh) {
-        mSwipeRefreshLayout.setRefreshing(false);
+    /**
+     * 定位显示哪一个item
+     *
+     * @param position
+     */
+    public void seleteToPosition(int position) {
+        if (mRecyclerView == null) {
 
+            return;
+        }
+        if (position >= phoneBeans.size()) {
+            tv_center_key.setVisibility(View.GONE);
+
+        } else {
+            tv_center_key.setVisibility(View.VISIBLE);
+            tv_center_key.setText(phoneBeans.get(position).getCodeKey());
+
+        }
+        LinearLayoutManager manager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        manager.scrollToPositionWithOffset(position, 0);
+
+    }
+
+    @Override
+    protected int getLayoutID() {
+        return R.layout.activity_post_card;
     }
 }
