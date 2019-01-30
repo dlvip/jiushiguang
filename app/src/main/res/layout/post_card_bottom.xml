@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.old.time.views.SlidingTabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/type_tab"
+    android:layout_width="match_parent"
+    android:layout_height="37dp"
+    android:background="#fff"
+    app:tl_indicator_color="#19C4B2"
+    app:tl_indicator_corner_radius="@dimen/layout_5"
+    app:tl_indicator_height="4dp"
+    app:tl_indicator_width_equal_title="true"
+    app:tl_tab_space_equal="true"
+    app:tl_textSelectColor="#19C4B2"
+    app:tl_textUnselectColor="#FF969696"
+    app:tl_textsize="15sp"
+    app:tl_underline_color="#fff"
+    app:tl_underline_height="4dp" />

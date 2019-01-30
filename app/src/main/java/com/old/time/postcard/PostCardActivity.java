@@ -3,15 +3,24 @@ package com.old.time.postcard;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.old.time.R;
 import com.old.time.activitys.BaseCActivity;
+import com.old.time.adapters.LetterAdapter;
+import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
-import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.MyGridLayoutManager;
+import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.PhoneUtils;
+import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 
 import java.util.ArrayList;
@@ -31,60 +40,65 @@ public class PostCardActivity extends BaseCActivity {
 
     }
 
-    private List<String> mLetters = new ArrayList<>();
+    /**
+     * 联系人集合
+     */
+    private List<PhoneBean> phoneBeans = new ArrayList<>();
+    /**
+     * 字母集合
+     */
+    private List<String> chars = new ArrayList<>();
 
     @Override
     protected void initView() {
         super.initView();
         findViewById(R.id.left_layout).setVisibility(View.GONE);
-        phoneInfos.clear();
-        mLetters.clear();
-        phoneInfos.addAll(PhoneUtils.getPhoneNumberFromMobile(mContext));
+        linear_layout_more.removeAllViews();
+        layoutParams.height = UIHelper.dip2px(45);
+        layoutParams.width = LinearLayout.LayoutParams.MATCH_PARENT;
+        layoutParams.gravity = Gravity.CENTER;
+        linear_layout_more.setLayoutParams(layoutParams);
+        linear_layout_more.setVisibility(View.VISIBLE);
+        RecyclerView mRView = new RecyclerView(mContext);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mRView.setLayoutParams(params);
+        mRView.setLayoutManager(new MyLinearLayoutManager(mContext, MyGridLayoutManager.HORIZONTAL, false));
+        linear_layout_more.addView(mRView);
+
+        phoneBeans.clear();
+        chars.clear();
+        List<PhoneInfo> phoneInfos = PhoneUtils.getPhoneNumberFromMobile(mContext);
         for (int i = 0; i < phoneInfos.size(); i++) {
             PhoneInfo phoneInfo = phoneInfos.get(i);
-            if (!mLetters.contains(phoneInfo.getSortKey())) {
-                mLetters.add(phoneInfo.getSortKey());
-                phoneInfos.get(i).setShow(true);
+            if (!chars.contains(phoneInfo.getSortKey())) {
+                chars.add(phoneInfo.getSortKey());
+                List<PhoneInfo> infos = new ArrayList<>();
+                infos.add(phoneInfo);
+                phoneBeans.add(PhoneBean.getInstance(phoneInfo.getSortKey(), infos));
 
             } else {
-                phoneInfos.get(i).setShow(false);
+                phoneBeans.get(chars.size() - 1).getPhoneInfos().add(phoneInfo);
 
             }
         }
-        adapter = new PostCardAdapter(phoneInfos);
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
+        PhoneAdapter adapter = new PhoneAdapter(phoneBeans);
         mRecyclerView.setAdapter(adapter);
 
-    }
+        LetterAdapter mLetterAdapter = new LetterAdapter(phoneBeans);
+        mRView.setAdapter(mLetterAdapter);
+        mRView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                seleteToPosition(position);
 
-    private List<PhoneInfo> phoneInfos = new ArrayList<>();
-    private PostCardAdapter adapter;
+            }
+        });
+    }
 
     @Override
     public void getDataFromNet(boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
 
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull final String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionUtil.onPermissionResult(this, permissions, grantResults, new PermissionUtil.PermissionCallBack() {
-            @Override
-            public void onSuccess() {
-                UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_success));
-
-            }
-
-            @Override
-            public void onShouldShow() {
-
-            }
-
-            @Override
-            public void onFailed() {
-                UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_fail));
-
-            }
-        });
     }
 }

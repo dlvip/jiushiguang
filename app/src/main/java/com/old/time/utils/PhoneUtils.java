@@ -37,9 +37,9 @@ public class PhoneUtils {
         Collections.sort(list, new Comparator<PhoneInfo>() {
             @Override
             public int compare(PhoneInfo lhs, PhoneInfo rhs) {
-                if (lhs.getSortKey().equals(rhs.getSortKey())) {
+                if (lhs.getName().equals(rhs.getName())) {
 
-                    return lhs.getSortKey().compareTo(rhs.getSortKey());
+                    return lhs.getName().compareTo(rhs.getName());
                 } else {
                     if ("#".equals(lhs.getSortKey())) {
 
