@@ -39,7 +39,7 @@ public class PhoneUtils {
             public int compare(PhoneInfo lhs, PhoneInfo rhs) {
                 if (lhs.getName().equals(rhs.getName())) {
 
-                    return lhs.getName().compareTo(rhs.getName());
+                    return lhs.getSortKey().compareTo(rhs.getSortKey());
                 } else {
                     if ("#".equals(lhs.getSortKey())) {
 

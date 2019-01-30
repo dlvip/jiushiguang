@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -18,7 +17,6 @@ import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyGridLayoutManager;
-import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
@@ -60,9 +58,8 @@ public class PostCardActivity extends BaseCActivity {
         linear_layout_more.setLayoutParams(layoutParams);
         linear_layout_more.setVisibility(View.VISIBLE);
         RecyclerView mRView = new RecyclerView(mContext);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         mRView.setLayoutParams(params);
-        mRView.setLayoutManager(new MyLinearLayoutManager(mContext, MyGridLayoutManager.HORIZONTAL, false));
         linear_layout_more.addView(mRView);
 
         phoneBeans.clear();
@@ -86,6 +83,7 @@ public class PostCardActivity extends BaseCActivity {
         mRecyclerView.setAdapter(adapter);
 
         LetterAdapter mLetterAdapter = new LetterAdapter(phoneBeans);
+        mRView.setLayoutManager(new MyGridLayoutManager(mContext, phoneBeans.size()));
         mRView.setAdapter(mLetterAdapter);
         mRView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
