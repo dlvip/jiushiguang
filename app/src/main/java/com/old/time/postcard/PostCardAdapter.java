@@ -20,9 +20,7 @@ public class PostCardAdapter extends BaseQuickAdapter<PhoneInfo, BaseViewHolder>
     protected void convert(BaseViewHolder helper, PhoneInfo item) {
         helper.setText(R.id.tv_user_pic, item.getNamePic())//
                 .setText(R.id.tv_user_name, item.getName())//
-                .setVisible(R.id.view_line, item.getIsShow())//
-                .setVisible(R.id.tv_name_letter, item.getIsShow())//
-                .setText(R.id.tv_name_letter, item.getSortKey());
+                .setGone(R.id.view_line_1, helper.getLayoutPosition() != 0);
 
     }
 }
