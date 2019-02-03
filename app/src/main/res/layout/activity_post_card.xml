@@ -68,7 +68,8 @@
         android:background="@drawable/shape_radiu10_tran_60"
         android:gravity="center"
         android:textColor="@color/color_fff"
-        android:textSize="@dimen/text_16"
+        android:textSize="@dimen/text_30"
+        android:textStyle="bold"
         android:visibility="gone" />
 
 </RelativeLayout>
