@@ -35,6 +35,7 @@ public class FastMailActivity extends BaseCActivity {
     @Override
     protected void initView() {
         super.initView();
+        setTitleText("服务号");
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext));
         adapter = new FastMailAdapter(fastMailBeans);
         mRecyclerView.setAdapter(adapter);
