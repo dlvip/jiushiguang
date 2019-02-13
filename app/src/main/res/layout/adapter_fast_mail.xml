@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_fff"
+    android:gravity="center_vertical"
+    android:padding="@dimen/layout_10">
+
+    <ImageView
+        android:id="@+id/img_mail_pic"
+        android:layout_width="@dimen/layout_85"
+        android:layout_height="@dimen/layout_50"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/tv_mail_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_15"
+        android:layout_weight="1"
+        android:text=""
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16" />
+
+    <ImageView
+        android:layout_width="@dimen/layout_12"
+        android:layout_height="@dimen/layout_12"
+        android:src="@mipmap/public_arrow_right" />
+
+</LinearLayout>

@@ -26,7 +26,7 @@ public class PhoneUtils {
             String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))//
                     .replace(" ", "").replace("+86", "");
             int Id = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
-            String sortKey = getSortkey(cursor.getString(1));
+            String sortKey = getSortKey(cursor.getString(1));
             PhoneInfo phoneInfo = new PhoneInfo(name, number, sortKey, Id);
             list.add(phoneInfo);
             DebugLog.d("phoneInfo:===>", phoneInfo.toString());
@@ -55,7 +55,7 @@ public class PhoneUtils {
         return list;
     }
 
-    private static String getSortkey(String sortKeyString) {
+    private static String getSortKey(String sortKeyString) {
         String key = sortKeyString.substring(0, 1).toUpperCase();
         if (key.matches("[A-Z]")) {
 

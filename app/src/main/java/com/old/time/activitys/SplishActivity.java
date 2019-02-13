@@ -59,14 +59,14 @@ public class SplishActivity extends BaseActivity {
         tv_time_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PostCardActivity.startPostCardActivity(mContext);
+                startPostCardActivity();
 
             }
         });
         img_splish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PostCardActivity.startPostCardActivity(mContext);
+                startPostCardActivity();
 
             }
         });
@@ -88,6 +88,15 @@ public class SplishActivity extends BaseActivity {
 
             }
         });
+    }
+
+    /**
+     * 跳转activity
+     */
+    private void startPostCardActivity() {
+        cancelDownTimer();
+        PostCardActivity.startPostCardActivity(mContext);
+
     }
 
     private void startClock() {
@@ -142,7 +151,7 @@ public class SplishActivity extends BaseActivity {
         MyApplication.getClient().getTaskManager().addTask(new CallBackTask(Constant.IMAGEDOWNLOAD_THREAD_NAME) {
             @Override
             protected void doTask() {
-                PostCardActivity.startPostCardActivity(mContext);
+                startPostCardActivity();
 
             }
         });

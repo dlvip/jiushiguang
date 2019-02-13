@@ -47,7 +47,7 @@ public class DialogListManager extends BaseDialog {
             myTypeItems.add(myTypeItem);
 
         }
-        mAdapter.notifyDataSetChanged();
+        mAdapter.setNewData(myTypeItems);
         setDialogTitle(title);
     }
 

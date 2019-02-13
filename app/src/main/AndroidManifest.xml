@@ -28,6 +28,8 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- 配置权限，用来记录应用配置信息 -->
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 手机定位信息，用来为语义等功能提供定位，提供更精准的服务 -->
     <!-- 定位信息是敏感信息，可通过Setting.setLocationEnable(false)关闭定位请求 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -47,6 +49,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+    <!-- 拨打电话 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -54,7 +59,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
         <!-- 热更新配置 -->
         <activity
@@ -161,7 +167,10 @@
         <activity android:name=".activitys.FArticleActivity" />
         <activity android:name=".activitys.MusicDetailActivity" />
         <activity android:name=".activitys.VideosActivity" />
-        <activity android:name=".postcard.PostCardActivity"></activity>
+        <activity
+            android:name=".postcard.PostCardActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".postcard.FastMailActivity"></activity>
     </application>
 
 </manifest>

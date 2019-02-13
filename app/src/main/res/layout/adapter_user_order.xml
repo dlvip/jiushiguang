@@ -60,8 +60,7 @@
             android:layout_width="@dimen/layout_50"
             android:layout_height="@dimen/layout_50"
             android:layout_marginRight="@dimen/layout_10"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/splish_pic" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:layout_width="match_parent"

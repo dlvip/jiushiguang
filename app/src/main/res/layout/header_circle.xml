@@ -66,8 +66,7 @@
         <ImageView
             android:layout_width="@dimen/layout_60"
             android:layout_height="@dimen/layout_60"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/splish_pic" />
+            android:scaleType="centerCrop" />
     </LinearLayout>
 
 </FrameLayout>

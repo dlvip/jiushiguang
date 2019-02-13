@@ -14,6 +14,7 @@ import com.old.time.activitys.BaseActivity;
 import com.old.time.adapters.LetterAdapter;
 import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
+import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.PhoneUtils;
@@ -31,6 +32,11 @@ public class PostCardActivity extends BaseActivity {
      * @param mContext
      */
     public static void startPostCardActivity(Context mContext) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext//
+                , PermissionUtil.needPermissions)) {
+
+            return;
+        }
         Intent intent = new Intent(mContext, PostCardActivity.class);
         ActivityUtils.startActivity((Activity) mContext, intent);
         ActivityUtils.finishActivity((Activity) mContext);
@@ -46,6 +52,7 @@ public class PostCardActivity extends BaseActivity {
      */
     private List<String> chars = new ArrayList<>();
 
+    private PhoneAdapter adapter;
     private RecyclerView mRecyclerView;
     private TextView tv_center_key;
 
@@ -70,7 +77,17 @@ public class PostCardActivity extends BaseActivity {
         tv_center_key = findViewById(R.id.tv_center_key);
         mRecyclerView = findViewById(R.id.c_recycler_view);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
-        PhoneAdapter adapter = new PhoneAdapter(phoneBeans);
+        adapter = new PhoneAdapter(phoneBeans);
+        View headerView = View.inflate(mContext, R.layout.header_post_cart, null);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastMailActivity.startFastMailActivity(mContext);
+
+            }
+        });
+        adapter.removeAllHeaderView();
+        adapter.addHeaderView(headerView);
         mRecyclerView.setAdapter(adapter);
 
         RecyclerView mRView = findViewById(R.id.recycler_view_bottom);
@@ -122,7 +139,7 @@ public class PostCardActivity extends BaseActivity {
 
         }
         LinearLayoutManager manager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-        manager.scrollToPositionWithOffset(position, 0);
+        manager.scrollToPositionWithOffset(position + adapter.getHeaderLayoutCount(), 0);
 
     }
 

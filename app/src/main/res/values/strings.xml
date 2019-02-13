@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">豆好看</string>
+    <string name="app_name">觅邮</string>
     <string name="main_right">保存</string>
     <string name="loading_show_empty">暂无数据</string>
     <string name="error_net">网络异常</string>

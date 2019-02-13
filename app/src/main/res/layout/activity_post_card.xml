@@ -25,7 +25,6 @@
             android:textColor="@color/color_484848"
             android:textSize="@dimen/text_18" />
 
-
         <ImageView
             android:id="@+id/img_more"
             android:layout_width="@dimen/main_header_height"
