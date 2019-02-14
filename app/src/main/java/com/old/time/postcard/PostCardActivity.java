@@ -7,17 +7,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.zxing.activity.CaptureActivity;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
+import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
 import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.permission.PermissionUtil;
+import com.old.time.pops.PostCartPop;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.PhoneUtils;
+import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
 
@@ -55,6 +62,8 @@ public class PostCardActivity extends BaseActivity {
     private PhoneAdapter adapter;
     private RecyclerView mRecyclerView;
     private TextView tv_center_key;
+    private ImageView img_more;
+
 
     @Override
     protected void initView() {
@@ -118,6 +127,40 @@ public class PostCardActivity extends BaseActivity {
 
             }
         });
+
+        img_more = findViewById(R.id.img_more);
+        img_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopWindow();
+
+            }
+        });
+    }
+
+    private PostCartPop mPostCartPop;
+
+    private void showPopWindow() {
+        if (mPostCartPop == null) {
+            mPostCartPop = new PostCartPop(mContext, new OnItemClickListener() {
+                @Override
+                public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    if (mPostCartPop != null && mPostCartPop.isShowing()) {
+                        mPostCartPop.dismiss();
+
+                    }
+                    String string = (String) adapter.getItem(position);
+                    switch (string) {
+                        case "扫一扫":
+                            PictureUtil.captureCode(mContext);
+
+                            break;
+                    }
+                }
+            });
+        }
+        mPostCartPop.showAtLocation(img_more);
+
     }
 
     /**
@@ -141,6 +184,22 @@ public class PostCardActivity extends BaseActivity {
         LinearLayoutManager manager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         manager.scrollToPositionWithOffset(position + adapter.getHeaderLayoutCount(), 0);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+
+            return;
+        }
+        switch (requestCode) {
+            case CaptureActivity.REQ_CODE:
+                String str = data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
+                WebViewActivity.startWebViewActivity(mContext, str);
+
+                break;
+        }
     }
 
     @Override

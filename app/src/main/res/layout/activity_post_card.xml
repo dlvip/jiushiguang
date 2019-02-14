@@ -8,35 +8,7 @@
     android:orientation="vertical"
     tools:context="com.old.time.activitys.BaseCActivity">
 
-    <RelativeLayout
-        android:id="@+id/relative_layout_title"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_header_height">
-
-        <TextView
-            android:id="@+id/top_title"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/main_header_height"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:paddingLeft="@dimen/layout_15"
-            android:text="通讯录"
-            android:textColor="@color/color_484848"
-            android:textSize="@dimen/text_18" />
-
-        <ImageView
-            android:id="@+id/img_more"
-            android:layout_width="@dimen/main_header_height"
-            android:layout_height="@dimen/main_header_height"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/layout_10"
-            android:padding="@dimen/layout_9"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/btn_more" />
-
-    </RelativeLayout>
+    <include layout="@layout/header_main_post" />
 
     <com.old.time.views.CustomRecyclerView
         android:id="@+id/c_recycler_view"

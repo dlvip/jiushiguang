@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relative_layout_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/main_header_height"
+    android:background="@color/main_bg">
+
+    <FrameLayout
+        android:id="@+id/frame_layout_left"
+        android:layout_width="@dimen/layout_40"
+        android:layout_height="@dimen/layout_40"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/img_left_btn"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/public_arrow_left" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/top_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_header_height"
+        android:layout_toRightOf="@+id/frame_layout_left"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/layout_15"
+        android:text="通讯录"
+        android:textColor="@color/color_484848"
+        android:textSize="@dimen/text_18" />
+
+    <ImageView
+        android:id="@+id/img_more"
+        android:layout_width="@dimen/main_header_height"
+        android:layout_height="@dimen/main_header_height"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/layout_10"
+        android:padding="@dimen/layout_9"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/btn_more" />
+
+</RelativeLayout>
