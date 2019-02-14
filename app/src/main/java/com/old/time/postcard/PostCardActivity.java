@@ -3,6 +3,7 @@ package com.old.time.postcard;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
@@ -27,6 +28,7 @@ import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
+import com.old.time.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -181,9 +183,36 @@ public class PostCardActivity extends BaseActivity {
             tv_center_key.setText(phoneBeans.get(position).getCodeKey());
 
         }
-        LinearLayoutManager manager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-        manager.scrollToPositionWithOffset(position + adapter.getHeaderLayoutCount(), 0);
+        if (position != 0) {
+            position = position + adapter.getHeaderLayoutCount();
 
+        }
+        LinearLayoutManager manager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        manager.scrollToPositionWithOffset(position, 0);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionUtil.onPermissionResult(this, permissions, grantResults, new PermissionUtil.PermissionCallBack() {
+            @Override
+            public void onSuccess() {
+                PictureUtil.captureCode(mContext);
+
+            }
+
+            @Override
+            public void onShouldShow() {
+
+            }
+
+            @Override
+            public void onFailed() {
+                showDialogPermission();
+
+            }
+        });
     }
 
     @Override

@@ -71,34 +71,34 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     private DialogPromptCentre mDialogPromptCentre;
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull final String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionUtil.onPermissionResult(this, permissions, grantResults, new PermissionUtil.PermissionCallBack() {
-            @Override
-            public void onSuccess() {
-                UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_success));
-
-            }
-
-            @Override
-            public void onShouldShow() {
-
-            }
-
-            @Override
-            public void onFailed() {
-                showDialogPermission();
-                UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_fail));
-
-            }
-        });
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull final String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        PermissionUtil.onPermissionResult(this, permissions, grantResults, new PermissionUtil.PermissionCallBack() {
+//            @Override
+//            public void onSuccess() {
+//                UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_success));
+//
+//            }
+//
+//            @Override
+//            public void onShouldShow() {
+//
+//            }
+//
+//            @Override
+//            public void onFailed() {
+//                showDialogPermission();
+//                UIHelper.ToastMessage(mContext, getString(R.string.permissions_apply_fail));
+//
+//            }
+//        });
+//    }
 
     /**
      * 申请权限的弹框
      */
-    private void showDialogPermission() {
+    protected void showDialogPermission() {
         if (mDialogPromptCentre == null) {
             mDialogPromptCentre = new DialogPromptCentre(mContext, new OnClickViewCallBack() {
                 @Override

@@ -1,6 +1,7 @@
 package com.old.time.activitys;
 
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,12 +17,14 @@ import com.old.time.beans.SplashBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.permission.PermissionUtil;
 import com.old.time.postcard.PostCardActivity;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.ComputeUtils;
 import com.old.time.utils.DebugLog;
+import com.old.time.utils.PictureUtil;
 import com.old.time.utils.SplashDownLoadService;
 import com.old.time.utils.StringUtils;
 
@@ -185,6 +188,30 @@ public class SplishActivity extends BaseActivity {
 
         }
     };
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionUtil.onPermissionResult(this, permissions, grantResults, new PermissionUtil.PermissionCallBack() {
+
+            @Override
+            public void onSuccess() {
+                startPostCardActivity();
+
+            }
+
+            @Override
+            public void onShouldShow() {
+
+            }
+
+            @Override
+            public void onFailed() {
+                showDialogPermission();
+
+            }
+        });
+    }
 
     @Override
     protected void onPause() {
