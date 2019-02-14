@@ -25,9 +25,14 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.adapters.LocationAdapter;
 import com.old.time.beans.PoiItemBean;
+import com.old.time.beans.ResultBean;
+import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyLinearLayoutManager;
@@ -66,8 +71,7 @@ public class LocationMapActivity extends BaseActivity {
 
         // 自定义系统定位小蓝点
         MyLocationStyle myLocationStyle = new MyLocationStyle();
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory
-                .fromResource(R.drawable.shape_666_bg));// 设置小蓝点的图标
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.shape_666_bg));// 设置小蓝点的图标
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色
         myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色
         myLocationStyle.strokeWidth(0f);// 设置圆形的边框粗细
@@ -167,12 +171,34 @@ public class LocationMapActivity extends BaseActivity {
                     keyWord = txtSearch.getText().toString().trim();
                     PoiItem firstItem = new PoiItem("tip", searchLatlonPoint, keyWord, keyWord);
                     doSearchQuery(firstItem.getLatLonPoint().getLatitude(), firstItem.getLatLonPoint().getLongitude());
+//                    getMapList();
 
                 }
                 return false;
             }
         });
     }
+
+//    private void getMapList() {
+//        HttpParams params = new HttpParams();
+//        params.put("key", "9c9c4d9a65971e91f0130fa087d263aa");
+//        params.put("radius", "1000");
+//        params.put("keywords", keyWord);
+//        OkGoUtils.getInstance().getNetForData(new HttpParams(), "https://restapi.amap.com/v3/place/around", new JsonCallBack<List<ResultBean>>() {
+//            @Override
+//            public void onSuccess(List<ResultBean> mResultBean) {
+//
+//
+//            }
+//
+//            @Override
+//            public void onError(List<ResultBean> mResultBean) {
+//
+//            }
+//        });
+//
+//
+//    }
 
 
     private PoiSearch.Query query;

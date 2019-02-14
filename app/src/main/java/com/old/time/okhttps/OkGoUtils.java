@@ -30,4 +30,10 @@ public class OkGoUtils {
         OkGo.<T>post(postUrl).params(params).cacheKey(cacheKey).execute(jsonCallBack);
 
     }
+
+    public <T> void getNetForData(HttpParams params, String postUrl, JsonCallBack<T> jsonCallBack) {
+        String cacheKey = postUrl + (params == null ? "" : params.toString());
+        OkGo.<T>get(postUrl).params(params).cacheKey(cacheKey).execute(jsonCallBack);
+
+    }
 }

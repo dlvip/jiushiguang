@@ -10,11 +10,12 @@ import com.old.time.R;
 import com.old.time.utils.MyLinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PostCartPop extends BasePopWindow {
 
-    public PostCartPop(Context context,RecyclerView.OnItemTouchListener listener) {
+    public PostCartPop(Context context, RecyclerView.OnItemTouchListener listener) {
         super(context);
         mRecyclerView.addOnItemTouchListener(listener);
     }
@@ -35,8 +36,6 @@ public class PostCartPop extends BasePopWindow {
 
             }
         };
-        strings.clear();
-        strings.add("扫一扫");
         mRecyclerView.setAdapter(adapter);
         adapter.setNewData(strings);
         findViewById(R.id.view_null).setOnClickListener(new View.OnClickListener() {
@@ -46,6 +45,13 @@ public class PostCartPop extends BasePopWindow {
 
             }
         });
+
+    }
+
+    public void showPopWindow(View view, String[] strings) {
+        adapter.setNewData(Arrays.asList(strings));
+        showAtLocation(view);
+
     }
 
     @Override

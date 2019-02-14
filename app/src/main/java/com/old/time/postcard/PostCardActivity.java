@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.zxing.activity.CaptureActivity;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
+import com.old.time.activitys.LocationMapActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
 import com.old.time.beans.PhoneBean;
@@ -28,7 +29,6 @@ import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
-import com.old.time.utils.UIHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -157,11 +157,15 @@ public class PostCardActivity extends BaseActivity {
                             PictureUtil.captureCode(mContext);
 
                             break;
+                        case "附近":
+                            LocationMapActivity.startLocationMapActivity(mContext);
+
+                            break;
                     }
                 }
             });
         }
-        mPostCartPop.showAtLocation(img_more);
+        mPostCartPop.showPopWindow(img_more, new String[]{"扫一扫", "附近"});
 
     }
 

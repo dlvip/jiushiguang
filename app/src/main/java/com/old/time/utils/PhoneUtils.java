@@ -13,9 +13,9 @@ import java.util.List;
 
 public class PhoneUtils {
 
-
     public static List<PhoneInfo> getPhoneNumberFromMobile(Context context) {
         List<PhoneInfo> list = new ArrayList<>();
+        List<String> strings = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI//
                 , new String[]{"display_name", "sort_key", "contact_id", "data1"}//
                 , null, null, null);
@@ -27,10 +27,18 @@ public class PhoneUtils {
                     .replace(" ", "").replace("+86", "");
             int Id = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
             String sortKey = getSortKey(cursor.getString(1));
-            PhoneInfo phoneInfo = new PhoneInfo(name, number, sortKey, Id);
-            list.add(phoneInfo);
-            DebugLog.d("phoneInfo:===>", phoneInfo.toString());
+            if (!strings.contains(name)) {
+                PhoneInfo phoneInfo = new PhoneInfo(name, number, sortKey, Id);
+                list.add(phoneInfo);
+                strings.add(name);
+                DebugLog.d("phoneInfo:===>", phoneInfo.toString());
 
+            } else {
+                int position = strings.indexOf(name);
+                PhoneInfo phoneInfo = list.get(position);
+                phoneInfo.setNumber(phoneInfo.getNumber() + "," + number);
+
+            }
         }
         cursor.close();
         // 排序

@@ -18,7 +18,6 @@ import java.util.List;
 
 public class PostCardAdapter extends BaseQuickAdapter<PhoneInfo, BaseViewHolder> {
 
-
     PostCardAdapter(@Nullable List<PhoneInfo> data) {
         super(R.layout.adapter_post_card, data);
 
@@ -52,13 +51,12 @@ public class PostCardAdapter extends BaseQuickAdapter<PhoneInfo, BaseViewHolder>
             dialogListManager = new DialogListManager(mContext, new OnClickManagerCallBack() {
                 @Override
                 public void onClickRankManagerCallBack(int position, String typeName) {
-                    callPhone(mPhoneInfo.getNumber());
+                    callPhone(mPhoneInfo.getNumber().split(",")[0]);
 
                 }
             });
         }
         dialogListManager.setDialogViewData("拨号", new String[]{mPhoneInfo.getName()});
-
 
     }
 
