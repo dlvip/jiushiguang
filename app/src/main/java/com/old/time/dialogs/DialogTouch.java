@@ -18,6 +18,10 @@ public class DialogTouch extends BaseDialog{
 
     @Override
     protected void initDialogView() {
+        setCancelable(false);
+        getContentView().setFocusable(false);
+        getContentView().setFocusableInTouchMode(false);
+        getContentView().requestFocus();
         findViewbyId(R.id.tv_cancel).setOnClickListener(onClickViewCallBack);
 
     }

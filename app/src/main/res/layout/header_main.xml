@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/public_arrow_left" />
+            android:src="@mipmap/zxing_abc_ic_ab_back_mtrl_am_alpha" />
     </RelativeLayout>
 
     <TextView

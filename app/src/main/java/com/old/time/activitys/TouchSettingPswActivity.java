@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.old.time.R;
-import com.old.time.permission.PermissionUtil;
 import com.old.time.postcard.PostCardActivity;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.PreferenceCache;

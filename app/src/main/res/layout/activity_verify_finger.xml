@@ -43,7 +43,7 @@
         android:layout_marginRight="20dp"
         android:text="账号密码验证"
         android:textColor="@color/color_3691ff"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/iv_finger_icon"

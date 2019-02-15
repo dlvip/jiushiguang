@@ -11,6 +11,9 @@ ext {
     // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
     externalTencentTinkerAndroidLib = 'com.tencent.tinker:tinker-android-lib:1.9.6'
 
+    //指纹识别
+    externalTouchFingerPrintidentify = 'com.wei.android.lib:fingerprintidentify:1.2.1'
+
     //Build Gradle Plugin
     externalGithubPluginGlide = 'com.github.bumptech.glide:glide:4.5.0'
     externalGithubTransform = 'jp.wasabeef:glide-transformations:2.0.1'

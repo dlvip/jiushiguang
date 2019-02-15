@@ -36,9 +36,9 @@ public class TouchVerifyFingerActivity extends BaseActivity {
     private FingerprintIdentify mFingerprintIdentify;
     private TextView tv_hand_login;
     private DialogTouch mDialogTouch;
-    private boolean isClick;
     private TextView tv_main_login;
     private ImageView iv_finger_icon;
+    private boolean isClick;
 
     @Override
     protected void initView() {

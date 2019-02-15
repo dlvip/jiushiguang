@@ -16,7 +16,7 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center"
-            android:src="@mipmap/public_arrow_left" />
+            android:src="@mipmap/zxing_abc_ic_ab_back_mtrl_am_alpha" />
 
     </FrameLayout>
 
