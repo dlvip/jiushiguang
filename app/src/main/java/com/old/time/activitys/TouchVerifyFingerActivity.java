@@ -16,6 +16,8 @@ import com.old.time.utils.UIHelper;
 import com.wei.android.lib.fingerprintidentify.FingerprintIdentify;
 import com.wei.android.lib.fingerprintidentify.base.BaseFingerprint;
 
+import static com.old.time.activitys.TouchPatternPswActivity.TOUCH_PASS_WORD;
+
 public class TouchVerifyFingerActivity extends BaseActivity {
 
     /**
@@ -78,7 +80,7 @@ public class TouchVerifyFingerActivity extends BaseActivity {
         tv_hand_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TouchPatternPswActivity.startTouchPatternPswActivity(mContext, 3);
+                TouchPatternPswActivity.startTouchPatternPswActivity(mContext, TouchPatternPswActivity.TOUCH_PASS_WORD);
 
             }
         });

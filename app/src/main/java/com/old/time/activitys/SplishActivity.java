@@ -1,6 +1,5 @@
 package com.old.time.activitys;
 
-import android.app.Activity;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -19,6 +18,7 @@ import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
+import com.old.time.postcard.PostCardActivity;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
@@ -111,12 +111,11 @@ public class SplishActivity extends BaseActivity {
         }
         //手势其次
         if (PreferenceCache.getGestureFlag()) {
-            TouchPatternPswActivity.startTouchPatternPswActivity(mContext, 3);
+            TouchPatternPswActivity.startTouchPatternPswActivity(mContext, TouchPatternPswActivity.TOUCH_PASS_WORD);
 
-        } else {
-            TouchSettingPswActivity.startTouchSettingPswActivity(mContext);
-
+            return;
         }
+        PostCardActivity.startPostCardActivity(mContext);
     }
 
     private void startClock() {

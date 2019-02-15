@@ -9,8 +9,7 @@
     <FrameLayout
         android:id="@+id/frame_layout_left"
         android:layout_width="@dimen/layout_40"
-        android:layout_height="@dimen/layout_40"
-        android:visibility="gone">
+        android:layout_height="@dimen/layout_40">
 
         <ImageView
             android:id="@+id/img_left_btn"

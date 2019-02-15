@@ -11,8 +11,7 @@
         android:layout_height="@dimen/main_header_height"
         android:background="@drawable/selected_bg"
         android:clickable="true"
-        android:onClick="back"
-        android:visibility="gone">
+        android:onClick="back">
 
         <ImageView
             android:id="@+id/img_back"

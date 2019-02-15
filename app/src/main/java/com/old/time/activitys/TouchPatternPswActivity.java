@@ -18,10 +18,25 @@ public class TouchPatternPswActivity extends BaseActivity implements ChaosGestur
 
     public static String GES_TURE_FLG = "gestureFlg";
 
+    //1：删除密码
+    public static final int DELETE_PASS_WORD = 1;
+
+    //2：修改密码
+    public static final int UPDATE_PASS_WORD = 2;
+
+    //3：指纹密码
+    public static final int TOUCH_PASS_WORD = 3;
+
+    /**
+     * 设置修改手势密码
+     *
+     * @param context
+     * @param gestureFlg 1：删除密码、 2：修改密码、3：指纹密码
+     */
     public static void startTouchPatternPswActivity(Context context, int gestureFlg) {
         Intent intent = new Intent(context, TouchPatternPswActivity.class);
         intent.putExtra(GES_TURE_FLG, gestureFlg);
-        ActivityUtils.startActivity((Activity) context, intent);
+        ActivityUtils.startActivityForResult((Activity) context, intent, 1);
         ActivityUtils.finishActivity((Activity) context);
 
     }
@@ -53,7 +68,7 @@ public class TouchPatternPswActivity extends BaseActivity implements ChaosGestur
                 UIHelper.ToastMessage(mContext, "验证手势密码成功,请重新设置");
                 TouchSettingPswActivity.startTouchSettingPswActivity(mContext);
 
-            } else if (gestureFlg == 3) {
+            } else if (gestureFlg == 3) {//指纹开启
                 PostCardActivity.startPostCardActivity(mContext);
 
             }

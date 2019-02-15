@@ -65,6 +65,7 @@ public class PostCardActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        findViewById(R.id.frame_layout_left).setVisibility(View.GONE);
         phoneBeans.clear();
         chars.clear();
         List<PhoneInfo> phoneInfos = PhoneUtils.getPhoneNumberFromMobile(mContext);
@@ -148,6 +149,7 @@ public class PostCardActivity extends BaseActivity {
 
                     }
                     String string = (String) adapter.getItem(position);
+                    assert string != null;
                     switch (string) {
                         case "扫一扫":
                             PictureUtil.captureCode(mContext);

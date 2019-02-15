@@ -33,6 +33,7 @@ public class TouchSettingPswActivity extends BaseActivity implements ChaosGestur
 
     @Override
     protected void initView() {
+        setTitleText("手势密码");
         jumpFlg = getIntent().getIntExtra("jumpFlg", 0);
         flag = getIntent().getIntExtra("flag", 0);
         gestureView = findViewById(R.id.gesture);

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:text="您好,欢迎回来"
+        android:text="您好 , 欢迎回来"
         android:textColor="@color/color_ff4444" />
 
     <com.old.time.views.ChaosGestureView

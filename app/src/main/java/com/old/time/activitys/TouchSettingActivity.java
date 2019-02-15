@@ -29,7 +29,7 @@ public class TouchSettingActivity extends BaseActivity {
     private ImageView mIvHandSwitch;
     private ImageView mIvFingerSwitch;
     private LinearLayout mLinearLayoutSetting;
-    private View mView;
+    private View mView, linear_layout_touch;
     private FingerprintIdentify mFingerprintIdentify;
     private ImageView iv_icon_main;
 
@@ -42,6 +42,7 @@ public class TouchSettingActivity extends BaseActivity {
         mLinearLayoutSetting = findViewById(R.id.ll_setting_hand);
         mLinearLayoutSetting.setOnClickListener(this);
         mView = findViewById(R.id.view_second);
+        linear_layout_touch = findViewById(R.id.linear_layout_touch);
         mFingerprintIdentify = new FingerprintIdentify(this);
         iv_icon_main = findViewById(R.id.iv_icon_main);
 
@@ -58,6 +59,13 @@ public class TouchSettingActivity extends BaseActivity {
             mIvHandSwitch.setImageResource(R.mipmap.auto_bidding_on);
             mLinearLayoutSetting.setVisibility(View.GONE);
             mView.setVisibility(View.GONE);
+
+        }
+        if (mFingerprintIdentify.isHardwareEnable()) {
+            linear_layout_touch.setVisibility(View.VISIBLE);
+
+        } else {
+            linear_layout_touch.setVisibility(View.GONE);
 
         }
 
@@ -78,49 +86,41 @@ public class TouchSettingActivity extends BaseActivity {
                     TouchSettingPswActivity.startTouchSettingPswActivity(mContext);
 
                 } else {
-                    Intent close_intent = new Intent(mContext, TouchPatternPswActivity.class);
-                    //等于1为删除密码
-                    close_intent.putExtra("gestureFlg", 1);
-                    startActivityForResult(close_intent, 1);
+                    TouchPatternPswActivity.startTouchPatternPswActivity(mContext, TouchPatternPswActivity.DELETE_PASS_WORD);
 
                 }
                 break;
             case R.id.ll_setting_hand:
-                Intent intent = new Intent(mContext, TouchPatternPswActivity.class);
-                //等于2为修改密码
-                intent.putExtra("gestureFlg", 2);
-                startActivityForResult(intent, 1);
+                TouchPatternPswActivity.startTouchPatternPswActivity(mContext, TouchPatternPswActivity.UPDATE_PASS_WORD);
 
                 break;
             case R.id.iv_fingerprint_switch:
-                if (mFingerprintIdentify.isHardwareEnable()) {
-                    //指纹可用
-                    if (mFingerprintIdentify.isFingerprintEnable()) {
-                        if (PreferenceCache.getFingerFlg()) {
-                            //取消指纹
-                            mIvFingerSwitch.setImageResource(R.mipmap.auto_bidding_on);
-                            UIHelper.ToastMessage(mContext, "指纹验证功能已取消");
-                            PreferenceCache.putFingerFlg(false);
+                if (!mFingerprintIdentify.isHardwareEnable()) {
 
-                        } else {
-                            //打开指纹
-                            mIvFingerSwitch.setImageResource(R.mipmap.auto_bidding_off);
-                            UIHelper.ToastMessage(mContext, "指纹验证功能已打开");
-                            PreferenceCache.putFingerFlg(true);
-
-                        }
+                    break;
+                }
+                //指纹可用
+                if (mFingerprintIdentify.isFingerprintEnable()) {
+                    if (PreferenceCache.getFingerFlg()) {
+                        //取消指纹
+                        mIvFingerSwitch.setImageResource(R.mipmap.auto_bidding_on);
+                        UIHelper.ToastMessage(mContext, "指纹验证功能已取消");
+                        PreferenceCache.putFingerFlg(false);
 
                     } else {
-                        UIHelper.ToastMessage(mContext, "请先去录入指纹");
+                        //打开指纹
+                        mIvFingerSwitch.setImageResource(R.mipmap.auto_bidding_off);
+                        UIHelper.ToastMessage(mContext, "指纹验证功能已打开");
+                        PreferenceCache.putFingerFlg(true);
 
                     }
+
                 } else {
-                    UIHelper.ToastMessage(mContext, "辣鸡手机，用不了指纹，换手机吧");
+                    UIHelper.ToastMessage(mContext, "请先去录入指纹");
 
                 }
                 break;
         }
-
     }
 
     @Override
