@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radius10_bgfff"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/finger_red" />
+
+    <TextView
+        android:id="@+id/tv_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="支付狗的TouchID"
+        android:textColor="@color/color_3691ff"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/tv_second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_top"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="通过Home键验证已有手机指纹"
+        android:textColor="@color/color_323232"
+        android:textSize="12sp" />
+
+    <View
+        android:id="@+id/view_one"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_second"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_666" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_one"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="@color/color_3691ff"
+        android:textSize="16sp" />
+
+</RelativeLayout>

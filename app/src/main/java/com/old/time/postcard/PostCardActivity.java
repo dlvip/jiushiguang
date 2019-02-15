@@ -17,6 +17,7 @@ import com.google.zxing.activity.CaptureActivity;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.LocationMapActivity;
+import com.old.time.activitys.TouchSettingActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
 import com.old.time.beans.PhoneBean;
@@ -41,11 +42,6 @@ public class PostCardActivity extends BaseActivity {
      * @param mContext
      */
     public static void startPostCardActivity(Context mContext) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity((Activity) mContext//
-                , PermissionUtil.needPermissions)) {
-
-            return;
-        }
         Intent intent = new Intent(mContext, PostCardActivity.class);
         ActivityUtils.startActivity((Activity) mContext, intent);
         ActivityUtils.finishActivity((Activity) mContext);
@@ -161,11 +157,18 @@ public class PostCardActivity extends BaseActivity {
                             LocationMapActivity.startLocationMapActivity(mContext);
 
                             break;
+                        case "设置":
+                            TouchSettingActivity.startSettingTouchActivity(mContext);
+
+                            break;
+                        default:
+
+                            break;
                     }
                 }
             });
         }
-        mPostCartPop.showPopWindow(img_more, new String[]{"扫一扫", "附近"});
+        mPostCartPop.showPopWindow(img_more, new String[]{"扫一扫", "附近", "设置"});
 
     }
 

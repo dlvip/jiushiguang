@@ -1,5 +1,6 @@
 package com.old.time.activitys;
 
+import android.app.Activity;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -18,13 +19,12 @@ import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
-import com.old.time.postcard.PostCardActivity;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.ComputeUtils;
 import com.old.time.utils.DebugLog;
-import com.old.time.utils.PictureUtil;
+import com.old.time.utils.PreferenceCache;
 import com.old.time.utils.SplashDownLoadService;
 import com.old.time.utils.StringUtils;
 
@@ -97,9 +97,26 @@ public class SplishActivity extends BaseActivity {
      * 跳转activity
      */
     private void startPostCardActivity() {
-        cancelDownTimer();
-        PostCardActivity.startPostCardActivity(mContext);
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext//
+                , PermissionUtil.needPermissions)) {
 
+            return;
+        }
+        cancelDownTimer();
+        //指纹高优先级
+        if (PreferenceCache.getFingerFlg()) {
+            TouchVerifyFingerActivity.startTouchVerifyFingerActivity(mContext);
+
+            return;
+        }
+        //手势其次
+        if (PreferenceCache.getGestureFlag()) {
+            TouchPatternPswActivity.startTouchPatternPswActivity(mContext, 3);
+
+        } else {
+            TouchSettingPswActivity.startTouchSettingPswActivity(mContext);
+
+        }
     }
 
     private void startClock() {

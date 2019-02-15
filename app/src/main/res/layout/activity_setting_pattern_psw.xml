@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activitys.TouchSettingPswActivity">
+
+    <include layout="@layout/header_main" />
+
+    <com.old.time.views.ChaosGestureView
+        android:id="@+id/gesture"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_weight="1"
+        app:maxFailCounts="5"
+        app:minPoint="4"
+        app:paintColor="@color/color_3691ff"
+        app:paintTextSize="15sp"
+        app:selectedBitmap="@mipmap/icon_finger_selected"
+        app:selectedBitmapSmall="@mipmap/icon_finger_selected_small"
+        app:unselectedBitmap="@mipmap/icon_finger_unselected"
+        app:unselectedBitmapSmall="@mipmap/icon_finger_unselected_new"
+        app:waitTime="30" />
+
+</LinearLayout>

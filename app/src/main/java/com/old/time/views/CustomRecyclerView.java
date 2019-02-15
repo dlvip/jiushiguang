@@ -50,7 +50,7 @@ public class CustomRecyclerView extends RecyclerView {
         MyGridLayoutManager LayoutManager = new MyGridLayoutManager(context, spanCount);
         LayoutManager.setOrientation(orientation);
         setLayoutManager(LayoutManager);
-        addItemDecoration(new RecyclerItemDecoration(orientation, dividerHeight, dividerColor, context));
+        addItemDecoration(new RecyclerItemDecoration(orientation, dividerHeight, dividerColor));
 
     }
 

@@ -60,7 +60,7 @@ public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
 
     }
 
-    public RecyclerItemDecoration(int orientation, int spacing, int resId, Context context) {
+    public RecyclerItemDecoration(int orientation, int spacing, int resId) {
         setOrientation(orientation);
         this.spacing = spacing;
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);

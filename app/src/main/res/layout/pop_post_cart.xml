@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/color_60000000">
 
     <View
         android:id="@+id/view_null"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_60000000" />
-
-    <View
-        android:id="@+id/view_line_0"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        android:background="@color/line_bg" />
+        android:layout_height="match_parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/view_line_0"
         android:background="@color/color_fff" />
 
 </RelativeLayout>
