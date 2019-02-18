@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="com.fingerprints.service.ACCESS_FINGERPRINT_MANAGER" />
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
-
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES" />
@@ -27,6 +26,7 @@
     <!-- 允许程序改变网络连接状态 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <!-- 读取手机信息权限 -->
+    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 读取联系人权限，上传联系人需要用到此权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -178,7 +178,8 @@
         <activity android:name=".activitys.TouchVerifyFingerActivity" />
         <activity android:name=".activitys.TouchPatternPswActivity" />
         <activity android:name=".activitys.TouchSettingPswActivity" />
-        <activity android:name=".activitys.TouchSettingActivity"></activity>
+        <activity android:name=".activitys.TouchSettingActivity" />
+        <activity android:name=".postcard.PCardDetailActivity"></activity>
     </application>
 
 </manifest>

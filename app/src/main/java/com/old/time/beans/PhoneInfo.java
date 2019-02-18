@@ -2,31 +2,31 @@ package com.old.time.beans;
 
 import android.text.TextUtils;
 
-public class PhoneInfo {
+import java.io.Serializable;
 
+public class PhoneInfo implements Serializable {
+
+    private String photo;
     private String name;
     private String number;
     private String sortKey;
     private int id;
 
-    //显示头
-    private boolean isShow;
-
-    public void setShow(boolean show) {
-        isShow = show;
-    }
-
-    public boolean getIsShow() {
-
-        return isShow;
-    }
-
-    public PhoneInfo(String name, String number, String sortKey, int id) {
+    public PhoneInfo(String name, String number, String sortKey, String photo, int id) {
         this.name = name;
         this.number = number;
         this.sortKey = sortKey;
+        this.photo = photo;
         this.id = id;
 
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     @Override

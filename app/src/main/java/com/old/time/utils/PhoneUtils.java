@@ -3,6 +3,7 @@ package com.old.time.utils;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 
 import com.old.time.beans.PhoneInfo;
 
@@ -12,6 +13,18 @@ import java.util.Comparator;
 import java.util.List;
 
 public class PhoneUtils {
+
+    private static final String[] photos = new String[]{//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400309.jpg",//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400236.jpg",//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400257.jpg",//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400288.jpg",//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400205.jpg",//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400051.jpg",//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598399900.jpg",//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400123.jpg",//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400082.jpg",//
+            "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400164.jpg"};
 
     public static List<PhoneInfo> getPhoneNumberFromMobile(Context context) {
         List<PhoneInfo> list = new ArrayList<>();
@@ -27,17 +40,19 @@ public class PhoneUtils {
                     .replace(" ", "").replace("+86", "");
             int Id = cursor.getInt(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
             String sortKey = getSortKey(cursor.getString(1));
-            if (!strings.contains(name)) {
-                PhoneInfo phoneInfo = new PhoneInfo(name, number, sortKey, Id);
-                list.add(phoneInfo);
-                strings.add(name);
-                DebugLog.d("phoneInfo:===>", phoneInfo.toString());
+            if (!TextUtils.isEmpty(number) && number.length() == 11) {
+                if (!strings.contains(name)) {
+                    PhoneInfo phoneInfo = new PhoneInfo(name, number, sortKey, photos[Integer.parseInt(number.substring(10))], Id);
+                    list.add(phoneInfo);
+                    strings.add(name);
+                    DebugLog.d("phoneInfo:===>", phoneInfo.toString());
 
-            } else {
-                int position = strings.indexOf(name);
-                PhoneInfo phoneInfo = list.get(position);
-                phoneInfo.setNumber(phoneInfo.getNumber() + "," + number);
+                } else {
+                    int position = strings.indexOf(name);
+                    PhoneInfo phoneInfo = list.get(position);
+                    phoneInfo.setNumber(phoneInfo.getNumber() + "," + number);
 
+                }
             }
         }
         cursor.close();

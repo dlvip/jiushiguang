@@ -27,8 +27,6 @@ import com.old.time.utils.UIHelper;
 import java.io.File;
 import java.util.concurrent.ExecutionException;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-
 /**
  * Created by wangfang on 2017/4/26.
  */

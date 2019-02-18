@@ -95,5 +95,4 @@ dependencies {
 
     //指纹识别
     implementation externalTouchFingerPrintidentify
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

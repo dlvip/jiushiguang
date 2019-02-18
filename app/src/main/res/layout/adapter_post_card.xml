@@ -21,23 +21,19 @@
         android:paddingRight="@dimen/layout_10"
         android:paddingTop="@dimen/layout_10">
 
-        <TextView
-            android:id="@+id/tv_user_pic"
-            android:layout_width="@dimen/layout_44"
-            android:layout_height="@dimen/layout_44"
-            android:background="@drawable/shape_green_circle"
-            android:gravity="center"
-            android:text="确"
-            android:textColor="@color/color_fff"
-            android:textSize="@dimen/text_25" />
-
+        <ImageView
+            android:id="@+id/img_user_pic"
+            android:layout_width="@dimen/layout_40"
+            android:layout_height="@dimen/layout_40"
+            android:src="@mipmap/head_circle" />
+        
         <TextView
             android:id="@+id/tv_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/layout_10"
-            android:layout_toRightOf="@+id/tv_user_pic"
+            android:layout_toRightOf="@+id/img_user_pic"
             android:text="@string/sure"
             android:textColor="@color/color_000"
             android:textSize="@dimen/text_14" />

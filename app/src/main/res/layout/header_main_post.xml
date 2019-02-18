@@ -9,7 +9,10 @@
     <FrameLayout
         android:id="@+id/frame_layout_left"
         android:layout_width="@dimen/layout_40"
-        android:layout_height="@dimen/layout_40">
+        android:layout_height="@dimen/layout_40"
+        android:background="@drawable/selected_bg"
+        android:clickable="true"
+        android:onClick="back">
 
         <ImageView
             android:id="@+id/img_left_btn"

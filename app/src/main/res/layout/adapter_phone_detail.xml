@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_fff">
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line_bg" />
+
+    <TextView
+        android:id="@+id/tv_phone_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/layout_10"
+        android:paddingTop="@dimen/layout_10"
+        android:text="15093073252"
+        android:textColor="@color/coloBGNormal"
+        android:textSize="@dimen/text_16"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_phone_dress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_phone_num"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/layout_10"
+        android:paddingLeft="@dimen/layout_2"
+        android:text="河南郑州"
+        android:textColor="@color/color_666"
+        android:textSize="@dimen/text_12" />
+
+</RelativeLayout>
