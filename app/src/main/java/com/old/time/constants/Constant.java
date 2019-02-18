@@ -34,7 +34,9 @@ public class Constant {
     /**
      * 聚合API手机归属地查询
      */
-    public static final String PHONE_REDSS = "http://apis.juhe.cn/mobile/get";
+    public static final String PHONE_DRESS = "http://apis.juhe.cn/mobile/get";
+
+    public static final String PHONE_KEY = "cf5d54b234390d5248a4ccd892a91a1e";
 
     /**
      * 阿里云图片访问路径

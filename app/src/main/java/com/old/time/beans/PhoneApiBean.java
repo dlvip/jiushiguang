@@ -36,4 +36,9 @@ public class PhoneApiBean {
     public void setResult(PhoneInfo result) {
         this.result = result;
     }
+
+    @Override
+    public String toString() {
+        return "PhoneApiBean{" + "resultcode='" + resultcode + '\'' + ", reason='" + reason + '\'' + ", result=" + result + '}';
+    }
 }

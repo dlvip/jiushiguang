@@ -66,4 +66,8 @@ public class PhoneInfo {
         this.card = card;
     }
 
+    @Override
+    public String toString() {
+        return "PhoneInfo{" + "province='" + province + '\'' + ", city='" + city + '\'' + ", areacode='" + areacode + '\'' + ", zip='" + zip + '\'' + ", company='" + company + '\'' + ", card='" + card + '\'' + '}';
+    }
 }

@@ -23,6 +23,7 @@ import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
@@ -72,6 +73,7 @@ public class PCardDetailActivity extends BaseActivity {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
                 helper.setText(R.id.tv_phone_num, item).setVisible(R.id.view_line, helper.getLayoutPosition() != 0);
+                getPhoneDress(item);
 
             }
         };
@@ -81,17 +83,26 @@ public class PCardDetailActivity extends BaseActivity {
 
     }
 
-    private void getPhoneDress() {
+    private void getPhoneDress(String number) {
         HttpParams params = new HttpParams();
-        params.put("phone", "");
-        OkGoUtils.getInstance().getNetForData(params, Constant.PHONE_REDSS, new JsonCallBack<PhoneApiBean>() {
+        params.put("phone", number);
+        params.put("key", Constant.PHONE_KEY);
+        params.put("dtype", "json");
+        OkGoUtils.getInstance().getNetForData(params, Constant.PHONE_DRESS, new JsonCallBack<PhoneApiBean>() {
             @Override
             public void onSuccess(PhoneApiBean mResultBean) {
+                if (mResultBean != null) {
+                    DebugLog.d(TAG, mResultBean.toString());
+                    if (mResultBean.getResult() != null) {
+                        DebugLog.d(TAG, mResultBean.getResult().toString());
 
+                    }
+                }
             }
 
             @Override
             public void onError(PhoneApiBean mResultBean) {
+                DebugLog.d(TAG, mResultBean.toString());
 
             }
         });
