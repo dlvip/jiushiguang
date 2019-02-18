@@ -21,7 +21,7 @@ import com.old.time.activitys.TouchSettingActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
 import com.old.time.beans.PhoneBean;
-import com.old.time.beans.PhoneInfo;
+import com.old.time.beans.PostCartBean;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.pops.PostCartPop;
 import com.old.time.utils.ActivityUtils;
@@ -51,7 +51,7 @@ public class PostCardActivity extends BaseActivity {
     /**
      * 联系人集合
      */
-    private List<PhoneBean> phoneBeans = new ArrayList<>();
+    private List<PostCartBean> postCartBeans = new ArrayList<>();
     /**
      * 字母集合
      */
@@ -66,26 +66,26 @@ public class PostCardActivity extends BaseActivity {
     @Override
     protected void initView() {
         findViewById(R.id.frame_layout_left).setVisibility(View.GONE);
-        phoneBeans.clear();
+        postCartBeans.clear();
         chars.clear();
-        List<PhoneInfo> phoneInfos = PhoneUtils.getPhoneNumberFromMobile(mContext);
-        for (int i = 0; i < phoneInfos.size(); i++) {
-            PhoneInfo phoneInfo = phoneInfos.get(i);
-            if (!chars.contains(phoneInfo.getSortKey())) {
-                chars.add(phoneInfo.getSortKey());
-                List<PhoneInfo> infos = new ArrayList<>();
-                infos.add(phoneInfo);
-                phoneBeans.add(PhoneBean.getInstance(phoneInfo.getSortKey(), infos));
+        List<PhoneBean> phoneBeans = PhoneUtils.getPhoneNumberFromMobile(mContext);
+        for (int i = 0; i < phoneBeans.size(); i++) {
+            PhoneBean phoneBean = phoneBeans.get(i);
+            if (!chars.contains(phoneBean.getSortKey())) {
+                chars.add(phoneBean.getSortKey());
+                List<PhoneBean> infos = new ArrayList<>();
+                infos.add(phoneBean);
+                postCartBeans.add(PostCartBean.getInstance(phoneBean.getSortKey(), infos));
 
             } else {
-                phoneBeans.get(chars.size() - 1).getPhoneInfos().add(phoneInfo);
+                postCartBeans.get(chars.size() - 1).getPhoneBeans().add(phoneBean);
 
             }
         }
         tv_center_key = findViewById(R.id.tv_center_key);
         mRecyclerView = findViewById(R.id.c_recycler_view);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
-        adapter = new PhoneAdapter(phoneBeans);
+        adapter = new PhoneAdapter(postCartBeans);
         View headerView = View.inflate(mContext, R.layout.header_post_cart, null);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,13 +99,13 @@ public class PostCardActivity extends BaseActivity {
         mRecyclerView.setAdapter(adapter);
 
         RecyclerView mRView = findViewById(R.id.recycler_view_bottom);
-        mRView.setLayoutManager(new MyGridLayoutManager(mContext, phoneBeans.size()));
-        LetterAdapter mLetterAdapter = new LetterAdapter(phoneBeans);
+        mRView.setLayoutManager(new MyGridLayoutManager(mContext, postCartBeans.size()));
+        LetterAdapter mLetterAdapter = new LetterAdapter(postCartBeans);
         mRView.setAdapter(mLetterAdapter);
         mRView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent event) {
-                int position = (int) (event.getX() * phoneBeans.size() / ScreenTools.instance(mContext).getScreenWidth());
+                int position = (int) (event.getX() * postCartBeans.size() / ScreenTools.instance(mContext).getScreenWidth());
                 seleteToPosition(position);
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     tv_center_key.setVisibility(View.GONE);
@@ -184,12 +184,12 @@ public class PostCardActivity extends BaseActivity {
 
             return;
         }
-        if (position >= phoneBeans.size()) {
+        if (position >= postCartBeans.size()) {
             tv_center_key.setVisibility(View.GONE);
 
         } else {
             tv_center_key.setVisibility(View.VISIBLE);
-            tv_center_key.setText(phoneBeans.get(position).getCodeKey());
+            tv_center_key.setText(postCartBeans.get(position).getCodeKey());
 
         }
         if (position != 0) {

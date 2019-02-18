@@ -32,6 +32,11 @@ public class Constant {
     public static final String IMAGEDOWNLOAD_THREAD_NAME = "ImageDownLoad";
 
     /**
+     * 聚合API手机归属地查询
+     */
+    public static final String PHONE_REDSS = "http://apis.juhe.cn/mobile/get";
+
+    /**
      * 阿里云图片访问路径
      */
     public static final String OSSURL = "http://jsguang.oss-cn-beijing.aliyuncs.com/";

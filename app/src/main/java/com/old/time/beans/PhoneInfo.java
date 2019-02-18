@@ -1,84 +1,69 @@
 package com.old.time.beans;
 
-import android.text.TextUtils;
+public class PhoneInfo {
 
-import java.io.Serializable;
+    /**
+     * province : 浙江
+     * city : 杭州
+     * areacode : 0571
+     * zip : 310000
+     * company : 中国移动
+     * card :
+     */
 
-public class PhoneInfo implements Serializable {
+    private String province;
+    private String city;
+    private String areacode;
+    private String zip;
+    private String company;
+    private String card;
 
-    private String photo;
-    private String name;
-    private String number;
-    private String sortKey;
-    private int id;
-
-    public PhoneInfo(String name, String number, String sortKey, String photo, int id) {
-        this.name = name;
-        this.number = number;
-        this.sortKey = sortKey;
-        this.photo = photo;
-        this.id = id;
-
+    public String getProvince() {
+        return province;
     }
 
-    public String getPhoto() {
-        return photo;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public String getCity() {
+        return city;
     }
 
-    @Override
-    public String toString() {
-        return "PhoneInfo{" + "name='" + name + '\'' //
-                + ", number='" + number + '\'' //
-                + ", sortKey='" + sortKey //
-                + '\'' + ", id=" + id + '}';
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getNamePic() {
-        if (TextUtils.isEmpty(name)) {
-
-            return "";
-        }
-
-        return name.substring(0, 1);
+    public String getAreacode() {
+        return areacode;
     }
 
-    public String getName() {
-        if (TextUtils.isEmpty(name)) {
-
-            return number;
-        }
-        return name;
+    public void setAreacode(String areacode) {
+        this.areacode = areacode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getZip() {
+        return zip;
     }
 
-    public String getNumber() {
-        return number;
+    public void setZip(String zip) {
+        this.zip = zip;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public String getCompany() {
+        return company;
     }
 
-    public String getSortKey() {
-        return sortKey;
+    public void setCompany(String company) {
+        this.company = company;
     }
 
-    public void setSortKey(String sortKey) {
-        this.sortKey = sortKey;
+    public String getCard() {
+        return card;
     }
 
-    public int getId() {
-        return id;
+    public void setCard(String card) {
+        this.card = card;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }

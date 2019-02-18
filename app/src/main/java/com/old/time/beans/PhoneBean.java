@@ -1,37 +1,75 @@
 package com.old.time.beans;
 
-import java.util.List;
+import android.text.TextUtils;
 
-public class PhoneBean {
+import java.io.Serializable;
 
-    public static PhoneBean getInstance(String codeKey, List<PhoneInfo> phoneInfos) {
-        return new PhoneBean(codeKey, phoneInfos);
+public class PhoneBean implements Serializable {
+
+    private String photo;
+    private String name;
+    private String number;
+    private String sortKey;
+    private int id;
+
+    public PhoneBean(String name, String number, String sortKey, String photo, int id) {
+        this.name = name;
+        this.number = number;
+        this.sortKey = sortKey;
+        this.photo = photo;
+        this.id = id;
+
     }
 
-    public PhoneBean(String codeKey, List<PhoneInfo> phoneInfos) {
-        this.codeKey = codeKey;
-        this.phoneInfos = phoneInfos;
+    public String getPhoto() {
+        return photo;
     }
 
-    private int colorRes;
-
-    private String codeKey;
-
-    private List<PhoneInfo> phoneInfos;
-
-    public List<PhoneInfo> getPhoneInfos() {
-        return phoneInfos;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
-    public void setCodeKey(String codeKey) {
-        this.codeKey = codeKey;
+    @Override
+    public String toString() {
+        return "PhoneBean{" + "name='" + name + '\'' //
+                + ", number='" + number + '\'' //
+                + ", sortKey='" + sortKey //
+                + '\'' + ", id=" + id + '}';
     }
 
-    public String getCodeKey() {
-        return codeKey;
+    public String getName() {
+        if (TextUtils.isEmpty(name)) {
+
+            return number;
+        }
+        return name;
     }
 
-    public void setPhoneInfos(List<PhoneInfo> phoneInfos) {
-        this.phoneInfos = phoneInfos;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getSortKey() {
+        return sortKey;
+    }
+
+    public void setSortKey(String sortKey) {
+        this.sortKey = sortKey;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

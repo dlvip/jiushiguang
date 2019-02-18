@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 
-import com.old.time.beans.PhoneInfo;
+import com.old.time.beans.PhoneBean;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,8 +26,8 @@ public class PhoneUtils {
             "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400082.jpg",//
             "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400164.jpg"};
 
-    public static List<PhoneInfo> getPhoneNumberFromMobile(Context context) {
-        List<PhoneInfo> list = new ArrayList<>();
+    public static List<PhoneBean> getPhoneNumberFromMobile(Context context) {
+        List<PhoneBean> list = new ArrayList<>();
         List<String> strings = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI//
                 , new String[]{"display_name", "sort_key", "contact_id", "data1"}//
@@ -42,24 +42,24 @@ public class PhoneUtils {
             String sortKey = getSortKey(cursor.getString(1));
             if (!TextUtils.isEmpty(number) && number.length() == 11) {
                 if (!strings.contains(name)) {
-                    PhoneInfo phoneInfo = new PhoneInfo(name, number, sortKey, photos[Integer.parseInt(number.substring(10))], Id);
-                    list.add(phoneInfo);
+                    PhoneBean phoneBean = new PhoneBean(name, number, sortKey, photos[Integer.parseInt(number.substring(10))], Id);
+                    list.add(phoneBean);
                     strings.add(name);
-                    DebugLog.d("phoneInfo:===>", phoneInfo.toString());
+                    DebugLog.d("phoneBean:===>", phoneBean.toString());
 
                 } else {
                     int position = strings.indexOf(name);
-                    PhoneInfo phoneInfo = list.get(position);
-                    phoneInfo.setNumber(phoneInfo.getNumber() + "," + number);
+                    PhoneBean phoneBean = list.get(position);
+                    phoneBean.setNumber(phoneBean.getNumber() + "," + number);
 
                 }
             }
         }
         cursor.close();
         // 排序
-        Collections.sort(list, new Comparator<PhoneInfo>() {
+        Collections.sort(list, new Comparator<PhoneBean>() {
             @Override
-            public int compare(PhoneInfo lhs, PhoneInfo rhs) {
+            public int compare(PhoneBean lhs, PhoneBean rhs) {
                 if (lhs.getName().equals(rhs.getName())) {
 
                     return lhs.getSortKey().compareTo(rhs.getSortKey());

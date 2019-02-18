@@ -11,12 +11,17 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
-import com.old.time.beans.PhoneInfo;
+import com.old.time.beans.PhoneApiBean;
+import com.old.time.beans.PhoneBean;
+import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogListManager;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.OnClickManagerCallBack;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
@@ -31,9 +36,9 @@ public class PCardDetailActivity extends BaseActivity {
      *
      * @param context
      */
-    public static void startPCardDetailActivity(Context context, PhoneInfo phoneInfo) {
+    public static void startPCardDetailActivity(Context context, PhoneBean phoneBean) {
         Intent intent = new Intent(context, PCardDetailActivity.class);
-        intent.putExtra(PHONE_INFO, phoneInfo);
+        intent.putExtra(PHONE_INFO, phoneBean);
         ActivityUtils.startActivity((Activity) context, intent);
 
     }
@@ -48,7 +53,7 @@ public class PCardDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mPhoneInfo = (PhoneInfo) getIntent().getSerializableExtra(PHONE_INFO);
+        mPhoneBean = (PhoneBean) getIntent().getSerializableExtra(PHONE_INFO);
         img_header_bg = findViewById(R.id.img_header_bg);
         img_user_pic = findViewById(R.id.img_user_pic);
         tv_user_name = findViewById(R.id.tv_user_name);
@@ -57,10 +62,10 @@ public class PCardDetailActivity extends BaseActivity {
         findViewById(R.id.tv_call_phone).setOnClickListener(this);
         findViewById(R.id.relative_layout_title).setBackgroundResource(R.color.transparent);
 
-        setTitleText(mPhoneInfo.getName());
-        tv_user_name.setText(mPhoneInfo.getName());
-        GlideUtils.getInstance().setImgTransRes(mContext, mPhoneInfo.getPhoto(), img_header_bg, 0, 0);
-        GlideUtils.getInstance().setRadiusImageView(mContext, mPhoneInfo.getPhoto(), img_user_pic, 10);
+        setTitleText(mPhoneBean.getName());
+        tv_user_name.setText(mPhoneBean.getName());
+        GlideUtils.getInstance().setImgTransRes(mContext, mPhoneBean.getPhoto(), img_header_bg, 0, 0);
+        GlideUtils.getInstance().setRadiusImageView(mContext, mPhoneBean.getPhoto(), img_user_pic, 10);
         recycler_view_call.setLayoutManager(new MyLinearLayoutManager(mContext));
         recycler_view_call.addItemDecoration(new RecyclerItemDecoration(mContext));
         adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_phone_detail) {
@@ -71,24 +76,42 @@ public class PCardDetailActivity extends BaseActivity {
             }
         };
         recycler_view_call.setAdapter(adapter);
-        adapter.setNewData(Arrays.asList(mPhoneInfo.getNumber().split(",")));
+
+        adapter.setNewData(Arrays.asList(mPhoneBean.getNumber().split(",")));
 
     }
 
+    private void getPhoneDress() {
+        HttpParams params = new HttpParams();
+        params.put("phone", "");
+        OkGoUtils.getInstance().getNetForData(params, Constant.PHONE_REDSS, new JsonCallBack<PhoneApiBean>() {
+            @Override
+            public void onSuccess(PhoneApiBean mResultBean) {
+
+            }
+
+            @Override
+            public void onError(PhoneApiBean mResultBean) {
+
+            }
+        });
+    }
+
+
     private DialogListManager dialogListManager;
-    private PhoneInfo mPhoneInfo;
+    private PhoneBean mPhoneBean;
 
     private void showCallPhoneDialog() {
         if (dialogListManager == null) {
             dialogListManager = new DialogListManager(mContext, new OnClickManagerCallBack() {
                 @Override
                 public void onClickRankManagerCallBack(int position, String typeName) {
-                    callPhone(mPhoneInfo.getNumber().split(",")[0]);
+                    callPhone(mPhoneBean.getNumber().split(",")[0]);
 
                 }
             });
         }
-        dialogListManager.setDialogViewData("拨号", new String[]{mPhoneInfo.getName()});
+        dialogListManager.setDialogViewData("拨号", new String[]{mPhoneBean.getName()});
 
     }
 
