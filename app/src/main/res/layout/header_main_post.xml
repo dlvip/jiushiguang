@@ -36,15 +36,33 @@
         android:textColor="@color/color_484848"
         android:textSize="@dimen/text_18" />
 
-    <ImageView
-        android:id="@+id/img_more"
+    <RelativeLayout
+        android:id="@+id/relative_layout_more"
         android:layout_width="@dimen/main_header_height"
         android:layout_height="@dimen/main_header_height"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/layout_10"
-        android:padding="@dimen/layout_9"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/btn_more" />
+        android:layout_marginEnd="@dimen/layout_10"
+        android:layout_marginRight="@dimen/layout_10">
+
+        <View
+            android:id="@+id/view_line_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/layout_9"
+            android:background="@color/color_60000000"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/img_more"
+            android:layout_width="@dimen/main_header_height"
+            android:layout_height="@dimen/main_header_height"
+            android:padding="@dimen/layout_9"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/btn_more" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

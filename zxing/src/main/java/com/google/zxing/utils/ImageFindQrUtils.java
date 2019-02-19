@@ -4,7 +4,14 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -30,7 +37,7 @@ public class ImageFindQrUtils {
         int pointSize = 0;
         int qrLeftSize = bitmap.getWidth() / 150 < bitmap.getHeight() / 150 ? bitmap.getWidth() / 150 : bitmap.getHeight() / 150; //二维码左上角宽度阈值
         Log.d(TAG, "ImageFindQR: qrLeftSize" + qrLeftSize);
-        int qrDvalue = 4 ;    //二维码的每个标志点直接的差值
+        int qrDvalue = 4;    //二维码的每个标志点直接的差值
 
         int black = Color.argb(0xff, 0x00, 0x00, 0x00);
         int red = Color.argb(0xff, 0xff, 0x00, 0x00);
@@ -55,8 +62,7 @@ public class ImageFindQrUtils {
                         continue;
                     }
 
-                    if (oldPx[x + qrLeftSize + bitmap.getWidth() * y] != black ||
-                            oldPx[x + bitmap.getWidth() * (y + qrLeftSize)] != black) { //如果在最小阈值内，都没有连贯点
+                    if (oldPx[x + qrLeftSize + bitmap.getWidth() * y] != black || oldPx[x + bitmap.getWidth() * (y + qrLeftSize)] != black) { //如果在最小阈值内，都没有连贯点
                         continue;
                     }
                     for (int x1 = x; x1 < bitmap.getWidth(); x1++) { //找到二维码左标志的最右边点
@@ -69,12 +75,10 @@ public class ImageFindQrUtils {
                         }
                     }
                     //如果最右边的点头上有黑色，则基本确定不为矩形
-                    if (oldPx[pointx1 + bitmap.getWidth() * (y - 1)] == black &&
-                            oldPx[pointx1 + bitmap.getWidth() * (y - 2)] == black &&
-                            oldPx[pointx1 + bitmap.getWidth() * (y - 3)] == black) {
+                    if (oldPx[pointx1 + bitmap.getWidth() * (y - 1)] == black && oldPx[pointx1 + bitmap.getWidth() * (y - 2)] == black && oldPx[pointx1 + bitmap.getWidth() * (y - 3)] == black) {
                         continue;
                     }
-                    if (x1Size > qrLeftSize&&x1Size<bitmap.getWidth()/5) { //二维码左标志的横大于阈值
+                    if (x1Size > qrLeftSize && x1Size < bitmap.getWidth() / 5) { //二维码左标志的横大于阈值
                         for (int y1 = y; y1 < bitmap.getHeight(); y1++) { //找到二维码左标志的最下边的点
                             int tmpPx = oldPx[x + bitmap.getWidth() * y1];
                             if (tmpPx == black) {
@@ -87,9 +91,7 @@ public class ImageFindQrUtils {
                         if (Math.abs(x1Size - y1Size) < qrDvalue) {   //如果该点到最右边和到最左边的距离差不多
 
                             //如果最左下边的点左边有黑色，则基本确定不为矩形
-                            if (oldPx[x - 1 + bitmap.getWidth() * pointy1] == black &&
-                                    oldPx[x - 2 + bitmap.getWidth() * pointy1] == black &&
-                                    oldPx[x - 3 + bitmap.getWidth() * pointy1] == black) {
+                            if (oldPx[x - 1 + bitmap.getWidth() * pointy1] == black && oldPx[x - 2 + bitmap.getWidth() * pointy1] == black && oldPx[x - 3 + bitmap.getWidth() * pointy1] == black) {
                                 continue;
                             }
 
@@ -118,10 +120,7 @@ public class ImageFindQrUtils {
                                                 break;
                                             }
                                         }
-                                        if (Math.abs(x1Size - y1Size) < qrDvalue &&
-                                                Math.abs(x1Size - y2Size) < qrDvalue &&
-                                                Math.abs(x2Size - y1Size) < qrDvalue &&
-                                                Math.abs(x2Size - y2Size) < qrDvalue) {   //如果差不多为矩形
+                                        if (Math.abs(x1Size - y1Size) < qrDvalue && Math.abs(x1Size - y2Size) < qrDvalue && Math.abs(x2Size - y1Size) < qrDvalue && Math.abs(x2Size - y2Size) < qrDvalue) {   //如果差不多为矩形
                                             int dSize = x1Size < y1Size ? x1Size : y1Size;
                                             //给标志点上色，将标志点附近10px都上色
                                             for (int i = -10; i < dSize + 10; i++) {
@@ -129,10 +128,10 @@ public class ImageFindQrUtils {
                                                     int tmpx = x + i;
                                                     int tmpy = y + j;
                                                     tmpx = tmpx < 0 ? 0 : tmpx;
-                                                    tmpx = tmpx > bitmap.getWidth()-1 ? bitmap.getWidth() - 1 : tmpx;
+                                                    tmpx = tmpx > bitmap.getWidth() - 1 ? bitmap.getWidth() - 1 : tmpx;
 
                                                     tmpy = tmpy < 0 ? 0 : tmpy;
-                                                    tmpy = tmpy > bitmap.getHeight()-1 ? bitmap.getHeight() - 1 : tmpy;
+                                                    tmpy = tmpy > bitmap.getHeight() - 1 ? bitmap.getHeight() - 1 : tmpy;
 
                                                     if (i == -10 && j == -10) {
                                                         leftTopPoints.add(new Point(tmpx, tmpy));
@@ -186,8 +185,7 @@ public class ImageFindQrUtils {
                 if (Math.abs(leftTopPoints.get(i).y - leftTopPoints.get(j).y) < qrDvalue) {
                     for (int k = 0; k < leftTopPoints.size(); k++) { //二维码左下角的特征点
                         if (k != i && k != j) {    //排除自己
-                            if ((Math.abs(leftTopPoints.get(i).x - leftTopPoints.get(k).x) < qrDvalue) &&
-                                    ((Math.abs(leftTopPoints.get(k).y - leftTopPoints.get(i).y) - Math.abs(leftTopPoints.get(i).x - leftTopPoints.get(j).x)) < qrDvalue)) {
+                            if ((Math.abs(leftTopPoints.get(i).x - leftTopPoints.get(k).x) < qrDvalue) && ((Math.abs(leftTopPoints.get(k).y - leftTopPoints.get(i).y) - Math.abs(leftTopPoints.get(i).x - leftTopPoints.get(j).x)) < qrDvalue)) {
                                 Markpoint markpoint = new Markpoint(leftTopPoints.get(i), leftTopPoints.get(j), leftTopPoints.get(k));
                                 findLeftTopPoints.add(markpoint);
 
@@ -346,10 +344,7 @@ public class ImageFindQrUtils {
 
         @Override
         public String toString() {
-            return "Point{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    '}';
+            return "Point{" + "x=" + x + ", y=" + y + '}';
         }
     }
 
@@ -379,13 +374,52 @@ public class ImageFindQrUtils {
                 //二值化
                 if (light > threshold) {
                     newPx[x + bitmap.getWidth() * y] = Color.argb(0xff, 0xff, 0xff, 0xff);
+
                 } else {
                     newPx[x + bitmap.getWidth() * y] = Color.argb(0xff, 0x00, 0x00, 0x00);
-                }
 
+                }
             }
             size++;
         }
         return newPx;
+    }
+
+    /**
+     * 生成二维码
+     *
+     * @param text            需要生成二维码的文字、网址等
+     * @param size            需要生成二维码的大小
+//     * @param colorCode       二维码颜色值(如:0xff000000)
+//     * @param colorBackground 二维码背景颜色值(如:0xffffffff)
+     * @return bitmap
+     */
+    public static Bitmap createQRCode(String text, int size) {
+        text = "https://www.baidu.com";
+        Bitmap bitmap = null;
+        try {
+            Hashtable<EncodeHintType, String> hints = new Hashtable<>();
+            hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+            BitMatrix bitMatrix = new QRCodeWriter().encode(text, BarcodeFormat.QR_CODE, size, size, hints);
+            int[] pixels = new int[size * size];
+            for (int y = 0; y < size; y++) {
+                for (int x = 0; x < size; x++) {
+                    if (bitMatrix.get(x, y)) {
+                        pixels[y * size + x] = 0xff000000;
+
+                    } else {
+                        pixels[y * size + x] = 0xffffffff;
+
+                    }
+                }
+            }
+            bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            bitmap.setPixels(pixels, 0, size, 0, 0, size, size);
+
+        } catch (WriterException e) {
+            e.printStackTrace();
+
+        }
+        return bitmap;
     }
 }

@@ -21,6 +21,7 @@ import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogListManager;
+import com.old.time.dialogs.DialogQRCode;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.okhttps.JsonCallBack;
@@ -53,7 +54,7 @@ public class PCardDetailActivity extends BaseActivity {
 
     private BaseQuickAdapter<String, BaseViewHolder> adapter;
 
-    private ImageView img_header_bg, img_user_pic;
+    private ImageView img_header_bg, img_user_pic, img_more;
     private RecyclerView recycler_view_call;
     private TextView tv_user_name;
 
@@ -62,6 +63,9 @@ public class PCardDetailActivity extends BaseActivity {
     @Override
     protected void initView() {
         mPhoneBean = (PhoneBean) getIntent().getSerializableExtra(PHONE_INFO);
+        img_more = findViewById(R.id.img_more);
+        img_more.setImageResource(R.mipmap.menu_qrcode);
+        findViewById(R.id.view_line_bg).setVisibility(View.VISIBLE);
         img_header_bg = findViewById(R.id.img_header_bg);
         img_user_pic = findViewById(R.id.img_user_pic);
         tv_user_name = findViewById(R.id.tv_user_name);
@@ -70,6 +74,7 @@ public class PCardDetailActivity extends BaseActivity {
         phoneInfoList = DataUtils.getPhoneBeans(mContext);
 
         findViewById(R.id.tv_call_phone).setOnClickListener(this);
+        findViewById(R.id.relative_layout_more).setOnClickListener(this);
         findViewById(R.id.relative_layout_title).setBackgroundResource(R.color.transparent);
 
         setTitleText(mPhoneBean.getName());
@@ -103,7 +108,7 @@ public class PCardDetailActivity extends BaseActivity {
             if (phone.equals(phoneInfo.getPhone())) {
                 phoneStr = phoneInfo.getCompany() //
                         + " - " + phoneInfo.getProvince() //
-                        + "   " + phoneInfo.getCity();
+                        + "、" + phoneInfo.getCity();
             }
         }
         if (TextUtils.isEmpty(phoneStr)) {
@@ -195,6 +200,31 @@ public class PCardDetailActivity extends BaseActivity {
                 UIHelper.ToastMessage(mContext, "敬请期待");
 
                 break;
+            case R.id.relative_layout_more:
+                showQRCodeDialog();
+
+                break;
+        }
+    }
+
+    private DialogQRCode mDialogQRCode;
+
+    private void showQRCodeDialog() {
+        if (mDialogQRCode == null) {
+            mDialogQRCode = new DialogQRCode(mContext);
+
+        }
+        mDialogQRCode.show();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mDialogQRCode != null) {
+            mDialogQRCode.dismiss();
+            mDialogQRCode = null;
+
         }
     }
 

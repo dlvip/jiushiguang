@@ -1,6 +1,7 @@
 package com.old.time.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,13 +9,18 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.text.TextPaint;
+import android.util.Log;
 import android.view.View;
 
+import com.old.time.R;
+import com.old.time.constants.Constant;
 import com.old.time.interfaces.SaveBitmapCallBack;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.List;
 
 /**
@@ -191,6 +197,34 @@ public class BitmapUtils {
             }
         }).start();
 
+    }
+
+    /**
+     * 保存View为图片的方法
+     */
+    public static Bitmap saveBitmap(Context context, View v) {
+        Bitmap bm = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bm);
+        v.draw(canvas);
+        File f = new File(FileUtils.getSDPath(context), "miu_" + System.currentTimeMillis() + ".png");
+        if (f.exists()) {
+            f.delete();
+
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(f);
+            bm.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (bm != null) {
+            UIHelper.ToastMessage(context, "保存成功");
+        }
+        return bm;
     }
 
 
