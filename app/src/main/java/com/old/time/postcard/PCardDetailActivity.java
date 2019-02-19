@@ -5,17 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.gson.Gson;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.beans.PhoneApiBean;
 import com.old.time.beans.PhoneBean;
+import com.old.time.beans.PhoneInfo;
 import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogListManager;
 import com.old.time.glideUtils.GlideUtils;
@@ -23,12 +26,14 @@ import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class PCardDetailActivity extends BaseActivity {
 
@@ -52,6 +57,8 @@ public class PCardDetailActivity extends BaseActivity {
     private RecyclerView recycler_view_call;
     private TextView tv_user_name;
 
+    private List<PhoneInfo> phoneInfoList;
+
     @Override
     protected void initView() {
         mPhoneBean = (PhoneBean) getIntent().getSerializableExtra(PHONE_INFO);
@@ -59,6 +66,8 @@ public class PCardDetailActivity extends BaseActivity {
         img_user_pic = findViewById(R.id.img_user_pic);
         tv_user_name = findViewById(R.id.tv_user_name);
         recycler_view_call = findViewById(R.id.recycler_view_call);
+
+        phoneInfoList = DataUtils.getPhoneBeans(mContext);
 
         findViewById(R.id.tv_call_phone).setOnClickListener(this);
         findViewById(R.id.relative_layout_title).setBackgroundResource(R.color.transparent);
@@ -72,32 +81,55 @@ public class PCardDetailActivity extends BaseActivity {
         adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_phone_detail) {
             @Override
             protected void convert(BaseViewHolder helper, String item) {
-                helper.setText(R.id.tv_phone_num, item).setVisible(R.id.view_line, helper.getLayoutPosition() != 0);
-                getPhoneDress(item);
+                helper.setText(R.id.tv_phone_num, item)//
+                        .setText(R.id.tv_phone_dress, getPhoneInfoStr(item))//
+                        .setVisible(R.id.view_line, helper.getLayoutPosition() != 0);
+
 
             }
         };
         recycler_view_call.setAdapter(adapter);
-
         adapter.setNewData(Arrays.asList(mPhoneBean.getNumber().split(",")));
 
     }
 
-    private void getPhoneDress(String number) {
+    private String getPhoneInfoStr(String phone) {
+        String phoneStr = "";
+        if (TextUtils.isEmpty(phone) || phoneInfoList == null || phoneInfoList.size() == 0) {
+
+            return phoneStr;
+        }
+        for (PhoneInfo phoneInfo : phoneInfoList) {
+            if (phone.equals(phoneInfo.getPhone())) {
+                phoneStr = phoneInfo.getCompany() //
+                        + " - " + phoneInfo.getProvince() //
+                        + "   " + phoneInfo.getCity();
+            }
+        }
+        if (TextUtils.isEmpty(phoneStr)) {
+            getPhoneMsg(phone);
+
+        }
+        return phoneStr;
+    }
+
+    private void getPhoneMsg(final String numStr) {
         HttpParams params = new HttpParams();
-        params.put("phone", number);
+        params.put("phone", numStr);
         params.put("key", Constant.PHONE_KEY);
         params.put("dtype", "json");
         OkGoUtils.getInstance().getNetForData(params, Constant.PHONE_DRESS, new JsonCallBack<PhoneApiBean>() {
+
             @Override
             public void onSuccess(PhoneApiBean mResultBean) {
-                if (mResultBean != null) {
-                    DebugLog.d(TAG, mResultBean.toString());
-                    if (mResultBean.getResult() != null) {
-                        DebugLog.d(TAG, mResultBean.getResult().toString());
+                if (mResultBean == null || mResultBean.getResult() == null) {
 
-                    }
+                    return;
                 }
+                PhoneInfo phoneInfo = mResultBean.getResult();
+                phoneInfo.setPhone(numStr);
+                DebugLog.d(TAG, new Gson().toJson(phoneInfo));
+
             }
 
             @Override
@@ -107,7 +139,6 @@ public class PCardDetailActivity extends BaseActivity {
             }
         });
     }
-
 
     private DialogListManager dialogListManager;
     private PhoneBean mPhoneBean;

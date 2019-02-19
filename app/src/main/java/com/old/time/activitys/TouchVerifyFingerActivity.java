@@ -96,6 +96,10 @@ public class TouchVerifyFingerActivity extends BaseActivity {
 
             @Override
             public void onSucceed() {
+                if (mDialogTouch != null && mDialogTouch.isShowing()) {
+                    mDialogTouch.dismiss();
+
+                }
                 PostCardActivity.startPostCardActivity(mContext);
 
             }

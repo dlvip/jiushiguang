@@ -87,7 +87,7 @@ public class PlayServiceIBinder extends com.old.time.aidl.IPlayControlAidlInterf
                 }
             }
         };
-        BroadcastManager.getInstance().registerBroadReceiver(mContext, mBroadcastReceiver);
+//        BroadcastManager.getInstance().registerBroadReceiver(mContext, mBroadcastReceiver);
     }
 
     /**

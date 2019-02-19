@@ -3,6 +3,8 @@ package com.old.time.utils;
 import android.content.Context;
 
 import com.old.time.aidl.ChapterBean;
+import com.old.time.beans.FastMailBean;
+import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.VideosBean;
 
 import org.json.JSONArray;
@@ -80,5 +82,66 @@ public class DataUtils {
 
         }
         return chapterBeans;
+    }
+
+    /**
+     * 获取手机号归属地
+     *
+     * @param mContext
+     * @return
+     */
+    public static List<PhoneInfo> getPhoneBeans(Context mContext) {
+        String string = StringUtils.getJson("phone.json", mContext);
+        List<PhoneInfo> phoneInfos = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(string);
+            phoneInfos.clear();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject phoneObj = jsonArray.getJSONObject(i);
+                PhoneInfo phoneInfo = new PhoneInfo();
+                phoneInfo.setPhone(phoneObj.getString("phone"));
+                phoneInfo.setAreacode(phoneObj.getString("areacode"));
+                phoneInfo.setCard(phoneObj.getString("card"));
+                phoneInfo.setCity(phoneObj.getString("city"));
+                phoneInfo.setCompany(phoneObj.getString("company"));
+                phoneInfo.setProvince(phoneObj.getString("province"));
+                phoneInfo.setZip(phoneObj.getString("zip"));
+                phoneInfos.add(phoneInfo);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+        return phoneInfos;
+    }
+
+    /**
+     * 获取快递信息
+     *
+     * @param mContext
+     * @return
+     */
+    public static List<FastMailBean> getFastMailBeans(Context mContext) {
+        String string = StringUtils.getJson("fast_mail.json", mContext);
+        List<FastMailBean> mFastMailBeans = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(string);
+            mFastMailBeans.clear();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject fastMailObj = jsonArray.getJSONObject(i);
+                FastMailBean mFastMailBean = new FastMailBean();
+                mFastMailBean.setName(fastMailObj.getString("name"));
+                mFastMailBean.setIcon(fastMailObj.getString("icon"));
+                mFastMailBean.setUrl(fastMailObj.getString("url"));
+                mFastMailBean.setId(fastMailObj.getString("id"));
+                mFastMailBeans.add(mFastMailBean);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
+        return mFastMailBeans;
     }
 }

@@ -11,6 +11,7 @@ import com.old.time.activitys.BaseCActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.beans.FastMailBean;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class FastMailActivity extends BaseCActivity {
     @Override
     public void getDataFromNet(boolean isRefresh) {
         mSwipeRefreshLayout.setRefreshing(false);
-        adapter.setNewData(FastMailBean.getFastMailBeans());
+        adapter.setNewData(DataUtils.getFastMailBeans(mContext));
 
     }
 }

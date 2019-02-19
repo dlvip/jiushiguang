@@ -6,6 +6,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 
 import com.old.time.aidl.PlayServiceIBinder;
+import com.old.time.service.manager.BroadcastManager;
 
 /**
  * Created by NING on 2018/9/12.

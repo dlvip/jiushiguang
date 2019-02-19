@@ -1,0 +1,74 @@
+[
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/sf.gif?version=201707191039",
+    "id": "0",
+    "name": "顺丰速运",
+    "url": "http://www.sf-express.com/cn/sc/index.html"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/st.gif?version=201707191039",
+    "id": "1",
+    "name": "申通快递",
+    "url": "http://www.sto.cn"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/yd.gif?version=201707191039",
+    "id": "2",
+    "name": "韵达快递",
+    "url": "http://www.yundaex.com"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/yt.gif?version=201707191039",
+    "id": "3",
+    "name": "圆通速递",
+    "url": "http://www.yto.net.cn/"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/zt.gif?version=201707191039",
+    "id": "4",
+    "name": "中通快递",
+    "url": "http://www.zto.cn"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/ems.gif?version=201707191039",
+    "id": "5",
+    "name": "EMS快递",
+    "url": "http://www.ems.com.cn/"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/tt.gif?version=201707191039",
+    "id": "6",
+    "name": "天天快递",
+    "url": "http://www.ttkdex.com"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/zjs.gif?version=201707191039",
+    "id": "7",
+    "name": "宅急送",
+    "url": "http://www.zjs.com.cn"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/dbwl.gif?version=201707191039",
+    "id": "8",
+    "name": "德邦快递",
+    "url": "http://www.deppon.com"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/baishikuaidi.jpg?version=201707191039",
+    "id": "9",
+    "name": "百世快递",
+    "url": "http://www.800bestex.com/"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/yzgn.gif?version=201707191039",
+    "id": "10",
+    "name": "邮政快递",
+    "url": "http://yjcx.chinapost.com.cn"
+  },
+  {
+    "icon": "https://cdn.kuaidi100.com/images/frame/baidu/all/qfkd.gif?version=201707191039",
+    "id": "10",
+    "name": "全峰全球专递",
+    "url": "http://www.qfkd.com.cn"
+  }
+]

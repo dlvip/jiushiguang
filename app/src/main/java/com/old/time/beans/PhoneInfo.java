@@ -1,6 +1,8 @@
 package com.old.time.beans;
 
-public class PhoneInfo {
+import java.io.Serializable;
+
+public class PhoneInfo implements Serializable {
 
     /**
      * province : 浙江
@@ -11,12 +13,21 @@ public class PhoneInfo {
      * card :
      */
 
+    private String phone;
     private String province;
     private String city;
     private String areacode;
     private String zip;
     private String company;
     private String card;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getProvince() {
         return province;
@@ -68,6 +79,13 @@ public class PhoneInfo {
 
     @Override
     public String toString() {
-        return "PhoneInfo{" + "province='" + province + '\'' + ", city='" + city + '\'' + ", areacode='" + areacode + '\'' + ", zip='" + zip + '\'' + ", company='" + company + '\'' + ", card='" + card + '\'' + '}';
+        return "PhoneInfo\n{" + "phone='" + phone + "\'" //
+                + ",province='" + province + '\'' //
+                + ", city='" + city + '\'' //
+                + ", areacode='" + areacode + '\''//
+                + ", zip='" + zip + '\'' //
+                + ", company='" + company + '\'' //
+                + ", card='" + card + '\'' //
+                + '}';
     }
 }
