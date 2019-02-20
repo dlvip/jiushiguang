@@ -72,6 +72,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
 
+        <!-- 文件共享配置 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -179,7 +180,7 @@
         <activity android:name=".activitys.TouchPatternPswActivity" />
         <activity android:name=".activitys.TouchSettingPswActivity" />
         <activity android:name=".activitys.TouchSettingActivity" />
-        <activity android:name=".postcard.PCardDetailActivity"></activity>
+        <activity android:name=".postcard.PCardDetailActivity" />
     </application>
 
 </manifest>

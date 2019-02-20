@@ -20,6 +20,9 @@ import java.util.regex.Pattern;
  * Created by huan on 2017/10/20.
  */
 public class StringUtils {
+
+    private static final String TAG = "StringUtils";
+
     public static String getLastPathSegment(String content) {
         if (content == null || content.length() == 0) {
             return "";
@@ -53,7 +56,6 @@ public class StringUtils {
 
     // 验证邮箱地址是否正确
     public static boolean checkEmail(String email) {
-
         Pattern pattern = Pattern.compile("^[A-Za-z0-9][\\w\\._]*[a-zA-Z0-9]+@[A-Za-z0-9-_]+\\.([A-Za-z]{2,4})");
         Matcher mc = pattern.matcher(email);
         return mc.matches();
@@ -173,5 +175,41 @@ public class StringUtils {
         return durationStr;
     }
 
+    private static final String[] letters = new String[]{"u", "kf", "av", "mwg", "h", "xn", "yi", "pjz", "b", "qrc"};
+    private static final String[] numbers = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
+    /**
+     * 获取加密手机号
+     *
+     * @return
+     */
+    public static String getPhoneMobilePassWord(String mobile) {
+        if (TextUtils.isEmpty(mobile)) {
+
+            return "";
+        }
+        String[] mMobileChars = mobile.split("");
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 1; i < mMobileChars.length; i++) {
+            stringBuffer.append(letters[Integer.parseInt(mMobileChars[i])]);
+
+        }
+        String newMobile = "Mi" + stringBuffer.toString() + "U";
+        return newMobile;
+    }
+
+    /**
+     * 获取解密后的手机号
+     *
+     * @param mobilePassWord
+     * @return
+     */
+    public static String getPhoneMobile(String mobilePassWord) {
+        mobilePassWord = mobilePassWord.replace("Mi", "").replace("U", "");
+        for (int i = 0; i < 10; i++) {
+            mobilePassWord = mobilePassWord.replace(letters[i], numbers[i]);
+
+        }
+        return mobilePassWord;
+    }
 }

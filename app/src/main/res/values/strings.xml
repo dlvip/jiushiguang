@@ -1,4 +1,7 @@
 <resources>
+    <string name="agora_app_id">093639336e8d44f795906dbb4ea59802</string>
+
+
     <string name="app_name">觅邮</string>
     <string name="main_right">保存</string>
     <string name="loading_show_empty">暂无数据</string>

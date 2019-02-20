@@ -9,13 +9,18 @@ import android.widget.RelativeLayout;
 
 import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
+import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.utils.BitmapUtils;
 import com.old.time.utils.UIHelper;
 
 public class DialogQRCode extends BaseDialog {
 
-    public DialogQRCode(@NonNull Activity context) {
+    private View.OnLongClickListener onLongClickListener;
+
+    public DialogQRCode(@NonNull Activity context, View.OnLongClickListener onLongClickListener) {
         super(context, R.style.dialog_setting);
+        this.onLongClickListener = onLongClickListener;
+
     }
 
     private LinearLayout linear_layout_parent;
@@ -34,12 +39,13 @@ public class DialogQRCode extends BaseDialog {
         linear_layout_parent.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                BitmapUtils.saveBitmap(mContext, linear_layout_parent);
+                if (onLongClickListener != null) {
+                    onLongClickListener.onLongClick(linear_layout_parent);
 
+                }
                 return false;
             }
         });
-
     }
 
     @Override

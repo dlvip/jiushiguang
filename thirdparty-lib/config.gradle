@@ -53,6 +53,8 @@ ext {
     externalOKHTTP = 'com.squareup.okhttp3:okhttp:3.8.1'
     externalGSON = 'com.google.code.gson:gson:2.8.1'
     externalHttpCore = 'org.apache.httpcomponents:httpcore:4.4.1'
+    //视频编辑解析库
+    externalMp4parser = 'com.googlecode.mp4parser:isoparser:1.1.21'
 
     //Android SDK/Tools Version
     externalVersionId = 'com.old.time'

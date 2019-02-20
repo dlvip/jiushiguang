@@ -27,11 +27,11 @@ import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.BitmapUtils;
 import com.old.time.utils.DataUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
-import com.old.time.utils.UIHelper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -74,6 +74,7 @@ public class PCardDetailActivity extends BaseActivity {
         phoneInfoList = DataUtils.getPhoneBeans(mContext);
 
         findViewById(R.id.tv_call_phone).setOnClickListener(this);
+        findViewById(R.id.tv_call_video).setOnClickListener(this);
         findViewById(R.id.relative_layout_more).setOnClickListener(this);
         findViewById(R.id.relative_layout_title).setBackgroundResource(R.color.transparent);
 
@@ -90,12 +91,10 @@ public class PCardDetailActivity extends BaseActivity {
                         .setText(R.id.tv_phone_dress, getPhoneInfoStr(item))//
                         .setVisible(R.id.view_line, helper.getLayoutPosition() != 0);
 
-
             }
         };
         recycler_view_call.setAdapter(adapter);
         adapter.setNewData(Arrays.asList(mPhoneBean.getNumber().split(",")));
-
     }
 
     private String getPhoneInfoStr(String phone) {
@@ -145,12 +144,12 @@ public class PCardDetailActivity extends BaseActivity {
         });
     }
 
-    private DialogListManager dialogListManager;
+    private DialogListManager mCallDialog;
     private PhoneBean mPhoneBean;
 
     private void showCallPhoneDialog() {
-        if (dialogListManager == null) {
-            dialogListManager = new DialogListManager(mContext, new OnClickManagerCallBack() {
+        if (mCallDialog == null) {
+            mCallDialog = new DialogListManager(mContext, new OnClickManagerCallBack() {
                 @Override
                 public void onClickRankManagerCallBack(int position, String typeName) {
                     callPhone(mPhoneBean.getNumber().split(",")[0]);
@@ -158,7 +157,7 @@ public class PCardDetailActivity extends BaseActivity {
                 }
             });
         }
-        dialogListManager.setDialogViewData("拨号", new String[]{mPhoneBean.getName()});
+        mCallDialog.setDialogViewData("拨号", new String[]{mPhoneBean.getName()});
 
     }
 
@@ -197,7 +196,7 @@ public class PCardDetailActivity extends BaseActivity {
 
                 break;
             case R.id.tv_call_video:
-                UIHelper.ToastMessage(mContext, "敬请期待");
+                showVideoAndVoiceDialog();
 
                 break;
             case R.id.relative_layout_more:
@@ -207,14 +206,67 @@ public class PCardDetailActivity extends BaseActivity {
         }
     }
 
+    private DialogListManager dialogListManager;
+
+    private void showVideoAndVoiceDialog() {
+        if (dialogListManager == null) {
+            dialogListManager = new DialogListManager(mContext, new OnClickManagerCallBack() {
+                @Override
+                public void onClickRankManagerCallBack(int position, String typeName) {
+                    switch (position) {
+                        case 0:
+
+                            break;
+                        case 1:
+
+                            break;
+                    }
+                }
+            });
+        }
+        dialogListManager.setDialogViewData("音视频通话", new String[]{"语音通话", "视频通话"});
+    }
+
     private DialogQRCode mDialogQRCode;
 
     private void showQRCodeDialog() {
         if (mDialogQRCode == null) {
-            mDialogQRCode = new DialogQRCode(mContext);
+            mDialogQRCode = new DialogQRCode(mContext, new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    showListDialog(v);
 
+                    return false;
+                }
+            });
         }
         mDialogQRCode.show();
+    }
+
+    private DialogListManager mDialogListManager;
+    private View qrCodeView;
+
+    private void showListDialog(View mQRCodeView) {
+        this.qrCodeView = mQRCodeView;
+        if (mDialogListManager == null) {
+            mDialogListManager = new DialogListManager(mContext, new OnClickManagerCallBack() {
+                @Override
+                public void onClickRankManagerCallBack(int position, String typeName) {
+                    switch (position) {
+                        case 0:
+                            Uri uri = BitmapUtils.saveBitmap(mContext, qrCodeView);
+                            DebugLog.d(TAG, uri.getPath());///storage/emulated/0/Pictures/觅邮/1550632689371.jpg
+//                            Intent imageIntent = new Intent(Intent.ACTION_SEND);
+//                            imageIntent.setType("image/jpeg");
+//                            imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
+//                            startActivity(Intent.createChooser(imageIntent, "分享"));
+
+                            break;
+                    }
+                }
+            });
+        }
+        mDialogListManager.setDialogViewData("二维码操作", new String[]{"保存到手机"});
 
     }
 

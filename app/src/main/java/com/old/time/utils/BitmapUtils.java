@@ -7,13 +7,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextPaint;
 import android.util.Log;
 import android.view.View;
 
+import com.old.time.MyApplication;
 import com.old.time.R;
 import com.old.time.constants.Constant;
+import com.old.time.glideUtils.GlideDealUtils;
 import com.old.time.interfaces.SaveBitmapCallBack;
 
 import java.io.File;
@@ -29,6 +33,9 @@ import java.util.List;
  */
 
 public class BitmapUtils {
+
+    private static final String TAG = "BitmapUtils";
+
     /**
      * 回收bitmap
      *
@@ -202,29 +209,18 @@ public class BitmapUtils {
     /**
      * 保存View为图片的方法
      */
-    public static Bitmap saveBitmap(Context context, View v) {
-        Bitmap bm = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bm);
-        v.draw(canvas);
-        File f = new File(FileUtils.getSDPath(context), "miu_" + System.currentTimeMillis() + ".png");
-        if (f.exists()) {
-            f.delete();
+    public static Uri saveBitmap(Context context, View v) {
+        Uri uri = null;
+        try {
+            Bitmap bm = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bm);
+            v.draw(canvas);
+            uri = GlideDealUtils.saveImageToGallery(bm);
+        } catch (Exception e) {
+            DebugLog.d(TAG, e.getMessage());
 
         }
-        try {
-            FileOutputStream out = new FileOutputStream(f);
-            bm.compress(Bitmap.CompressFormat.PNG, 90, out);
-            out.flush();
-            out.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (bm != null) {
-            UIHelper.ToastMessage(context, "保存成功");
-        }
-        return bm;
+        return uri;
     }
 
 

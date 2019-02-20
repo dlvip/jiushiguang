@@ -39,6 +39,16 @@ public class Constant {
     public static final String PHONE_KEY = "cf5d54b234390d5248a4ccd892a91a1e";
 
     /**
+     * 融云key
+     */
+    public static final String RONG_YUN_KEY = "x18ywvqfxcbjc";
+
+    /**
+     * 融云
+     */
+    public static final String RONG_TOKEN = "sign=a0c1ebbfd3f060420c72311e709c83d14242b4b1x18ywvqfxcbjc1550657140000e0071&uid=17600075773";
+
+    /**
      * 阿里云图片访问路径
      */
     public static final String OSSURL = "http://jsguang.oss-cn-beijing.aliyuncs.com/";

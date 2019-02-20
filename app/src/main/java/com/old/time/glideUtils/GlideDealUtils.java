@@ -54,7 +54,7 @@ public class GlideDealUtils {
 
     private static File currentFile;
 
-    public static void saveImageToGallery(Bitmap bmp) {
+    public static Uri saveImageToGallery(Bitmap bmp) {
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile();//注意小米手机必须这样获得public绝对路径
         File appDir = new File(file, MyApplication.getInstance().getResources().getString(R.string.app_name));
         if (!appDir.exists()) {
@@ -64,6 +64,7 @@ public class GlideDealUtils {
         currentFile = new File(appDir, fileName);
 
         FileOutputStream fos = null;
+        Uri uri = null;
         try {
             fos = new FileOutputStream(currentFile);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
@@ -80,8 +81,11 @@ public class GlideDealUtils {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            uri = Uri.fromFile(new File(currentFile.getPath()));
             // 最后通知图库更新---刷新手机相册
-            MyApplication.getInstance().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(currentFile.getPath()))));
+            MyApplication.getInstance().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
         }
+
+        return uri;
     }
 }

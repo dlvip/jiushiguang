@@ -106,7 +106,7 @@ public class PostCardActivity extends BaseActivity {
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent event) {
                 int position = (int) (event.getX() * postCartBeans.size() / ScreenTools.instance(mContext).getScreenWidth());
-                seleteToPosition(position);
+                selectToPosition(position);
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     tv_center_key.setVisibility(View.GONE);
 
@@ -179,7 +179,7 @@ public class PostCardActivity extends BaseActivity {
      *
      * @param position
      */
-    public void seleteToPosition(int position) {
+    public void selectToPosition(int position) {
         if (mRecyclerView == null) {
 
             return;
