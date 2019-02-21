@@ -44,9 +44,9 @@ public class Constant {
     public static final String RONG_YUN_KEY = "x18ywvqfxcbjc";
 
     /**
-     * 融云
+     * 融云sign=72c4531224e2aac961494a4e8d8182008f22a592x18ywvqfxcbjc155074079400072a31&uid=15093073252
      */
-    public static final String RONG_TOKEN = "sign=a0c1ebbfd3f060420c72311e709c83d14242b4b1x18ywvqfxcbjc1550657140000e0071&uid=17600075773";
+    public static final String RONG_TOKEN = "sign=72c4531224e2aac961494a4e8d8182008f22a592x18ywvqfxcbjc155074079400072a31&uid=15093073252";
 
     /**
      * 阿里云图片访问路径

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.old.time">
 
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
@@ -84,6 +88,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <!--融云key-->
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="x18ywvqfxcbjc" />
 
         <!-- 定位配置开始 -->
         <meta-data
@@ -183,6 +192,7 @@
         <activity android:name=".activitys.TouchSettingPswActivity" />
         <activity android:name=".activitys.TouchSettingActivity" />
         <activity android:name=".postcard.PCardDetailActivity" />
+
     </application>
 
 </manifest>

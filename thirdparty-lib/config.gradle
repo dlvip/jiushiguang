@@ -24,6 +24,7 @@ ext {
     externalGithubIjkplayer = 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
 
     //Android support Libraries
+    externalAndroidSupportCompat = 'com.android.support:support-compat:27.1.1'
     externalAndroidAppCompatV7 = 'com.android.support:appcompat-v7:27.1.1'
     externalAndroidAppConstraint = 'com.android.support.constraint:constraint-layout:1.1.3'
     externalAndroidCardView = 'com.android.support:cardview-v7:27.1.1'
@@ -60,7 +61,7 @@ ext {
     externalVersionId = 'com.old.time'
     externalVersionCode = 1
     externalVersionName = '1.0.2'
-    externalMinSdkVersion = 16
+    externalMinSdkVersion = 17
     externalTargetSdkVersion = 28
     externalCompileSdkVersion = 28
     externalBuildToolsVersion = '28.0.3'

@@ -37,4 +37,8 @@
 -keep public class com.tencent.bugly.**{*;}
 -keep class com.iflytek.**{*;}
 
+-keep class com.blink.**  { *; }
+-keep class com.bailingcloud.bailingvideo.engine.binstack.json.**  { *; }
+-keep class bailingquic.**{*;}
+-keep class go.**{*;}
 

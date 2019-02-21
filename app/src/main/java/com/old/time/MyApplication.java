@@ -37,6 +37,8 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 import okhttp3.OkHttpClient;
 
 /**
@@ -65,6 +67,7 @@ public class MyApplication extends MultiDexApplication {
         initLoadSirs();
         initQbSdk();
         initOkGo();
+        RongIMClient.init(this);
     }
 
     /**
