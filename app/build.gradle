@@ -62,7 +62,6 @@ android {
 }
 
 dependencies {
-    implementation files('libs/RongRTCLib_2.1.1.jar')
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation externalAndroidPalette
     implementation externalGSON

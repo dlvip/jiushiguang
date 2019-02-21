@@ -1,11 +1,8 @@
 package com.old.time;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
 
 import com.old.time.constants.Constant;
 import com.old.time.loadsirs.core.LoadSir;
@@ -16,7 +13,6 @@ import com.old.time.task.ReadClient;
 import com.old.time.task.TaskManager;
 import com.old.time.utils.ASRUtil;
 import com.old.time.utils.DebugLog;
-import com.old.time.utils.UIHelper;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.smtt.sdk.QbSdk;
@@ -41,13 +37,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
-import cn.rongcloud.rtc.RongRTCEngine;
-import cn.rongcloud.rtc.engine.binstack.http.RongRTCHttpClient;
-import cn.rongcloud.rtc.engine.binstack.util.RongRTCSessionManager;
-import cn.rongcloud.rtc.engine.context.RongRTCContext;
 import okhttp3.OkHttpClient;
-
-import static com.lzy.okgo.utils.HttpUtils.runOnUiThread;
 
 /**
  * Created by NING on 2018/2/23.
@@ -75,52 +65,6 @@ public class MyApplication extends MultiDexApplication {
         initLoadSirs();
         initQbSdk();
         initOkGo();
-    }
-
-    private void logonToServer() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String serverURL = "https://rtcapi.ronghub.com/voiptoken";
-                String deviceId = "";
-                deviceId = getDeviceId();
-                if (TextUtils.isEmpty(deviceId))
-                    deviceId = RongRTCSessionManager.getInstance().getString(RongRTCContext.RONGRTC_UUID);
-                final String token = RongRTCHttpClient.getInstance().doPost(serverURL//
-                        , "uid=" + deviceId + "&appid=" + Constant.RONG_YUN_KEY);
-                if (TextUtils.isEmpty(token) || TextUtils.isEmpty(deviceId)) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            UIHelper.ToastMessage(mContext, "获取token/deviceID失败，请重新尝试！");
-
-                        }
-                    });
-                    return;
-                }
-                final String finalDeviceId = deviceId;
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        RongRTCEngine.getInstance().joinChannel(finalDeviceId, "15093073252", token, "123456");
-
-                    }
-                });
-            }
-        }).start();
-    }
-
-    private String getDeviceId() {
-        String deviceId = "";
-        try {
-            TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(Activity.TELEPHONY_SERVICE);
-            deviceId = TelephonyMgr.getDeviceId();
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return deviceId;
     }
 
     /**
