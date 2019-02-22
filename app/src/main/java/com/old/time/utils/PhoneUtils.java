@@ -1,7 +1,10 @@
 package com.old.time.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 
@@ -87,10 +90,6 @@ public class PhoneUtils {
                 }
             }
         });
-//        if (nums.size() > 0) {
-//            getPhoneMsg(nums.get(nums.size() - 1));
-//
-//        }
 
         return list;
     }
@@ -98,6 +97,11 @@ public class PhoneUtils {
     private static List<String> nums = new ArrayList<>();
     private static List<PhoneInfo> phoneInfos = new ArrayList<>();
 
+    /**
+     * 手机号归属地
+     *
+     * @param numStr
+     */
     private static void getPhoneMsg(String numStr) {
         HttpParams params = new HttpParams();
         params.put("phone", numStr);
@@ -145,5 +149,31 @@ public class PhoneUtils {
 
             return "#";
         }
+    }
+
+    /**
+     * 拨打电话（直接拨打电话）
+     *
+     * @param phoneNum 电话号码
+     */
+    public static void callPhone(Context mContext, String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        ActivityUtils.startActivity((Activity) mContext, intent);
+
+    }
+
+    /**
+     * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     *
+     * @param phoneNum 电话号码
+     */
+    public static void callPhoneBySelf(Context mContext, String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        ActivityUtils.startActivity((Activity) mContext, intent);
+
     }
 }

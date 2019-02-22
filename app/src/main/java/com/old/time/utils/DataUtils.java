@@ -1,11 +1,18 @@
 package com.old.time.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.google.gson.Gson;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.aidl.ChapterBean;
 import com.old.time.beans.FastMailBean;
+import com.old.time.beans.PhoneApiBean;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.VideosBean;
+import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -114,6 +121,57 @@ public class DataUtils {
 
         }
         return phoneInfos;
+    }
+
+    /**
+     * 获取手机号归属地
+     *
+     * @param phone
+     * @return
+     */
+    public static String getPhoneInfoStr(List<PhoneInfo> phoneInfoList, String phone) {
+        String phoneStr = "";
+        if (TextUtils.isEmpty(phone) || phoneInfoList == null || phoneInfoList.size() == 0) {
+
+            return phoneStr;
+        }
+        for (PhoneInfo phoneInfo : phoneInfoList) {
+            if (phone.equals(phoneInfo.getPhone())) {
+                phoneStr = phoneInfo.getCompany() //
+                        + " - " + phoneInfo.getProvince() //
+                        + "、" + phoneInfo.getCity();
+            }
+        }
+        if (TextUtils.isEmpty(phoneStr)) {
+            getPhoneMsg(phone);
+
+        }
+        return phoneStr;
+    }
+
+    private static void getPhoneMsg(final String numStr) {
+        HttpParams params = new HttpParams();
+        params.put("phone", numStr);
+        params.put("key", Constant.PHONE_KEY);
+        params.put("dtype", "json");
+        OkGoUtils.getInstance().getNetForData(params, Constant.PHONE_DRESS, new JsonCallBack<PhoneApiBean>() {
+
+            @Override
+            public void onSuccess(PhoneApiBean mResultBean) {
+                if (mResultBean == null || mResultBean.getResult() == null) {
+
+                    return;
+                }
+                PhoneInfo phoneInfo = mResultBean.getResult();
+                phoneInfo.setPhone(numStr);
+
+            }
+
+            @Override
+            public void onError(PhoneApiBean mResultBean) {
+
+            }
+        });
     }
 
     /**

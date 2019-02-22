@@ -53,8 +53,7 @@ public class CallKitUtils {
     }
 
     public static int dp2px(float dpVal, Context context) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dpVal, context.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources().getDisplayMetrics());
     }
 
     /**
@@ -146,7 +145,17 @@ public class CallKitUtils {
     }
 
     public static String[] getCallpermissions() {
-        String[] permissions = new String[]{Manifest.permission.PROCESS_OUTGOING_CALLS, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET, Manifest.permission.READ_PHONE_STATE, Manifest.permission.MODIFY_AUDIO_SETTINGS, Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN};
+        String[] permissions = new String[]{Manifest.permission.PROCESS_OUTGOING_CALLS//
+                , Manifest.permission.ACCESS_NETWORK_STATE//
+                , Manifest.permission.CAMERA//
+                , Manifest.permission.RECORD_AUDIO//
+                , Manifest.permission.READ_EXTERNAL_STORAGE//
+                , Manifest.permission.WRITE_EXTERNAL_STORAGE//
+                , Manifest.permission.INTERNET//
+                , Manifest.permission.READ_PHONE_STATE//
+                , Manifest.permission.MODIFY_AUDIO_SETTINGS//
+                , Manifest.permission.BLUETOOTH//
+                , Manifest.permission.BLUETOOTH_ADMIN};
         return permissions;
     }
 

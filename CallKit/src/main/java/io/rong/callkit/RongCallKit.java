@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
 public class RongCallKit {
+
+    private static final String TAG = "RongCallKit";
 
     public enum CallMediaType {
         CALL_MEDIA_TYPE_AUDIO, CALL_MEDIA_TYPE_VIDEO
@@ -41,8 +44,10 @@ public class RongCallKit {
             String action;
             if (mediaType.equals(CallMediaType.CALL_MEDIA_TYPE_AUDIO)) {
                 action = RongVoIPIntent.RONG_INTENT_ACTION_VOIP_SINGLEAUDIO;
+
             } else {
                 action = RongVoIPIntent.RONG_INTENT_ACTION_VOIP_SINGLEVIDEO;
+
             }
             Intent intent = new Intent(action);
             intent.putExtra("conversationType", Conversation.ConversationType.PRIVATE.getName().toLowerCase());
@@ -117,9 +122,10 @@ public class RongCallKit {
     }
 
     /**
-     *  发起的多人通话，不依赖群、讨论组等
+     * 发起的多人通话，不依赖群、讨论组等
+     *
      * @param context
-     * @param userIds 邀请的成员
+     * @param userIds    邀请的成员
      * @param oberverIds 邀请的以观察者身份加入房间的成员
      * @param mediaType
      */
@@ -179,15 +185,19 @@ public class RongCallKit {
             String[] permissions;
             if (mediaType.equals(CallMediaType.CALL_MEDIA_TYPE_AUDIO)) {
                 permissions = new String[]{Manifest.permission.RECORD_AUDIO};
+
             } else {
                 permissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO};
+
             }
             if (!PermissionCheckUtil.requestPermissions((Activity) context, permissions)) {
+
                 return false;
             }
         }
 
         if (isInVoipCall(context)) {
+
             return false;
         }
         if (!RongIMClient.getInstance().getCurrentConnectionStatus().equals(RongIMClient.ConnectionStatusListener.ConnectionStatus.CONNECTED)) {
@@ -204,14 +214,16 @@ public class RongCallKit {
      * @return 是否在VOIP通话中
      */
     public static boolean isInVoipCall(Context context) {
+        if (RongCallClient.getInstance() == null) {
+            Log.d(TAG, "RongCallClient.getInstance() == null");
+
+            return true;
+        }
         RongCallSession callSession = RongCallClient.getInstance().getCallSession();
         if (callSession != null && callSession.getActiveTime() > 0) {
-            Toast.makeText(context,
-                    callSession.getMediaType() == RongCallCommon.CallMediaType.AUDIO ?
-                            context.getResources().getString(R.string.rc_voip_call_audio_start_fail) :
-                            context.getResources().getString(R.string.rc_voip_call_video_start_fail),
-                    Toast.LENGTH_SHORT)
-                    .show();
+            Toast.makeText(context, callSession.getMediaType() == RongCallCommon.CallMediaType.AUDIO //
+                    ? context.getResources().getString(R.string.rc_voip_call_audio_start_fail) : context.getResources().getString(R.string.rc_voip_call_video_start_fail), Toast.LENGTH_SHORT).show();
+
             return true;
         }
         return false;

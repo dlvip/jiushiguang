@@ -3,6 +3,11 @@
 
     <application
         android:supportsRtl="true">
+        <!-- 融云key -->
+        <meta-data
+            android:name="RONG_CLOUD_APP_KEY"
+            android:value="x18ywvqfxcbjc" />
+
     </application>
 
     <uses-permission android:name="android.permission.CAMERA" />

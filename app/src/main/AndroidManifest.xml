@@ -5,10 +5,8 @@
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="com.fingerprints.service.ACCESS_FINGERPRINT_MANAGER" />
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY" />
@@ -88,11 +86,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
-
-        <!--融云key-->
-        <meta-data
-            android:name="RONG_CLOUD_APP_KEY"
-            android:value="x18ywvqfxcbjc" />
 
         <!-- 定位配置开始 -->
         <meta-data
@@ -192,7 +185,7 @@
         <activity android:name=".activitys.TouchSettingPswActivity" />
         <activity android:name=".activitys.TouchSettingActivity" />
         <activity android:name=".postcard.PCardDetailActivity" />
-
+        <activity android:name=".activitys.RQCodeActivity"></activity>
     </application>
 
 </manifest>
