@@ -96,4 +96,5 @@ dependencies {
     //指纹识别
     implementation externalTouchFingerPrintidentify
     implementation externalMp4parser
+    implementation files('libs/RongRTCLib_2.1.1.jar')
 }

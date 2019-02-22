@@ -46,7 +46,7 @@ public class Constant {
     /**
      * 融云sign=72c4531224e2aac961494a4e8d8182008f22a592x18ywvqfxcbjc155074079400072a31&uid=15093073252
      */
-    public static final String RONG_TOKEN = "sign=72c4531224e2aac961494a4e8d8182008f22a592x18ywvqfxcbjc155074079400072a31&uid=15093073252";
+    public static final String RONG_TOKEN = "sign=b5e25246e29859388c013613f5a2492b6425506ex18ywvqfxcbjc15508006460003b55a&uid=15093073252";
 
     /**
      * 阿里云图片访问路径
@@ -74,6 +74,9 @@ public class Constant {
 
     //获取用户信息
     public static final String GET_USER_INFO = BASE_TEST_URL + "user/getUserByUserId";
+
+    //获取用户融云token
+    public static final String GET_USER_RONG_TOKEN = BASE_TEST_URL + "user/getUserRongToken";
 
     //修改用户信息
     public static final String UPDATE_USER_MSG = BASE_TEST_URL + "user/updateUserMsg";

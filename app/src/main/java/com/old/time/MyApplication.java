@@ -3,25 +3,7 @@ package com.old.time;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
-
-import com.old.time.constants.Constant;
-import com.old.time.loadsirs.core.LoadSir;
-import com.old.time.loadsirs.customs.EmptyCallback;
-import com.old.time.loadsirs.customs.ErrorCallback;
-import com.old.time.loadsirs.customs.LoadingCallback;
-import com.old.time.task.ReadClient;
-import com.old.time.task.TaskManager;
-import com.old.time.utils.ASRUtil;
-import com.old.time.utils.DebugLog;
-import com.tencent.bugly.Bugly;
-import com.tencent.bugly.beta.Beta;
-import com.tencent.smtt.sdk.QbSdk;
-
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-
+import android.text.TextUtils;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -32,11 +14,36 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.old.time.beans.ResultBean;
+import com.old.time.beans.RongTokenBean;
+import com.old.time.constants.Constant;
+import com.old.time.loadsirs.core.LoadSir;
+import com.old.time.loadsirs.customs.EmptyCallback;
+import com.old.time.loadsirs.customs.ErrorCallback;
+import com.old.time.loadsirs.customs.LoadingCallback;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
+import com.old.time.task.ReadClient;
+import com.old.time.task.TaskManager;
+import com.old.time.utils.ASRUtil;
+import com.old.time.utils.DebugLog;
+import com.old.time.utils.PhoneInfoUtils;
+import com.old.time.utils.UIHelper;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
+import com.tencent.smtt.sdk.QbSdk;
+
+import java.io.Serializable;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
+import cn.rongcloud.rtc.RongRTCEngine;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import okhttp3.OkHttpClient;
@@ -67,8 +74,63 @@ public class MyApplication extends MultiDexApplication {
         initLoadSirs();
         initQbSdk();
         initOkGo();
-        RongIMClient.init(this);
+
+        RongRTCEngine.init(this, "rtccmp.ronghub.com:80");
+
     }
+
+//    private void getUserRongToken() {
+//        HttpParams params = new HttpParams();
+//        params.put("userId", PhoneInfoUtils.instance().getDeviceId(mContext));
+//        OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_RONG_TOKEN, new JsonCallBack<ResultBean<RongTokenBean>>() {
+//            @Override
+//            public void onSuccess(ResultBean<RongTokenBean> mResultBean) {
+//                if (mResultBean == null || mResultBean.data == null || TextUtils.isEmpty(mResultBean.data.getRtcToken())) {
+//
+//                    return;
+//                }
+//                mRongInit(mResultBean.data.getRtcToken());
+//
+//            }
+//
+//            @Override
+//            public void onError(ResultBean<RongTokenBean> mResultBean) {
+//
+//            }
+//        });
+//    }
+//
+//    private static final String TAG = "MyApplication";
+//
+//    /**
+//     * 登陆融云
+//     *
+//     * @param token
+//     */
+//    private void mRongInit(String token) {
+//        //融云初始化
+//        RongIM.init(this);
+//        RongIM.connect(token, new RongIMClient.ConnectCallback() {
+//
+//            @Override
+//            public void onTokenIncorrect() {
+//                DebugLog.d(TAG, "onTokenIncorrect");
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(String s) {
+//                DebugLog.d(TAG, "onSuccess-用户名：" + s);
+//
+//            }
+//
+//            @Override
+//            public void onError(RongIMClient.ErrorCode errorCode) {
+//                DebugLog.d(TAG, "onError-错误信息：" + errorCode);
+//
+//            }
+//        });
+//    }
 
     /**
      * 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId

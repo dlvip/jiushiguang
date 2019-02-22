@@ -8,4 +8,10 @@
         name="my_images"
         path="images/" />
 
+    <external-path
+        name="rc_external_path"
+        path="." />
+    <root-path
+        name="rc_root_path"
+        path="" />
 </paths>
