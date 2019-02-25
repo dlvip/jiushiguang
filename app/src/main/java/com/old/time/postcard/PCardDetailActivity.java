@@ -82,14 +82,13 @@ public class PCardDetailActivity extends BaseActivity {
         adapter = new BaseQuickAdapter<PhoneInfo, BaseViewHolder>(R.layout.adapter_phone_detail) {
             @Override
             protected void convert(BaseViewHolder helper, PhoneInfo item) {
+                helper.setText(R.id.tv_phone_num, item.getPhone())//
+                        .setText(R.id.tv_phone_dress, item.getPhoneDress())//
+                        .setVisible(R.id.view_line, helper.getLayoutPosition() != 0);
                 if (TextUtils.isEmpty(item.getPhoneDress())) {
                     DataUtils.getPhoneMsg(item.getPhone());
 
                 }
-                helper.setText(R.id.tv_phone_num, item.getPhone())//
-                        .setText(R.id.tv_phone_dress, item.getPhoneDress())//
-                        .setVisible(R.id.view_line, helper.getLayoutPosition() != 0);
-
             }
         };
         recycler_view_call.setAdapter(adapter);
