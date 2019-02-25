@@ -77,7 +77,7 @@ public class MyApplication extends MultiDexApplication {
 
     private void getUserRongToken() {
         HttpParams params = new HttpParams();
-        params.put("userId", PhoneInfoUtils.instance().getDeviceId(mContext));
+        params.put("userId", PhoneInfoUtils.instance().getNativePhoneNumber(mContext));
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_RONG_TOKEN, new JsonCallBack<ResultBean<RongTokenBean>>() {
             @Override
             public void onSuccess(ResultBean<RongTokenBean> mResultBean) {

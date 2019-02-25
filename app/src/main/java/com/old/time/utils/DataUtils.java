@@ -9,6 +9,7 @@ import com.old.time.aidl.ChapterBean;
 import com.old.time.beans.FastMailBean;
 import com.old.time.beans.PhoneApiBean;
 import com.old.time.beans.PhoneInfo;
+import com.old.time.beans.ResultBean;
 import com.old.time.beans.VideosBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
@@ -91,65 +92,7 @@ public class DataUtils {
         return chapterBeans;
     }
 
-    /**
-     * 获取手机号归属地
-     *
-     * @param mContext
-     * @return
-     */
-    public static List<PhoneInfo> getPhoneBeans(Context mContext) {
-        String string = StringUtils.getJson("phone.json", mContext);
-        List<PhoneInfo> phoneInfos = new ArrayList<>();
-        try {
-            JSONArray jsonArray = new JSONArray(string);
-            phoneInfos.clear();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject phoneObj = jsonArray.getJSONObject(i);
-                PhoneInfo phoneInfo = new PhoneInfo();
-                phoneInfo.setPhone(phoneObj.getString("phone"));
-                phoneInfo.setAreacode(phoneObj.getString("areacode"));
-                phoneInfo.setCard(phoneObj.getString("card"));
-                phoneInfo.setCity(phoneObj.getString("city"));
-                phoneInfo.setCompany(phoneObj.getString("company"));
-                phoneInfo.setProvince(phoneObj.getString("province"));
-                phoneInfo.setZip(phoneObj.getString("zip"));
-                phoneInfos.add(phoneInfo);
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-
-        }
-        return phoneInfos;
-    }
-
-    /**
-     * 获取手机号归属地
-     *
-     * @param phone
-     * @return
-     */
-    public static String getPhoneInfoStr(List<PhoneInfo> phoneInfoList, String phone) {
-        String phoneStr = "";
-        if (TextUtils.isEmpty(phone) || phoneInfoList == null || phoneInfoList.size() == 0) {
-
-            return phoneStr;
-        }
-        for (PhoneInfo phoneInfo : phoneInfoList) {
-            if (phone.equals(phoneInfo.getPhone())) {
-                phoneStr = phoneInfo.getCompany() //
-                        + " - " + phoneInfo.getProvince() //
-                        + "、" + phoneInfo.getCity();
-            }
-        }
-        if (TextUtils.isEmpty(phoneStr)) {
-            getPhoneMsg(phone);
-
-        }
-        return phoneStr;
-    }
-
-    private static void getPhoneMsg(final String numStr) {
+    public static void getPhoneMsg(final String numStr) {
         HttpParams params = new HttpParams();
         params.put("phone", numStr);
         params.put("key", Constant.PHONE_KEY);
@@ -164,11 +107,54 @@ public class DataUtils {
                 }
                 PhoneInfo phoneInfo = mResultBean.getResult();
                 phoneInfo.setPhone(numStr);
-
+                savePhoneInfo(phoneInfo);
             }
 
             @Override
             public void onError(PhoneApiBean mResultBean) {
+
+            }
+        });
+    }
+
+    public static void savePhoneList(){
+        OkGoUtils.getInstance().postNetForData(Constant.SAVE_PHONE_LIST, new JsonCallBack<ResultBean>() {
+            @Override
+            public void onSuccess(ResultBean mResultBean) {
+
+            }
+
+            @Override
+            public void onError(ResultBean mResultBean) {
+
+            }
+        });
+    }
+
+    /**
+     * 保存手机归属地
+     *
+     * @param phoneInfo
+     */
+    private static void savePhoneInfo(PhoneInfo phoneInfo) {
+        HttpParams params = new HttpParams();
+        params.put("phone", phoneInfo.getPhone());
+        params.put("province", phoneInfo.getProvince());
+        params.put("city", phoneInfo.getCity());
+        params.put("areacode", phoneInfo.getAreacode());
+        params.put("zip", phoneInfo.getZip());
+        params.put("company", phoneInfo.getCompany());
+        params.put("card", phoneInfo.getCard());
+        OkGoUtils.getInstance().postNetForData(params, Constant.SAVE_PHONE_INFO, new JsonCallBack<ResultBean>() {
+            @Override
+            public void onSuccess(ResultBean mResultBean) {
+
+
+            }
+
+            @Override
+            public void onError(ResultBean mResultBean) {
+
 
             }
         });

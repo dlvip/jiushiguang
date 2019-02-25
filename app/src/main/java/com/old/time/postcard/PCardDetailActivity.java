@@ -4,27 +4,33 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.RQCodeActivity;
 import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
+import com.old.time.beans.ResultBean;
+import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogListManager;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.OnClickManagerCallBack;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DataUtils;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.RecyclerItemDecoration;
+import com.old.time.utils.UIHelper;
 
-import java.util.Arrays;
 import java.util.List;
 
 import io.rong.callkit.RongCallKit;
@@ -45,13 +51,11 @@ public class PCardDetailActivity extends BaseActivity {
 
     public static final String PHONE_INFO = "phoneInfo";
 
-    private BaseQuickAdapter<String, BaseViewHolder> adapter;
+    private BaseQuickAdapter<PhoneInfo, BaseViewHolder> adapter;
 
     private ImageView img_header_bg, img_user_pic, img_more;
     private RecyclerView recycler_view_call;
     private TextView tv_user_name;
-
-    private List<PhoneInfo> phoneInfoList;
 
     @Override
     protected void initView() {
@@ -64,8 +68,6 @@ public class PCardDetailActivity extends BaseActivity {
         tv_user_name = findViewById(R.id.tv_user_name);
         recycler_view_call = findViewById(R.id.recycler_view_call);
 
-        phoneInfoList = DataUtils.getPhoneBeans(mContext);
-
         findViewById(R.id.tv_call_phone).setOnClickListener(this);
         findViewById(R.id.tv_call_video).setOnClickListener(this);
         findViewById(R.id.relative_layout_more).setOnClickListener(this);
@@ -77,18 +79,42 @@ public class PCardDetailActivity extends BaseActivity {
         GlideUtils.getInstance().setRadiusImageView(mContext, mPhoneBean.getPhoto(), img_user_pic, 10);
         recycler_view_call.setLayoutManager(new MyLinearLayoutManager(mContext));
         recycler_view_call.addItemDecoration(new RecyclerItemDecoration(mContext));
-        adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_phone_detail) {
+        adapter = new BaseQuickAdapter<PhoneInfo, BaseViewHolder>(R.layout.adapter_phone_detail) {
             @Override
-            protected void convert(BaseViewHolder helper, String item) {
-                helper.setText(R.id.tv_phone_num, item)//
-                        .setText(R.id.tv_phone_dress, DataUtils.getPhoneInfoStr(phoneInfoList, item))//
+            protected void convert(BaseViewHolder helper, PhoneInfo item) {
+                if (TextUtils.isEmpty(item.getPhoneDress())) {
+                    DataUtils.getPhoneMsg(item.getPhone());
+
+                }
+                helper.setText(R.id.tv_phone_num, item.getPhone())//
+                        .setText(R.id.tv_phone_dress, item.getPhoneDress())//
                         .setVisible(R.id.view_line, helper.getLayoutPosition() != 0);
 
             }
         };
         recycler_view_call.setAdapter(adapter);
-        adapter.setNewData(Arrays.asList(mPhoneBean.getNumber().split(",")));
+        getPhoneDressList();
+    }
 
+    /**
+     * 获取手机号归属地
+     */
+    private void getPhoneDressList() {
+        HttpParams params = new HttpParams();
+        params.put("mobile", mPhoneBean.getNumber());
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_PHONE_DRESS, new JsonCallBack<ResultBean<List<PhoneInfo>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<PhoneInfo>> mResultBean) {
+                adapter.setNewData(mResultBean.data);
+
+            }
+
+            @Override
+            public void onError(ResultBean<List<PhoneInfo>> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
     }
 
     @Override

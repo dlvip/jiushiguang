@@ -36,6 +36,9 @@ public class Constant {
      */
     public static final String PHONE_DRESS = "http://apis.juhe.cn/mobile/get";
 
+    /**
+     * 聚合key
+     */
     public static final String PHONE_KEY = "cf5d54b234390d5248a4ccd892a91a1e";
 
     /**
@@ -56,12 +59,24 @@ public class Constant {
     /**
      * 服务器baseUrl
      */
-//    public static String BASE_URL = "http://120.76.72.60/webconsole/wap/";
+    //public static String BASE_URL = "http://120.76.72.60/webconsole/wap/";
 
     /**
      * 测试baseUrl
      */
     public static String BASE_TEST_URL = "http://localhost:9090/jiushiguang/";
+
+    //保存快递信息
+    public static final String GET_FAST_MAIL_LIST = BASE_TEST_URL + "fastMail/getFastMailList";
+
+    //保存归属地列表
+    public static String SAVE_PHONE_LIST = BASE_TEST_URL + "phone/savePhoneList";
+
+    //保存手机号归属地
+    public static final String SAVE_PHONE_INFO = BASE_TEST_URL + "phone/savePhoneInfo";
+
+    //获取手机号归属地
+    public static final String GET_PHONE_DRESS = BASE_TEST_URL + "phone/getPhoneInfo";
 
     //用户登陆
     public static final String USER_LOGIN = BASE_TEST_URL + "loginUser";
@@ -80,6 +95,7 @@ public class Constant {
 
     //修改用户信息
     public static final String UPDATE_USER_MSG = BASE_TEST_URL + "user/updateUserMsg";
+
 
     // 发布动态
     public static final String SEND_CONTENT = BASE_TEST_URL + "saveContent";

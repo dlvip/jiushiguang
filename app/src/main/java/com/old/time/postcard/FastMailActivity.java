@@ -10,8 +10,11 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.old.time.activitys.BaseCActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.beans.FastMailBean;
+import com.old.time.beans.ResultBean;
+import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DataUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
 import java.util.ArrayList;
@@ -52,8 +55,19 @@ public class FastMailActivity extends BaseCActivity {
 
     @Override
     public void getDataFromNet(boolean isRefresh) {
-        mSwipeRefreshLayout.setRefreshing(false);
-        adapter.setNewData(DataUtils.getFastMailBeans(mContext));
+        OkGoUtils.getInstance().postNetForData(Constant.GET_FAST_MAIL_LIST, new JsonCallBack<ResultBean<List<FastMailBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<FastMailBean>> mResultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                adapter.setNewData(mResultBean.data);
 
+            }
+
+            @Override
+            public void onError(ResultBean<List<FastMailBean>> mResultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
     }
 }

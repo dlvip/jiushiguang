@@ -1,5 +1,7 @@
 package com.old.time.beans;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 public class PhoneInfo implements Serializable {
@@ -76,6 +78,22 @@ public class PhoneInfo implements Serializable {
     public void setCard(String card) {
         this.card = card;
     }
+
+    /**
+     * 获取手机号归属地
+     *
+     * @return
+     */
+    public String getPhoneDress() {
+        if (TextUtils.isEmpty(getCompany()) && TextUtils.isEmpty(getProvince()) && TextUtils.isEmpty(getCity())) {
+
+            return "";
+        }
+        return getCompany() //
+                + " - " + getProvince() //
+                + "、" + getCity();
+    }
+
 
     @Override
     public String toString() {

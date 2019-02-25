@@ -25,6 +25,7 @@ import com.old.time.beans.PostCartBean;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.pops.PostCartPop;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.PictureUtil;
@@ -160,6 +161,7 @@ public class PostCardActivity extends BaseActivity {
 
                             break;
                         case "设置":
+                            DataUtils.savePhoneList();
                             TouchSettingActivity.startSettingTouchActivity(mContext);
 
                             break;
