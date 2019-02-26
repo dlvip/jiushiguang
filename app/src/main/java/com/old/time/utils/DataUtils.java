@@ -117,7 +117,7 @@ public class DataUtils {
         });
     }
 
-    public static void savePhoneList(){
+    public static void savePhoneList() {
         OkGoUtils.getInstance().postNetForData(Constant.SAVE_PHONE_LIST, new JsonCallBack<ResultBean>() {
             @Override
             public void onSuccess(ResultBean mResultBean) {
@@ -187,5 +187,14 @@ public class DataUtils {
 
         }
         return mFastMailBeans;
+    }
+
+    public static List<String> getDateStrings(int size) {
+        List<String> strings = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            strings.add("");
+
+        }
+        return strings;
     }
 }

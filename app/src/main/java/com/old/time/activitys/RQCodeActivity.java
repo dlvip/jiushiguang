@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
+import com.old.time.beans.PhoneBean;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.BitmapUtils;
 import com.old.time.utils.DebugLog;
@@ -23,17 +24,20 @@ public class RQCodeActivity extends BaseActivity {
      *
      * @param context
      */
-    public static void startRQCodeActivity(Context context) {
+    public static void startRQCodeActivity(Context context, String baseStr) {
         Intent intent = new Intent(context, RQCodeActivity.class);
+        intent.putExtra("baseStr", baseStr);
         ActivityUtils.startLoginActivity((Activity) context, intent);
 
     }
 
     private LinearLayout linear_layout_parent;
     private ImageView img_code_pic;
+    private String baseStr;
 
     @Override
     protected void initView() {
+        baseStr = getIntent().getStringExtra("baseStr");
         setTitleText("");
         findViewById(R.id.relative_layout_more).setVisibility(View.GONE);
         findViewById(R.id.relative_layout_title).setBackgroundResource(R.color.transparent);
@@ -45,7 +49,7 @@ public class RQCodeActivity extends BaseActivity {
         params.width = UIHelper.dip2px(300);
         params.height = UIHelper.dip2px(300);
         img_code_pic.setLayoutParams(params);
-        img_code_pic.setImageBitmap(ImageFindQrUtils.createQRCode("", UIHelper.dip2px(300)));
+        img_code_pic.setImageBitmap(ImageFindQrUtils.createQRCode(baseStr, UIHelper.dip2px(300)));
         findViewById(R.id.tv_save_pic).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +64,12 @@ public class RQCodeActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        ActivityUtils.finishLoginActivity(mContext);
+
     }
 
     @Override

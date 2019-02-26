@@ -388,14 +388,12 @@ public class ImageFindQrUtils {
     /**
      * 生成二维码
      *
-     * @param text            需要生成二维码的文字、网址等
-     * @param size            需要生成二维码的大小
-//     * @param colorCode       二维码颜色值(如:0xff000000)
-//     * @param colorBackground 二维码背景颜色值(如:0xffffffff)
+     * @param text 需要生成二维码的文字、网址等
+     * @param size 需要生成二维码的大小
      * @return bitmap
      */
     public static Bitmap createQRCode(String text, int size) {
-        text = "https://www.baidu.com";
+        text = "https://www.baidu.com" + "?###" + text;
         Bitmap bitmap = null;
         try {
             Hashtable<EncodeHintType, String> hints = new Hashtable<>();

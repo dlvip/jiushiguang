@@ -25,7 +25,9 @@ import com.old.time.beans.PostCartBean;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.pops.PostCartPop;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.Base64Utils;
 import com.old.time.utils.DataUtils;
+import com.old.time.utils.GsonUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.PictureUtil;
@@ -62,7 +64,6 @@ public class PostCardActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
     private TextView tv_center_key;
     private ImageView img_more;
-
 
     @Override
     protected void initView() {
@@ -156,11 +157,11 @@ public class PostCardActivity extends BaseActivity {
                             PictureUtil.captureCode(mContext);
 
                             break;
-                        case "附近":
-                            LocationMapActivity.startLocationMapActivity(mContext);
+                        case "明信片":
+                            CardListActivity.startCardListActivity(mContext);
 
                             break;
-                        case "设置":
+                        case "指纹与密码":
                             DataUtils.savePhoneList();
                             TouchSettingActivity.startSettingTouchActivity(mContext);
 
@@ -172,7 +173,7 @@ public class PostCardActivity extends BaseActivity {
                 }
             });
         }
-        mPostCartPop.showPopWindow(img_more, new String[]{"扫一扫", "附近", "设置"});
+        mPostCartPop.showPopWindow(img_more, new String[]{"扫一扫", "明信片", "指纹与密码"});
 
     }
 
@@ -236,7 +237,17 @@ public class PostCardActivity extends BaseActivity {
         switch (requestCode) {
             case CaptureActivity.REQ_CODE:
                 String str = data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
-                WebViewActivity.startWebViewActivity(mContext, str);
+                String[] dateS = str.split("###");
+                if (dateS.length > 1) {
+                    String encodeStr = Base64Utils.decode(dateS[1]);
+                    PhoneBean mPhoneBean = GsonUtils.jsonToBean(encodeStr, PhoneBean.class);
+                    PCardDetailActivity.startPCardDetailActivity(mContext, mPhoneBean);
+
+                } else {
+                    WebViewActivity.startWebViewActivity(mContext, str);
+
+                }
+
 
                 break;
         }

@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 
 import com.old.time.R;
 import com.old.time.constants.Code;
-import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.SuspensionPopupWindow;

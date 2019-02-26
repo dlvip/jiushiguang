@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.Base64Utils;
 import com.old.time.utils.DataUtils;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.PhoneUtils;
@@ -129,7 +131,7 @@ public class PCardDetailActivity extends BaseActivity {
 
                 break;
             case R.id.relative_layout_more:
-                RQCodeActivity.startRQCodeActivity(mContext);
+                RQCodeActivity.startRQCodeActivity(mContext, Base64Utils.encodeToString(mPhoneBean));
 
                 break;
         }

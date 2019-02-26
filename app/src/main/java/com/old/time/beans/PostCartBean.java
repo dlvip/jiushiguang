@@ -8,15 +8,20 @@ public class PostCartBean {
         return new PostCartBean(codeKey, phoneBeans);
     }
 
-    public PostCartBean(String codeKey, List<PhoneBean> phoneBeans) {
+    private PostCartBean(String codeKey, List<PhoneBean> phoneBeans) {
         this.codeKey = codeKey;
         this.phoneBeans = phoneBeans;
+
     }
 
-    private int colorRes;
-
+    /**
+     * 首字母
+     */
     private String codeKey;
 
+    /**
+     * 首字母归类列表
+     */
     private List<PhoneBean> phoneBeans;
 
     public List<PhoneBean> getPhoneBeans() {
