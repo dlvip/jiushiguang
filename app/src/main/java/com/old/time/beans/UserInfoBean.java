@@ -27,14 +27,14 @@ public class UserInfoBean implements Serializable {
 
     private String vocation;
 
-    private int goodsCount;
+    private String token;
 
-    public int getGoodsCount() {
-        return goodsCount;
+    public String getToken() {
+        return token;
     }
 
-    public void setGoodsCount(int goodsCount) {
-        this.goodsCount = goodsCount;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getId() {

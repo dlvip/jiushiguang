@@ -173,7 +173,6 @@
         <activity android:name=".activitys.CreateBannerActivity" />
         <activity android:name=".activitys.GoodsCActivity" />
         <activity android:name=".activitys.CreateGoodsActivity" />
-        <activity android:name=".activitys.SearchActivity" />
         <activity android:name=".activitys.FArticleActivity" />
         <activity android:name=".activitys.MusicDetailActivity" />
         <activity android:name=".activitys.VideosActivity" />

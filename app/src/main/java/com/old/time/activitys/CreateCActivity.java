@@ -42,7 +42,6 @@ public class CreateCActivity extends BaseCActivity {
         createBeans.add(CreateBean.getInstance("添加轮播", CreateBannerActivity.class));
         createBeans.add(CreateBean.getInstance("添加宝贝", CreateGoodsActivity.class));
         createBeans.add(CreateBean.getInstance("显示宝贝", GoodsCActivity.class));
-        createBeans.add(CreateBean.getInstance("搜索用户", SearchActivity.class));
 
         adapter = new BaseQuickAdapter<CreateBean, BaseViewHolder>(R.layout.dialog_manager_item, createBeans) {
             @Override

@@ -15,7 +15,7 @@ import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.beans.ResultBean;
-import com.old.time.beans.RongTokenBean;
+import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Constant;
 import com.old.time.loadsirs.core.LoadSir;
 import com.old.time.loadsirs.customs.EmptyCallback;
@@ -28,6 +28,8 @@ import com.old.time.task.TaskManager;
 import com.old.time.utils.ASRUtil;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.PhoneInfoUtils;
+import com.old.time.utils.SpUtils;
+import com.old.time.utils.UserLocalInfoUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.smtt.sdk.QbSdk;
@@ -78,19 +80,20 @@ public class MyApplication extends MultiDexApplication {
     private void getUserRongToken() {
         HttpParams params = new HttpParams();
         params.put("userId", PhoneInfoUtils.instance().getNativePhoneNumber(mContext));
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_RONG_TOKEN, new JsonCallBack<ResultBean<RongTokenBean>>() {
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_RONG_TOKEN, new JsonCallBack<ResultBean<UserInfoBean>>() {
             @Override
-            public void onSuccess(ResultBean<RongTokenBean> mResultBean) {
-                if (mResultBean == null || mResultBean.data == null || TextUtils.isEmpty(mResultBean.data.getRtcToken())) {
+            public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
+                if (mResultBean == null || mResultBean.data == null || TextUtils.isEmpty(mResultBean.data.getToken())) {
 
                     return;
                 }
-                mRongInit(mResultBean.data.getRtcToken());
+                UserLocalInfoUtils.instance().setmUserInfoBean(mResultBean.data);
+                mRongInit(mResultBean.data.getToken());
 
             }
 
             @Override
-            public void onError(ResultBean<RongTokenBean> mResultBean) {
+            public void onError(ResultBean<UserInfoBean> mResultBean) {
                 DebugLog.d(TAG, mResultBean.msg);
 
             }

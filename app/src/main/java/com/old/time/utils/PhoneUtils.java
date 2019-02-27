@@ -13,6 +13,7 @@ import com.lzy.okgo.model.HttpParams;
 import com.old.time.beans.PhoneApiBean;
 import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
+import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
@@ -38,7 +39,7 @@ public class PhoneUtils {
             "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400082.jpg",//
             "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215504598400164.jpg"};
 
-    public static List<PhoneBean> getPhoneNumberFromMobile(Context context) {
+    public static void getPhoneNumberFromMobile(Context context, OnPhoneBeanResultListener onPhoneBeanResultListener) {
         List<PhoneBean> list = new ArrayList<>();
         List<String> strings = new ArrayList<>();
         Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI//
@@ -59,7 +60,6 @@ public class PhoneUtils {
                     PhoneBean phoneBean = new PhoneBean(name, number, sortKey, photos[Integer.parseInt(number.substring(10))], Id);
                     list.add(phoneBean);
                     strings.add(name);
-                    DebugLog.d("phoneBean:===>", phoneBean.toString());
 
                 } else {
                     int position = strings.indexOf(name);
@@ -70,28 +70,99 @@ public class PhoneUtils {
             }
         }
         cursor.close();
-        // 排序
-        Collections.sort(list, new Comparator<PhoneBean>() {
+        getPhoneBeanList(list, onPhoneBeanResultListener);
+    }
 
+    /**
+     * 获取手机用户线上通讯录列表
+     */
+    private static void getPhoneBeanList(final List<PhoneBean> list, final OnPhoneBeanResultListener onPhoneBeanResultListener) {
+        HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_PHONE_BEAN_LIST, new JsonCallBack<ResultBean<List<PhoneBean>>>() {
             @Override
-            public int compare(PhoneBean lhs, PhoneBean rhs) {
-                if (lhs.getName().equals(rhs.getName())) {
+            public void onSuccess(ResultBean<List<PhoneBean>> mResultBean) {
+                if (mResultBean == null || mResultBean.data == null) {
+                    onPhoneBeanResultListener.onPhoneBeanList(list);
 
-                    return lhs.getSortKey().compareTo(rhs.getSortKey());
                 } else {
-                    if ("#".equals(lhs.getSortKey())) {
+                    List<PhoneBean> phoneBeanList = new ArrayList<>();
+                    for (PhoneBean phoneBean : mResultBean.data) {
+                        for (PhoneBean mPhoneBean : list) {
+                            if (phoneBean.getName().equals(mPhoneBean.getName())) {
+                                if (!phoneBean.getNumber().contains(mPhoneBean.getNumber())//
+                                        && !mPhoneBean.getNumber().contains(phoneBean.getNumber())) {
+                                    phoneBean.setNumber(phoneBean.getNumber() + "," + mPhoneBean.getNumber());
 
-                        return 1;
-                    } else if ("#".equals(rhs.getSortKey())) {
+                                }
+                            } else {
+                                phoneBeanList.add(mPhoneBean);
 
-                        return -1;
+                            }
+                        }
+                        phoneBeanList.add(phoneBean);
                     }
-                    return lhs.getSortKey().compareTo(rhs.getSortKey());
+                    // 排序
+                    Collections.sort(phoneBeanList, new Comparator<PhoneBean>() {
+
+                        @Override
+                        public int compare(PhoneBean lhs, PhoneBean rhs) {
+                            if (lhs.getName().equals(rhs.getName())) {
+
+                                return lhs.getSortKey().compareTo(rhs.getSortKey());
+                            } else {
+                                if ("#".equals(lhs.getSortKey())) {
+
+                                    return 1;
+                                } else if ("#".equals(rhs.getSortKey())) {
+
+                                    return -1;
+                                }
+                                return lhs.getSortKey().compareTo(rhs.getSortKey());
+                            }
+                        }
+                    });
+                    onPhoneBeanResultListener.onPhoneBeanList(phoneBeanList);
                 }
             }
-        });
 
-        return list;
+            @Override
+            public void onError(ResultBean<List<PhoneBean>> mResultBean) {
+                onPhoneBeanResultListener.onPhoneBeanList(list);
+
+            }
+        });
+    }
+
+    /**
+     * 保存通讯录
+     *
+     * @param phoneBeanList
+     */
+    public static void savePhoneBeanLIst(List<PhoneBean> phoneBeanList) {
+        if (phoneBeanList == null || phoneBeanList.size() == 0) {
+
+            return;
+        }
+        HttpParams params = new HttpParams();
+        params.put("", new Gson().toJson(phoneBeanList));
+        OkGoUtils.getInstance().postNetForData(params, Constant.SAVE_PHONE_BEAN_LIST, new JsonCallBack<ResultBean>() {
+            @Override
+            public void onSuccess(ResultBean mResultBean) {
+
+            }
+
+            @Override
+            public void onError(ResultBean mResultBean) {
+
+            }
+        });
+    }
+
+    public interface OnPhoneBeanResultListener {
+
+        void onPhoneBeanList(List<PhoneBean> phoneBeans);
+
     }
 
     private static List<String> nums = new ArrayList<>();

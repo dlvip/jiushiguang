@@ -28,6 +28,8 @@ public class Constant {
     public static final int ALIYPHOTO_CALLBACK_SUCCESS = 0x000009; //阿里照片上传返回码：成功
     public static final int ALIYPHOTO_CALLBACK_FILED = 0x000010; //阿里照片上传返回码:失败
 
+    public static final String USER_INFO_KEY = "UserInfoKey";
+
     //线程名称
     public static final String IMAGEDOWNLOAD_THREAD_NAME = "ImageDownLoad";
 
@@ -68,6 +70,12 @@ public class Constant {
 
     //保存快递信息
     public static final String GET_FAST_MAIL_LIST = BASE_TEST_URL + "fastMail/getFastMailList";
+
+    //保存通讯录
+    public static final String SAVE_PHONE_BEAN_LIST = BASE_TEST_URL + "phone/savePhoneBeanList";
+
+    //获取通讯录
+    public static final String GET_PHONE_BEAN_LIST = BASE_TEST_URL + "phone/getPhoneBeanList";
 
     //保存归属地列表
     public static String SAVE_PHONE_LIST = BASE_TEST_URL + "phone/savePhoneList";

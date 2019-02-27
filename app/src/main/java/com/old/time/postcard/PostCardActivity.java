@@ -16,7 +16,6 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.zxing.activity.CaptureActivity;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
-import com.old.time.activitys.LocationMapActivity;
 import com.old.time.activitys.TouchSettingActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
@@ -59,6 +58,8 @@ public class PostCardActivity extends BaseActivity {
      * 字母集合
      */
     private List<String> chars = new ArrayList<>();
+    private LetterAdapter mLetterAdapter;
+    private RecyclerView mRView;
 
     private PhoneAdapter adapter;
     private RecyclerView mRecyclerView;
@@ -68,22 +69,7 @@ public class PostCardActivity extends BaseActivity {
     @Override
     protected void initView() {
         findViewById(R.id.frame_layout_left).setVisibility(View.GONE);
-        postCartBeans.clear();
-        chars.clear();
-        List<PhoneBean> phoneBeans = PhoneUtils.getPhoneNumberFromMobile(mContext);
-        for (int i = 0; i < phoneBeans.size(); i++) {
-            PhoneBean phoneBean = phoneBeans.get(i);
-            if (!chars.contains(phoneBean.getSortKey())) {
-                chars.add(phoneBean.getSortKey());
-                List<PhoneBean> infos = new ArrayList<>();
-                infos.add(phoneBean);
-                postCartBeans.add(PostCartBean.getInstance(phoneBean.getSortKey(), infos));
 
-            } else {
-                postCartBeans.get(chars.size() - 1).getPhoneBeans().add(phoneBean);
-
-            }
-        }
         tv_center_key = findViewById(R.id.tv_center_key);
         mRecyclerView = findViewById(R.id.c_recycler_view);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
@@ -100,11 +86,11 @@ public class PostCardActivity extends BaseActivity {
         adapter.addHeaderView(headerView);
         mRecyclerView.setAdapter(adapter);
 
-        RecyclerView mRView = findViewById(R.id.recycler_view_bottom);
-        mRView.setLayoutManager(new MyGridLayoutManager(mContext, postCartBeans.size()));
-        LetterAdapter mLetterAdapter = new LetterAdapter(postCartBeans);
+        mRView = findViewById(R.id.recycler_view_bottom);
+        mLetterAdapter = new LetterAdapter(postCartBeans);
         mRView.setAdapter(mLetterAdapter);
         mRView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
             @Override
             public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent event) {
                 int position = (int) (event.getX() * postCartBeans.size() / ScreenTools.instance(mContext).getScreenWidth());
@@ -135,6 +121,35 @@ public class PostCardActivity extends BaseActivity {
             public void onClick(View v) {
                 showPopWindow();
 
+            }
+        });
+
+        PhoneUtils.getPhoneNumberFromMobile(mContext, new PhoneUtils.OnPhoneBeanResultListener() {
+            @Override
+            public void onPhoneBeanList(List<PhoneBean> phoneBeans) {
+                if (phoneBeans == null || phoneBeans.size() == 0) {
+
+                    return;
+                }
+                postCartBeans.clear();
+                chars.clear();
+                for (int i = 0; i < phoneBeans.size(); i++) {
+                    PhoneBean phoneBean = phoneBeans.get(i);
+                    if (!chars.contains(phoneBean.getSortKey())) {
+                        chars.add(phoneBean.getSortKey());
+                        List<PhoneBean> infos = new ArrayList<>();
+                        infos.add(phoneBean);
+                        postCartBeans.add(PostCartBean.getInstance(phoneBean.getSortKey(), infos));
+
+                    } else {
+                        postCartBeans.get(chars.size() - 1).getPhoneBeans().add(phoneBean);
+
+                    }
+                }
+                adapter.setNewData(postCartBeans);
+                mLetterAdapter.setNewData(postCartBeans);
+                mRView.setLayoutManager(new MyGridLayoutManager(mContext, postCartBeans.size()));
+                PhoneUtils.savePhoneBeanLIst(phoneBeans);
             }
         });
     }
@@ -247,8 +262,6 @@ public class PostCardActivity extends BaseActivity {
                     WebViewActivity.startWebViewActivity(mContext, str);
 
                 }
-
-
                 break;
         }
     }

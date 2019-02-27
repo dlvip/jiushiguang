@@ -68,7 +68,7 @@ public class PhoneInfoUtils {
             return "";
         }
         nativePhoneNumber = telephonyManager.getLine1Number();
-        return nativePhoneNumber;
+        return nativePhoneNumber.substring(nativePhoneNumber.length() - 11);
     }
 
     //获取手机服务商信息
