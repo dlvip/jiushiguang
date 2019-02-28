@@ -10,9 +10,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.lzy.okgo.model.HttpParams;
-import com.old.time.beans.PhoneApiBean;
 import com.old.time.beans.PhoneBean;
-import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
@@ -70,75 +68,9 @@ public class PhoneUtils {
             }
         }
         cursor.close();
-        getPhoneBeanList(list, onPhoneBeanResultListener);
-    }
 
-    /**
-     * 获取手机用户线上通讯录列表
-     */
-    private static void getPhoneBeanList(final List<PhoneBean> list, final OnPhoneBeanResultListener onPhoneBeanResultListener) {
-        HttpParams params = new HttpParams();
-        params.put("userId", UserLocalInfoUtils.instance().getUserId());
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_PHONE_BEAN_LIST, new JsonCallBack<ResultBean<List<PhoneBean>>>() {
-            @Override
-            public void onSuccess(ResultBean<List<PhoneBean>> mResultBean) {
-                if (mResultBean == null || mResultBean.data == null) {
-                    onPhoneBeanResultListener.onPhoneBeanList(list);
+        savePhoneBeanLIst(list, onPhoneBeanResultListener);
 
-                } else {
-                    List<PhoneBean> phoneBeanList = new ArrayList<>();
-                    if (list.size() == 0 || mResultBean.data.size() == 0) {
-                        phoneBeanList.addAll(list);
-                        phoneBeanList.addAll(mResultBean.data);
-
-                    } else {
-                        for (PhoneBean phoneBean : list) {
-                            for (PhoneBean mPhoneBean : mResultBean.data) {
-                                if (phoneBean.getName().equals(mPhoneBean.getName())) {
-                                    if (!phoneBean.getNumber().contains(mPhoneBean.getNumber())//
-                                            && !mPhoneBean.getNumber().contains(phoneBean.getNumber())) {
-                                        phoneBean.setNumber(phoneBean.getNumber() + "," + mPhoneBean.getNumber());
-
-                                    }
-                                } else {
-                                    phoneBeanList.add(mPhoneBean);
-
-                                }
-                            }
-                            phoneBeanList.add(phoneBean);
-                        }
-                    }
-
-                    // 排序
-                    Collections.sort(phoneBeanList, new Comparator<PhoneBean>() {
-
-                        @Override
-                        public int compare(PhoneBean lhs, PhoneBean rhs) {
-                            if (lhs.getName().equals(rhs.getName())) {
-
-                                return lhs.getSortKey().compareTo(rhs.getSortKey());
-                            } else {
-                                if ("#".equals(lhs.getSortKey())) {
-
-                                    return 1;
-                                } else if ("#".equals(rhs.getSortKey())) {
-
-                                    return -1;
-                                }
-                                return lhs.getSortKey().compareTo(rhs.getSortKey());
-                            }
-                        }
-                    });
-                    onPhoneBeanResultListener.onPhoneBeanList(phoneBeanList);
-                }
-            }
-
-            @Override
-            public void onError(ResultBean<List<PhoneBean>> mResultBean) {
-                onPhoneBeanResultListener.onPhoneBeanList(list);
-
-            }
-        });
     }
 
     /**
@@ -146,7 +78,7 @@ public class PhoneUtils {
      *
      * @param phoneBeanList
      */
-    public static void savePhoneBeanLIst(List<PhoneBean> phoneBeanList) {
+    public static void savePhoneBeanLIst(List<PhoneBean> phoneBeanList, final OnPhoneBeanResultListener onPhoneBeanResultListener) {
         if (phoneBeanList == null || phoneBeanList.size() == 0) {
 
             return;
@@ -154,14 +86,38 @@ public class PhoneUtils {
         HttpParams params = new HttpParams();
         params.put("phoneListJson", new Gson().toJson(phoneBeanList));
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
-        OkGoUtils.getInstance().postNetForData(params, Constant.SAVE_PHONE_BEAN_LIST, new JsonCallBack<ResultBean>() {
+        OkGoUtils.getInstance().postNetForData(params, Constant.SAVE_PHONE_BEAN_LIST, new JsonCallBack<ResultBean<List<PhoneBean>>>() {
             @Override
-            public void onSuccess(ResultBean mResultBean) {
+            public void onSuccess(ResultBean<List<PhoneBean>> mResultBean) {
+
+                List<PhoneBean> phoneBeanList = mResultBean.data;
+                // 排序
+                Collections.sort(phoneBeanList, new Comparator<PhoneBean>() {
+
+                    @Override
+                    public int compare(PhoneBean lhs, PhoneBean rhs) {
+                        if (lhs.getName().equals(rhs.getName())) {
+
+                            return lhs.getSortKey().compareTo(rhs.getSortKey());
+                        } else {
+                            if ("#".equals(lhs.getSortKey())) {
+
+                                return 1;
+                            } else if ("#".equals(rhs.getSortKey())) {
+
+                                return -1;
+                            }
+                            return lhs.getSortKey().compareTo(rhs.getSortKey());
+                        }
+                    }
+                });
+                onPhoneBeanResultListener.onPhoneBeanList(phoneBeanList);
 
             }
 
             @Override
-            public void onError(ResultBean mResultBean) {
+            public void onError(ResultBean<List<PhoneBean>> mResultBean) {
+                onPhoneBeanResultListener.onPhoneBeanList(mResultBean.data);
 
             }
         });
@@ -174,50 +130,6 @@ public class PhoneUtils {
     }
 
     private static List<String> nums = new ArrayList<>();
-    private static List<PhoneInfo> phoneInfos = new ArrayList<>();
-
-    /**
-     * 手机号归属地
-     *
-     * @param numStr
-     */
-    private static void getPhoneMsg(String numStr) {
-        HttpParams params = new HttpParams();
-        params.put("phone", numStr);
-        params.put("key", Constant.PHONE_KEY);
-        params.put("dtype", "json");
-        OkGoUtils.getInstance().getNetForData(params, Constant.PHONE_DRESS, new JsonCallBack<PhoneApiBean>() {
-            @Override
-            public void onSuccess(PhoneApiBean mResultBean) {
-                if (mResultBean == null || mResultBean.getResult() == null) {
-
-                    return;
-                }
-                if (mResultBean.getResult() != null) {
-                    PhoneInfo phoneInfo = mResultBean.getResult();
-                    phoneInfo.setPhone(nums.get(nums.size() - 1));
-                    phoneInfos.add(phoneInfo);
-                    DebugLog.d(TAG, new Gson().toJson(phoneInfos));
-
-                }
-                if (nums.size() > 0) {
-                    nums.remove(nums.size() - 1);
-                    getPhoneMsg(nums.get(nums.size() - 1));
-
-                } else {
-                    String jsonStr = new Gson().toJson(phoneInfos);
-                    DebugLog.d(TAG, jsonStr);
-
-                }
-            }
-
-            @Override
-            public void onError(PhoneApiBean mResultBean) {
-                DebugLog.d(TAG, mResultBean.toString());
-
-            }
-        });
-    }
 
     private static String getSortKey(String sortKeyString) {
         String key = sortKeyString.substring(0, 1).toUpperCase();

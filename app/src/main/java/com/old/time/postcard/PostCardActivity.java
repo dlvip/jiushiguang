@@ -157,7 +157,6 @@ public class PostCardActivity extends BaseActivity {
                 adapter.setNewData(postCartBeans);
                 mLetterAdapter.setNewData(postCartBeans);
                 mRView.setLayoutManager(new MyGridLayoutManager(mContext, postCartBeans.size()));
-                PhoneUtils.savePhoneBeanLIst(phoneBeans);
             }
         });
     }

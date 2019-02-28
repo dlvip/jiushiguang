@@ -74,9 +74,6 @@ public class Constant {
     //保存通讯录
     public static final String SAVE_PHONE_BEAN_LIST = BASE_TEST_URL + "phone/savePhoneBeanList";
 
-    //获取通讯录
-    public static final String GET_PHONE_BEAN_LIST = BASE_TEST_URL + "phone/getPhoneBeanList";
-
     //保存归属地列表
     public static String SAVE_PHONE_LIST = BASE_TEST_URL + "phone/savePhoneList";
 
