@@ -1,0 +1,65 @@
+package com.old.time.utils;
+
+import android.text.TextUtils;
+
+import com.lzy.okgo.model.HttpParams;
+import com.old.time.MyApplication;
+import com.old.time.beans.ResultBean;
+import com.old.time.beans.UserInfoBean;
+import com.old.time.constants.Constant;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+
+public class RongIMUtils {
+
+    private static final String TAG = "RongIMUtils";
+
+    /**
+     * 初始化融云
+     */
+    public static void initRongIM() {
+        HttpParams params = new HttpParams();
+        params.put("userId", PhoneInfoUtils.instance().getNativePhoneNumber(MyApplication.getInstance()));
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_RONG_TOKEN, new JsonCallBack<ResultBean<UserInfoBean>>() {
+            @Override
+            public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
+                if (mResultBean == null || mResultBean.data == null || TextUtils.isEmpty(mResultBean.data.getToken())) {
+
+                    return;
+                }
+                UserLocalInfoUtils.instance().setmUserInfoBean(mResultBean.data);
+                //融云初始化
+                RongIM.init(MyApplication.getInstance());
+                RongIM.connect(mResultBean.data.getToken(), new RongIMClient.ConnectCallback() {
+
+                    @Override
+                    public void onTokenIncorrect() {
+                        DebugLog.d(TAG, "onTokenIncorrect");
+
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        DebugLog.d(TAG, "onSuccess-用户名：" + s);
+
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+                        DebugLog.d(TAG, "onError-错误信息：" + errorCode);
+
+                    }
+                });
+            }
+
+            @Override
+            public void onError(ResultBean<UserInfoBean> mResultBean) {
+                DebugLog.d(TAG, mResultBean.msg);
+
+            }
+        });
+    }
+}

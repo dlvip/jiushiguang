@@ -87,21 +87,28 @@ public class PhoneUtils {
 
                 } else {
                     List<PhoneBean> phoneBeanList = new ArrayList<>();
-                    for (PhoneBean phoneBean : mResultBean.data) {
-                        for (PhoneBean mPhoneBean : list) {
-                            if (phoneBean.getName().equals(mPhoneBean.getName())) {
-                                if (!phoneBean.getNumber().contains(mPhoneBean.getNumber())//
-                                        && !mPhoneBean.getNumber().contains(phoneBean.getNumber())) {
-                                    phoneBean.setNumber(phoneBean.getNumber() + "," + mPhoneBean.getNumber());
+                    if (list.size() == 0 || mResultBean.data.size() == 0) {
+                        phoneBeanList.addAll(list);
+                        phoneBeanList.addAll(mResultBean.data);
+
+                    } else {
+                        for (PhoneBean phoneBean : list) {
+                            for (PhoneBean mPhoneBean : mResultBean.data) {
+                                if (phoneBean.getName().equals(mPhoneBean.getName())) {
+                                    if (!phoneBean.getNumber().contains(mPhoneBean.getNumber())//
+                                            && !mPhoneBean.getNumber().contains(phoneBean.getNumber())) {
+                                        phoneBean.setNumber(phoneBean.getNumber() + "," + mPhoneBean.getNumber());
+
+                                    }
+                                } else {
+                                    phoneBeanList.add(mPhoneBean);
 
                                 }
-                            } else {
-                                phoneBeanList.add(mPhoneBean);
-
                             }
+                            phoneBeanList.add(phoneBean);
                         }
-                        phoneBeanList.add(phoneBean);
                     }
+
                     // 排序
                     Collections.sort(phoneBeanList, new Comparator<PhoneBean>() {
 
@@ -145,7 +152,8 @@ public class PhoneUtils {
             return;
         }
         HttpParams params = new HttpParams();
-        params.put("", new Gson().toJson(phoneBeanList));
+        params.put("phoneListJson", new Gson().toJson(phoneBeanList));
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
         OkGoUtils.getInstance().postNetForData(params, Constant.SAVE_PHONE_BEAN_LIST, new JsonCallBack<ResultBean>() {
             @Override
             public void onSuccess(ResultBean mResultBean) {

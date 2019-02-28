@@ -32,6 +32,8 @@ import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
+import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,12 @@ public class PostCardActivity extends BaseActivity {
      * @param mContext
      */
     public static void startPostCardActivity(Context mContext) {
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UIHelper.ToastMessage(mContext, "请检查网络，退出重试");
+            ActivityUtils.finishActivity((Activity) mContext);
+
+            return;
+        }
         Intent intent = new Intent(mContext, PostCardActivity.class);
         ActivityUtils.startActivity((Activity) mContext, intent);
         ActivityUtils.finishActivity((Activity) mContext);
