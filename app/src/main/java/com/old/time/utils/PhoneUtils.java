@@ -86,7 +86,7 @@ public class PhoneUtils {
         HttpParams params = new HttpParams();
         params.put("phoneListJson", new Gson().toJson(phoneBeanList));
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
-        OkGoUtils.getInstance().postNetForData(params, Constant.SAVE_PHONE_BEAN_LIST, new JsonCallBack<ResultBean<List<PhoneBean>>>() {
+        OkGoUtils.getInstance().postNetForData(UserLocalInfoUtils.instance().getUserId(), params, Constant.SAVE_PHONE_BEAN_LIST, new JsonCallBack<ResultBean<List<PhoneBean>>>() {
             @Override
             public void onSuccess(ResultBean<List<PhoneBean>> mResultBean) {
 

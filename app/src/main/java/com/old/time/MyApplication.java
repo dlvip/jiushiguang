@@ -3,7 +3,6 @@ package com.old.time;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
-import android.text.TextUtils;
 
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
@@ -14,23 +13,16 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
-import com.old.time.beans.ResultBean;
-import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Constant;
 import com.old.time.loadsirs.core.LoadSir;
 import com.old.time.loadsirs.customs.EmptyCallback;
 import com.old.time.loadsirs.customs.ErrorCallback;
 import com.old.time.loadsirs.customs.LoadingCallback;
-import com.old.time.okhttps.JsonCallBack;
-import com.old.time.okhttps.OkGoUtils;
 import com.old.time.task.ReadClient;
 import com.old.time.task.TaskManager;
 import com.old.time.utils.ASRUtil;
 import com.old.time.utils.DebugLog;
-import com.old.time.utils.PhoneInfoUtils;
 import com.old.time.utils.RongIMUtils;
-import com.old.time.utils.SpUtils;
-import com.old.time.utils.UserLocalInfoUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.smtt.sdk.QbSdk;
@@ -44,8 +36,6 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
 
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 import okhttp3.OkHttpClient;
 
 /**

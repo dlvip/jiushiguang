@@ -112,6 +112,7 @@ public class PCardDetailActivity extends BaseActivity {
             @Override
             public void onError(ResultBean<List<PhoneInfo>> mResultBean) {
                 UIHelper.ToastMessage(mContext, mResultBean.msg);
+                ActivityUtils.finishActivity(mContext);
 
             }
         });

@@ -78,19 +78,6 @@ public class SplishActivity extends BaseActivity {
 
         startClock();
 
-        OkGoUtils.getInstance().postNetForData(Constant.ADD_VIDEO, new JsonCallBack<ResultBean>() {
-            @Override
-            public void onSuccess(ResultBean mResultBean) {
-
-
-            }
-
-            @Override
-            public void onError(ResultBean mResultBean) {
-
-
-            }
-        });
     }
 
     /**

@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 
 import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
-import com.old.time.beans.PhoneBean;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.BitmapUtils;
 import com.old.time.utils.DebugLog;
@@ -51,6 +50,7 @@ public class RQCodeActivity extends BaseActivity {
         img_code_pic.setLayoutParams(params);
         img_code_pic.setImageBitmap(ImageFindQrUtils.createQRCode(baseStr, UIHelper.dip2px(300)));
         findViewById(R.id.tv_save_pic).setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Uri uri = BitmapUtils.saveBitmap(mContext, linear_layout_parent);
