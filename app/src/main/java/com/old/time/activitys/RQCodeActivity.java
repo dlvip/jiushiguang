@@ -54,13 +54,10 @@ public class RQCodeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Uri uri = BitmapUtils.saveBitmap(mContext, linear_layout_parent);
-                DebugLog.d(TAG, uri.getPath());
-                UIHelper.ToastMessage(mContext, "保存成功");
-                ///storage/emulated/0/Pictures/觅邮/1550632689371.jpg
-                //Intent imageIntent = new Intent(Intent.ACTION_SEND);
-                //imageIntent.setType("image/jpeg");
-                //imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                //startActivity(Intent.createChooser(imageIntent, "分享"));
+                Intent imageIntent = new Intent(Intent.ACTION_SEND);
+                imageIntent.setType("image/*");
+                imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                startActivity(Intent.createChooser(imageIntent, "分享"));
 
             }
         });

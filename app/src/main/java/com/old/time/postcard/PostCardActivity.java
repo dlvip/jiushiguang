@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.zxing.activity.CaptureActivity;
+import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.TouchSettingActivity;
@@ -259,7 +260,7 @@ public class PostCardActivity extends BaseActivity {
         switch (requestCode) {
             case CaptureActivity.REQ_CODE:
                 String str = data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
-                String[] dateS = str.split("###");
+                String[] dateS = str.split(ImageFindQrUtils.SPLIT_KEY);
                 if (dateS.length > 1) {
                     String encodeStr = Base64Utils.decode(dateS[1]);
                     PhoneBean mPhoneBean = GsonUtils.jsonToBean(encodeStr, PhoneBean.class);

@@ -3,8 +3,11 @@ package com.old.time.glideUtils;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 
+import com.old.time.BuildConfig;
 import com.old.time.MyApplication;
 import com.old.time.R;
 import com.old.time.constants.Constant;
@@ -55,7 +58,8 @@ public class GlideDealUtils {
     private static File currentFile;
 
     public static Uri saveImageToGallery(Bitmap bmp) {
-        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile();//注意小米手机必须这样获得public绝对路径
+        //注意小米手机必须这样获得public绝对路径
+        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile();
         File appDir = new File(file, MyApplication.getInstance().getResources().getString(R.string.app_name));
         if (!appDir.exists()) {
             appDir.mkdirs();
@@ -69,10 +73,13 @@ public class GlideDealUtils {
             fos = new FileOutputStream(currentFile);
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+
         } catch (IOException e) {
             e.printStackTrace();
+
         } finally {
             try {
                 if (fos != null) {
@@ -81,7 +88,16 @@ public class GlideDealUtils {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            uri = Uri.fromFile(new File(currentFile.getPath()));
+            File photoFile = new File(currentFile.getPath());
+            // 7.0和以上版本的系统要通过 FileProvider 创建一个 content 类型的 Uri
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                String packageName = BuildConfig.APPLICATION_ID + ".fileProvider";
+                uri = FileProvider.getUriForFile(MyApplication.getInstance(), packageName, photoFile);
+
+            } else {
+                uri = Uri.fromFile(photoFile);
+
+            }
             // 最后通知图库更新---刷新手机相册
             MyApplication.getInstance().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
         }

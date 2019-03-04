@@ -96,11 +96,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/layout_25"
+        android:background="@drawable/shape_radius0_stroke_line_bgfff"
         android:gravity="center"
-        android:padding="@dimen/layout_10"
-        android:text="保存到手机"
+        android:paddingBottom="@dimen/layout_15"
+        android:paddingTop="@dimen/layout_15"
+        android:text="保存并分享"
         android:textColor="@color/color_000"
-        android:textSize="@dimen/text_14"
+        android:textSize="@dimen/text_16"
         android:textStyle="normal" />
 
 </RelativeLayout>
