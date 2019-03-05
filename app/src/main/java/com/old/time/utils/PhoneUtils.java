@@ -55,7 +55,7 @@ public class PhoneUtils {
             if (!TextUtils.isEmpty(number) && number.length() == 11) {
                 nums.add(number);
                 if (!strings.contains(name)) {
-                    PhoneBean phoneBean = new PhoneBean(name, number, sortKey, photos[Integer.parseInt(number.substring(10))], Id);
+                    PhoneBean phoneBean = new PhoneBean(name, number, sortKey, photos[Integer.parseInt(number.substring(10))]);
                     list.add(phoneBean);
                     strings.add(name);
 
@@ -86,41 +86,42 @@ public class PhoneUtils {
         HttpParams params = new HttpParams();
         params.put("phoneListJson", new Gson().toJson(phoneBeanList));
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
-        OkGoUtils.getInstance().postNetForData(UserLocalInfoUtils.instance().getUserId(), params, Constant.SAVE_PHONE_BEAN_LIST, new JsonCallBack<ResultBean<List<PhoneBean>>>() {
-            @Override
-            public void onSuccess(ResultBean<List<PhoneBean>> mResultBean) {
+        OkGoUtils.getInstance().postNetForData(UserLocalInfoUtils.instance().getUserId(), params, Constant.SAVE_PHONE_BEAN_LIST//
+                , new JsonCallBack<ResultBean<List<PhoneBean>>>() {
+                    @Override
+                    public void onSuccess(ResultBean<List<PhoneBean>> mResultBean) {
 
-                List<PhoneBean> phoneBeanList = mResultBean.data;
-                // 排序
-                Collections.sort(phoneBeanList, new Comparator<PhoneBean>() {
+                        List<PhoneBean> phoneBeanList = mResultBean.data;
+                        // 排序
+                        Collections.sort(phoneBeanList, new Comparator<PhoneBean>() {
+
+                            @Override
+                            public int compare(PhoneBean lhs, PhoneBean rhs) {
+                                if (lhs.getName().equals(rhs.getName())) {
+
+                                    return lhs.getSortKey().compareTo(rhs.getSortKey());
+                                } else {
+                                    if ("#".equals(lhs.getSortKey())) {
+
+                                        return 1;
+                                    } else if ("#".equals(rhs.getSortKey())) {
+
+                                        return -1;
+                                    }
+                                    return lhs.getSortKey().compareTo(rhs.getSortKey());
+                                }
+                            }
+                        });
+                        onPhoneBeanResultListener.onPhoneBeanList(phoneBeanList);
+
+                    }
 
                     @Override
-                    public int compare(PhoneBean lhs, PhoneBean rhs) {
-                        if (lhs.getName().equals(rhs.getName())) {
+                    public void onError(ResultBean<List<PhoneBean>> mResultBean) {
+                        onPhoneBeanResultListener.onPhoneBeanList(mResultBean.data);
 
-                            return lhs.getSortKey().compareTo(rhs.getSortKey());
-                        } else {
-                            if ("#".equals(lhs.getSortKey())) {
-
-                                return 1;
-                            } else if ("#".equals(rhs.getSortKey())) {
-
-                                return -1;
-                            }
-                            return lhs.getSortKey().compareTo(rhs.getSortKey());
-                        }
                     }
                 });
-                onPhoneBeanResultListener.onPhoneBeanList(phoneBeanList);
-
-            }
-
-            @Override
-            public void onError(ResultBean<List<PhoneBean>> mResultBean) {
-                onPhoneBeanResultListener.onPhoneBeanList(mResultBean.data);
-
-            }
-        });
     }
 
     public interface OnPhoneBeanResultListener {

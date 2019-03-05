@@ -12,12 +12,11 @@ public class PhoneBean implements Serializable {
     private String sortKey;
     private int id;
 
-    public PhoneBean(String name, String number, String sortKey, String photo, int id) {
+    public PhoneBean(String name, String number, String sortKey, String photo) {
         this.name = name;
         this.number = number;
         this.sortKey = sortKey;
         this.photo = photo;
-        this.id = id;
 
     }
 

@@ -165,6 +165,7 @@ public class PCardDetailActivity extends BaseActivity {
     private void showVideoAndVoiceDialog() {
         if (dialogListManager == null) {
             dialogListManager = new DialogListManager(mContext, new OnClickManagerCallBack() {
+
                 @Override
                 public void onClickRankManagerCallBack(int position, String typeName) {
                     String phone = mPhoneBean.getNumber().split(",")[0];
