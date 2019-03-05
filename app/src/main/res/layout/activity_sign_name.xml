@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    tools:context="com.old.time.activitys.SignNameActivity">
+
+    <include layout="@layout/header_main_post" />
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_select_pic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/color_fff"
+        android:gravity="center"
+        app:layout_constraintDimensionRatio="1000:618"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relative_layout_title">
+
+        <ImageView
+            android:id="@+id/img_select_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/img_add_pic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/navi_add_gray" />
+
+        <TextView
+            android:id="@+id/tv_add_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_add_pic"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/layout_15"
+            android:text="点击上传图片"
+            android:textColor="#FFAAAAAA"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edt_sign_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_1"
+        android:background="@color/color_fff"
+        android:gravity="top|center_horizontal"
+        android:hint="有没有那么一句话\n让你瞬间动心的,比如图书摘要等"
+        android:lineSpacingExtra="@dimen/layout_3"
+        android:lineSpacingMultiplier="1.2"
+        android:maxLength="200"
+        android:minHeight="@dimen/layout_150"
+        android:padding="@dimen/layout_20"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintTop_toBottomOf="@+id/relative_layout_select_pic" />
+
+</android.support.constraint.ConstraintLayout>

@@ -17,6 +17,7 @@ import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
+import com.old.time.activitys.SignNameActivity;
 import com.old.time.activitys.TouchSettingActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
@@ -181,7 +182,7 @@ public class PostCardActivity extends BaseActivity {
 
                             break;
                         case "明信片":
-                            CardListActivity.startCardListActivity(mContext);
+                            SignNameActivity.startSignNameActivity(mContext);
 
                             break;
                         case "指纹与密码":

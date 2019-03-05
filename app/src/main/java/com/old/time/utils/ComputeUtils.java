@@ -239,4 +239,17 @@ public class ComputeUtils {
         return height;
     }
 
+    /**
+     * 计算36:57的图片高度
+     *
+     * @param context
+     * @return
+     */
+    public static int computeImageHeightAndWidth(Context context, int width, int height) {
+        int mWidth = ScreenTools.instance(context).getScreenWidth();
+        BigDecimal b = new BigDecimal(mWidth * height / width);
+        height = (int) b.setScale(0, BigDecimal.ROUND_HALF_UP).floatValue();
+        return height;
+    }
+
 }

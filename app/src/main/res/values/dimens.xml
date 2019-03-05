@@ -4,6 +4,7 @@
     <dimen name="line_height">0.5dp</dimen>
     <dimen name="line_height2">0.3dp</dimen>
     <dimen name="layout_0">0dp</dimen>
+    <dimen name="layout_1">1dp</dimen>
     <dimen name="layout_2">2dp</dimen>
     <dimen name="layout_3">3dp</dimen>
     <dimen name="layout_5">5dp</dimen>

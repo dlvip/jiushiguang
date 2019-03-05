@@ -186,7 +186,8 @@
         <activity android:name=".activitys.TouchSettingActivity" />
         <activity android:name=".postcard.PCardDetailActivity" />
         <activity android:name=".activitys.RQCodeActivity" />
-        <activity android:name=".postcard.CardListActivity"></activity>
+        <activity android:name=".postcard.CardListActivity" />
+        <activity android:name=".activitys.SignNameActivity"></activity>
     </application>
 
 </manifest>
