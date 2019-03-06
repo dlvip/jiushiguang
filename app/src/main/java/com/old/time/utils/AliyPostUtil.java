@@ -32,7 +32,9 @@ import java.util.List;
  */
 public class AliyPostUtil {
 
-    public OSS oss;
+    private static final String TAG = "AliyPostUtil=";
+
+    private OSS oss;
 
     private AliyPostUtil() {
 
@@ -52,7 +54,9 @@ public class AliyPostUtil {
 
     private void initUtil(Context mContext) {
         // 明文设置secret的方式建议只在测试时使用，更多鉴权模式请参考后面的`访问控制`章节
-        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(Constant.accessKeyId, Constant.accessKeySecret);
+        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(Constant.accessKeyId//
+                , Constant.accessKeySecret);
+
         oss = new OSSClient(mContext, Constant.endpoint, credentialProvider);
 
     }
@@ -65,28 +69,28 @@ public class AliyPostUtil {
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
             @Override
             public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
-                DebugLog.e("PutObject", "currentSize: " + currentSize + " totalSize: " + totalSize);
+                DebugLog.d(TAG, "onProgress");
 
             }
         });
         oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+                DebugLog.d(TAG, "onSuccess");
                 callback.requestCode(Constant.ALIYPHOTO_CALLBACK_SUCCESS, null);
 
             }
 
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                DebugLog.d(TAG, "onFailure");
                 if (clientExcepion != null) {
                     clientExcepion.printStackTrace();
 
                 }
                 if (serviceException != null) {
-                    DebugLog.e("ErrorCode", serviceException.getErrorCode());
-                    DebugLog.e("RequestId", serviceException.getRequestId());
-                    DebugLog.e("HostId", serviceException.getHostId());
-                    DebugLog.e("RawMessage", serviceException.getRawMessage());
+                    DebugLog.d(TAG, "serviceException:" + serviceException.toString());
 
                 }
                 callback.requestCode(Constant.ALIYPHOTO_CALLBACK_FILED, null);

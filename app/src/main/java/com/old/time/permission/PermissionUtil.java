@@ -95,6 +95,7 @@ public class PermissionUtil {
             Manifest.permission.READ_CONTACTS,
             Manifest.permission.CALL_PHONE,
             Manifest.permission.INTERNET,
+            Manifest.permission.READ_SMS,
 
     };
 }

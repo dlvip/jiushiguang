@@ -17,6 +17,7 @@ import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
+import com.old.time.activitys.SignListActivity;
 import com.old.time.activitys.SignNameActivity;
 import com.old.time.activitys.TouchSettingActivity;
 import com.old.time.activitys.WebViewActivity;
@@ -49,7 +50,6 @@ public class PostCardActivity extends BaseActivity {
      */
     public static void startPostCardActivity(Context mContext) {
         if (!UserLocalInfoUtils.instance().isUserLogin()) {
-            UIHelper.ToastMessage(mContext, "请检查网络，退出重试");
             ActivityUtils.finishActivity((Activity) mContext);
 
             return;
@@ -182,7 +182,7 @@ public class PostCardActivity extends BaseActivity {
 
                             break;
                         case "明信片":
-                            SignNameActivity.startSignNameActivity(mContext);
+                            SignListActivity.startSignListActivity(mContext);
 
                             break;
                         case "指纹与密码":

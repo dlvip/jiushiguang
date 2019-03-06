@@ -96,4 +96,6 @@ dependencies {
     //指纹识别
     implementation externalTouchFingerPrintidentify
     implementation externalMp4parser
+
+    implementation externalASSALiyun
 }

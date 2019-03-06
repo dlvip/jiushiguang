@@ -15,6 +15,7 @@ import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.RQCodeActivity;
+import com.old.time.activitys.UserMesgActivity;
 import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.ResultBean;
@@ -69,6 +70,7 @@ public class PCardDetailActivity extends BaseActivity {
         tv_user_name = findViewById(R.id.tv_user_name);
         recycler_view_call = findViewById(R.id.recycler_view_call);
 
+        img_user_pic.setOnClickListener(this);
         findViewById(R.id.tv_call_phone).setOnClickListener(this);
         findViewById(R.id.tv_call_video).setOnClickListener(this);
         findViewById(R.id.relative_layout_more).setOnClickListener(this);
@@ -132,6 +134,9 @@ public class PCardDetailActivity extends BaseActivity {
                 break;
             case R.id.relative_layout_more:
                 RQCodeActivity.startRQCodeActivity(mContext, Base64Utils.encodeToString(mPhoneBean));
+
+                break;
+            case R.id.img_user_pic:
 
                 break;
         }

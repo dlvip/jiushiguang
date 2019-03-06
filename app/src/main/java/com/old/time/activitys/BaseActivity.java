@@ -40,7 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
-    private TextView tv_title;
+    private TextView tv_title, tv_send;
 
     /**
      * 设置title
@@ -66,6 +66,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
         }
         if (tv_title != null) tv_title.setText(text);
+
+    }
+
+    public void setSendText(String text) {
+        if (tv_send == null) {
+            tv_send = findViewById(R.id.tv_send);
+            findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
+
+        }
+        tv_send.setText(text);
+
 
     }
 

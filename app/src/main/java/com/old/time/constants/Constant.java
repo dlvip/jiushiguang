@@ -25,6 +25,7 @@ public class Constant {
     public static final String accessKeySecret = "rGH6Ug2QEJOt3T7Ple9qTgn7XRLqP8";
     public static final String endpoint = "oss-cn-beijing.aliyuncs.com";
     public static final String bucketNameOut = "jsguang";
+
     public static final int ALIYPHOTO_CALLBACK_SUCCESS = 0x000009; //阿里照片上传返回码：成功
     public static final int ALIYPHOTO_CALLBACK_FILED = 0x000010; //阿里照片上传返回码:失败
 
@@ -82,6 +83,12 @@ public class Constant {
 
     //获取手机号归属地
     public static final String GET_PHONE_DRESS = BASE_TEST_URL + "phone/getPhoneInfo";
+
+    //创建打开
+    public static final String CREAT_SIGN_NAME = BASE_TEST_URL + "signname/createSignName";
+
+    //获取打卡列表
+    public static final String GET_SIGN_NAME_LIST = BASE_TEST_URL + "signname/getSignNameList";
 
     //用户登陆
     public static final String USER_LOGIN = BASE_TEST_URL + "loginUser";
@@ -168,31 +175,6 @@ public class Constant {
      * 获取活动列表
      */
     public static final String GET_ACTION_LIST = BASE_TEST_URL + "action/getActionList";
-
-    /**
-     * 保存宝贝信息
-     */
-    public static final String INSERT_GOODS_INFO = BASE_TEST_URL + "goods/insertGoods";
-
-    /**
-     * 获取宝贝用户
-     */
-    public static final String INSERT_GOODS_USER = BASE_TEST_URL + "goods/getGoodsEntityUser";
-
-    /**
-     * 设置宝贝详情
-     */
-    public static final String INSERT_GOODS_DETAIL_ID = BASE_TEST_URL + "goods/updateGoodsEntityDetailId";
-
-    /**
-     * 获取宝贝列表
-     */
-    public static final String GET_GOODS_LIST = BASE_TEST_URL + "goods/getGoodsList";
-
-    /**
-     * 管理员获取宝贝
-     */
-    public static final String GET_ADMIN_GOODS_LIST = BASE_TEST_URL + "goods/getGoodsListByAdmin";
 
     /**
      * 添加活动
