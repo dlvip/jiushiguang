@@ -15,6 +15,9 @@
  */
 package com.lzy.okgo.cache.policy;
 
+import android.nfc.Tag;
+import android.util.Log;
+
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.callback.Callback;
 import com.lzy.okgo.model.Response;
@@ -48,6 +51,9 @@ public class RequestFailedCachePolicy<T> extends BaseCachePolicy<T> {
 
     @Override
     public void onError(final Response<T> error) {
+        if (error != null) {
+            Log.d("onError", error.toString());
+        }
 
         if (cacheEntity != null) {
             final Response<T> cacheSuccess = Response.success(true, cacheEntity.getData(), error.getRawCall(), error.getRawResponse());
