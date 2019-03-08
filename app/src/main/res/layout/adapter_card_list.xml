@@ -1,17 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radius0_stroke_line_bgfff"
+    android:paddingBottom="@dimen/layout_15"
+    android:paddingLeft="@dimen/layout_10"
+    android:paddingRight="@dimen/layout_10"
+    android:paddingTop="@dimen/layout_15">
 
     <ImageView
-        android:id="@+id/img_card_pic"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitXY"
-        app:layout_constraintDimensionRatio="800:495"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:id="@+id/img_user_header"
+        android:layout_width="@dimen/layout_45"
+        android:layout_height="@dimen/layout_45"
+        android:src="@mipmap/head_circle" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/layout_45"
+        android:layout_marginStart="@dimen/layout_15"
+        android:layout_toEndOf="@+id/img_user_header"
+        android:gravity="center_vertical"
+        android:text="@string/title"
+        android:textColor="@color/color_005abc"
+        android:textSize="@dimen/text_15"
+        android:textStyle="bold" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_layout_parent"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_user_header"
+        android:layout_marginLeft="@dimen/layout_55"
+        android:layout_marginTop="@dimen/layout_10"
+        android:background="@drawable/shape_radius0_stroke_line_bgfff">
+
+        <ImageView
+            android:id="@+id/img_card_pic"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/color_60000000"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="500:309"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_book_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/layout_5"
+            android:lineSpacingMultiplier="1.5"
+            android:paddingLeft="@dimen/layout_20"
+            android:paddingRight="@dimen/layout_20"
+            android:paddingTop="@dimen/layout_15"
+            android:text="月亮与六便士 | "
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/text_8"
+            app:layout_constraintTop_toBottomOf="@+id/img_card_pic" />
+
+        <TextView
+            android:id="@+id/tv_sign_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/layout_5"
+            android:lineSpacingMultiplier="1.5"
+            android:paddingBottom="@dimen/layout_40"
+            android:paddingLeft="@dimen/layout_20"
+            android:paddingRight="@dimen/layout_20"
+            android:paddingTop="@dimen/layout_30"
+            android:text="@string/title_detail"
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/text_10"
+            app:layout_constraintTop_toBottomOf="@+id/tv_book_name" />
+
+        <TextView
+            android:id="@+id/tv_app_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/layout_5"
+            android:lineSpacingMultiplier="1.5"
+            android:paddingBottom="@dimen/layout_15"
+            android:paddingLeft="@dimen/layout_20"
+            android:paddingRight="@dimen/layout_20"
+            android:paddingTop="@dimen/layout_15"
+            android:text="觅邮 v:1.0.3"
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/text_8"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sign_content" />
+
+    </android.support.constraint.ConstraintLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_sign_time"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/layout_30"
+        android:layout_below="@+id/constraint_layout_parent"
+        android:layout_marginTop="@dimen/layout_15"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/layout_55"
+        android:text="19/03/08 17:33"
+        android:textColor="@color/color_666"
+        android:textSize="@dimen/text_14" />
+
+    <ImageView
+        android:id="@+id/img_btn_more"
+        android:layout_width="@dimen/layout_30"
+        android:layout_height="@dimen/layout_30"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/constraint_layout_parent"
+        android:layout_marginTop="@dimen/layout_15"
+        android:padding="@dimen/layout_5"
+        android:src="@mipmap/btn_more" />
+
+</RelativeLayout>

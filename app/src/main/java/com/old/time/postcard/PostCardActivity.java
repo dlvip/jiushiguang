@@ -18,7 +18,6 @@ import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.SignListActivity;
-import com.old.time.activitys.SignNameActivity;
 import com.old.time.activitys.TouchSettingActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
@@ -35,7 +34,6 @@ import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
-import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.old.time.R;
 import com.old.time.constants.Code;
+import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.SuspensionPopupWindow;
@@ -66,6 +67,7 @@ public abstract class BaseCActivity extends BaseActivity {
 
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         mRecyclerView = findViewById(R.id.c_recycler_view);
+        mRecyclerView.setLayoutManager(new MyLinearLayoutManager(mContext));
         mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light, R.color.holo_orange_light, R.color.holo_red_light);
         onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override

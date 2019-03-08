@@ -212,4 +212,19 @@ public class StringUtils {
         }
         return mobilePassWord;
     }
+
+    /**
+     * 转化时间
+     *
+     * @param timeStr 2019-03-08 17:34:45
+     * @return 19/3/8 17:34
+     */
+    public static String getCreateTime(String timeStr) {
+        if (TextUtils.isEmpty(timeStr) || timeStr.length() != 19) {
+
+            return timeStr;
+        }
+
+        return timeStr.replace("-", "/").substring(2, 16);
+    }
 }

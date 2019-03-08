@@ -1,6 +1,8 @@
 package com.old.time.beans;
 
-public class SignNameEntity {
+import java.io.Serializable;
+
+public class SignNameEntity implements Serializable {
 
     private String id;
 
@@ -72,13 +74,13 @@ public class SignNameEntity {
         this.creatTime = creatTime;
     }
 
-    private Integer isPaise;
+    private boolean isPaise;
 
-    public Integer getIsPaise() {
+    public boolean getIsPaise() {
         return isPaise;
     }
 
-    public void setIsPaise(Integer isPaise) {
+    public void setIsPaise(boolean isPaise) {
         this.isPaise = isPaise;
     }
 

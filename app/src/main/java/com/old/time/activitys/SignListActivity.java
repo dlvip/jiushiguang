@@ -14,6 +14,7 @@ import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class SignListActivity extends BaseCActivity {
         setTitleText("打卡列表");
         setSendText("创建");
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         adapter = new SignNameAdapter(signNameEntities);
         mRecyclerView.setAdapter(adapter);
 
@@ -82,7 +84,7 @@ public class SignListActivity extends BaseCActivity {
     @Override
     public void save(View view) {
         super.save(view);
-        SignNameActivity.startSignNameActivity(mContext);
+        SignCreateActivity.startSignCreateActivity(mContext);
 
     }
 }

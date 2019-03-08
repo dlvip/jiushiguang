@@ -36,15 +36,15 @@ import com.old.time.utils.UserLocalInfoUtils;
 import java.util.Collections;
 import java.util.List;
 
-public class SignNameActivity extends BaseActivity {
+public class SignCreateActivity extends BaseActivity {
 
     /**
      * 上传签名
      *
      * @param context
      */
-    public static void startSignNameActivity(Context context) {
-        Intent intent = new Intent(context, SignNameActivity.class);
+    public static void startSignCreateActivity(Context context) {
+        Intent intent = new Intent(context, SignCreateActivity.class);
         ActivityUtils.startActivity((Activity) context, intent);
 
 
@@ -215,7 +215,7 @@ public class SignNameActivity extends BaseActivity {
 
     @Override
     protected int getLayoutID() {
-        return R.layout.activity_sign_name;
+        return R.layout.activity_sign_create;
     }
 
     @Override

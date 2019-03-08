@@ -25,6 +25,7 @@
     <dimen name="layout_45">45dp</dimen>
     <dimen name="layout_48">48dp</dimen>
     <dimen name="layout_50">50dp</dimen>
+    <dimen name="layout_55">55dp</dimen>
     <dimen name="layout_60">60dp</dimen>
     <dimen name="layout_65">65dp</dimen>
     <dimen name="layout_70">70dp</dimen>
@@ -44,6 +45,7 @@
     <dimen name="layout_200">200dp</dimen>
 
 
+    <dimen name="text_8">8sp</dimen>
     <dimen name="text_10">10sp</dimen>
     <dimen name="text_12">12sp</dimen>
     <dimen name="text_13">13sp</dimen>
