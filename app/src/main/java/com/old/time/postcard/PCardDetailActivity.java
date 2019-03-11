@@ -15,7 +15,6 @@ import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.RQCodeActivity;
-import com.old.time.activitys.UserMesgActivity;
 import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.ResultBean;
@@ -33,6 +32,7 @@ import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.rong.callkit.RongCallKit;
@@ -53,9 +53,10 @@ public class PCardDetailActivity extends BaseActivity {
 
     public static final String PHONE_INFO = "phoneInfo";
 
-    private BaseQuickAdapter<PhoneInfo, BaseViewHolder> adapter;
+    private PCardAdapter adapter;
 
     private ImageView img_header_bg, img_user_pic, img_more;
+    private List<PhoneInfo> phoneInfos = new ArrayList<>();
     private RecyclerView recycler_view_call;
     private TextView tv_user_name;
 
@@ -82,20 +83,10 @@ public class PCardDetailActivity extends BaseActivity {
         GlideUtils.getInstance().setRadiusImageView(mContext, mPhoneBean.getPhoto(), img_user_pic, 10);
         recycler_view_call.setLayoutManager(new MyLinearLayoutManager(mContext));
         recycler_view_call.addItemDecoration(new RecyclerItemDecoration(mContext));
-        adapter = new BaseQuickAdapter<PhoneInfo, BaseViewHolder>(R.layout.adapter_phone_detail) {
-            @Override
-            protected void convert(BaseViewHolder helper, PhoneInfo item) {
-                helper.setText(R.id.tv_phone_num, item.getPhone())//
-                        .setText(R.id.tv_phone_dress, item.getPhoneDress())//
-                        .setVisible(R.id.view_line, helper.getLayoutPosition() != 0);
-                if (TextUtils.isEmpty(item.getPhoneDress())) {
-                    DataUtils.getPhoneMsg(item.getPhone());
-
-                }
-            }
-        };
+        adapter = new PCardAdapter(phoneInfos);
         recycler_view_call.setAdapter(adapter);
         getPhoneDressList();
+
     }
 
     /**
@@ -137,6 +128,7 @@ public class PCardDetailActivity extends BaseActivity {
 
                 break;
             case R.id.img_user_pic:
+
 
                 break;
         }

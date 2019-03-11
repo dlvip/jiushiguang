@@ -24,9 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/layout_10"
-            android:layout_toRightOf="@+id/img_user_pic"
-            android:text="服务号"
+            android:layout_marginStart="@dimen/layout_10"
+            android:layout_toEndOf="@+id/img_user_pic"
+            android:text="每日书签"
             android:textColor="@color/color_000"
             android:textSize="@dimen/text_14" />
 

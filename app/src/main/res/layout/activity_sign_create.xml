@@ -40,7 +40,7 @@
             android:layout_below="@+id/img_add_pic"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/layout_15"
-            android:text="点击上传图片"
+            android:text="点击上传配图"
             android:textColor="#FFAAAAAA"
             android:textSize="13sp" />
 
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:background="@color/color_fff"
         android:gravity="center"
-        android:hint="述说自己，温暖他人，比如图书摘要等"
+        android:hint="读书纪要，表述更完美的自己"
         android:lineSpacingExtra="@dimen/layout_3"
         android:lineSpacingMultiplier="1.2"
         android:maxLength="200"

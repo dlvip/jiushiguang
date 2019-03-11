@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.old.time.activitys.UserMesgActivity">
+    tools:context="com.old.time.activitys.UserMsgActivity">
 
-    <include layout="@layout/header_main"/>
+    <include layout="@layout/header_main" />
 
     <FrameLayout
         android:id="@+id/frame_layout_header"
@@ -112,7 +112,8 @@
         android:background="@color/color_fff"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/layout_10"
-        android:paddingRight="@dimen/layout_10">
+        android:paddingRight="@dimen/layout_10"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="@dimen/layout_100"

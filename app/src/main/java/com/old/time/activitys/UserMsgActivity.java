@@ -34,7 +34,7 @@ import com.old.time.utils.UserLocalInfoUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserMesgActivity extends BaseActivity {
+public class UserMsgActivity extends BaseActivity {
 
     private TextView tv_edt_phone, tv_edt_nick, tv_edt_address, tv_edt_brief;
     private ImageView img_user_header;
@@ -48,13 +48,13 @@ public class UserMesgActivity extends BaseActivity {
      *
      * @param mContext
      */
-    public static void startUserMesgActivity(Activity mContext) {
+    public static void startUserMsgActivity(Activity mContext) {
         if (!UserLocalInfoUtils.instance().isUserLogin()) {
             UserLoginActivity.startUserLoginActivity(mContext);
 
             return;
         }
-        Intent intent = new Intent(mContext, UserMesgActivity.class);
+        Intent intent = new Intent(mContext, UserMsgActivity.class);
         ActivityUtils.startActivity(mContext, intent);
 
     }
@@ -122,7 +122,7 @@ public class UserMesgActivity extends BaseActivity {
         }
     }
 
-    private String userName, avatar, vocation, birthday, sex;
+    private String userName, avatar, vocation, location, birthday, sex;
     private ProgressDialog pd;
 
     /**
@@ -142,8 +142,8 @@ public class UserMesgActivity extends BaseActivity {
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
         params.put("userName", userName);
         params.put("avatar", avatar);
-        params.put("birthday", birthday);
-        params.put("sex", sex);
+//        params.put("birthday", birthday);
+//        params.put("sex", sex);
         params.put("vocation", vocation);
         OkGoUtils.getInstance().postNetForData(params, Constant.UPDATE_USER_MSG, new JsonCallBack<ResultBean<UserInfoBean>>() {
             @Override
@@ -184,7 +184,8 @@ public class UserMesgActivity extends BaseActivity {
                 @Override
                 public void endSelect(DialogChoseAddress.CityInfo cityInfo) {
                     if (cityInfo != null) {
-                        tv_edt_address.setText(cityInfo.province.name + "  " + cityInfo.district.name + "  " + cityInfo.city.name);
+                        location = cityInfo.province.name + "  " + cityInfo.city.name + "  " + cityInfo.district.name;
+                        tv_edt_address.setText(location);
 
                     }
                 }
@@ -209,7 +210,7 @@ public class UserMesgActivity extends BaseActivity {
                                 return;
                             }
                             tv_edt_nick.setText(typeName);
-                            UserMesgActivity.this.userName = typeName;
+                            UserMsgActivity.this.userName = typeName;
 
                             break;
                         case 1:
@@ -218,7 +219,7 @@ public class UserMesgActivity extends BaseActivity {
                                 return;
                             }
                             tv_edt_brief.setText(typeName);
-                            UserMesgActivity.this.vocation = typeName;
+                            UserMsgActivity.this.vocation = typeName;
 
                             break;
                     }
@@ -278,7 +279,7 @@ public class UserMesgActivity extends BaseActivity {
                     UIHelper.ToastMessage(mContext, "上传图片失败");
                     return;
                 }
-                UserMesgActivity.this.avatar = onlineFileName.get(0).picKey;
+                UserMsgActivity.this.avatar = onlineFileName.get(0).picKey;
             }
         });
     }

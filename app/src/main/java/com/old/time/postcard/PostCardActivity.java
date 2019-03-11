@@ -18,7 +18,7 @@ import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.SignListActivity;
-import com.old.time.activitys.TouchSettingActivity;
+import com.old.time.activitys.UserMsgActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
 import com.old.time.beans.PhoneBean;
@@ -27,7 +27,6 @@ import com.old.time.permission.PermissionUtil;
 import com.old.time.pops.PostCartPop;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.Base64Utils;
-import com.old.time.utils.DataUtils;
 import com.old.time.utils.GsonUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.PhoneUtils;
@@ -84,9 +83,10 @@ public class PostCardActivity extends BaseActivity {
         adapter = new PhoneAdapter(postCartBeans);
         View headerView = View.inflate(mContext, R.layout.header_post_cart, null);
         headerView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                FastMailActivity.startFastMailActivity(mContext);
+                SignListActivity.startSignListActivity(mContext, "");
 
             }
         });
@@ -179,13 +179,12 @@ public class PostCardActivity extends BaseActivity {
                             PictureUtil.captureCode(mContext);
 
                             break;
-                        case "明信片":
-                            SignListActivity.startSignListActivity(mContext);
+                        case "服务号":
+                            FastMailActivity.startFastMailActivity(mContext);
 
                             break;
-                        case "指纹与密码":
-                            DataUtils.savePhoneList();
-                            TouchSettingActivity.startSettingTouchActivity(mContext);
+                        case "个人中心":
+                            UserCardActivity.startUserCardActivity(mContext);
 
                             break;
                         default:
@@ -195,7 +194,7 @@ public class PostCardActivity extends BaseActivity {
                 }
             });
         }
-        mPostCartPop.showPopWindow(img_more, new String[]{"扫一扫", "明信片", "指纹与密码"});
+        mPostCartPop.showPopWindow(img_more, new String[]{"扫一扫", "服务号", "个人中心"});
 
     }
 

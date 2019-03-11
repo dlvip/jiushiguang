@@ -17,7 +17,7 @@ import com.old.time.activitys.PicsManageCActivity;
 import com.old.time.activitys.SettingActivity;
 import com.old.time.activitys.UserDressCActivity;
 import com.old.time.activitys.UserLoginActivity;
-import com.old.time.activitys.UserMesgActivity;
+import com.old.time.activitys.UserMsgActivity;
 import com.old.time.activitys.SystemMsgCActivity;
 import com.old.time.activitys.UserOrderCActivity;
 import com.old.time.beans.ResultBean;
@@ -156,7 +156,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.relative_layout_header:
-                intent = new Intent(mContext, UserMesgActivity.class);
+                intent = new Intent(mContext, UserMsgActivity.class);
 
                 break;
             case R.id.relative_layout_message:
