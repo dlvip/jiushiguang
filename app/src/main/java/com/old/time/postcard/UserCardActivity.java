@@ -38,13 +38,16 @@ import java.util.List;
 
 public class UserCardActivity extends BaseActivity {
 
+    private static final String USER_ID = "userId";
+
     /**
      * 个人中心
      *
      * @param context
      */
-    public static void startUserCardActivity(Context context) {
+    public static void startUserCardActivity(Context context, String userId) {
         Intent intent = new Intent(context, UserCardActivity.class);
+        intent.putExtra(USER_ID, userId);
         ActivityUtils.startActivity((Activity) context, intent);
 
     }
@@ -61,8 +64,11 @@ public class UserCardActivity extends BaseActivity {
     private RecyclerView recycler_view_call;
     private PCardAdapter adapter;
 
+    private String userId;
+
     @Override
     protected void initView() {
+        userId = getIntent().getStringExtra(USER_ID);
         userInfoBean = UserLocalInfoUtils.instance().getmUserInfoBean();
         img_more = findViewById(R.id.img_more);
         img_more.setImageResource(R.mipmap.menu_qrcode);
@@ -72,11 +78,6 @@ public class UserCardActivity extends BaseActivity {
         tv_user_name = findViewById(R.id.tv_user_name);
 
         findViewById(R.id.relative_layout_title).setBackgroundResource(R.color.transparent);
-
-        setTitleText(userInfoBean.getUserName());
-        tv_user_name.setText(userInfoBean.getUserName());
-        GlideUtils.getInstance().setImgTransRes(mContext, userInfoBean.getAvatar(), img_header_bg, 0, 0);
-        GlideUtils.getInstance().setRadiusImageView(mContext, userInfoBean.getAvatar(), img_user_pic, 10);
 
         recycler_view_call = findViewById(R.id.recycler_view_call);
         recycler_view_call.setLayoutManager(new MyLinearLayoutManager(mContext));
@@ -97,9 +98,46 @@ public class UserCardActivity extends BaseActivity {
         };
         recycler_view_sign.setAdapter(sAdapter);
 
-        getPhoneDressList();
+        getUserInfo();
 
         getUserSigns();
+    }
+
+    /**
+     * 获取用户信息
+     */
+    private void getUserInfo() {
+        HttpParams params = new HttpParams();
+        params.put("userId", userId);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_INFO, new JsonCallBack<ResultBean<UserInfoBean>>() {
+            @Override
+            public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
+                setDateForView(mResultBean.data);
+
+            }
+
+            @Override
+            public void onError(ResultBean<UserInfoBean> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
+    }
+
+    private void setDateForView(UserInfoBean mUserInfoBean) {
+        if (mUserInfoBean == null) {
+
+            return;
+        }
+        this.userInfoBean = mUserInfoBean;
+        UserLocalInfoUtils.instance().setmUserInfoBean(mUserInfoBean);
+        setTitleText(userInfoBean.getUserName());
+        tv_user_name.setText(userInfoBean.getUserName());
+        GlideUtils.getInstance().setImgTransRes(mContext, userInfoBean.getAvatar(), img_header_bg, 0, 0);
+        GlideUtils.getInstance().setRadiusImageView(mContext, userInfoBean.getAvatar(), img_user_pic, 10);
+
+        getPhoneDressList();
+
     }
 
     @Override

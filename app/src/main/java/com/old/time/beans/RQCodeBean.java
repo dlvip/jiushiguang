@@ -81,7 +81,7 @@ public class RQCodeBean implements Serializable {
 
                 break;
             case MSG_TAG_USER_INFO:
-                UserCardActivity.startUserCardActivity(mContext);
+                UserCardActivity.startUserCardActivity(mContext, mRQCodeBean.getId());
 
                 break;
         }

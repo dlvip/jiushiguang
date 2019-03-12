@@ -1,6 +1,7 @@
 package com.old.time.adapters;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -8,12 +9,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.beans.SignNameEntity;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.postcard.UserCardActivity;
 import com.old.time.utils.StringUtils;
 
 import java.util.List;
 
 public class SignNameAdapter extends BaseQuickAdapter<SignNameEntity, BaseViewHolder> {
-
 
     public SignNameAdapter(@Nullable List<SignNameEntity> data) {
         super(R.layout.adapter_card_list, data);
@@ -21,7 +22,7 @@ public class SignNameAdapter extends BaseQuickAdapter<SignNameEntity, BaseViewHo
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, SignNameEntity item) {
+    protected void convert(BaseViewHolder helper, final SignNameEntity item) {
         ImageView img_user_header = helper.getView(R.id.img_user_header);
         GlideUtils.getInstance().setRadiusImageView(mContext, item.getUserEntity().getAvatar(), img_user_header, 10);
         ImageView imageView = helper.getView(R.id.img_card_pic);
@@ -31,5 +32,12 @@ public class SignNameAdapter extends BaseQuickAdapter<SignNameEntity, BaseViewHo
                 .setText(R.id.tv_sign_content, item.getContent())//
                 .setText(R.id.tv_sign_time, StringUtils.getCreateTime(item.getCreatTime()));
 
+        img_user_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserCardActivity.startUserCardActivity(mContext, item.getUserId());
+
+            }
+        });
     }
 }

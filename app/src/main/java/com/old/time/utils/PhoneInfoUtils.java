@@ -71,9 +71,9 @@ public class PhoneInfoUtils {
             return "";
         }
         nativePhoneNumber = telephonyManager.getLine1Number();
-        if (TextUtils.isEmpty(nativePhoneNumber)) {
+        if (TextUtils.isEmpty(nativePhoneNumber) || nativePhoneNumber.length() < 11) {
 
-            return "15093073252";
+            return "";
         }
         return nativePhoneNumber.substring(nativePhoneNumber.length() - 11);
     }

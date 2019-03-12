@@ -186,7 +186,7 @@ public class PostCardActivity extends BaseActivity {
 
                             break;
                         case "个人中心":
-                            UserCardActivity.startUserCardActivity(mContext);
+                            UserCardActivity.startUserCardActivity(mContext, UserLocalInfoUtils.instance().getUserId());
 
                             break;
                         default:
