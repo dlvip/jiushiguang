@@ -15,6 +15,7 @@ import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.postcard.PostCardActivity;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
@@ -180,7 +181,7 @@ public class UserRegisterActivity extends BaseActivity {
                     return;
                 }
                 UserLocalInfoUtils.instance().setmUserInfoBean(mResultBean.data);
-                ActivityUtils.finishActivity(mContext);
+                PostCardActivity.startPostCardActivity(mContext);
 
             }
 
