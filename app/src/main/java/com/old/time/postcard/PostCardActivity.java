@@ -18,6 +18,7 @@ import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.SignListActivity;
+import com.old.time.activitys.UserLoginActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
 import com.old.time.beans.PhoneBean;
@@ -48,7 +49,7 @@ public class PostCardActivity extends BaseActivity {
      */
     public static void startPostCardActivity(Context mContext) {
         if (!UserLocalInfoUtils.instance().isUserLogin()) {
-            ActivityUtils.finishActivity((Activity) mContext);
+            UserLoginActivity.startUserLoginActivity((Activity) mContext);
 
             return;
         }

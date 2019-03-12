@@ -21,8 +21,13 @@ public class RongIMUtils {
      * 初始化融云
      */
     public static void initRongIM() {
+        String phoneNum = PhoneInfoUtils.instance().getNativePhoneNumber(MyApplication.getInstance());
+        if (TextUtils.isEmpty(phoneNum)) {
+
+            return;
+        }
         HttpParams params = new HttpParams();
-        params.put("userId", PhoneInfoUtils.instance().getNativePhoneNumber(MyApplication.getInstance()));
+        params.put("userId", phoneNum);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_RONG_TOKEN, new JsonCallBack<ResultBean<UserInfoBean>>() {
             @Override
             public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
