@@ -10,11 +10,14 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
+import com.old.time.activitys.RQCodeActivity;
 import com.old.time.activitys.SignListActivity;
 import com.old.time.beans.PhoneInfo;
+import com.old.time.beans.RQCodeBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.SignNameEntity;
 import com.old.time.beans.UserInfoBean;
@@ -23,6 +26,7 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.Base64Utils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
@@ -115,6 +119,14 @@ public class UserCardActivity extends BaseActivity {
 
             }
         });
+        findViewById(R.id.relative_layout_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String baseStr = Base64Utils.encodeToString(RQCodeBean.getInstance(RQCodeBean.MSG_TAG_PHONE_INFO, userInfoBean.getUserId()));
+                RQCodeActivity.startRQCodeActivity(mContext, baseStr, userInfoBean.getAvatar());
+
+            }
+        });
         findViewById(R.id.linear_layout_signs).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +134,14 @@ public class UserCardActivity extends BaseActivity {
 
             }
         });
+        recycler_view_sign.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                SignListActivity.startSignListActivity(mContext, userInfoBean.getUserId());
+
+            }
+        });
+
     }
 
     /**

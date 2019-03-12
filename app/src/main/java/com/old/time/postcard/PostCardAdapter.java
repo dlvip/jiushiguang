@@ -29,7 +29,7 @@ public class PostCardAdapter extends BaseQuickAdapter<PhoneBean, BaseViewHolder>
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PCardDetailActivity.startPCardDetailActivity(mContext, item);
+                PCardDetailActivity.startPCardDetailActivity(mContext, item.getId());
 
             }
         });

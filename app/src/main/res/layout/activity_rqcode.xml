@@ -71,8 +71,9 @@
                 android:scaleType="fitXY" />
 
             <ImageView
-                android:layout_width="@dimen/layout_40"
-                android:layout_height="@dimen/layout_40"
+                android:id="@+id/img_user_header"
+                android:layout_width="@dimen/layout_50"
+                android:layout_height="@dimen/layout_50"
                 android:layout_centerInParent="true"
                 android:src="@mipmap/ic_launcher" />
 
@@ -100,7 +101,7 @@
         android:gravity="center"
         android:paddingBottom="@dimen/layout_15"
         android:paddingTop="@dimen/layout_15"
-        android:text="保存并分享"
+        android:text="分享二维码"
         android:textColor="@color/color_000"
         android:textSize="@dimen/text_16"
         android:textStyle="normal" />

@@ -10,7 +10,7 @@ public class PhoneBean implements Serializable {
     private String name;
     private String number;
     private String sortKey;
-    private int id;
+    private String id;
 
     public PhoneBean(String name, String number, String sortKey, String photo) {
         this.name = name;
@@ -64,11 +64,11 @@ public class PhoneBean implements Serializable {
         this.sortKey = sortKey;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

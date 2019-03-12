@@ -4,19 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.RQCodeActivity;
 import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PhoneInfo;
+import com.old.time.beans.RQCodeBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogListManager;
@@ -26,11 +24,11 @@ import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.Base64Utils;
-import com.old.time.utils.DataUtils;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,14 +42,14 @@ public class PCardDetailActivity extends BaseActivity {
      *
      * @param context
      */
-    public static void startPCardDetailActivity(Context context, PhoneBean phoneBean) {
+    public static void startPCardDetailActivity(Context context, String phoneId) {
         Intent intent = new Intent(context, PCardDetailActivity.class);
-        intent.putExtra(PHONE_INFO, phoneBean);
+        intent.putExtra(PHONE_INFO, phoneId);
         ActivityUtils.startActivity((Activity) context, intent);
 
     }
 
-    public static final String PHONE_INFO = "phoneInfo";
+    public static final String PHONE_INFO = "phoneId";
 
     private PCardAdapter adapter;
 
@@ -59,10 +57,11 @@ public class PCardDetailActivity extends BaseActivity {
     private List<PhoneInfo> phoneInfos = new ArrayList<>();
     private RecyclerView recycler_view_call;
     private TextView tv_user_name;
+    private String phoneId;
 
     @Override
     protected void initView() {
-        mPhoneBean = (PhoneBean) getIntent().getSerializableExtra(PHONE_INFO);
+        phoneId = getIntent().getStringExtra(PHONE_INFO);
         img_more = findViewById(R.id.img_more);
         img_more.setImageResource(R.mipmap.menu_qrcode);
         findViewById(R.id.view_line_bg).setVisibility(View.VISIBLE);
@@ -77,16 +76,52 @@ public class PCardDetailActivity extends BaseActivity {
         findViewById(R.id.relative_layout_more).setOnClickListener(this);
         findViewById(R.id.relative_layout_title).setBackgroundResource(R.color.transparent);
 
-        setTitleText(mPhoneBean.getName());
-        tv_user_name.setText(mPhoneBean.getName());
-        GlideUtils.getInstance().setImgTransRes(mContext, mPhoneBean.getPhoto(), img_header_bg, 0, 0);
-        GlideUtils.getInstance().setRadiusImageView(mContext, mPhoneBean.getPhoto(), img_user_pic, 10);
         recycler_view_call.setLayoutManager(new MyLinearLayoutManager(mContext));
         recycler_view_call.addItemDecoration(new RecyclerItemDecoration(mContext));
         adapter = new PCardAdapter(phoneInfos);
         recycler_view_call.setAdapter(adapter);
-        getPhoneDressList();
 
+        getDataFromNet();
+
+    }
+
+    /**
+     * 获取数据
+     */
+    private void getDataFromNet() {
+        HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        params.put("id", phoneId);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_SINGLE_PHONE_BEAN, new JsonCallBack<ResultBean<PhoneBean>>() {
+            @Override
+            public void onSuccess(ResultBean<PhoneBean> mResultBean) {
+                setDateForView(mResultBean.data);
+
+            }
+
+            @Override
+            public void onError(ResultBean<PhoneBean> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
+    }
+
+    /**
+     * 设置数据
+     */
+    private void setDateForView(PhoneBean mPhoneBean) {
+        if (mPhoneBean == null) {
+
+            return;
+        }
+        this.mPhoneBean = mPhoneBean;
+        setTitleText(mPhoneBean.getName());
+        tv_user_name.setText(mPhoneBean.getName());
+        GlideUtils.getInstance().setImgTransRes(mContext, mPhoneBean.getPhoto(), img_header_bg, 0, 0);
+        GlideUtils.getInstance().setRadiusImageView(mContext, mPhoneBean.getPhoto(), img_user_pic, 10);
+
+        getPhoneDressList();
     }
 
     /**
@@ -124,7 +159,8 @@ public class PCardDetailActivity extends BaseActivity {
 
                 break;
             case R.id.relative_layout_more:
-                RQCodeActivity.startRQCodeActivity(mContext, Base64Utils.encodeToString(mPhoneBean));
+                String baseStr = Base64Utils.encodeToString(RQCodeBean.getInstance(RQCodeBean.MSG_TAG_PHONE_INFO, mPhoneBean.getId()));
+                RQCodeActivity.startRQCodeActivity(mContext, baseStr, mPhoneBean.getPhoto());
 
                 break;
             case R.id.img_user_pic:

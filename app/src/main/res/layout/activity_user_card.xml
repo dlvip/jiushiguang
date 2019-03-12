@@ -98,7 +98,7 @@
             android:layout_marginStart="@dimen/layout_10"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:paddingTop="@dimen/layout_10" />
+            android:paddingTop="@dimen/layout_15"/>
 
         <ImageView
             android:layout_width="@dimen/layout_20"

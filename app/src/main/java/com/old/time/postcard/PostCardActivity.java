@@ -18,21 +18,22 @@ import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.SignListActivity;
-import com.old.time.activitys.UserMsgActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
 import com.old.time.beans.PhoneBean;
 import com.old.time.beans.PostCartBean;
+import com.old.time.beans.RQCodeBean;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.pops.PostCartPop;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.Base64Utils;
-import com.old.time.utils.GsonUtils;
+import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
+import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
@@ -260,10 +261,15 @@ public class PostCardActivity extends BaseActivity {
                 String str = data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
                 String[] dateS = str.split(ImageFindQrUtils.SPLIT_KEY);
                 if (dateS.length > 1) {
-                    String encodeStr = Base64Utils.decode(dateS[1]);
-                    PhoneBean mPhoneBean = GsonUtils.jsonToBean(encodeStr, PhoneBean.class);
-                    PCardDetailActivity.startPCardDetailActivity(mContext, mPhoneBean);
+                    try {
+                        String encodeStr = Base64Utils.decode(dateS[1]);
+                        RQCodeBean.mRQCodeNext(mContext, encodeStr);
 
+                    } catch (Exception e) {
+                        DebugLog.d(TAG, e.getMessage());
+                        UIHelper.ToastMessage(mContext, "内容不存在");
+
+                    }
                 } else {
                     WebViewActivity.startWebViewActivity(mContext, str);
 

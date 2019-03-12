@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,9 +12,9 @@ import android.widget.RelativeLayout;
 
 import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
+import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.BitmapUtils;
-import com.old.time.utils.DebugLog;
 import com.old.time.utils.UIHelper;
 
 public class RQCodeActivity extends BaseActivity {
@@ -23,20 +24,27 @@ public class RQCodeActivity extends BaseActivity {
      *
      * @param context
      */
-    public static void startRQCodeActivity(Context context, String baseStr) {
+    public static void startRQCodeActivity(Context context, String baseStr, String headerPic) {
+        if (TextUtils.isEmpty(baseStr)) {
+            UIHelper.ToastMessage(context, "缺少二维码信息");
+
+            return;
+        }
         Intent intent = new Intent(context, RQCodeActivity.class);
         intent.putExtra("baseStr", baseStr);
+        intent.putExtra("headerPic", headerPic);
         ActivityUtils.startLoginActivity((Activity) context, intent);
 
     }
 
     private LinearLayout linear_layout_parent;
-    private ImageView img_code_pic;
-    private String baseStr;
+    private ImageView img_code_pic, img_user_header;
+    private String baseStr, headerPic;
 
     @Override
     protected void initView() {
         baseStr = getIntent().getStringExtra("baseStr");
+        headerPic = getIntent().getStringExtra("headerPic");
         setTitleText("");
         findViewById(R.id.relative_layout_more).setVisibility(View.GONE);
         findViewById(R.id.relative_layout_title).setBackgroundResource(R.color.transparent);
@@ -44,6 +52,8 @@ public class RQCodeActivity extends BaseActivity {
         img_left_btn.setImageResource(R.mipmap.public_arrow_down);
         linear_layout_parent = findViewById(R.id.linear_layout_parent);
         img_code_pic = findViewById(R.id.img_code_pic);
+        img_user_header = findViewById(R.id.img_user_header);
+        GlideUtils.getInstance().setRadiusImageView(mContext, headerPic, img_user_header, 10);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) img_code_pic.getLayoutParams();
         params.width = UIHelper.dip2px(300);
         params.height = UIHelper.dip2px(300);
