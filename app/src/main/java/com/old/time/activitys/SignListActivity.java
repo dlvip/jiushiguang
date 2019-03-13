@@ -94,6 +94,8 @@ public class SignListActivity extends BaseCActivity {
             return;
         }
         adapter.addData(0, mSignNameEntity);
+        seleteToPosition(0);
+
     }
 
     @Override

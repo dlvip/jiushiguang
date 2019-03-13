@@ -49,7 +49,6 @@ public class SignCreateActivity extends BaseActivity {
         Intent intent = new Intent(context, SignCreateActivity.class);
         ActivityUtils.startActivity((Activity) context, intent);
 
-
     }
 
     private RelativeLayout relative_layout_select_pic, relative_layout_right;
