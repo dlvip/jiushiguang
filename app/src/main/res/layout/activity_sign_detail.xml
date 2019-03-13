@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_000"
+    tools:context="com.old.time.activitys.SignDetailActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_layout_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/shape_radius0_stroke_line_bgfff">
+
+        <ImageView
+            android:id="@+id/img_card_pic"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/color_60000000"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="500:309"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_book_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/layout_5"
+            android:lineSpacingMultiplier="1.5"
+            android:paddingLeft="@dimen/layout_20"
+            android:paddingRight="@dimen/layout_20"
+            android:paddingTop="@dimen/layout_15"
+            android:text="月亮与六便士 | "
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/text_12"
+            app:layout_constraintTop_toBottomOf="@+id/img_card_pic" />
+
+        <TextView
+            android:id="@+id/tv_sign_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center|left"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/layout_5"
+            android:lineSpacingMultiplier="1.2"
+            android:paddingLeft="@dimen/layout_30"
+            android:paddingRight="@dimen/layout_30"
+            android:text="@string/title_detail"
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintDimensionRatio="5:2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_book_name" />
+
+        <TextView
+            android:id="@+id/tv_app_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|right"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/layout_5"
+            android:lineSpacingMultiplier="1.5"
+            android:paddingBottom="@dimen/layout_15"
+            android:paddingLeft="@dimen/layout_20"
+            android:paddingRight="@dimen/layout_20"
+            android:paddingTop="@dimen/layout_15"
+            android:text="觅邮 v:1.0.3"
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/text_10"
+            app:layout_constraintTop_toBottomOf="@+id/tv_sign_content"
+            tools:ignore="RtlHardcoded" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_save_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/layout_25"
+        android:gravity="center"
+        android:paddingBottom="@dimen/layout_15"
+        android:paddingTop="@dimen/layout_15"
+        android:text="分享书签"
+        android:textColor="@color/color_fff"
+        android:textSize="@dimen/text_16"
+        android:textStyle="normal" />
+
+</RelativeLayout>

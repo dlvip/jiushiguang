@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
+import com.old.time.activitys.SignDetailActivity;
 import com.old.time.beans.SignNameEntity;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.postcard.UserCardActivity;
@@ -28,7 +29,7 @@ public class SignNameAdapter extends BaseQuickAdapter<SignNameEntity, BaseViewHo
         ImageView imageView = helper.getView(R.id.img_card_pic);
         GlideUtils.getInstance().setImageView(mContext, item.getPicUrl(), imageView);
         helper.setText(R.id.tv_user_name, item.getUserEntity().getUserName())//
-                .setText(R.id.tv_book_name, "月亮与六便士 | " + item.getUserEntity().getUserName())//
+                .setText(R.id.tv_book_name, "月亮与六便士")//
                 .setText(R.id.tv_sign_content, item.getContent())//
                 .setText(R.id.tv_sign_time, StringUtils.getCreateTime(item.getCreatTime()));
 
@@ -36,6 +37,20 @@ public class SignNameAdapter extends BaseQuickAdapter<SignNameEntity, BaseViewHo
             @Override
             public void onClick(View v) {
                 UserCardActivity.startUserCardActivity(mContext, item.getUserId());
+
+            }
+        });
+        helper.getView(R.id.constraint_layout_parent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SignDetailActivity.startSignDetailActivity(mContext, item);
+
+            }
+        });
+        helper.getView(R.id.img_btn_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SignDetailActivity.startSignDetailActivity(mContext, item);
 
             }
         });

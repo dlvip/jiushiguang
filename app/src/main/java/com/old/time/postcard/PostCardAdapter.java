@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.beans.PhoneBean;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class PostCardAdapter extends BaseQuickAdapter<PhoneBean, BaseViewHolder>
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PCardDetailActivity.startPCardDetailActivity(mContext, item.getId());
+                PCardDetailActivity.startPCardDetailActivity(mContext, item.getId(), UserLocalInfoUtils.instance().getUserId());
 
             }
         });

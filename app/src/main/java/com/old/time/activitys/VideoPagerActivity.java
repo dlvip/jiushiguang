@@ -22,6 +22,7 @@ import com.dueeeke.videoplayer.demo.VideoBean;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.dueeeke.videoplayer.player.PlayerConfig;
 import com.old.time.R;
+import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.ActivityUtils;
 
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ public class VideoPagerActivity extends BaseActivity {
         for (VideoBean item : mVideoList) {
             View view = LayoutInflater.from(this).inflate(R.layout.adapter_video_pager, null);
             ImageView imageView = view.findViewById(R.id.thumb);
-            Glide.with(this).load(item.getThumb()).into(imageView);
+            GlideUtils.getInstance().setImageView(mContext, item.getThumb(), imageView);
             mViews.add(view);
 
         }

@@ -225,6 +225,6 @@ public class StringUtils {
             return timeStr;
         }
 
-        return timeStr.replace("-", "/").substring(2, 16);
+        return timeStr.replace("-", "/").substring(5, 16);
     }
 }

@@ -28,7 +28,6 @@ import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.PhoneUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
-import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,14 +41,16 @@ public class PCardDetailActivity extends BaseActivity {
      *
      * @param context
      */
-    public static void startPCardDetailActivity(Context context, String phoneId) {
+    public static void startPCardDetailActivity(Context context, String phoneId, String userId) {
         Intent intent = new Intent(context, PCardDetailActivity.class);
         intent.putExtra(PHONE_INFO, phoneId);
+        intent.putExtra(USER_ID, userId);
         ActivityUtils.startActivity((Activity) context, intent);
 
     }
 
     public static final String PHONE_INFO = "phoneId";
+    public static final String USER_ID = "userId";
 
     private PCardAdapter adapter;
 
@@ -57,11 +58,12 @@ public class PCardDetailActivity extends BaseActivity {
     private List<PhoneInfo> phoneInfos = new ArrayList<>();
     private RecyclerView recycler_view_call;
     private TextView tv_user_name;
-    private String phoneId;
+    private String phoneId, userId;
 
     @Override
     protected void initView() {
         phoneId = getIntent().getStringExtra(PHONE_INFO);
+        userId = getIntent().getStringExtra(USER_ID);
         img_more = findViewById(R.id.img_more);
         img_more.setImageResource(R.mipmap.menu_qrcode);
         findViewById(R.id.view_line_bg).setVisibility(View.VISIBLE);
@@ -90,7 +92,7 @@ public class PCardDetailActivity extends BaseActivity {
      */
     private void getDataFromNet() {
         HttpParams params = new HttpParams();
-        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        params.put("userId", userId);
         params.put("id", phoneId);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_SINGLE_PHONE_BEAN, new JsonCallBack<ResultBean<PhoneBean>>() {
             @Override
@@ -149,6 +151,10 @@ public class PCardDetailActivity extends BaseActivity {
     @Override
     public void onClick(View view) {
         super.onClick(view);
+        if (mPhoneBean == null) {
+
+            return;
+        }
         switch (view.getId()) {
             case R.id.tv_call_phone:
                 showCallPhoneDialog();

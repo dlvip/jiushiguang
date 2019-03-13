@@ -5,11 +5,15 @@ import android.text.TextUtils;
 
 import com.old.time.postcard.PCardDetailActivity;
 import com.old.time.postcard.UserCardActivity;
+import com.old.time.utils.DebugLog;
 import com.old.time.utils.GsonUtils;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.io.Serializable;
 
 public class RQCodeBean implements Serializable {
+
+    private static final String TAG = "RQCodeBean";
 
     public static final String MSG_TAG_PHONE_INFO = "0";
 
@@ -24,12 +28,13 @@ public class RQCodeBean implements Serializable {
      */
     public static RQCodeBean getInstance(String msgTag, String id) {
 
-        return new RQCodeBean(id, msgTag);
+        return new RQCodeBean(id, msgTag, UserLocalInfoUtils.instance().getUserId());
     }
 
-    public RQCodeBean(String id, String msgTag) {
+    private RQCodeBean(String id, String msgTag, String belongId) {
         this.id = id;
         this.msgTag = msgTag;
+        this.belongId = belongId;
 
     }
 
@@ -43,6 +48,18 @@ public class RQCodeBean implements Serializable {
      */
     private String msgTag;
 
+    /**
+     * 所属id
+     */
+    private String belongId;
+
+    public String getBelongId() {
+        return belongId;
+    }
+
+    public void setBelongId(String belongId) {
+        this.belongId = belongId;
+    }
 
     public String getId() {
         return id;
@@ -60,6 +77,14 @@ public class RQCodeBean implements Serializable {
         this.msgTag = tag;
     }
 
+    @Override
+    public String toString() {
+        return "RQCodeBean{" + "id='" + id + '\'' //
+                + ", msgTag='" + msgTag + '\'' //
+                + ", belongId='" + belongId + '\'' //
+                + '}';
+    }
+
     /**
      * 扫描完成逻辑
      *
@@ -75,9 +100,10 @@ public class RQCodeBean implements Serializable {
 
             return;
         }
-        switch (mRQCodeBean.getTag()) {//{"id":"50495675245773","msgTag":"0"}
+        DebugLog.d(TAG, mRQCodeBean.toString());
+        switch (mRQCodeBean.getTag()) {
             case MSG_TAG_PHONE_INFO:
-                PCardDetailActivity.startPCardDetailActivity(mContext, mRQCodeBean.getId());
+                PCardDetailActivity.startPCardDetailActivity(mContext, mRQCodeBean.getId(), mRQCodeBean.getBelongId());
 
                 break;
             case MSG_TAG_USER_INFO:

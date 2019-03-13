@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
@@ -38,16 +37,16 @@ import java.util.List;
 
 public class UserCardActivity extends BaseActivity {
 
-    private static final String USER_ID = "userId";
+    private static final String FRIEND_ID = "friendId";
 
     /**
      * 个人中心
      *
      * @param context
      */
-    public static void startUserCardActivity(Context context, String userId) {
+    public static void startUserCardActivity(Context context, String friendId) {
         Intent intent = new Intent(context, UserCardActivity.class);
-        intent.putExtra(USER_ID, userId);
+        intent.putExtra(FRIEND_ID, friendId);
         ActivityUtils.startActivity((Activity) context, intent);
 
     }
@@ -64,11 +63,11 @@ public class UserCardActivity extends BaseActivity {
     private RecyclerView recycler_view_call;
     private PCardAdapter adapter;
 
-    private String userId;
+    private String friendId;
 
     @Override
     protected void initView() {
-        userId = getIntent().getStringExtra(USER_ID);
+        friendId = getIntent().getStringExtra(FRIEND_ID);
         userInfoBean = UserLocalInfoUtils.instance().getmUserInfoBean();
         img_more = findViewById(R.id.img_more);
         img_more.setImageResource(R.mipmap.menu_qrcode);
@@ -108,7 +107,7 @@ public class UserCardActivity extends BaseActivity {
      */
     private void getUserInfo() {
         HttpParams params = new HttpParams();
-        params.put("userId", userId);
+        params.put("userId", friendId);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_INFO, new JsonCallBack<ResultBean<UserInfoBean>>() {
             @Override
             public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
@@ -143,43 +142,38 @@ public class UserCardActivity extends BaseActivity {
     @Override
     protected void initEvent() {
         super.initEvent();
-        img_header_bg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        img_header_bg.setOnClickListener(this);
+        img_user_pic.setOnClickListener(this);
+        findViewById(R.id.view_signs).setOnClickListener(this);
+        findViewById(R.id.relative_layout_more).setOnClickListener(this);
 
+    }
 
-            }
-        });
-        img_user_pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        if (userInfoBean == null) {
 
+            return;
+        }
+        switch (view.getId()) {
+            case R.id.img_header_bg:
 
-            }
-        });
-        findViewById(R.id.relative_layout_more).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String baseStr = Base64Utils.encodeToString(RQCodeBean.getInstance(RQCodeBean.MSG_TAG_PHONE_INFO, userInfoBean.getUserId()));
-                RQCodeActivity.startRQCodeActivity(mContext, baseStr, userInfoBean.getAvatar());
+                break;
+            case R.id.img_user_pic:
 
-            }
-        });
-        findViewById(R.id.linear_layout_signs).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SignListActivity.startSignListActivity(mContext, userInfoBean.getUserId());
+                break;
+            case R.id.view_signs:
+                SignListActivity.startSignListActivity(mContext, friendId);
 
-            }
-        });
-        recycler_view_sign.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                SignListActivity.startSignListActivity(mContext, userInfoBean.getUserId());
+                break;
+            case R.id.relative_layout_more:
+                RQCodeActivity.startRQCodeActivity(mContext//
+                        , Base64Utils.encodeToString(RQCodeBean.getInstance(RQCodeBean.MSG_TAG_USER_INFO//
+                                , friendId)), userInfoBean.getAvatar());
 
-            }
-        });
-
+                break;
+        }
     }
 
     /**
@@ -188,7 +182,7 @@ public class UserCardActivity extends BaseActivity {
     private void getUserSigns() {
         HttpParams params = new HttpParams();
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
-        params.put("friendId", UserLocalInfoUtils.instance().getUserId());
+        params.put("friendId", friendId);
         params.put("pageNum", 0);
         params.put("pageSize", 4);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_SIGN_NAME_LIST, new JsonCallBack<ResultBean<List<SignNameEntity>>>() {
@@ -211,7 +205,7 @@ public class UserCardActivity extends BaseActivity {
      */
     private void getPhoneDressList() {
         HttpParams params = new HttpParams();
-        params.put("mobile", UserLocalInfoUtils.instance().getmUserInfoBean().getMobile());
+        params.put("mobile", userInfoBean.getMobile());
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_PHONE_DRESS, new JsonCallBack<ResultBean<List<PhoneInfo>>>() {
             @Override
             public void onSuccess(ResultBean<List<PhoneInfo>> mResultBean) {
