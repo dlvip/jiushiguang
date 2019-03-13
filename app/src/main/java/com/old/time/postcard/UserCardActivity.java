@@ -13,8 +13,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
+import com.old.time.activitys.PhotoPagerActivity;
 import com.old.time.activitys.RQCodeActivity;
-import com.old.time.activitys.SignListActivity;
 import com.old.time.activitys.TouchSettingActivity;
 import com.old.time.activitys.UserMsgActivity;
 import com.old.time.beans.PhoneInfo;
@@ -36,7 +36,9 @@ import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserCardActivity extends BaseActivity {
@@ -182,9 +184,8 @@ public class UserCardActivity extends BaseActivity {
         }
         switch (view.getId()) {
             case R.id.img_header_bg:
-
-                break;
             case R.id.img_user_pic:
+                PhotoPagerActivity.startPhotoPagerActivity(mContext, (Serializable) Arrays.asList(userInfoBean.getAvatar()), 0);
 
                 break;
             case R.id.view_signs:

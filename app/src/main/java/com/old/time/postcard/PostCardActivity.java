@@ -88,7 +88,7 @@ public class PostCardActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                SignListActivity.startSignListActivity(mContext, "");
+                SignListActivity.startSignListActivity(mContext);
 
             }
         });

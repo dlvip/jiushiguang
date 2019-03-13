@@ -45,7 +45,7 @@ public class PhotoPagerActivity extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.piclib_activity_image_detail_pager);
+        setContentView(R.layout.activity_image_detail_pager);
 
         pagerPosition = getIntent().getIntExtra(EXTRA_IMAGE_INDEX, 0);
         urls = getIntent().getStringArrayListExtra(EXTRA_IMAGE_URLS);

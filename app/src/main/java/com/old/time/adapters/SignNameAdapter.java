@@ -10,7 +10,7 @@ import com.old.time.R;
 import com.old.time.activitys.SignDetailActivity;
 import com.old.time.beans.SignNameEntity;
 import com.old.time.glideUtils.GlideUtils;
-import com.old.time.postcard.UserCardActivity;
+import com.old.time.postcard.UserSignActivity;
 import com.old.time.utils.StringUtils;
 
 import java.util.List;
@@ -36,8 +36,11 @@ public class SignNameAdapter extends BaseQuickAdapter<SignNameEntity, BaseViewHo
         img_user_header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserCardActivity.startUserCardActivity(mContext, item.getUserId());
+                if (mContext instanceof UserSignActivity) {
 
+                    return;
+                }
+                UserSignActivity.startUserSignActivity(mContext, item.getUserEntity());
             }
         });
         helper.getView(R.id.constraint_layout_parent).setOnClickListener(new View.OnClickListener() {

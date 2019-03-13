@@ -1,5 +1,6 @@
 package com.pic.lib.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -11,11 +12,25 @@ import android.widget.TextView;
 import com.pic.lib.PicCode;
 import com.pic.lib.R;
 import com.pic.lib.adapters.ImagePagerAdapter;
+import com.pic.lib.utils.ActivityUtils;
 import com.pic.lib.views.HackyViewPager;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class PhotoPagerActivity extends FragmentActivity {
+
+    private static final String STATE_POSITION = "STATE_POSITION";
+    public static final String EXTRA_IMAGE_INDEX = "image_index";
+    public static final String EXTRA_IMAGE_URLS = "image_urls";
+
+    public static void startPhotoPagerActivity(Activity mContext, Serializable picPaths, int position) {
+        Intent intent = new Intent(mContext, PhotoPagerActivity.class);
+        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_URLS, picPaths);
+        intent.putExtra(PhotoPagerActivity.EXTRA_IMAGE_INDEX, position);
+        ActivityUtils.startPicActivity(mContext, intent);
+
+    }
 
     private HackyViewPager mPager;
     private int pagerPosition;

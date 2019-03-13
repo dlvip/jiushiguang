@@ -33,6 +33,8 @@ import com.old.time.utils.PictureUtil;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -52,9 +54,9 @@ public class SignCreateActivity extends BaseActivity {
 
     private RelativeLayout relative_layout_select_pic, relative_layout_right;
     private ImageView img_select_pic;
-    private EditText edt_sign_content;
+    private EditText edt_sign_content, edt_book_name;
     private String outputPath;
-    private String signStr;
+    private String signStr, bookNameStr;
 
     @Override
     protected void initView() {
@@ -65,6 +67,7 @@ public class SignCreateActivity extends BaseActivity {
 
         relative_layout_select_pic = findViewById(R.id.relative_layout_select_pic);
         img_select_pic = findViewById(R.id.img_select_pic);
+        edt_book_name = findViewById(R.id.edt_book_name);
         edt_sign_content = findViewById(R.id.edt_sign_content);
         relative_layout_select_pic.setOnClickListener(new View.OnClickListener() {
 
@@ -105,6 +108,28 @@ public class SignCreateActivity extends BaseActivity {
 
             }
         });
+        edt_book_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s)) {
+                    bookNameStr = "";
+
+                } else {
+                    bookNameStr = String.valueOf(s);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private DialogPromptCentre dialogPromptCentre;
@@ -136,12 +161,17 @@ public class SignCreateActivity extends BaseActivity {
      */
     private void uploadContent() {
         if (TextUtils.isEmpty(outputPath)) {
-            UIHelper.ToastMessage(mContext, "请选择封面");
+            UIHelper.ToastMessage(mContext, "选择封面");
+
+            return;
+        }
+        if (TextUtils.isEmpty(bookNameStr)) {
+            UIHelper.ToastMessage(mContext, "书签出处");
 
             return;
         }
         if (TextUtils.isEmpty(signStr)) {
-            UIHelper.ToastMessage(mContext, "你的一句动人话语，可以温暖到别人呢");
+            UIHelper.ToastMessage(mContext, "书签内容");
 
             return;
         }
@@ -168,10 +198,13 @@ public class SignCreateActivity extends BaseActivity {
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
         params.put("picUrl", signPic);
         params.put("content", signStr);
+        params.put("bookname", bookNameStr);
         OkGoUtils.getInstance().postNetForData(params, Constant.CREAT_SIGN_NAME, new JsonCallBack<ResultBean<SignNameEntity>>() {
             @Override
             public void onSuccess(ResultBean<SignNameEntity> mResultBean) {
                 UIHelper.dissmissProgressDialog(pd);
+                EventBus.getDefault().post(mResultBean.data);
+                ActivityUtils.finishActivity(mContext);
 
             }
 
@@ -220,7 +253,7 @@ public class SignCreateActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (!TextUtils.isEmpty(outputPath) || !TextUtils.isEmpty(signStr)) {
+        if (!TextUtils.isEmpty(outputPath) || !TextUtils.isEmpty(signStr) || !TextUtils.isEmpty(bookNameStr)) {
             showFinishDialog();
 
             return;

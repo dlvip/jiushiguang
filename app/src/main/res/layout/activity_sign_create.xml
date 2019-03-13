@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_fff"
+    android:background="@color/main_bg"
     tools:context="com.old.time.activitys.SignCreateActivity">
 
     <include layout="@layout/header_main_post" />
@@ -15,8 +15,6 @@
         android:layout_height="0dp"
         android:background="@color/color_fff"
         android:gravity="center"
-        android:layout_marginLeft="@dimen/layout_30"
-        android:layout_marginRight="@dimen/layout_30"
         app:layout_constraintDimensionRatio="1000:618"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -55,21 +53,58 @@
         android:background="@color/line_bg"
         app:layout_constraintTop_toBottomOf="@+id/relative_layout_select_pic" />
 
+    <LinearLayout
+        android:id="@+id/linear_layout_book"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_40"
+        android:background="@color/color_fff"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/layout_15"
+        android:paddingRight="@dimen/layout_15"
+        app:layout_constraintTop_toBottomOf="@+id/view_line">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="书签出处："
+            android:textColor="@color/color_484848"
+            android:textSize="@dimen/text_16" />
+
+        <EditText
+            android:id="@+id/edt_book_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/layout_15"
+            android:background="@color/color_fff"
+            android:hint="图书名称"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="@dimen/layout_5"
+            android:lineSpacingMultiplier="1.2"
+            android:textColor="@color/color_444"
+            android:textSize="@dimen/text_14" />
+
+    </LinearLayout>
+
     <EditText
         android:id="@+id/edt_sign_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/layout_1"
         android:background="@color/color_fff"
-        android:gravity="center"
-        android:hint="读书纪要，表述更完美的自己"
-        android:lineSpacingExtra="@dimen/layout_3"
+        android:gravity="center|left"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="@dimen/layout_5"
         android:lineSpacingMultiplier="1.2"
-        android:maxLength="200"
-        android:minHeight="@dimen/layout_150"
-        android:padding="@dimen/layout_20"
-        android:textColor="@color/color_000"
-        android:textColorHint="@color/color_aaa"
-        android:textSize="@dimen/text_16"
-        app:layout_constraintTop_toBottomOf="@+id/view_line" />
+        android:paddingLeft="@dimen/layout_30"
+        android:paddingRight="@dimen/layout_30"
+        android:text="一句话书签..."
+        android:textColor="@color/color_444"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintDimensionRatio="5:2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_book"
+        tools:ignore="RtlHardcoded" />
 
 </android.support.constraint.ConstraintLayout>
