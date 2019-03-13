@@ -188,7 +188,7 @@ public class UserCardActivity extends BaseActivity {
 
                 break;
             case R.id.view_signs:
-                SignListActivity.startSignListActivity(mContext, friendId);
+                UserSignActivity.startUserSignActivity(mContext, userInfoBean);
 
                 break;
             case R.id.relative_layout_more:

@@ -17,9 +17,6 @@ import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by NING on 2018/3/22.
  */
@@ -51,8 +48,6 @@ public abstract class BaseSActivity extends BaseActivity {
         }
     };
 
-    public List<String> strings = new ArrayList<>();
-
     public int height;
     private View header_main, view_line;
     private TextView tv_title;
@@ -65,10 +60,6 @@ public abstract class BaseSActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
-        for (int i = 0; i < 20; i++) {
-            strings.add(TAG);
-
-        }
         height = ScreenTools.instance(mContext).getScreenWidth();
         header_main = findViewById(R.id.header_main);
         view_line = findViewById(R.id.view_line);

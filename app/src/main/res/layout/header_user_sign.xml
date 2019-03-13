@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_fff">
+
+    <ImageView
+        android:id="@+id/img_header_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_190"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_100"
+        android:layout_marginTop="@dimen/layout_90"
+        android:background="@drawable/shape_gradient_000"
+        android:maxLines="1"
+        android:paddingStart="@dimen/layout_120"
+        android:paddingTop="@dimen/layout_65"
+        android:text="教育培训"
+        android:textColor="@color/color_fff"
+        android:textSize="@dimen/text_18"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/img_user_pic"
+        android:layout_width="@dimen/layout_80"
+        android:layout_height="@dimen/layout_80"
+        android:layout_marginStart="@dimen/layout_20"
+        android:layout_marginTop="@dimen/layout_140"
+        android:background="@drawable/shape_radius10_bgfff_strok_efefef"
+        android:padding="0.5dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_40"
+        android:layout_below="@+id/img_user_pic" />
+
+</RelativeLayout>
