@@ -98,7 +98,7 @@
         android:lineSpacingMultiplier="1.2"
         android:paddingLeft="@dimen/layout_30"
         android:paddingRight="@dimen/layout_30"
-        android:text="一句话书签..."
+        android:hint="一句话书签..."
         android:textColor="@color/color_444"
         android:textSize="@dimen/text_14"
         app:layout_constraintDimensionRatio="5:2"
