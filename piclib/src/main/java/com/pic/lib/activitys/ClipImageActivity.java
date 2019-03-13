@@ -17,7 +17,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.pic.lib.activitys.BaseLibActivity;
 import com.pic.lib.utils.ActivityUtils;
 import com.pic.lib.R;
 import com.pic.lib.cutpic.ClipImageView;

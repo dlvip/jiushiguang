@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="40dp"
     android:background="#f8f8f8"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/scanner_toolbar_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:padding="@dimen/layout_10"
-        android:src="@mipmap/zxing_abc_ic_ab_back_mtrl_am_alpha" />
+    <RelativeLayout
+        android:id="@+id/left_layout"
+        android:layout_width="50dip"
+        android:layout_height="@dimen/main_header_height"
+        android:clickable="true"
+        android:onClick="back">
+
+        <ImageView
+            android:id="@+id/scanner_toolbar_back"
+            android:layout_width="@dimen/layout_23"
+            android:layout_height="@dimen/layout_23"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/zxing_abc_ic_ab_back_mtrl_am_alpha" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/top_title"
         android:layout_width="0dp"
         android:layout_height="@dimen/main_header_height"
-        android:layout_toRightOf="@+id/frame_layout_left"
         android:layout_weight="1"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:paddingLeft="@dimen/layout_15"
         android:text="@string/code_barcode_text"
         android:textColor="@color/color_484848"
-        android:textSize="@dimen/text_18" />
+        android:textSize="@dimen/text_18"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/tv_select_pic"
@@ -34,7 +43,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/album_text"
-        android:textColor="@color/color_484848"
+        android:textColor="@color/color_58ad2c"
         android:textSize="16sp" />
 
 </LinearLayout>

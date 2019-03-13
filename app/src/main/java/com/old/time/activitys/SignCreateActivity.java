@@ -58,7 +58,7 @@ public class SignCreateActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        setTitleText("上传打卡");
+        setTitleText("创建书签");
         findViewById(R.id.relative_layout_more).setVisibility(View.GONE);
         relative_layout_right = findViewById(R.id.relative_layout_right);
         relative_layout_right.setVisibility(View.VISIBLE);

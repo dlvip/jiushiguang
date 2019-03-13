@@ -21,7 +21,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
@@ -32,7 +32,7 @@ import com.google.zxing.decoding.CaptureActivityHandler;
 import com.google.zxing.decoding.InactivityTimer;
 import com.google.zxing.utils.ReadCodeUtils;
 import com.google.zxing.view.ViewfinderView;
-import com.pic.lib.activitys.PhotoPickActivity;
+import com.pic.lib.utils.ActivityUtils;
 import com.pic.lib.utils.PictureUtil;
 
 
@@ -63,7 +63,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
 
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
-    private ImageView back;
+    private RelativeLayout left_layout;
     private boolean hasSurface;
     private Vector<BarcodeFormat> decodeFormats;
     private String characterSet;
@@ -115,8 +115,8 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         setContentView(R.layout.zxing_activity_scanner);
         CameraManager.init(getApplication());
         viewfinderView = findViewById(R.id.viewfinder_content);
-        back = findViewById(R.id.scanner_toolbar_back);
-        back.setOnClickListener(new View.OnClickListener() {
+        left_layout = findViewById(R.id.left_layout);
+        left_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -132,6 +132,11 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
 
             }
         });
+    }
+
+    public void back(View view) {
+        ActivityUtils.finishActivity(this);
+
     }
 
     @Override

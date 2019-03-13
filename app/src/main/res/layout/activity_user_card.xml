@@ -115,11 +115,17 @@
         android:layout_below="@+id/view_line" />
 
     <LinearLayout
+        android:id="@+id/linear_layout_call"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/view_line"
+        android:layout_below="@+id/linear_layout_signs"
         android:orientation="vertical"
         android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_20"
+            android:background="@color/main_bg" />
 
         <TextView
             android:id="@+id/tv_call_phone"

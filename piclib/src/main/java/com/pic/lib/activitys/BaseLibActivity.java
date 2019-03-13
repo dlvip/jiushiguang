@@ -7,6 +7,8 @@ import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.pic.lib.utils.ActivityUtils;
+
 /**
  * Created by NING on 2018/2/23.
  */
@@ -26,6 +28,15 @@ public abstract class BaseLibActivity extends AppCompatActivity implements View.
         initView();
 
         initEvent();
+
+    }
+
+    public void back(View view) {
+        ActivityUtils.finishActivity(this);
+
+    }
+
+    public void save(View view) {
 
     }
 

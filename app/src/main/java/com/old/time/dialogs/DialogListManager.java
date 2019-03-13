@@ -79,7 +79,7 @@ public class DialogListManager extends BaseDialog {
 
                     return;
                 }
-                onClickManagerCallBack.onClickRankManagerCallBack(myTypeItem.typeId, "");
+                onClickManagerCallBack.onClickRankManagerCallBack(myTypeItem.typeId, myTypeItem.typeName);
                 dismiss();
             }
         });

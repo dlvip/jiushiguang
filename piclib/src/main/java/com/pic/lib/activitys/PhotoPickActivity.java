@@ -103,8 +103,6 @@ public class PhotoPickActivity extends BaseLibActivity implements PhotoSelectorH
         tv_title.setText(getString(R.string.recent_pic));
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
-        TextView tv_send = findViewById(R.id.tv_send);
-        tv_send.setText(getString(R.string.main_right));
 
         List<String> list = getIntent().getStringArrayListExtra(PicCode.SELECT_PHOTO_LIST);
         if (list != null) {

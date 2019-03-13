@@ -15,13 +15,17 @@ import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.RQCodeActivity;
 import com.old.time.activitys.SignListActivity;
+import com.old.time.activitys.TouchSettingActivity;
+import com.old.time.activitys.UserMsgActivity;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.RQCodeBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.SignNameEntity;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Constant;
+import com.old.time.dialogs.DialogListManager;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.interfaces.OnClickManagerCallBack;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
@@ -63,15 +67,13 @@ public class UserCardActivity extends BaseActivity {
     private RecyclerView recycler_view_call;
     private PCardAdapter adapter;
 
+    private View view_line_bg, relative_layout_phone, linear_layout_call;
+
     private String friendId;
 
     @Override
     protected void initView() {
         friendId = getIntent().getStringExtra(FRIEND_ID);
-        userInfoBean = UserLocalInfoUtils.instance().getmUserInfoBean();
-        img_more = findViewById(R.id.img_more);
-        img_more.setImageResource(R.mipmap.menu_qrcode);
-        findViewById(R.id.view_line_bg).setVisibility(View.VISIBLE);
         img_header_bg = findViewById(R.id.img_header_bg);
         img_user_pic = findViewById(R.id.img_user_pic);
         tv_user_name = findViewById(R.id.tv_user_name);
@@ -96,6 +98,24 @@ public class UserCardActivity extends BaseActivity {
             }
         };
         recycler_view_sign.setAdapter(sAdapter);
+
+        img_more = findViewById(R.id.img_more);
+        view_line_bg = findViewById(R.id.view_line_bg);
+        relative_layout_phone = findViewById(R.id.relative_layout_phone);
+        linear_layout_call = findViewById(R.id.linear_layout_call);
+        if (friendId.equals(UserLocalInfoUtils.instance().getUserId())) {
+            view_line_bg.setVisibility(View.GONE);
+            img_more.setImageResource(R.mipmap.btn_more);
+            relative_layout_phone.setVisibility(View.VISIBLE);
+            linear_layout_call.setVisibility(View.GONE);
+
+        } else {
+            view_line_bg.setVisibility(View.VISIBLE);
+            img_more.setImageResource(R.mipmap.menu_qrcode);
+            relative_layout_phone.setVisibility(View.GONE);
+            linear_layout_call.setVisibility(View.VISIBLE);
+
+        }
 
         getUserInfo();
 
@@ -129,7 +149,10 @@ public class UserCardActivity extends BaseActivity {
             return;
         }
         this.userInfoBean = mUserInfoBean;
-        UserLocalInfoUtils.instance().setmUserInfoBean(mUserInfoBean);
+        if (friendId.equals(UserLocalInfoUtils.instance().getUserId())) {
+            UserLocalInfoUtils.instance().setmUserInfoBean(mUserInfoBean);
+
+        }
         setTitleText(userInfoBean.getUserName());
         tv_user_name.setText(userInfoBean.getUserName());
         GlideUtils.getInstance().setImgTransRes(mContext, userInfoBean.getAvatar(), img_header_bg, 0, 0);
@@ -144,6 +167,7 @@ public class UserCardActivity extends BaseActivity {
         super.initEvent();
         img_header_bg.setOnClickListener(this);
         img_user_pic.setOnClickListener(this);
+        linear_layout_call.setOnClickListener(this);
         findViewById(R.id.view_signs).setOnClickListener(this);
         findViewById(R.id.relative_layout_more).setOnClickListener(this);
 
@@ -168,12 +192,53 @@ public class UserCardActivity extends BaseActivity {
 
                 break;
             case R.id.relative_layout_more:
-                RQCodeActivity.startRQCodeActivity(mContext//
-                        , Base64Utils.encodeToString(RQCodeBean.getInstance(RQCodeBean.MSG_TAG_USER_INFO//
-                                , friendId)), userInfoBean.getAvatar());
+                showMoreSetDialog();
+
+                break;
+            case R.id.linear_layout_call:
+                UIHelper.ToastMessage(mContext, "非通讯录好友暂未开放");
 
                 break;
         }
+    }
+
+    private DialogListManager dialogListManager;
+
+    /**
+     * 更多设置
+     */
+    private void showMoreSetDialog() {
+        if (!friendId.equals(UserLocalInfoUtils.instance().getUserId())) {
+            RQCodeActivity.startRQCodeActivity(mContext//
+                    , Base64Utils.encodeToString(RQCodeBean.getInstance(RQCodeBean.MSG_TAG_USER_INFO//
+                            , friendId)), userInfoBean.getAvatar());
+            return;
+        }
+        if (dialogListManager == null) {
+            dialogListManager = new DialogListManager(mContext, new OnClickManagerCallBack() {
+                @Override
+                public void onClickRankManagerCallBack(int position, String typeName) {
+                    switch (typeName) {
+                        case "编辑信息":
+                            UserMsgActivity.startUserMsgActivity(mContext);
+
+                            break;
+                        case "名片二维码":
+                            RQCodeActivity.startRQCodeActivity(mContext//
+                                    , Base64Utils.encodeToString(RQCodeBean.getInstance(RQCodeBean.MSG_TAG_USER_INFO//
+                                            , friendId)), userInfoBean.getAvatar());
+
+                            break;
+                        case "开启指纹/手势":
+                            TouchSettingActivity.startSettingTouchActivity(mContext);
+
+                            break;
+                    }
+                }
+            });
+        }
+        dialogListManager.setDialogViewData("更多设置", new String[]{"编辑信息", "名片二维码", "开启指纹/手势"});
+
     }
 
     /**
@@ -220,6 +285,14 @@ public class UserCardActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (friendId.equals(UserLocalInfoUtils.instance().getUserId()) && userInfoBean != null)
+            setDateForView(UserLocalInfoUtils.instance().getmUserInfoBean());
+
     }
 
     @Override
