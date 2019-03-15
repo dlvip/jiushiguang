@@ -58,9 +58,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_40"
         android:background="@color/color_fff"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/layout_15"
-        android:paddingRight="@dimen/layout_15"
         app:layout_constraintTop_toBottomOf="@+id/view_line">
 
         <TextView
@@ -71,18 +71,28 @@
             android:textColor="@color/color_484848"
             android:textSize="@dimen/text_16" />
 
-        <EditText
-            android:id="@+id/edt_book_name"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_book_name"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/layout_15"
+            android:layout_weight="1"
             android:background="@color/color_fff"
+            android:gravity="center_vertical"
             android:hint="图书名称"
             android:includeFontPadding="false"
             android:lineSpacingExtra="@dimen/layout_5"
             android:lineSpacingMultiplier="1.2"
             android:textColor="@color/color_444"
             android:textSize="@dimen/text_14" />
+
+        <ImageView
+            android:id="@+id/img_open_camera"
+            android:layout_width="@dimen/layout_40"
+            android:layout_height="@dimen/layout_40"
+            android:background="@drawable/shape_radius0_stroke_line_bgfff"
+            android:padding="@dimen/layout_10"
+            android:src="@mipmap/ic_camera_n" />
 
     </LinearLayout>
 
@@ -93,12 +103,12 @@
         android:layout_marginTop="@dimen/layout_1"
         android:background="@color/color_fff"
         android:gravity="center|left"
+        android:hint="一句话书签..."
         android:includeFontPadding="false"
         android:lineSpacingExtra="@dimen/layout_5"
         android:lineSpacingMultiplier="1.2"
         android:paddingLeft="@dimen/layout_30"
         android:paddingRight="@dimen/layout_30"
-        android:hint="一句话书签..."
         android:textColor="@color/color_444"
         android:textSize="@dimen/text_14"
         app:layout_constraintDimensionRatio="5:2"

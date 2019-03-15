@@ -1,5 +1,6 @@
 package com.old.time.constants;
 
+import com.old.time.BuildConfig;
 import com.old.time.MyApplication;
 
 /**
@@ -35,24 +36,24 @@ public class Constant {
     public static final String IMAGEDOWNLOAD_THREAD_NAME = "ImageDownLoad";
 
     /**
+     * 聚合手机归属地key
+     */
+    public static final String PHONE_KEY = "cf5d54b234390d5248a4ccd892a91a1e";
+
+    /**
+     * 聚合图书信息key
+     */
+    public static final String BOOK_INFO_KEY = "2442dfe07567002631b03cb8d89b633f";
+
+    /**
      * 聚合API手机归属地查询
      */
     public static final String PHONE_DRESS = "http://apis.juhe.cn/mobile/get";
 
     /**
-     * 聚合key
+     * 通过查询ISBN获取相关信息和推荐指数
      */
-    public static final String PHONE_KEY = "cf5d54b234390d5248a4ccd892a91a1e";
-
-    /**
-     * 融云key
-     */
-    public static final String RONG_YUN_KEY = "x18ywvqfxcbjc";
-
-    /**
-     * 融云sign=72c4531224e2aac961494a4e8d8182008f22a592x18ywvqfxcbjc155074079400072a31&uid=15093073252
-     */
-    public static final String RONG_TOKEN = "sign=b5e25246e29859388c013613f5a2492b6425506ex18ywvqfxcbjc15508006460003b55a&uid=15093073252";
+    public static final String GET_JIHE_BOOK_INFO = "http://feedback.api.juhe.cn/ISBN";
 
     /**
      * 阿里云图片访问路径
@@ -62,12 +63,7 @@ public class Constant {
     /**
      * 服务器baseUrl
      */
-    //public static String BASE_URL = "http://120.76.72.60/webconsole/wap/";
-
-    /**
-     * 测试baseUrl
-     */
-    public static String BASE_TEST_URL = "http://localhost:9090/jiushiguang/";
+    public static String BASE_TEST_URL = BuildConfig.BASE_TEST_URL;
 
     //保存快递信息
     public static final String GET_FAST_MAIL_LIST = BASE_TEST_URL + "fastMail/getFastMailList";
@@ -78,17 +74,20 @@ public class Constant {
     //单个用户下的联系人信息
     public static final String GET_USER_SINGLE_PHONE_BEAN = BASE_TEST_URL + "phone/getUserSinglePhoneBean";
 
-    //保存归属地列表
-    public static String SAVE_PHONE_LIST = BASE_TEST_URL + "phone/savePhoneList";
-
     //保存手机号归属地
     public static final String SAVE_PHONE_INFO = BASE_TEST_URL + "phone/savePhoneInfo";
 
     //获取手机号归属地
     public static final String GET_PHONE_DRESS = BASE_TEST_URL + "phone/getPhoneInfo";
 
+    //保存图书信息
+    public static final String CREATE_BOOK_INFO = BASE_TEST_URL + "book/createBookInfo";
+
+    //获取图书信息
+    public static final String GET_BOOK_INFO = BASE_TEST_URL + "book/getBookInfo";
+
     //创建打开
-    public static final String CREAT_SIGN_NAME = BASE_TEST_URL + "signname/createSignName";
+    public static final String CREATE_SIGN_NAME = BASE_TEST_URL + "signname/createSignName";
 
     //获取打卡列表
     public static final String GET_SIGN_NAME_LIST = BASE_TEST_URL + "signname/getSignNameList";
@@ -110,7 +109,6 @@ public class Constant {
 
     //修改用户信息
     public static final String UPDATE_USER_MSG = BASE_TEST_URL + "user/updateUserMsg";
-
 
     // 发布动态
     public static final String SEND_CONTENT = BASE_TEST_URL + "saveContent";

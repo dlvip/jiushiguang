@@ -340,7 +340,7 @@ public class ImageFindQrUtils {
      * @return bitmap
      */
     public static Bitmap createQRCode(String text, int size) {
-        text = "https://www.baidu.com" + "?" + SPLIT_KEY + text;
+        text = "https://www.pgyer.com/UWDC" + "?" + SPLIT_KEY + text;
         Bitmap bitmap = null;
         try {
             Hashtable<EncodeHintType, String> hints = new Hashtable<>();

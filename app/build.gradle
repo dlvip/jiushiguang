@@ -33,11 +33,13 @@ android {
         release {
             minifyEnabled false
             signingConfig signingConfigs.key
+            buildConfigField 'String', 'BASE_TEST_URL', "\"http://120.76.72.60:9090/jiushiguang/\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
         }
         debug {
             signingConfig signingConfigs.key
+            buildConfigField 'String', 'BASE_TEST_URL', "\"http://localhost:9090/jiushiguang/\""
 
         }
     }

@@ -1,13 +1,10 @@
 package com.old.time.utils;
 
 import android.content.Context;
-import android.text.TextUtils;
-
-import com.google.gson.Gson;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.aidl.ChapterBean;
 import com.old.time.beans.FastMailBean;
-import com.old.time.beans.PhoneApiBean;
+import com.old.time.beans.JHBaseBean;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.VideosBean;
@@ -97,35 +94,21 @@ public class DataUtils {
         params.put("phone", numStr);
         params.put("key", Constant.PHONE_KEY);
         params.put("dtype", "json");
-        OkGoUtils.getInstance().getNetForData(params, Constant.PHONE_DRESS, new JsonCallBack<PhoneApiBean>() {
+        OkGoUtils.getInstance().getNetForData(params, Constant.PHONE_DRESS, new JsonCallBack<JHBaseBean<PhoneInfo>>() {
 
             @Override
-            public void onSuccess(PhoneApiBean mResultBean) {
-                if (mResultBean == null || mResultBean.getResult() == null) {
+            public void onSuccess(JHBaseBean<PhoneInfo> mResultBean) {
+                if (mResultBean == null || mResultBean.result == null) {
 
                     return;
                 }
-                PhoneInfo phoneInfo = mResultBean.getResult();
+                PhoneInfo phoneInfo = mResultBean.result;
                 phoneInfo.setPhone(numStr);
                 savePhoneInfo(phoneInfo);
             }
 
             @Override
-            public void onError(PhoneApiBean mResultBean) {
-
-            }
-        });
-    }
-
-    public static void savePhoneList() {
-        OkGoUtils.getInstance().postNetForData(Constant.SAVE_PHONE_LIST, new JsonCallBack<ResultBean>() {
-            @Override
-            public void onSuccess(ResultBean mResultBean) {
-
-            }
-
-            @Override
-            public void onError(ResultBean mResultBean) {
+            public void onError(JHBaseBean<PhoneInfo> mResultBean) {
 
             }
         });
@@ -149,12 +132,10 @@ public class DataUtils {
             @Override
             public void onSuccess(ResultBean mResultBean) {
 
-
             }
 
             @Override
             public void onError(ResultBean mResultBean) {
-
 
             }
         });
