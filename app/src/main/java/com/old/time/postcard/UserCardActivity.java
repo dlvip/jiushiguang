@@ -38,7 +38,7 @@ import com.old.time.utils.UserLocalInfoUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class UserCardActivity extends BaseActivity {
@@ -184,9 +184,12 @@ public class UserCardActivity extends BaseActivity {
         }
         switch (view.getId()) {
             case R.id.img_header_bg:
-            case R.id.img_user_pic:
-                PhotoPagerActivity.startPhotoPagerActivity(mContext, (Serializable) Arrays.asList(userInfoBean.getAvatar()), 0);
 
+                break;
+            case R.id.img_user_pic:
+                List<String> picS = Collections.singletonList(userInfoBean.getAvatar());
+                PhotoPagerActivity.startPhotoPagerActivity(mContext//
+                        , (Serializable) picS, 0);
                 break;
             case R.id.view_signs:
                 UserSignActivity.startUserSignActivity(mContext, userInfoBean);

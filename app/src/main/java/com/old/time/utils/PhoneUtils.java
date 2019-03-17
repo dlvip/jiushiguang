@@ -16,6 +16,11 @@ import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -43,6 +48,10 @@ public class PhoneUtils {
         Cursor cursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI//
                 , new String[]{"display_name", "sort_key", "contact_id", "data1"}//
                 , null, null, null);
+        if (cursor == null) {
+
+            return;
+        }
         nums.clear();
         while (cursor.moveToNext()) {
             //读取通讯录的姓名
@@ -133,7 +142,7 @@ public class PhoneUtils {
     private static List<String> nums = new ArrayList<>();
 
     private static String getSortKey(String sortKeyString) {
-        String key = sortKeyString.substring(0, 1).toUpperCase();
+        String key = getPinyin(sortKeyString).substring(0, 1).toUpperCase();
         if (key.matches("[A-Z]")) {
 
             return key;
@@ -141,6 +150,39 @@ public class PhoneUtils {
 
             return "#";
         }
+    }
+
+    /**
+     * 将hanzi转成拼音
+     *
+     * @param hanzi 汉字或字母
+     * @return 拼音
+     */
+    public static String getPinyin(String hanzi) {
+        StringBuilder sb = new StringBuilder();
+        HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
+        format.setCaseType(HanyuPinyinCaseType.UPPERCASE);
+        format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+        //由于不能直接对多个汉子转换，只能对单个汉子转换
+        char[] arr = hanzi.toCharArray();
+        for (int i = 0; i < arr.length; i++) {
+            if (Character.isWhitespace(arr[i])) {
+                continue;
+            }
+            try {
+                String[] pinyinArr = PinyinHelper.toHanyuPinyinStringArray(arr[i], format);
+                if (pinyinArr != null) {
+                    sb.append(pinyinArr[0]);
+                } else {
+                    sb.append(arr[i]);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //不是正确的汉字
+                sb.append(arr[i]);
+            }
+        }
+        return sb.toString();
     }
 
     /**

@@ -100,4 +100,5 @@ dependencies {
     implementation externalMp4parser
 
     implementation externalASSALiyun
+    implementation externalHanZiToPinyin
 }

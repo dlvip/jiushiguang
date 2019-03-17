@@ -7,9 +7,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.activitys.BaseSActivity;
+import com.old.time.activitys.PhotoPagerActivity;
 import com.old.time.adapters.SignNameAdapter;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.SignNameEntity;
@@ -21,9 +23,17 @@ import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UserLocalInfoUtils;
+import com.old.time.views.CustomNetView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+
+import static com.old.time.views.CustomNetView.NET_ERREY;
+import static com.old.time.views.CustomNetView.NO_DATA;
 
 public class UserSignActivity extends BaseSActivity {
 
@@ -61,9 +71,27 @@ public class UserSignActivity extends BaseSActivity {
         adapter = new SignNameAdapter(signNameEntities);
         adapter.addHeaderView(headerView);
         mRecyclerView.setAdapter(adapter);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                getDataFromNet(false);
 
+            }
+        }, mRecyclerView);
+        mCustomNetView = new CustomNetView(mContext, NO_DATA);
+
+        img_user_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> picS = Collections.singletonList(userInfoBean.getAvatar());
+                PhotoPagerActivity.startPhotoPagerActivity(mContext//
+                        , (Serializable) picS, 0);
+
+            }
+        });
     }
 
+    private CustomNetView mCustomNetView;
     private int startNum;
 
     @Override
@@ -87,13 +115,32 @@ public class UserSignActivity extends BaseSActivity {
                     adapter.setNewData(signNameEntities);
 
                 }
+                if (mResultBean.data.size() < Constant.PageSize) {
+                    adapter.loadMoreEnd();
+
+                } else {
+                    adapter.loadMoreComplete();
+
+                }
                 adapter.addData(mResultBean.data);
+                if (adapter.getItemCount() == 0) {
+                    mCustomNetView.setDataForView(NO_DATA);
+                    adapter.setEmptyView(mCustomNetView);
+
+                }
             }
 
             @Override
             public void onError(ResultBean<List<SignNameEntity>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
+                if (adapter.getItemCount() == 0) {
+                    mCustomNetView.setDataForView(CustomNetView.NET_ERREY);
+                    adapter.setEmptyView(mCustomNetView);
 
+                } else {
+                    adapter.loadMoreFail();
+
+                }
             }
         });
     }

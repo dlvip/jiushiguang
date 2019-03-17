@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.adapters.SignNameAdapter;
@@ -16,6 +17,7 @@ import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UserLocalInfoUtils;
+import com.old.time.views.CustomNetView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,6 +25,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.old.time.views.CustomNetView.NET_ERREY;
+import static com.old.time.views.CustomNetView.NO_DATA;
 
 public class SignListActivity extends BaseCActivity {
 
@@ -39,6 +44,7 @@ public class SignListActivity extends BaseCActivity {
 
     private List<SignNameEntity> signNameEntities = new ArrayList<>();
     private SignNameAdapter adapter;
+    private CustomNetView mCustomNetView;
 
     @Override
     protected void initView() {
@@ -49,7 +55,14 @@ public class SignListActivity extends BaseCActivity {
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         adapter = new SignNameAdapter(signNameEntities);
         mRecyclerView.setAdapter(adapter);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                getDataFromNet(false);
 
+            }
+        }, mRecyclerView);
+        mCustomNetView = new CustomNetView(mContext, NO_DATA);
         EventBus.getDefault().register(this);
     }
 
@@ -76,13 +89,32 @@ public class SignListActivity extends BaseCActivity {
                     adapter.setNewData(signNameEntities);
 
                 }
+                if (mResultBean.data.size() < Constant.PageSize) {
+                    adapter.loadMoreEnd();
+
+                } else {
+                    adapter.loadMoreComplete();
+
+                }
                 adapter.addData(mResultBean.data);
+                if (adapter.getItemCount() == 0) {
+                    mCustomNetView.setDataForView(NO_DATA);
+                    adapter.setEmptyView(mCustomNetView);
+
+                }
             }
 
             @Override
             public void onError(ResultBean<List<SignNameEntity>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
+                if (adapter.getItemCount() == 0) {
+                    mCustomNetView.setDataForView(CustomNetView.NET_ERREY);
+                    adapter.setEmptyView(mCustomNetView);
 
+                } else {
+                    adapter.loadMoreFail();
+
+                }
             }
         });
     }
