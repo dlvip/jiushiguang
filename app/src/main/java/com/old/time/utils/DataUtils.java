@@ -1,6 +1,7 @@
 package com.old.time.utils;
 
 import android.content.Context;
+
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.aidl.ChapterBean;
 import com.old.time.beans.FastMailBean;
@@ -177,5 +178,98 @@ public class DataUtils {
 
         }
         return strings;
+    }
+
+    private static String[] getUserNameS() {
+
+
+        return new String[]{"黄昏半晓、拾忆", "梦落轻寻", "清茶也醉人", "阳光①夏", "喝醉了梦", "铁树开花@", "风居住的味道", //
+                "夏花冬雪", "簡單ǒ愛√", "ミ灬纯真小女孩", "云之铃。", "那场櫻花雨", "掌中花", "聆听、这幸福", "等一朵彼岸花开",//
+                "情花。，初放", "花雨淋湿了梦境", "羙仯丶亾泩", "青瓷花羽", "暮浴ゞ晨曦", "許願樹丅啲祈禱", "玻璃里的彩虹", //
+                "满眼、的温柔", "深海里的星星", "爱是蓝色", "清水漪澜", "夏天的巴比伦狠美", "安。忆雅", "风の痕迹", "孤海未蓝",//
+                "玫瑰花的代替", "时光凉透初时模样", "灰色世界里的红玫瑰", "夏日落◇◆", "流星、划过sky", "画朵纸鸢花", "春风十里·",//
+                "细致如美瓷╯", "红莺绿柳", "雨嫣", "若雪樱花草", "就像蓝鲸忘了海", "Rain Sounds", "惆怅暮烟垂", "淡藍色瞳孔。",//
+                "︶彩虹餹dē夢", "〤twinkle繁夏", "夏初的伤", "秋末的美。", "像儚辷様媄", "薰衣草的夏天", "四号花店", "枕花眠", //
+                "捕星光", "舀一瓢月色", "邀我花前醉", "摇铃唤白鹿", "偷捧时间煮酒喝", "扑流萤", "萤火眠眠", "月下无痕", "风居住的街道",//
+                "睡于麋鹿林"};
+    }
+
+    private static String[] getUserAravers(){
+
+        return new String[]{
+        "http://www.tbw-xie.com/tuxieJDEwLmFsaWNkbi5jb20vYmFvL3VwbG9hZGVkL2kxL1RCMUlPYWlRViQ2WHFhcCQ1JDM.jpg",
+        "http://img10.360buyimg.com/n0/jfs/t2587/344/774058668/175754/c0b47695/5725aab4Ne8e023fd.jpg",
+        "http://img10.360buyimg.com/n0/jfs/t2587/344/774058668/175754/c0b47695/5725aab4Ne8e023fd.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=3797202546,2028562705&fm=214&gp=0.jpg",
+        "http://www.tbw-xie.com/tuxieJDEwLmFsaWNkbi5jb20vYmFvL3VwbG9hZGVkL2k0LzI4NDg2OTU0MjMvVEIyWE50THlwT1dCdU5qeTBGaVhYWEZ4VlhhXyEhMjg0ODY5NTQyMyQ5.jpg",
+        "http://img.mp.itc.cn/upload/20170323/bd834e03006a4ceb9c3c3ff995f772bd_th.jpeg",
+        "http://img5.imgtn.bdimg.com/it/u=3769986249,4040529360&fm=15&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=4278407699,649956952&fm=15&gp=0.jpg",
+        "http://img2.imgtn.bdimg.com/it/u=529706351,2873558001&fm=15&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=1185058603,1112505556&fm=26&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=3425809397,1315010404&fm=15&gp=0.jpg",
+        "http://image4.suning.cn/uimg/b2c/newcatentries/0070181417-000000010115726974_1_800x800.jpg",
+        "http://img2.imgtn.bdimg.com/it/u=79255844,2460060828&fm=15&gp=0.jpg",
+        "http://img4.imgtn.bdimg.com/it/u=4291212875,3026070603&fm=15&gp=0.jpg",
+        "http://img3.imgtn.bdimg.com/it/u=1404253326,3567317521&fm=15&gp=0.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=1457574772,4208571193&fm=26&gp=0.jpg",
+        "http://img3.imgtn.bdimg.com/it/u=2036960203,446986364&fm=26&gp=0.jpg",
+        "http://img4.imgtn.bdimg.com/it/u=977089818,2972028142&fm=26&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=1974953716,3054353363&fm=26&gp=0.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=2935349475,2125694918&fm=26&gp=0.jpg",
+        "http://img3.imgtn.bdimg.com/it/u=1709642607,2725224868&fm=26&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=884440541,2903227536&fm=26&gp=0.jpg",
+        "http://img2.imgtn.bdimg.com/it/u=2471126106,2382116736&fm=26&gp=0.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=2053400127,1461463396&fm=26&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=1002266063,3139943970&fm=15&gp=0.jpg",
+        "http://img0.imgtn.bdimg.com/it/u=2385213701,2719092767&fm=15&gp=0.jpg",
+        "http://img4.imgtn.bdimg.com/it/u=4042731134,1652766081&fm=214&gp=0.jpg",
+        "http://img0.imgtn.bdimg.com/it/u=325099414,703644908&fm=26&gp=0.jpg",
+        "http://img0.imgtn.bdimg.com/it/u=3369162403,1185901905&fm=26&gp=0.jpg",
+        "http://img3.imgtn.bdimg.com/it/u=1444029598,1453968551&fm=26&gp=0.jpg",
+        "http://img4.imgtn.bdimg.com/it/u=505544546,292271648&fm=26&gp=0.jpg",
+        "http://5b0988e595225.cdn.sohucs.com/images/20171201/1ab51a8403c04683b405f6d5a1182d18.jpeg",
+        "http://img1.imgtn.bdimg.com/it/u=1764954471,971112304&fm=26&gp=0.jpg",
+        "http://img4.imgtn.bdimg.com/it/u=3804696990,2201605820&fm=26&gp=0.jpg",
+        "http://img2.imgtn.bdimg.com/it/u=790647051,1365287513&fm=26&gp=0.jpg",
+        "http://inews.gtimg.com/newsapp_bt/0/7894738697/1000",
+        "http://img0.imgtn.bdimg.com/it/u=3319122996,4241936236&fm=15&gp=0.jpg",
+        "http://img0.imgtn.bdimg.com/it/u=221098100,4228486634&fm=15&gp=0.jpg",
+        "http://res.cngoldres.com/upload/2014/1125/5761e583fc17dca0d90704db5cb84383.jpg",
+        "http://inews.gtimg.com/newsapp_bt/0/8037040335/1000",
+        "http://pic.rmb.bdstatic.com/b84877c494164637ace2d7cc0cd16d5a.jpeg@wm_2,t_55m+5a625Y+3L+WHr+eQs+eOi2thdGhlcmluZQ==,fc_ffffff,ff_U2ltSGVp,sz_25,x_16,y_16",
+        "http://image4.suning.cn/uimg/b2c/newcatentries/0070175918-000000000818291409_3_800x800.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=384565084,3624724591&fm=15&gp=0.jpg",
+        "http://inews.gtimg.com/newsapp_bt/0/7776100820/1000",
+        "http://image5.suning.cn/uimg/b2c/newcatentries/0070174141-000000010099611492_2_800x800.jpg",
+        "http://img0.imgtn.bdimg.com/it/u=1706673149,3281931845&fm=15&gp=0.jpg",
+        "http://image2.suning.cn/uimg/b2c/newcatentries/0070187915-000000010474108823_1_800x800.jpg",
+        "http://image3.suning.cn/uimg/b2c/newcatentries/0070181476-000000010070445834_2_800x800.jpg",
+        "http://image2.suning.cn/uimg/b2c/newcatentries/0070139594-000000010491224730_1_200x200.jpg",
+        "http://img0.imgtn.bdimg.com/it/u=2597319635,3568582421&fm=15&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=1931723891,3490150378&fm=15&gp=0.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=3138066373,1321306114&fm=15&gp=0.jpg",
+        "http://img4.imgtn.bdimg.com/it/u=3113074184,3942921252&fm=15&gp=0.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=2180904612,2091192637&fm=15&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=3245806547,1873515280&fm=15&gp=0.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=2173969411,4239827968&fm=15&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=3934308742,3201105497&fm=15&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=3555678337,2289521240&fm=15&gp=0.jpg",
+        "http://image2.suning.cn/uimg/b2c/newcatentries/0070168967-000000000651473205_4_800x800.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=351775468,3824694901&fm=15&gp=0.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=1390895217,923441152&fm=15&gp=0.jpg",
+        "http://img2.imgtn.bdimg.com/it/u=3678997334,4235644582&fm=15&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=1589904128,2751643939&fm=15&gp=0.jpg",
+        "http://img2.imgtn.bdimg.com/it/u=2448847534,2087942582&fm=15&gp=0.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=407390361,1468817992&fm=15&gp=0.jpg",
+        "http://img2.imgtn.bdimg.com/it/u=4101042559,4201958447&fm=26&gp=0.jpg",
+        "http://img2.imgtn.bdimg.com/it/u=35546168,3156494880&fm=15&gp=0.jpg",
+        "http://img3.imgtn.bdimg.com/it/u=404627947,3635187596&fm=15&gp=0.jpg",
+        "http://img0.imgtn.bdimg.com/it/u=1591911801,2515622973&fm=15&gp=0.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=1176017423,3925985284&fm=15&gp=0.jpg",
+        "http://img1.imgtn.bdimg.com/it/u=1374398101,3801518356&fm=15&gp=0.jpg",
+        "http://m.360buyimg.com/n12/jfs/t2221/243/764855307/468465/9f9334f0/5628aec4Ne7bba205.jpg%21q70.jpg",
+        "http://img5.imgtn.bdimg.com/it/u=3418510389,719081792&fm=15&gp=0.jpg",
+        };
     }
 }
