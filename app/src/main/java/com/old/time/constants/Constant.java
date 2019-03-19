@@ -98,6 +98,9 @@ public class Constant {
     //获取验证码
     public static final String GET_PHONE_CODE = BASE_TEST_URL + "getMobileCode";
 
+    //系统用户注册
+    public static final String GET_SYSTEM_REGISTER = BASE_TEST_URL + "registerSystemUser";
+
     //用户注册
     public static final String USER_REGISTER = BASE_TEST_URL + "registerUser";
 

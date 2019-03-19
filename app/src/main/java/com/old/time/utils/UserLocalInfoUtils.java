@@ -3,6 +3,8 @@ package com.old.time.utils;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Key;
 
+import java.util.Random;
+
 /**
  * Created by NING on 2018/4/5.
  */

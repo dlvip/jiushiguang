@@ -8,6 +8,7 @@ import com.old.time.beans.FastMailBean;
 import com.old.time.beans.JHBaseBean;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.ResultBean;
+import com.old.time.beans.UserInfoBean;
 import com.old.time.beans.VideosBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
@@ -180,6 +181,40 @@ public class DataUtils {
         return strings;
     }
 
+    public static void registerUserInfo() {
+        String[] userNames = getUserNameS();
+        String[] userAvatars = getUserAravers();
+        int j = 0;
+        for (int i = 0; i < userNames.length; i++) {
+            if (i >= userAvatars.length) {
+                j = userAvatars.length - 1;
+
+            }
+            registerUser(userAvatars[j], userNames[i], String.valueOf(i), String.valueOf(i));
+
+        }
+    }
+
+    private static void registerUser(String avatar, String userName, String userId, String mobile) {
+        HttpParams params = new HttpParams();
+        params.put("avatar", avatar);
+        params.put("userName", userName);
+        params.put("userId", userId);
+        params.put("mobile", mobile);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_SYSTEM_REGISTER, new JsonCallBack<ResultBean<UserInfoBean>>() {
+            @Override
+            public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
+                DebugLog.d("registerUser==>", mResultBean.data.toString());
+
+            }
+
+            @Override
+            public void onError(ResultBean<UserInfoBean> mResultBean) {
+
+            }
+        });
+    }
+
     private static String[] getUserNameS() {
 
 
@@ -194,82 +229,109 @@ public class DataUtils {
                 "睡于麋鹿林"};
     }
 
-    private static String[] getUserAravers(){
+    private static String[] getUserAravers() {
 
-        return new String[]{
-        "http://www.tbw-xie.com/tuxieJDEwLmFsaWNkbi5jb20vYmFvL3VwbG9hZGVkL2kxL1RCMUlPYWlRViQ2WHFhcCQ1JDM.jpg",
-        "http://img10.360buyimg.com/n0/jfs/t2587/344/774058668/175754/c0b47695/5725aab4Ne8e023fd.jpg",
-        "http://img10.360buyimg.com/n0/jfs/t2587/344/774058668/175754/c0b47695/5725aab4Ne8e023fd.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=3797202546,2028562705&fm=214&gp=0.jpg",
-        "http://www.tbw-xie.com/tuxieJDEwLmFsaWNkbi5jb20vYmFvL3VwbG9hZGVkL2k0LzI4NDg2OTU0MjMvVEIyWE50THlwT1dCdU5qeTBGaVhYWEZ4VlhhXyEhMjg0ODY5NTQyMyQ5.jpg",
-        "http://img.mp.itc.cn/upload/20170323/bd834e03006a4ceb9c3c3ff995f772bd_th.jpeg",
-        "http://img5.imgtn.bdimg.com/it/u=3769986249,4040529360&fm=15&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=4278407699,649956952&fm=15&gp=0.jpg",
-        "http://img2.imgtn.bdimg.com/it/u=529706351,2873558001&fm=15&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=1185058603,1112505556&fm=26&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=3425809397,1315010404&fm=15&gp=0.jpg",
-        "http://image4.suning.cn/uimg/b2c/newcatentries/0070181417-000000010115726974_1_800x800.jpg",
-        "http://img2.imgtn.bdimg.com/it/u=79255844,2460060828&fm=15&gp=0.jpg",
-        "http://img4.imgtn.bdimg.com/it/u=4291212875,3026070603&fm=15&gp=0.jpg",
-        "http://img3.imgtn.bdimg.com/it/u=1404253326,3567317521&fm=15&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=1457574772,4208571193&fm=26&gp=0.jpg",
-        "http://img3.imgtn.bdimg.com/it/u=2036960203,446986364&fm=26&gp=0.jpg",
-        "http://img4.imgtn.bdimg.com/it/u=977089818,2972028142&fm=26&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=1974953716,3054353363&fm=26&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=2935349475,2125694918&fm=26&gp=0.jpg",
-        "http://img3.imgtn.bdimg.com/it/u=1709642607,2725224868&fm=26&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=884440541,2903227536&fm=26&gp=0.jpg",
-        "http://img2.imgtn.bdimg.com/it/u=2471126106,2382116736&fm=26&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=2053400127,1461463396&fm=26&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=1002266063,3139943970&fm=15&gp=0.jpg",
-        "http://img0.imgtn.bdimg.com/it/u=2385213701,2719092767&fm=15&gp=0.jpg",
-        "http://img4.imgtn.bdimg.com/it/u=4042731134,1652766081&fm=214&gp=0.jpg",
-        "http://img0.imgtn.bdimg.com/it/u=325099414,703644908&fm=26&gp=0.jpg",
-        "http://img0.imgtn.bdimg.com/it/u=3369162403,1185901905&fm=26&gp=0.jpg",
-        "http://img3.imgtn.bdimg.com/it/u=1444029598,1453968551&fm=26&gp=0.jpg",
-        "http://img4.imgtn.bdimg.com/it/u=505544546,292271648&fm=26&gp=0.jpg",
-        "http://5b0988e595225.cdn.sohucs.com/images/20171201/1ab51a8403c04683b405f6d5a1182d18.jpeg",
-        "http://img1.imgtn.bdimg.com/it/u=1764954471,971112304&fm=26&gp=0.jpg",
-        "http://img4.imgtn.bdimg.com/it/u=3804696990,2201605820&fm=26&gp=0.jpg",
-        "http://img2.imgtn.bdimg.com/it/u=790647051,1365287513&fm=26&gp=0.jpg",
-        "http://inews.gtimg.com/newsapp_bt/0/7894738697/1000",
-        "http://img0.imgtn.bdimg.com/it/u=3319122996,4241936236&fm=15&gp=0.jpg",
-        "http://img0.imgtn.bdimg.com/it/u=221098100,4228486634&fm=15&gp=0.jpg",
-        "http://res.cngoldres.com/upload/2014/1125/5761e583fc17dca0d90704db5cb84383.jpg",
-        "http://inews.gtimg.com/newsapp_bt/0/8037040335/1000",
-        "http://pic.rmb.bdstatic.com/b84877c494164637ace2d7cc0cd16d5a.jpeg@wm_2,t_55m+5a625Y+3L+WHr+eQs+eOi2thdGhlcmluZQ==,fc_ffffff,ff_U2ltSGVp,sz_25,x_16,y_16",
-        "http://image4.suning.cn/uimg/b2c/newcatentries/0070175918-000000000818291409_3_800x800.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=384565084,3624724591&fm=15&gp=0.jpg",
-        "http://inews.gtimg.com/newsapp_bt/0/7776100820/1000",
-        "http://image5.suning.cn/uimg/b2c/newcatentries/0070174141-000000010099611492_2_800x800.jpg",
-        "http://img0.imgtn.bdimg.com/it/u=1706673149,3281931845&fm=15&gp=0.jpg",
-        "http://image2.suning.cn/uimg/b2c/newcatentries/0070187915-000000010474108823_1_800x800.jpg",
-        "http://image3.suning.cn/uimg/b2c/newcatentries/0070181476-000000010070445834_2_800x800.jpg",
-        "http://image2.suning.cn/uimg/b2c/newcatentries/0070139594-000000010491224730_1_200x200.jpg",
-        "http://img0.imgtn.bdimg.com/it/u=2597319635,3568582421&fm=15&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=1931723891,3490150378&fm=15&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=3138066373,1321306114&fm=15&gp=0.jpg",
-        "http://img4.imgtn.bdimg.com/it/u=3113074184,3942921252&fm=15&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=2180904612,2091192637&fm=15&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=3245806547,1873515280&fm=15&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=2173969411,4239827968&fm=15&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=3934308742,3201105497&fm=15&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=3555678337,2289521240&fm=15&gp=0.jpg",
-        "http://image2.suning.cn/uimg/b2c/newcatentries/0070168967-000000000651473205_4_800x800.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=351775468,3824694901&fm=15&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=1390895217,923441152&fm=15&gp=0.jpg",
-        "http://img2.imgtn.bdimg.com/it/u=3678997334,4235644582&fm=15&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=1589904128,2751643939&fm=15&gp=0.jpg",
-        "http://img2.imgtn.bdimg.com/it/u=2448847534,2087942582&fm=15&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=407390361,1468817992&fm=15&gp=0.jpg",
-        "http://img2.imgtn.bdimg.com/it/u=4101042559,4201958447&fm=26&gp=0.jpg",
-        "http://img2.imgtn.bdimg.com/it/u=35546168,3156494880&fm=15&gp=0.jpg",
-        "http://img3.imgtn.bdimg.com/it/u=404627947,3635187596&fm=15&gp=0.jpg",
-        "http://img0.imgtn.bdimg.com/it/u=1591911801,2515622973&fm=15&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=1176017423,3925985284&fm=15&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=1374398101,3801518356&fm=15&gp=0.jpg",
-        "http://m.360buyimg.com/n12/jfs/t2221/243/764855307/468465/9f9334f0/5628aec4Ne7bba205.jpg%21q70.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=3418510389,719081792&fm=15&gp=0.jpg",
-        };
+        return new String[]{"http://www.tbw-xie.com/tuxieJDEwLmFsaWNkbi5jb20vYmFvL3VwbG9hZGVkL2kxL1RCMUlPYWlRViQ2WHFhcCQ1JDM.jpg"//
+                , "http://img10.360buyimg.com/n0/jfs/t2587/344/774058668/175754/c0b47695/5725aab4Ne8e023fd.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=3797202546,2028562705&fm=214&gp=0.jpg"//
+                , "http://img.mp.itc.cn/upload/20170323/bd834e03006a4ceb9c3c3ff995f772bd_th.jpeg"//
+                , "http://img5.imgtn.bdimg.com/it/u=3769986249,4040529360&fm=15&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=4278407699,649956952&fm=15&gp=0.jpg"//
+                , "http://img2.imgtn.bdimg.com/it/u=529706351,2873558001&fm=15&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=1185058603,1112505556&fm=26&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=3425809397,1315010404&fm=15&gp=0.jpg"//
+                , "http://image4.suning.cn/uimg/b2c/newcatentries/0070181417-000000010115726974_1_800x800.jpg"//
+                , "http://img2.imgtn.bdimg.com/it/u=79255844,2460060828&fm=15&gp=0.jpg"//
+                , "http://img4.imgtn.bdimg.com/it/u=4291212875,3026070603&fm=15&gp=0.jpg"//
+                , "http://img3.imgtn.bdimg.com/it/u=1404253326,3567317521&fm=15&gp=0.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=1457574772,4208571193&fm=26&gp=0.jpg"//
+                , "http://img3.imgtn.bdimg.com/it/u=2036960203,446986364&fm=26&gp=0.jpg"//
+                , "http://img4.imgtn.bdimg.com/it/u=977089818,2972028142&fm=26&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=1974953716,3054353363&fm=26&gp=0.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=2935349475,2125694918&fm=26&gp=0.jpg"//
+                , "http://img3.imgtn.bdimg.com/it/u=1709642607,2725224868&fm=26&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=884440541,2903227536&fm=26&gp=0.jpg"//
+                , "http://img2.imgtn.bdimg.com/it/u=2471126106,2382116736&fm=26&gp=0.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=2053400127,1461463396&fm=26&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=1002266063,3139943970&fm=15&gp=0.jpg"//
+                , "http://img0.imgtn.bdimg.com/it/u=2385213701,2719092767&fm=15&gp=0.jpg"//
+                , "http://img4.imgtn.bdimg.com/it/u=4042731134,1652766081&fm=214&gp=0.jpg"//
+                , "http://img0.imgtn.bdimg.com/it/u=325099414,703644908&fm=26&gp=0.jpg"//
+                , "http://img0.imgtn.bdimg.com/it/u=3369162403,1185901905&fm=26&gp=0.jpg"//
+                , "http://img3.imgtn.bdimg.com/it/u=1444029598,1453968551&fm=26&gp=0.jpg"//
+                , "http://img4.imgtn.bdimg.com/it/u=505544546,292271648&fm=26&gp=0.jpg"//
+                , "http://5b0988e595225.cdn.sohucs.com/images/20171201/1ab51a8403c04683b405f6d5a1182d18.jpeg"//
+                , "http://img1.imgtn.bdimg.com/it/u=1764954471,971112304&fm=26&gp=0.jpg"//
+                , "http://img4.imgtn.bdimg.com/it/u=3804696990,2201605820&fm=26&gp=0.jpg"//
+                , "http://img2.imgtn.bdimg.com/it/u=790647051,1365287513&fm=26&gp=0.jpg"//
+                , "http://inews.gtimg.com/newsapp_bt/0/7894738697/1000"//
+                , "http://img0.imgtn.bdimg.com/it/u=3319122996,4241936236&fm=15&gp=0.jpg"//
+                , "http://img0.imgtn.bdimg.com/it/u=221098100,4228486634&fm=15&gp=0.jpg"//
+                , "http://res.cngoldres.com/upload/2014/1125/5761e583fc17dca0d90704db5cb84383.jpg"//
+                , "http://inews.gtimg.com/newsapp_bt/0/8037040335/1000"//
+                , "http://image4.suning.cn/uimg/b2c/newcatentries/0070175918-000000000818291409_3_800x800.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=384565084,3624724591&fm=15&gp=0.jpg"//
+                , "http://inews.gtimg.com/newsapp_bt/0/7776100820/1000"//
+                , "http://image5.suning.cn/uimg/b2c/newcatentries/0070174141-000000010099611492_2_800x800.jpg"//
+                , "http://img0.imgtn.bdimg.com/it/u=1706673149,3281931845&fm=15&gp=0.jpg"//
+                , "http://image2.suning.cn/uimg/b2c/newcatentries/0070187915-000000010474108823_1_800x800.jpg"//
+                , "http://image3.suning.cn/uimg/b2c/newcatentries/0070181476-000000010070445834_2_800x800.jpg"//
+                , "http://image2.suning.cn/uimg/b2c/newcatentries/0070139594-000000010491224730_1_200x200.jpg"//
+                , "http://img0.imgtn.bdimg.com/it/u=2597319635,3568582421&fm=15&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=1931723891,3490150378&fm=15&gp=0.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=3138066373,1321306114&fm=15&gp=0.jpg"//
+                , "http://img4.imgtn.bdimg.com/it/u=3113074184,3942921252&fm=15&gp=0.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=2180904612,2091192637&fm=15&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=3245806547,1873515280&fm=15&gp=0.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=2173969411,4239827968&fm=15&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=3934308742,3201105497&fm=15&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=3555678337,2289521240&fm=15&gp=0.jpg"//
+                , "http://image2.suning.cn/uimg/b2c/newcatentries/0070168967-000000000651473205_4_800x800.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=351775468,3824694901&fm=15&gp=0.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=1390895217,923441152&fm=15&gp=0.jpg"//
+                , "http://img2.imgtn.bdimg.com/it/u=3678997334,4235644582&fm=15&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=1589904128,2751643939&fm=15&gp=0.jpg"//
+                , "http://img2.imgtn.bdimg.com/it/u=2448847534,2087942582&fm=15&gp=0.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=407390361,1468817992&fm=15&gp=0.jpg"//
+                , "http://img2.imgtn.bdimg.com/it/u=4101042559,4201958447&fm=26&gp=0.jpg"//
+                , "http://img2.imgtn.bdimg.com/it/u=35546168,3156494880&fm=15&gp=0.jpg"//
+                , "http://img3.imgtn.bdimg.com/it/u=404627947,3635187596&fm=15&gp=0.jpg"//
+                , "http://img0.imgtn.bdimg.com/it/u=1591911801,2515622973&fm=15&gp=0.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=1176017423,3925985284&fm=15&gp=0.jpg"//
+                , "http://img1.imgtn.bdimg.com/it/u=1374398101,3801518356&fm=15&gp=0.jpg"//
+                , "http://m.360buyimg.com/n12/jfs/t2221/243/764855307/468465/9f9334f0/5628aec4Ne7bba205.jpg%21q70.jpg"//
+                , "http://img5.imgtn.bdimg.com/it/u=3418510389,719081792&fm=15&gp=0.jpg",};
+    }
+
+    public static String getSystemBookId(int indext) {
+
+
+        return new String[]{"9787515909950"//人的失格
+                , "9787533936020"//月亮与六便士
+                , "9787201077642"//小王子
+                , "9787201142821"//时间的礼物
+                , "9787540488475"//显微镜下的大明
+                , "9787544294881"//四个春天
+                , "9787541135729"//都挺好
+                , "9787020139927"//失踪的孩子
+                , "9787559614636"//房思琪的初恋乐园
+                , "9787559413727"//我们一无所有
+                , "9787540485528"//莫斯科绅士
+                , "9787540484651"//如父如子
+                , "9787544384636"//漫长的告别
+                , "9787540485696"//观山海
+                , "9787532777914"//鱼翅与花椒
+                , "9787533954116"//回答不了
+                , "9787559418371"//遮蔽的天空
+                , "9787532777532"//长日将尽
+                , "9787220105135"//雨
+                , "9787532776337"//使女的故事
+                , "9787541151200"//马尔多罗之歌
+                , "9787220105142"//往事与随想
+                , "9787542664051"//冬泳
+                , "9787542663559"//无中生有
+                , "9787508680798"//肉食者不鄙
+                , "9787807133681"//人间草木
+                ,}[indext];
     }
 }

@@ -45,8 +45,10 @@ public class SignDetailActivity extends BaseActivity {
         tv_book_name = findViewById(R.id.tv_book_name);
         tv_sign_content = findViewById(R.id.tv_sign_content);
         tv_app_name = findViewById(R.id.tv_app_name);
+        if (mSignNameEntity.getBookEntity() != null) {
+            tv_book_name.setText(mSignNameEntity.getBookEntity().getTitle());
 
-        tv_book_name.setText("月亮与六便士");
+        }
         tv_sign_content.setText(mSignNameEntity.getContent());
         GlideUtils.getInstance().setImageView(mContext, mSignNameEntity.getPicUrl(), img_card_pic);
         tv_app_name.setText(getString(R.string.app_name) + "：" + BuildConfig.VERSION_NAME);

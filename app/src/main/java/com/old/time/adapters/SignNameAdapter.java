@@ -28,8 +28,13 @@ public class SignNameAdapter extends BaseQuickAdapter<SignNameEntity, BaseViewHo
         GlideUtils.getInstance().setRadiusImageView(mContext, item.getUserEntity().getAvatar(), img_user_header, 10);
         ImageView imageView = helper.getView(R.id.img_card_pic);
         GlideUtils.getInstance().setImageView(mContext, item.getPicUrl(), imageView);
+        String bookTitle = "";
+        if (item.getBookEntity() != null) {
+            bookTitle = item.getBookEntity().getTitle();
+
+        }
         helper.setText(R.id.tv_user_name, item.getUserEntity().getUserName())//
-                .setText(R.id.tv_book_name, "月亮与六便士")//
+                .setText(R.id.tv_book_name, bookTitle)//
                 .setText(R.id.tv_sign_content, item.getContent())//
                 .setText(R.id.tv_sign_time, StringUtils.getCreateTime(item.getCreatTime()));
 

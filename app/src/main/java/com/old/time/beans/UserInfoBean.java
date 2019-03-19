@@ -100,4 +100,9 @@ public class UserInfoBean implements Serializable {
     public void setVocation(String vocation) {
         this.vocation = vocation;
     }
+
+    @Override
+    public String toString() {
+        return "UserInfoBean{" + "id='" + id + '\'' + ", userId='" + userId + '\'' + ", userName='" + userName + '\'' + ", avatar='" + avatar + '\'' + ", mobile='" + mobile + '\'' + ", birthday='" + birthday + '\'' + ", sex=" + sex + ", vocation='" + vocation + '\'' + ", token='" + token + '\'' + '}';
+    }
 }

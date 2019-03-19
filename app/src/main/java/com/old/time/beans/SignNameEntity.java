@@ -93,4 +93,14 @@ public class SignNameEntity implements Serializable {
     public void setUserEntity(UserInfoBean userEntity) {
         this.userEntity = userEntity;
     }
+
+    private BookEntity bookEntity;
+
+    public BookEntity getBookEntity() {
+        return bookEntity;
+    }
+
+    public void setBookEntity(BookEntity bookEntity) {
+        this.bookEntity = bookEntity;
+    }
 }
