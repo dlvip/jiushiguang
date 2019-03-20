@@ -5,6 +5,7 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -67,6 +68,7 @@ public abstract class BaseCActivity extends BaseActivity {
 
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         mRecyclerView = findViewById(R.id.c_recycler_view);
+        ((SimpleItemAnimator) mRecyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         mRecyclerView.setLayoutManager(new MyLinearLayoutManager(mContext));
         mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light, R.color.holo_orange_light, R.color.holo_red_light);
         onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {

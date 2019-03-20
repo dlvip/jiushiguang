@@ -12,8 +12,7 @@
     <ImageView
         android:id="@+id/img_user_header"
         android:layout_width="@dimen/layout_45"
-        android:layout_height="@dimen/layout_45"
-        android:src="@mipmap/head_circle" />
+        android:layout_height="@dimen/layout_45" />
 
     <TextView
         android:id="@+id/tv_user_name"

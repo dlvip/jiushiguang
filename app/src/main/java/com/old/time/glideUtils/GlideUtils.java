@@ -281,7 +281,7 @@ public class GlideUtils {
             return;
         }
         manager.load(url)// 加载图片资源
-                .apply(new RequestOptions().transform(new GlideRoundTransform(radius)))//
+                .apply(new RequestOptions().transform(new GlideRoundTransform(radius)).skipMemoryCache(true).dontAnimate())//
                 .transition(DrawableTransitionOptions.withCrossFade())//
                 .into(imageView);
 
