@@ -30,16 +30,16 @@ ext {
     externalGithubIjkplayer = 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
 
     //Android support Libraries
-    externalAndroidSupportCompat = 'com.android.support:support-compat:27.1.1'
-    externalAndroidAppCompatV7 = 'com.android.support:appcompat-v7:27.1.1'
+    externalAndroidSupportCompat = 'com.android.support:support-compat:27.0.2'
+    externalAndroidAppCompatV7 = 'com.android.support:appcompat-v7:27.0.2'
     externalAndroidAppConstraint = 'com.android.support.constraint:constraint-layout:1.1.3'
-    externalAndroidCardView = 'com.android.support:cardview-v7:27.1.1'
+    externalAndroidCardView = 'com.android.support:cardview-v7:27.0.2'
     externalAndroidMultiDex = 'com.android.support:multidex:1.0.3'
-    externalAndroidRecyclerView = 'com.android.support:recyclerview-v7:27.1.1'
-    externalAndroidSupportV13 = 'com.android.support:support-v13:27.1.1'
-    externalAndroidDesign = 'com.android.support:design:27.1.1'
-    externalAndroidPalette = 'com.android.support:palette-v7:27.1.1'
-    externalAndroidExifInterface = 'com.android.support:exifinterface:27.1.1'
+    externalAndroidRecyclerView = 'com.android.support:recyclerview-v7:27.0.2'
+    externalAndroidSupportV13 = 'com.android.support:support-v13:27.0.2'
+    externalAndroidDesign = 'com.android.support:design:27.0.2'
+    externalAndroidPalette = 'com.android.support:palette-v7:27.0.2'
+    externalAndroidExifInterface = 'com.android.support:exifinterface:27.0.2'
 
     //Test related third party libraries
     externalAndroidTestEspressoCore = 'com.android.support.test.espresso:espresso-core:3.0.2'

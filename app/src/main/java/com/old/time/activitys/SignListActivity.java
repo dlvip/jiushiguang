@@ -26,9 +26,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.old.time.views.CustomNetView.NET_ERREY;
-import static com.old.time.views.CustomNetView.NO_DATA;
-
 public class SignListActivity extends BaseCActivity {
 
     /**
@@ -62,7 +59,7 @@ public class SignListActivity extends BaseCActivity {
 
             }
         }, mRecyclerView);
-        mCustomNetView = new CustomNetView(mContext, NO_DATA);
+        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
         EventBus.getDefault().register(this);
     }
 
@@ -98,7 +95,7 @@ public class SignListActivity extends BaseCActivity {
                 }
                 adapter.addData(mResultBean.data);
                 if (adapter.getItemCount() == 0) {
-                    mCustomNetView.setDataForView(NO_DATA);
+                    mCustomNetView.setDataForView(CustomNetView.NO_DATA);
                     adapter.setEmptyView(mCustomNetView);
 
                 }
@@ -121,7 +118,7 @@ public class SignListActivity extends BaseCActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void createSigned(SignNameEntity mSignNameEntity) {
-        if (mSignNameEntity == null) {
+        if (mSignNameEntity == null || adapter == null) {
 
             return;
         }
@@ -141,5 +138,6 @@ public class SignListActivity extends BaseCActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+
     }
 }

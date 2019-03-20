@@ -80,18 +80,6 @@ public class Constant {
     //获取手机号归属地
     public static final String GET_PHONE_DRESS = BASE_TEST_URL + "phone/getPhoneInfo";
 
-    //保存图书信息
-    public static final String CREATE_BOOK_INFO = BASE_TEST_URL + "book/createBookInfo";
-
-    //获取图书信息
-    public static final String GET_BOOK_INFO = BASE_TEST_URL + "book/getBookInfo";
-
-    //创建打开
-    public static final String CREATE_SIGN_NAME = BASE_TEST_URL + "signname/createSignName";
-
-    //获取打卡列表
-    public static final String GET_SIGN_NAME_LIST = BASE_TEST_URL + "signname/getSignNameList";
-
     //用户登陆
     public static final String USER_LOGIN = BASE_TEST_URL + "loginUser";
 
@@ -104,24 +92,6 @@ public class Constant {
     //用户注册
     public static final String USER_REGISTER = BASE_TEST_URL + "registerUser";
 
-    //获取用户信息
-    public static final String GET_USER_INFO = BASE_TEST_URL + "user/getUserByUserId";
-
-    //获取用户融云token
-    public static final String GET_USER_RONG_TOKEN = BASE_TEST_URL + "user/getUserRongToken";
-
-    //修改用户信息
-    public static final String UPDATE_USER_MSG = BASE_TEST_URL + "user/updateUserMsg";
-
-    // 发布动态
-    public static final String SEND_CONTENT = BASE_TEST_URL + "saveContent";
-
-    //获取圈子列表
-    public static final String GET_LIST_CONTENT = BASE_TEST_URL + "listContent";
-
-    //获取相册列表
-    public static final String GET_ALUMLIST = BASE_TEST_URL + "getAlbumList";
-
     //获取轮播图列表
     public static final String GET_HOME_BANNERS = BASE_TEST_URL + "banner/getBanners";
 
@@ -130,9 +100,6 @@ public class Constant {
 
     //获取icon列表
     public static final String GET_HOME_ICONS = BASE_TEST_URL + "icon/getIconList";
-
-    //添加专辑
-    public static final String COURSE_ADD_COURSE = BASE_TEST_URL + "course/saveCourse";
 
     //获取精品课堂列表
     public static final String GET_HOME_COURSES = BASE_TEST_URL + "course/getCourseList";
@@ -152,18 +119,73 @@ public class Constant {
     //修改文章阅读量
     public static final String UPDATE_ARTICLE_READ_COUNT = "article/updateArticleReadCount";
 
-    //保存话题
-    public static final String INSERT_TOPIC = BASE_TEST_URL + "topic/insertTopic";
+    /**
+     * 用户
+     */
+    private static final String BASE_USER = BASE_TEST_URL + "user/";
+
+    //获取用户信息
+    public static final String GET_USER_INFO = BASE_USER + "getUserByUserId";
+
+    //获取用户融云token
+    public static final String GET_USER_RONG_TOKEN = BASE_USER + "getUserRongToken";
+
+    //修改用户信息
+    public static final String UPDATE_USER_MSG = BASE_USER + "updateUserMsg";
 
     /**
-     * 获取话题列表
+     * 图书
      */
-    public static final String GET_TOPIC_LIST = BASE_TEST_URL + "topic/getTopicList";
+    private static final String BASE_BOOK = BASE_TEST_URL + "book/";
+
+    //保存图书信息
+    public static final String CREATE_BOOK_INFO = BASE_BOOK + "createBookInfo";
+
+    //获取图书信息
+    public static final String GET_BOOK_INFO = BASE_BOOK + "getBookInfo";
 
     /**
-     * 获取话题详情
+     * 书签
      */
-    public static final String GET_TOPIC_DETAIL = BASE_TEST_URL + "topic/getTopicDetail";
+    private static final String BASE_SIGN = BASE_TEST_URL + "signname/";
+
+    //创建书签
+    public static final String CREATE_SIGN_NAME = BASE_SIGN + "createSignName";
+
+    //书签列表
+    public static final String GET_SIGN_NAME_LIST = BASE_SIGN + "getSignNameList";
+
+
+    /**
+     * 话题
+     */
+    private static final String BASE_TOPIC = BASE_TEST_URL + "topic/";
+
+    //创建话题
+    public static final String INSERT_TOPIC = BASE_TOPIC + "createTopicEntity";
+
+    //话题详情
+    public static final String GET_TOPIC_DETAIL = BASE_TOPIC + "getTopicDetail";
+
+    //话题列表
+    public static final String GET_TOPIC_LIST = BASE_TOPIC + "getTopicList";
+
+    /**
+     * 动态
+     */
+    private static final String BASE_DYNAMIC = BASE_TEST_URL + "dynamic/";
+
+    //创建动态
+    public static final String CREATE_DYNAMIC = BASE_DYNAMIC + "createDynamic";
+
+    //动态详情
+    public static final String GET_DYNAMIC_DETAIL = BASE_DYNAMIC + "getDynamicDetail";
+
+    //动态列表
+    public static final String GET_DYNAMIC_LIST = BASE_DYNAMIC + "getDynamicEntities";
+
+    //删除动态
+    public static final String DELETE_DYNAMIC = BASE_DYNAMIC + "deleteDynamicEntity";
 
     /**
      * 添加评论

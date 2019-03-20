@@ -5,19 +5,25 @@ import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 
-import com.old.time.R;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.adapters.DynamicAdapter;
 import com.old.time.beans.DynamicBean;
 import com.old.time.beans.PhotoInfoBean;
+import com.old.time.beans.ResultBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.interfaces.UploadImagesCallBack;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.EasyPhotos;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
+import com.old.time.views.CustomNetView;
 import com.old.time.views.SuspensionPopupWindow;
 
 import java.util.ArrayList;
@@ -26,6 +32,7 @@ import java.util.List;
 public class DynamicSActivity extends BaseSActivity {
 
     private List<DynamicBean> mDynamicBeans = new ArrayList<>();
+    private CustomNetView mCustomNetView;
     private DynamicAdapter mAdapter;
 
     /**
@@ -49,28 +56,9 @@ public class DynamicSActivity extends BaseSActivity {
         mAdapter = new DynamicAdapter(mDynamicBeans);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext));
         mRecyclerView.setAdapter(mAdapter);
-        mDynamicBeans.clear();
-        for (int i = 0; i < 20; i++) {
-            DynamicBean mDynamicBean = new DynamicBean();
-            mDynamicBean.setContent(getString(R.string.circle_content));
-            mDynamicBean.setCreateTime("2016/12/21 12:32");
-            List<PhotoInfoBean> photoInfoBeans = new ArrayList<>();
-            photoInfoBeans.clear();
-            for (int j = 0; j < (i > 9 ? 9 : i); j++) {
-                PhotoInfoBean mPhotoInfoBean = new PhotoInfoBean();
-                mPhotoInfoBean.picKey = Constant.PHOTO_PIC_URL;
-                mPhotoInfoBean.height = 1080;
-                mPhotoInfoBean.with = 1920;
-                photoInfoBeans.add(mPhotoInfoBean);
-
-            }
-
-            mDynamicBean.setContentImages(photoInfoBeans);
-            mDynamicBeans.add(mDynamicBean);
-        }
         mAdapter.setNewData(mDynamicBeans);
 
-
+        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
         mRecyclerView.post(new Runnable() {
             @Override
             public void run() {
@@ -81,9 +69,68 @@ public class DynamicSActivity extends BaseSActivity {
     }
 
     @Override
-    public void getDataFromNet(final boolean isRefresh) {
-        mSwipeRefreshLayout.setRefreshing(false);
+    protected void initEvent() {
+        super.initEvent();
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                getDataFromNet(false);
 
+            }
+        }, mRecyclerView);
+    }
+
+    private int startNum;
+
+    @Override
+    public void getDataFromNet(final boolean isRefresh) {
+        if (isRefresh) {
+            startNum = 0;
+
+        }
+        HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        params.put("topicId", "");
+        params.put("pageNum", startNum);
+        params.put("pageSize", Constant.PageSize);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_DYNAMIC_LIST, new JsonCallBack<ResultBean<List<DynamicBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<DynamicBean>> mResultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                startNum++;
+                if (isRefresh) {
+                    mDynamicBeans.clear();
+                    mAdapter.setNewData(mDynamicBeans);
+
+                }
+                if (mResultBean.data.size() < Constant.PageSize) {
+                    mAdapter.loadMoreEnd();
+
+                } else {
+                    mAdapter.loadMoreComplete();
+
+                }
+                mAdapter.addData(mResultBean.data);
+                if (mAdapter.getItemCount() == 0) {
+                    mCustomNetView.setDataForView(CustomNetView.NO_DATA);
+                    mAdapter.setEmptyView(mCustomNetView);
+
+                }
+            }
+
+            @Override
+            public void onError(ResultBean<List<DynamicBean>> mResultBean) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (mAdapter.getItemCount() == 0) {
+                    mCustomNetView.setDataForView(CustomNetView.NET_ERREY);
+                    mAdapter.setEmptyView(mCustomNetView);
+
+                } else {
+                    mAdapter.loadMoreFail();
+
+                }
+            }
+        });
     }
 
     private int W, H;

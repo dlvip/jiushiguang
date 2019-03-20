@@ -79,8 +79,8 @@ public class CreateTopicActivity extends BaseActivity {
         String topicDetail = edt_topic_detail.getText().toString().trim();
         HttpParams params = new HttpParams();
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
-        params.put("topicTitle", topicTitleStr);
-        params.put("topicContent", topicDetail);
+        params.put("topic", topicTitleStr);
+        params.put("pic", topicDetail);
         OkGoUtils.getInstance().postNetForData(params, Constant.INSERT_TOPIC, new JsonCallBack<ResultBean<TopicBean>>() {
             @Override
             public void onSuccess(ResultBean<TopicBean> mResultBean) {

@@ -10,13 +10,56 @@ import java.util.List;
 public class DynamicBean implements Serializable {
 
     private String id;
+
     private String userId;
+
     private String images;
+
     private String content;
+
+    private String topicId;
+
     private String createTime;
+
+    private String commentCount;
+
+    private String praiseCount;
+
+    private UserInfoBean userEntity;
+
     private List<PhotoInfoBean> contentImages;
 
-    private UserInfoBean userInfoBean;
+    public String getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(String topicId) {
+        this.topicId = topicId;
+    }
+
+    public String getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(String commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public String getPraiseCount() {
+        return praiseCount;
+    }
+
+    public void setPraiseCount(String praiseCount) {
+        this.praiseCount = praiseCount;
+    }
+
+    public UserInfoBean getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserInfoBean userEntity) {
+        this.userEntity = userEntity;
+    }
 
     public String getId() {
         return id;
@@ -64,13 +107,5 @@ public class DynamicBean implements Serializable {
 
     public void setContentImages(List<PhotoInfoBean> contentImages) {
         this.contentImages = contentImages;
-    }
-
-    public UserInfoBean getUserInfoBean() {
-        return userInfoBean;
-    }
-
-    public void setUserInfoBean(UserInfoBean userInfoBean) {
-        this.userInfoBean = userInfoBean;
     }
 }
