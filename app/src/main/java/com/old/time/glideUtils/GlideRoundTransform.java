@@ -1,16 +1,21 @@
 package com.old.time.glideUtils;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.TransformationUtils;
+import com.bumptech.glide.util.Util;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 
 /**
@@ -19,9 +24,15 @@ import java.security.MessageDigest;
 
 public class GlideRoundTransform extends BitmapTransformation {
 
-    private static float radius = 0f;
+    private static final String ID = "com.bumptech.glide.transformations.GlideRoundTransform";
+    private static final byte[] ID_BYTES = ID.getBytes(Charset.forName("UTF-8"));
+    private float radius = 0f;
 
-    public GlideRoundTransform(int dp) {
+    public GlideRoundTransform(Context context) {
+        this(context, 5);
+    }
+
+    public GlideRoundTransform(Context context, int dp) {
         super();
         this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }
@@ -32,7 +43,7 @@ public class GlideRoundTransform extends BitmapTransformation {
         return roundCrop(pool, bitmap);
     }
 
-    private static Bitmap roundCrop(BitmapPool pool, Bitmap source) {
+    private Bitmap roundCrop(BitmapPool pool, Bitmap source) {
         if (source == null) return null;
 
         Bitmap result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
@@ -53,9 +64,26 @@ public class GlideRoundTransform extends BitmapTransformation {
         return getClass().getName() + Math.round(radius);
     }
 
+    //下面三个方法需要实现，不然会出现刷新闪烁
     @Override
-    public void updateDiskCacheKey(MessageDigest messageDigest) {
-
+    public boolean equals(Object o) {
+        if (o instanceof GlideRoundTransform) {
+            GlideRoundTransform other = (GlideRoundTransform) o;
+            return radius == other.radius;
+        }
+        return false;
     }
 
+    @Override
+    public int hashCode() {
+        return Util.hashCode(ID.hashCode(), Util.hashCode(radius));
+    }
+
+    @Override
+    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+        messageDigest.update(ID_BYTES);
+
+        byte[] radiusData = ByteBuffer.allocate(4).putFloat(radius).array();
+        messageDigest.update(radiusData);
+    }
 }

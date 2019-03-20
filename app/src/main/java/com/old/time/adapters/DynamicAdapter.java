@@ -19,7 +19,6 @@ import java.util.List;
 /**
  * Created by wcl on 2018/3/9.
  */
-
 public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter.DynamicViewHolder> {
 
     public DynamicAdapter(List<DynamicBean> data) {
@@ -75,7 +74,7 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
         helper.getView(R.id.img_user_header).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DynamicSActivity.startDynamicActivity((Activity) mContext, "");
+                DynamicSActivity.startDynamicActivity((Activity) mContext);
 
             }
         });

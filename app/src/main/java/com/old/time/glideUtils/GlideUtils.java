@@ -8,8 +8,10 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.RequestOptions;
@@ -27,8 +29,9 @@ import com.old.time.utils.UIHelper;
 import java.io.File;
 import java.util.concurrent.ExecutionException;
 
+
 /**
- * Created by wangfang on 2017/4/26.
+ * Created by NING on 2017/4/26.
  */
 
 public class GlideUtils {
@@ -281,7 +284,13 @@ public class GlideUtils {
             return;
         }
         manager.load(url)// 加载图片资源
-                .apply(new RequestOptions().transform(new GlideRoundTransform(radius)).skipMemoryCache(true).dontAnimate())//
+                .apply(new RequestOptions()//
+                        .skipMemoryCache(false)//
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)//
+                        .transform(new GlideRoundTransform(context, radius))//
+                        .dontAnimate()//
+//                        .centerCrop()//
+                        .priority(Priority.HIGH))//
                 .transition(DrawableTransitionOptions.withCrossFade())//
                 .into(imageView);
 
@@ -539,7 +548,7 @@ public class GlideUtils {
             requestBuilder = manager.asBitmap().load(url);
 
         }
-        requestBuilder.apply(new RequestOptions().transform(new GlideRoundTransform(radius))//
+        requestBuilder.apply(new RequestOptions().transform(new GlideRoundTransform(context, radius))//
                 .override(UIHelper.dip2px(50))).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

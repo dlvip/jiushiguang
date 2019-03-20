@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/color_fff"
                 android:gravity="top"
-                android:hint="@string/title"
+                android:hint="生活不只有读书，更有乐趣..."
                 android:minLines="7"
                 android:padding="@dimen/layout_10"
                 android:textColor="@color/color_000"
@@ -55,7 +55,6 @@
                     android:padding="@dimen/layout_10"
                     android:src="@mipmap/rich_edit_location" />
 
-
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -63,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/line_height"
-                android:background="@color/color_fff"/>
+                android:background="@color/color_fff" />
 
             <TextView
                 android:id="@+id/tv_user_location"

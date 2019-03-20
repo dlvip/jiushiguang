@@ -2,10 +2,8 @@ package com.old.time.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.old.time.R;
 import com.old.time.adapters.DynamicAdapter;
@@ -13,7 +11,6 @@ import com.old.time.beans.DynamicBean;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
-import com.old.time.glideUtils.GlideUtils;
 import com.old.time.interfaces.UploadImagesCallBack;
 import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.ActivityUtils;
@@ -21,7 +18,6 @@ import com.old.time.utils.EasyPhotos;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
-import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.SuspensionPopupWindow;
 
 import java.util.ArrayList;
@@ -31,45 +27,26 @@ public class DynamicSActivity extends BaseSActivity {
 
     private List<DynamicBean> mDynamicBeans = new ArrayList<>();
     private DynamicAdapter mAdapter;
-    private String userid;
-
-    public static String USER_ID = "userId";
 
     /**
      * 旧时光圈子
      *
      * @param mContext
-     * @param userId
      */
-    public static void startDynamicActivity(Activity mContext, String userId) {
-        if (!UserLocalInfoUtils.instance().isUserLogin()) {
-            UserLoginActivity.startUserLoginActivity(mContext);
-
-            return;
-        }
-        if (TextUtils.isEmpty(userId)) {
-            userId = UserLocalInfoUtils.instance().getUserId();
-
-        }
+    public static void startDynamicActivity(Activity mContext) {
         Intent intent = new Intent(mContext, DynamicSActivity.class);
-        intent.putExtra(USER_ID, userId);
         ActivityUtils.startActivity(mContext, intent);
 
     }
 
     @Override
     protected void initView() {
-        userid = getIntent().getStringExtra(USER_ID);
         super.initView();
         ScreenTools mScreenTools = ScreenTools.instance(this);
         W = mScreenTools.getScreenWidth();
         H = mScreenTools.getScreenHeight();
         mDynamicBeans.clear();
         mAdapter = new DynamicAdapter(mDynamicBeans);
-        View headerView = View.inflate(mContext, R.layout.header_circle, null);
-        ImageView img_circle_header_pic = headerView.findViewById(R.id.img_circle_header_pic);
-        GlideUtils.getInstance().setImageView(mContext, Constant.PHOTO_PIC_URL, img_circle_header_pic);
-        mAdapter.addHeaderView(headerView);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext));
         mRecyclerView.setAdapter(mAdapter);
         mDynamicBeans.clear();
@@ -165,7 +142,7 @@ public class DynamicSActivity extends BaseSActivity {
             public void getImagesPath(List<PhotoInfoBean> mPhotoInfoBeans) {
                 if (mPhotoInfoBeans == null || mPhotoInfoBeans.size() == 0) {
 
-                    return;
+
                 }
             }
         });
@@ -176,6 +153,7 @@ public class DynamicSActivity extends BaseSActivity {
      * 发送圈子内容
      */
     private void sendCircleContent(String content, String mPhotoInfoBeanStr) {
+
 
     }
 

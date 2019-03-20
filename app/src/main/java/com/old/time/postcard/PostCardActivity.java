@@ -17,6 +17,7 @@ import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
+import com.old.time.activitys.DynamicSActivity;
 import com.old.time.activitys.SignListActivity;
 import com.old.time.activitys.UserLoginActivity;
 import com.old.time.activitys.WebViewActivity;
@@ -182,7 +183,8 @@ public class PostCardActivity extends BaseActivity {
 
                             break;
                         case "服务号":
-                            FastMailActivity.startFastMailActivity(mContext);
+                            DynamicSActivity.startDynamicActivity(mContext, UserLocalInfoUtils.instance().getUserId());
+//                            FastMailActivity.startFastMailActivity(mContext);
 
                             break;
                         case "个人中心":

@@ -1,6 +1,5 @@
 package com.old.time.activitys;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class CreateDynActivity extends BaseActivity {
 
@@ -38,7 +40,8 @@ public class CreateDynActivity extends BaseActivity {
      * @param requestCode
      */
     public static void startCreateDynActivity(Activity mContext, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, ACCESS_COARSE_LOCATION})) {
+        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
+                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, ACCESS_COARSE_LOCATION)) {
 
             return;
         }
@@ -111,8 +114,8 @@ public class CreateDynActivity extends BaseActivity {
         super.save(view);
         String contentStr = input_send_text.getText().toString().trim();
         if (TextUtils.isEmpty(contentStr) && (mPicAdapter.getData() == null || mPicAdapter.getData().size() == 0)) {
+            UIHelper.ToastMessage(mContext, "描述下乐趣吧");
 
-            UIHelper.ToastMessage(mContext, "请编辑您的时光记录");
         }
         Intent intent = new Intent();
         if (!TextUtils.isEmpty(contentStr)) {
