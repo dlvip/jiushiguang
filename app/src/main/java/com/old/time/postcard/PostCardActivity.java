@@ -130,7 +130,7 @@ public class PostCardActivity extends BaseActivity {
         img_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPopWindow();
+                showMoreBtnPopWindow();
 
             }
         });
@@ -166,7 +166,7 @@ public class PostCardActivity extends BaseActivity {
 
     private PostCartPop mPostCartPop;
 
-    private void showPopWindow() {
+    private void showMoreBtnPopWindow() {
         if (mPostCartPop == null) {
             mPostCartPop = new PostCartPop(mContext, new OnItemClickListener() {
                 @Override
@@ -183,7 +183,7 @@ public class PostCardActivity extends BaseActivity {
 
                             break;
                         case "服务号":
-                            DynamicSActivity.startDynamicActivity(mContext, UserLocalInfoUtils.instance().getUserId());
+                            DynamicSActivity.startDynamicActivity(mContext);
 //                            FastMailActivity.startFastMailActivity(mContext);
 
                             break;

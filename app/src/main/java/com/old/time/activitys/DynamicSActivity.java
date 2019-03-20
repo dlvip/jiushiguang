@@ -52,8 +52,8 @@ public class DynamicSActivity extends BaseSActivity {
         mDynamicBeans.clear();
         for (int i = 0; i < 20; i++) {
             DynamicBean mDynamicBean = new DynamicBean();
-            mDynamicBean.conetent = getString(R.string.circle_content);
-            mDynamicBean.createTimeStr = "2016/12/21 12:32";
+            mDynamicBean.setContent(getString(R.string.circle_content));
+            mDynamicBean.setCreateTime("2016/12/21 12:32");
             List<PhotoInfoBean> photoInfoBeans = new ArrayList<>();
             photoInfoBeans.clear();
             for (int j = 0; j < (i > 9 ? 9 : i); j++) {
@@ -65,7 +65,7 @@ public class DynamicSActivity extends BaseSActivity {
 
             }
 
-            mDynamicBean.conetentImages = photoInfoBeans;
+            mDynamicBean.setContentImages(photoInfoBeans);
             mDynamicBeans.add(mDynamicBean);
         }
         mAdapter.setNewData(mDynamicBeans);

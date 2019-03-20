@@ -1,9 +1,9 @@
 package com.old.time.adapters;
 
 import android.app.Activity;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -11,6 +11,7 @@ import com.old.time.R;
 import com.old.time.activitys.DynamicSActivity;
 import com.old.time.activitys.DynamicDetailCActivity;
 import com.old.time.beans.DynamicBean;
+import com.old.time.glideUtils.GlideUtils;
 import com.old.time.views.ExpandableTextView;
 import com.old.time.views.NineImageView;
 
@@ -26,51 +27,29 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
 
     }
 
-    private RecyclerView mRecyclerView;
-
-    private boolean isScrolling;
-
     @Override
-    protected void convert(DynamicAdapter.DynamicViewHolder helper, final DynamicBean item) {
-        if (mRecyclerView == null) {
-            mRecyclerView = getRecyclerView();
-            if (mRecyclerView != null) {
-                mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                        super.onScrollStateChanged(recyclerView, newState);
-                        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                            isScrolling = false;
-                            notifyDataSetChanged();
-
-                        } else {
-                            isScrolling = true;
-
-                        }
-                    }
-                });
-            }
-        }
-        helper.setText(R.id.tv_content_time, item.createTimeStr.substring(0, 10));
+    protected void convert(DynamicViewHolder helper, final DynamicBean item) {
+        helper.setText(R.id.tv_content_time, item.getCreateTime().substring(0, 10));
         ExpandableTextView expand_text_view = helper.mExpandableTextView;
-        if (TextUtils.isEmpty(item.conetent)) {
+        if (TextUtils.isEmpty(item.getContent())) {
             expand_text_view.setVisibility(View.GONE);
 
         } else {
             expand_text_view.setVisibility(View.VISIBLE);
-            expand_text_view.setText(item.conetent);
+            expand_text_view.setText(item.getContent());
 
         }
         NineImageView mNineImageView = helper.mNineImageView;
-        if (item.conetentImages == null || item.conetentImages.size() == 0) {
+        if (item.getContentImages() == null || item.getContentImages().size() == 0) {
             mNineImageView.setVisibility(View.GONE);
 
         } else {
             mNineImageView.setVisibility(View.VISIBLE);
-            mNineImageView.setDataForView(item.conetentImages);
-            mNineImageView.setRecyclerViewOnScrolling(isScrolling);
+            mNineImageView.setDataForView(item.getContentImages());
 
         }
+        ImageView img_user_header = helper.getView(R.id.img_user_header);
+        GlideUtils.getInstance().setRadiusImageView(mContext, item.getUserInfoBean().getAvatar(), img_user_header, 10);
         helper.getView(R.id.img_user_header).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -43,24 +43,24 @@ public class DynamicDetailCActivity extends BaseCActivity {
         super.initView();
         View headerView = View.inflate(mContext, R.layout.dynamic_detail_header, null);
         TextView tv_content_time = headerView.findViewById(R.id.tv_content_time);
-        tv_content_time.setText(mDynamicBean.createTimeStr.substring(0, 10));
+        tv_content_time.setText(mDynamicBean.getCreateTime().substring(0, 10));
 
         TextView expand_text_view = headerView.findViewById(R.id.expand_text_view);
-        if (TextUtils.isEmpty(mDynamicBean.conetent)) {
+        if (TextUtils.isEmpty(mDynamicBean.getContent())) {
             expand_text_view.setVisibility(View.GONE);
 
         } else {
             expand_text_view.setVisibility(View.VISIBLE);
-            expand_text_view.setText(mDynamicBean.conetent);
+            expand_text_view.setText(mDynamicBean.getContent());
 
         }
         NineImageView mNineImageView = headerView.findViewById(R.id.nineImageView);
-        if (mDynamicBean.conetentImages == null || mDynamicBean.conetentImages.size() == 0) {
+        if (mDynamicBean.getContentImages() == null || mDynamicBean.getContentImages().size() == 0) {
             mNineImageView.setVisibility(View.GONE);
 
         } else {
             mNineImageView.setVisibility(View.VISIBLE);
-            mNineImageView.setDataForView(mDynamicBean.conetentImages);
+            mNineImageView.setDataForView(mDynamicBean.getContentImages());
 
         }
         mAdapter = new CommentAdapter(commentBeans);
