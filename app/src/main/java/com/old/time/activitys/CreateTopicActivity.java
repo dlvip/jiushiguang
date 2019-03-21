@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.beans.PhotoInfoBean;
@@ -21,7 +22,6 @@ import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AliyPostUtil;
-import com.old.time.utils.DebugLog;
 import com.old.time.utils.FileUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.UIHelper;
@@ -56,9 +56,9 @@ public class CreateTopicActivity extends BaseActivity {
     @Override
     protected void initView() {
         setTitleText("创建话题");
+        setSendText("保存");
         img_select_pic = findViewById(R.id.img_select_pic);
         edt_topic = findViewById(R.id.edt_topic);
-        findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
         findViewById(R.id.relative_layout_select_pic).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

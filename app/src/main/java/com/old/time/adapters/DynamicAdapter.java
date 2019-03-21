@@ -1,6 +1,5 @@
 package com.old.time.adapters;
 
-import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,8 +7,6 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
-import com.old.time.activitys.DynamicSActivity;
-import com.old.time.activitys.DynamicDetailCActivity;
 import com.old.time.beans.DynamicBean;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.StringUtils;
@@ -50,21 +47,11 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
 
         }
         ImageView img_user_header = helper.getView(R.id.img_user_header);
+        if (item.getUserEntity() == null) {
+
+            return;
+        }
         GlideUtils.getInstance().setRadiusImageView(mContext, item.getUserEntity().getAvatar(), img_user_header, 10);
-        helper.getView(R.id.img_user_header).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DynamicSActivity.startDynamicActivity((Activity) mContext);
-
-            }
-        });
-        helper.getConvertView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DynamicDetailCActivity.startDynamicDetailActivity((Activity) mContext, item);
-
-            }
-        });
     }
 
     public class DynamicViewHolder extends BaseViewHolder {

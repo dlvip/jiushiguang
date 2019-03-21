@@ -1,6 +1,15 @@
 package com.old.time.beans;
 
+import android.text.TextUtils;
+
+import com.old.time.utils.GsonUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +36,7 @@ public class DynamicBean implements Serializable {
 
     private UserInfoBean userEntity;
 
-    private List<PhotoInfoBean> contentImages;
+    private List<PhotoInfoBean> contentImages = new ArrayList<>();
 
     public String getTopicId() {
         return topicId;
@@ -102,6 +111,27 @@ public class DynamicBean implements Serializable {
     }
 
     public List<PhotoInfoBean> getContentImages() {
+        if (TextUtils.isEmpty(images)) {
+
+            return contentImages;
+        }
+        contentImages.clear();
+        JSONArray jsonArray;
+        try {
+            jsonArray = new JSONArray(images);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                PhotoInfoBean photoWHBean = new PhotoInfoBean();
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                photoWHBean.picKey = jsonObject.getString("picKey");
+                photoWHBean.with = jsonObject.getInt("with");
+                photoWHBean.height = jsonObject.getInt("height");
+                contentImages.add(photoWHBean);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+
+        }
         return contentImages;
     }
 
