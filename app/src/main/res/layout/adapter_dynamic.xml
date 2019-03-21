@@ -9,15 +9,15 @@
 
     <ImageView
         android:id="@+id/img_user_header"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="@dimen/layout_20"
         android:src="@mipmap/head_circle" />
 
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/img_user_header"
         android:gravity="center_vertical"
         android:text="@string/app_name"
@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_user_name"
-        android:layout_marginTop="@dimen/layout_10"
+        android:layout_marginTop="@dimen/layout_15"
         android:layout_toEndOf="@+id/img_user_header"
         android:background="@color/color_fff"
         app:animDuration="200"

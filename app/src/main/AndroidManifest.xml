@@ -137,7 +137,9 @@
         <activity android:name=".activitys.PuzzleActivity" />
         <activity android:name=".activitys.PuzzleMActivity" />
         <activity android:name=".activitys.SettingActivity" />
-        <activity android:name=".activitys.DynamicSActivity" />
+        <activity
+            android:name=".activitys.DynamicsActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".activitys.PicsManageCActivity" />
         <activity android:name=".activitys.UserMsgActivity" />
         <activity android:name=".activitys.UserDressCActivity" />

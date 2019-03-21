@@ -100,7 +100,7 @@ public class TouchVerifyFingerActivity extends BaseActivity {
                     mDialogTouch.dismiss();
 
                 }
-                PostCardActivity.startPostCardActivity(mContext);
+                DynamicsActivity.startDynamicsActivity(mContext);
 
             }
 

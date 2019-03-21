@@ -46,7 +46,7 @@ public class TouchSettingPswActivity extends BaseActivity implements ChaosGestur
     public void gestureVerifySuccessListener(int stateFlag, List<ChaosGestureView.GestureBean> data, boolean success) {
         if (stateFlag == ChaosGestureView.STATE_LOGIN) {
             PreferenceCache.putGestureFlag(true);
-            PostCardActivity.startPostCardActivity(mContext);
+            DynamicsActivity.startDynamicsActivity(mContext);
 
         }
     }

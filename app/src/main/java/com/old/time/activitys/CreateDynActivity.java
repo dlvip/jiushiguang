@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,7 @@ import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static com.old.time.activitys.PhotoPickActivity.SELECT_PHOTO_LIST;
 
 public class CreateDynActivity extends BaseActivity {
 
@@ -66,6 +68,8 @@ public class CreateDynActivity extends BaseActivity {
 
     }
 
+    private static final int PIC_COUNT_SIZE = 9;
+
     private TextView tv_topic_title;
     private EditText input_send_text;
     private ImageView img_take_pic;
@@ -75,7 +79,8 @@ public class CreateDynActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        TakePicActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
+        PhotoPickActivity.startPhotoPickActivity(mContext, false, PIC_COUNT_SIZE//
+                , (Serializable) picUrls, Code.REQUEST_CODE_30);
         setTitleText("发布乐趣动态");
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
@@ -97,7 +102,8 @@ public class CreateDynActivity extends BaseActivity {
         img_take_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TakePicActivity.startCameraActivity(mContext, mPicAdapter.getData(), Code.REQUEST_CODE_30);
+                PhotoPickActivity.startPhotoPickActivity(mContext, false, PIC_COUNT_SIZE//
+                        , (Serializable) mPicAdapter.getData(), Code.REQUEST_CODE_30);
 
             }
         });
@@ -233,7 +239,7 @@ public class CreateDynActivity extends BaseActivity {
         }
         switch (requestCode) {
             case Code.REQUEST_CODE_30:
-                ArrayList<String> resultPhotos = data.getStringArrayListExtra(EasyPhotos.RESULT_PHOTOS);
+                ArrayList<String> resultPhotos = data.getStringArrayListExtra(SELECT_PHOTO_LIST);
                 mPicAdapter.setNewData(resultPhotos);
 
                 break;

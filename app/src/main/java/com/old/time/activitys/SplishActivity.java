@@ -99,7 +99,7 @@ public class SplishActivity extends BaseActivity {
 
             return;
         }
-        PostCardActivity.startPostCardActivity(mContext);
+        DynamicsActivity.startDynamicsActivity(mContext);
     }
 
     private void startClock() {

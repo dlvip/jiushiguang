@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/img_user_pic"
-            android:layout_width="@dimen/layout_44"
-            android:layout_height="@dimen/layout_44"
+            android:layout_width="@dimen/layout_40"
+            android:layout_height="@dimen/layout_40"
             android:src="@mipmap/ic_tips_grey" />
 
         <TextView

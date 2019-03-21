@@ -137,7 +137,7 @@ public class CreateTopicActivity extends BaseActivity {
     private void createTopic(String topicStr, String pic) {
         HttpParams params = new HttpParams();
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
-        params.put("topic", topicStr);
+        params.put("topic", "#  " + topicStr);
         params.put("pic", pic);
         OkGoUtils.getInstance().postNetForData(params, Constant.INSERT_TOPIC, new JsonCallBack<ResultBean<TopicBean>>() {
             @Override

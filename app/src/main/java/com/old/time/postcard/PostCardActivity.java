@@ -17,7 +17,7 @@ import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
-import com.old.time.activitys.DynamicSActivity;
+import com.old.time.activitys.DynamicsActivity;
 import com.old.time.activitys.SignListActivity;
 import com.old.time.activitys.UserLoginActivity;
 import com.old.time.activitys.WebViewActivity;
@@ -54,6 +54,7 @@ public class PostCardActivity extends BaseActivity {
 
             return;
         }
+
         Intent intent = new Intent(mContext, PostCardActivity.class);
         ActivityUtils.startActivity((Activity) mContext, intent);
         ActivityUtils.finishActivity((Activity) mContext);
@@ -183,7 +184,7 @@ public class PostCardActivity extends BaseActivity {
 
                             break;
                         case "服务号":
-                            DynamicSActivity.startDynamicActivity(mContext);
+                            DynamicsActivity.startDynamicsActivity(mContext);
 //                            FastMailActivity.startFastMailActivity(mContext);
 
                             break;

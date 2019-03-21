@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.beans.DynamicBean;
+import com.old.time.beans.UserInfoBean;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.views.ExpandableTextView;
@@ -47,11 +48,13 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
 
         }
         ImageView img_user_header = helper.getView(R.id.img_user_header);
-        if (item.getUserEntity() == null) {
+        UserInfoBean userInfoBean = item.getUserEntity();
+        if (userInfoBean == null) {
 
             return;
         }
         GlideUtils.getInstance().setRadiusImageView(mContext, item.getUserEntity().getAvatar(), img_user_header, 10);
+        helper.setText(R.id.tv_user_name, userInfoBean.getUserName());
     }
 
     public class DynamicViewHolder extends BaseViewHolder {

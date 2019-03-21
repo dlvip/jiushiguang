@@ -15,6 +15,7 @@ import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyGridLayoutManager;
+import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
@@ -48,6 +49,8 @@ public class TopicsCActivity extends BaseCActivity {
         super.initView();
         setTitleText("话题");
         mRecyclerView.setLayoutManager(new MyGridLayoutManager(mContext, 2));
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10));
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mTopicAdapter = new TopicAdapter(topicBeans);
         mRecyclerView.setAdapter(mTopicAdapter);
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);

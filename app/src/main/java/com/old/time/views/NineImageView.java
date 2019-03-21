@@ -53,7 +53,7 @@ public class NineImageView extends LinearLayout {
         mContext = getContext();
         picKeys = new ArrayList<>();
         pxImagePadding = UIHelper.dip2px(3);
-        pxMultiImageViewWidth = ScreenTools.instance(mContext).getScreenWidth() - UIHelper.dip2px(90);
+        pxMultiImageViewWidth = ScreenTools.instance(mContext).getScreenWidth() - UIHelper.dip2px(110);
 
     }
 
@@ -149,7 +149,7 @@ public class NineImageView extends LinearLayout {
         int imgViewW, imgViewH;
         int wrap = photoInfoBeans.get(0).with;
         int match = photoInfoBeans.get(0).height;
-        int maxW = 360 * pxMultiImageViewWidth / 750;
+        int maxW = 4 * pxMultiImageViewWidth / 5;
         if (wrap > match * 3) {//特款图
             imageScaleType = ImageView.ScaleType.CENTER;
             imgViewW = maxW;
