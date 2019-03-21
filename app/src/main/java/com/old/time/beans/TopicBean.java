@@ -1,5 +1,6 @@
 package com.old.time.beans;
 
+
 import java.io.Serializable;
 
 /**
@@ -10,29 +11,16 @@ public class TopicBean implements Serializable {
 
     private String id;
 
-    private String topicId;
+    private String pic;
 
-    private String topicTitle;
-
-    private String topicContent;
+    private String topic;
 
     private String userId;
 
-    private String praiseCount;
-
-    private String commentCount;
-
     private String createTime;
 
-    private String commentContent;
+    private UserInfoBean userEntity;
 
-    public String getCommentContent() {
-        return commentContent;
-    }
-
-    public void setCommentContent(String commentContent) {
-        this.commentContent = commentContent;
-    }
 
     public String getId() {
         return id;
@@ -42,28 +30,20 @@ public class TopicBean implements Serializable {
         this.id = id;
     }
 
-    public String getTopicId() {
-        return topicId;
+    public String getPic() {
+        return pic;
     }
 
-    public void setTopicId(String topicId) {
-        this.topicId = topicId;
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
-    public String getTopicTitle() {
-        return topicTitle;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setTopicTitle(String topicTitle) {
-        this.topicTitle = topicTitle;
-    }
-
-    public String getTopicContent() {
-        return topicContent;
-    }
-
-    public void setTopicContent(String topicContent) {
-        this.topicContent = topicContent;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getUserId() {
@@ -74,22 +54,6 @@ public class TopicBean implements Serializable {
         this.userId = userId;
     }
 
-    public String getPraiseCount() {
-        return praiseCount;
-    }
-
-    public void setPraiseCount(String praiseCount) {
-        this.praiseCount = praiseCount;
-    }
-
-    public String getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(String commentCount) {
-        this.commentCount = commentCount;
-    }
-
     public String getCreateTime() {
         return createTime;
     }
@@ -98,8 +62,11 @@ public class TopicBean implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getTopicCount() {
+    public UserInfoBean getUserEntity() {
+        return userEntity;
+    }
 
-        return commentCount + "条评论";
+    public void setUserEntity(UserInfoBean userEntity) {
+        this.userEntity = userEntity;
     }
 }

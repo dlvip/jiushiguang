@@ -9,22 +9,21 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.adapters.DynamicAdapter;
 import com.old.time.beans.DynamicBean;
-import com.old.time.beans.PhotoInfoBean;
 import com.old.time.beans.ResultBean;
-import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
-import com.old.time.interfaces.UploadImagesCallBack;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
-import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.EasyPhotos;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
 import com.old.time.views.SuspensionPopupWindow;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +48,6 @@ public class DynamicSActivity extends BaseSActivity {
     @Override
     protected void initView() {
         super.initView();
-        ScreenTools mScreenTools = ScreenTools.instance(this);
-        W = mScreenTools.getScreenWidth();
-        H = mScreenTools.getScreenHeight();
         mDynamicBeans.clear();
         mAdapter = new DynamicAdapter(mDynamicBeans);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext));
@@ -66,6 +62,7 @@ public class DynamicSActivity extends BaseSActivity {
 
             }
         });
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -133,83 +130,27 @@ public class DynamicSActivity extends BaseSActivity {
         });
     }
 
-    private int W, H;
-    private int showX, showY;
-    private SuspensionPopupWindow mSuspensionPopupWindow;
-
-    /**
-     * 发送内容入口
-     */
-    private void showSuspensionPopupWindow() {
-        if (mSuspensionPopupWindow == null) {
-            showX = W / 2 - UIHelper.dip2px(40);
-            showY = H - UIHelper.dip2px(80);
-            mSuspensionPopupWindow = new SuspensionPopupWindow(this, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CreateDynActivity.startCreateDynActivity(mContext, Code.REQUEST_CODE_30);
-
-                }
-            });
-        }
-        mSuspensionPopupWindow.showAtLocation("+", getWindow().getDecorView(), Gravity.TOP, showX, showY);
-
-    }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) {
+    public void setSuspensionPopupWindowClick() {
+        super.setSuspensionPopupWindowClick();
+        CreateDynActivity.startCreateDynActivity(mContext);
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void createDynamic(DynamicBean mDynamicBean) {
+        if (mDynamicBean == null || mAdapter == null) {
 
             return;
         }
-        switch (requestCode) {
-            case Code.REQUEST_CODE_30:
-                List<String> picUrls = data.getStringArrayListExtra(EasyPhotos.RESULT_PHOTOS);
-                String contentStr = data.getStringExtra(CreateDynActivity.CONTENT_STR);
-                sendPicToAliYun(contentStr, picUrls);
-
-                break;
-        }
-    }
-
-    /**
-     * 上传图片到阿里云
-     *
-     * @param picUrls
-     */
-    private void sendPicToAliYun(final String conStr, List<String> picUrls) {
-        if (picUrls == null || picUrls.size() == 0) {
-            sendCircleContent(conStr, "");
-
-            return;
-        }
-        AliyPostUtil.getInstance(mContext).uploadCompresImgsToAliyun(picUrls, new UploadImagesCallBack() {
-            @Override
-            public void getImagesPath(List<PhotoInfoBean> mPhotoInfoBeans) {
-                if (mPhotoInfoBeans == null || mPhotoInfoBeans.size() == 0) {
-
-
-                }
-            }
-        });
-    }
-
-
-    /**
-     * 发送圈子内容
-     */
-    private void sendCircleContent(String content, String mPhotoInfoBeanStr) {
-
+        mAdapter.addData(0, mDynamicBean);
+        seleteToPosition(0);
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mSuspensionPopupWindow != null) {
-            mSuspensionPopupWindow.dismiss();
-
-        }
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -1,6 +1,7 @@
 package com.old.time.activitys;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -9,19 +10,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationListener;
+import com.google.gson.Gson;
+import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.adapters.CirclePicAdapter;
+import com.old.time.beans.DynamicBean;
+import com.old.time.beans.PhotoInfoBean;
+import com.old.time.beans.ResultBean;
+import com.old.time.beans.TopicBean;
 import com.old.time.constants.Code;
+import com.old.time.constants.Constant;
+import com.old.time.interfaces.UploadImagesCallBack;
+import com.old.time.okhttps.JsonCallBack;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
-import com.old.time.utils.AMapLocationUtils;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DebugLog;
+import com.old.time.utils.AliyPostUtil;
 import com.old.time.utils.EasyPhotos;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +46,11 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class CreateDynActivity extends BaseActivity {
 
     /**
-     * 发送圈子内容
+     * 发送动态
      *
      * @param mContext
-     * @param requestCode
      */
-    public static void startCreateDynActivity(Activity mContext, int requestCode) {
+    public static void startCreateDynActivity(Activity mContext) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
                 , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, ACCESS_COARSE_LOCATION)) {
 
@@ -51,15 +62,13 @@ public class CreateDynActivity extends BaseActivity {
             return;
         }
         Intent intent = new Intent(mContext, CreateDynActivity.class);
-        ActivityUtils.startActivityForResult(mContext, intent, requestCode);
+        ActivityUtils.startActivity(mContext, intent);
 
     }
 
-    public static final String CONTENT_STR = "contentStr";
-
-    private TextView tv_user_location;
+    private TextView tv_topic_title;
     private EditText input_send_text;
-    private ImageView img_take_pic, img_rich_location;
+    private ImageView img_take_pic;
     private RecyclerView recycler_view_pics;
     private List<String> picUrls = new ArrayList<>();
     private CirclePicAdapter mPicAdapter;
@@ -67,20 +76,19 @@ public class CreateDynActivity extends BaseActivity {
     @Override
     protected void initView() {
         TakePicActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
-        setTitleText("");
+        setTitleText("发布乐趣动态");
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
-        img_rich_location = findViewById(R.id.img_rich_location);
-        tv_user_location = findViewById(R.id.tv_user_location);
         input_send_text = findViewById(R.id.input_send_text);
+        tv_topic_title = findViewById(R.id.tv_topic_title);
         img_take_pic = findViewById(R.id.img_take_pic);
         recycler_view_pics = findViewById(R.id.recycler_view_pics);
-        MyGridLayoutManager myGridLayoutManager = new MyGridLayoutManager(mContext, 5);
-        recycler_view_pics.setLayoutManager(myGridLayoutManager);
+        recycler_view_pics.setLayoutManager(new MyGridLayoutManager(mContext, 3));
         mPicAdapter = new CirclePicAdapter(picUrls);
         recycler_view_pics.setAdapter(mPicAdapter);
 
-        getUserAddress();
+        EventBus.getDefault().register(this);
+        getTopicList();
     }
 
     @Override
@@ -93,82 +101,127 @@ public class CreateDynActivity extends BaseActivity {
 
             }
         });
-        tv_user_location.setOnClickListener(new View.OnClickListener() {
+        tv_topic_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getUserAddress();
-
-            }
-        });
-        img_rich_location.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LocationMapActivity.startLocationMapActivity(mContext);
+                TopicsCActivity.startTopicsActivity(mContext);
 
             }
         });
     }
+
+    private ProgressDialog pd;
 
     @Override
     public void save(View view) {
         super.save(view);
-        String contentStr = input_send_text.getText().toString().trim();
-        if (TextUtils.isEmpty(contentStr) && (mPicAdapter.getData() == null || mPicAdapter.getData().size() == 0)) {
+        final String contentStr = input_send_text.getText().toString().trim();
+        if (TextUtils.isEmpty(contentStr)) {
             UIHelper.ToastMessage(mContext, "描述下乐趣吧");
-
-        }
-        Intent intent = new Intent();
-        if (!TextUtils.isEmpty(contentStr)) {
-            intent.putExtra(CONTENT_STR, contentStr);
-
-        }
-        intent.putStringArrayListExtra(EasyPhotos.RESULT_PHOTOS, (ArrayList<String>) mPicAdapter.getData());
-
-        setResult(Activity.RESULT_OK, intent);
-        ActivityUtils.finishActivity(mContext);
-    }
-
-    /**
-     * 获取用户信息
-     */
-    private void getUserAddress() {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, ACCESS_COARSE_LOCATION)) {
 
             return;
         }
-        AMapLocationUtils mAMapLocationUtils = AMapLocationUtils.getmAMapLocationUtils();
-        mAMapLocationUtils.startLocation(new AMapLocationListener() {
+        if (mPicAdapter.getData().size() == 0) {
+            UIHelper.ToastMessage(mContext, "还没选择配图呢");
+
+            return;
+        }
+        if (mTopicBean == null) {
+            UIHelper.ToastMessage(mContext, "选择个感兴趣的话题吧");
+
+            return;
+        }
+        pd = UIHelper.showProgressMessageDialog(mContext, getString(R.string.please_wait));
+        AliyPostUtil.getInstance(mContext).uploadCompresImgsToAliyun(mPicAdapter.getData(), new UploadImagesCallBack() {
             @Override
-            public void onLocationChanged(AMapLocation aMapLocation) {
-                if (aMapLocation == null) {
-                    UIHelper.ToastMessage(mContext, "定位失败");
+            public void getImagesPath(List<PhotoInfoBean> mPhotoInfoBeans) {
+                if (mPhotoInfoBeans == null || mPhotoInfoBeans.size() == 0) {
+                    UIHelper.dissmissProgressDialog(pd);
+                    UIHelper.ToastMessage(mContext, "上传图片失败");
 
                     return;
                 }
-                int ErrorCode = aMapLocation.getErrorCode();
-                if (ErrorCode == 0) {
-                    String Province = aMapLocation.getProvince();//省信息
-                    String City = aMapLocation.getCity();//城市信息
-                    String District = aMapLocation.getDistrict();//城区信息
-                    String Street = aMapLocation.getStreet();//街道信息
-                    String addressStr = Province + City + District + Street;
-                    DebugLog.e("addressStr::", addressStr);
-                    if (TextUtils.isEmpty(addressStr)) {
-                        tv_user_location.setVisibility(View.GONE);
-
-                    } else {
-                        tv_user_location.setVisibility(View.VISIBLE);
-                        tv_user_location.setText(addressStr);
-
-                    }
-
-                } else {
-                    String ErrorInfo = aMapLocation.getErrorInfo();
-                    DebugLog.e("定位失败，ErrCode:::", +ErrorCode + ", errInfo:" + ErrorInfo);
-
-                }
+                sendCircleContent(contentStr, new Gson().toJson(mPhotoInfoBeans), mTopicBean.getId());
             }
         });
+    }
+
+    private TopicBean mTopicBean;
+
+    /**
+     * 获取话题列表
+     */
+    private void getTopicList() {
+        HttpParams params = new HttpParams();
+        params.put("pageNum", "0");
+        params.put("pageSize", "1");
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_TOPIC_LIST, new JsonCallBack<ResultBean<List<TopicBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<TopicBean>> mResultBean) {
+                if (mResultBean == null || mResultBean.data == null || mResultBean.data.size() == 0) {
+
+                    return;
+                }
+                setTopicMsg(mResultBean.data.get(0));
+            }
+
+            @Override
+            public void onError(ResultBean<List<TopicBean>> mResultBean) {
+
+
+            }
+        });
+    }
+
+    /**
+     * 设置话题
+     */
+    private void setTopicMsg(TopicBean mTopicBean) {
+        if (mTopicBean == null) {
+
+            return;
+        }
+        this.mTopicBean = mTopicBean;
+        tv_topic_title.setText(mTopicBean.getTopic());
+
+    }
+
+    /**
+     * 发送圈子内容
+     */
+    private void sendCircleContent(String content, String images, String topicId) {
+        HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        params.put("content", content);
+        params.put("images", images);
+        params.put("topicId", topicId);
+        OkGoUtils.getInstance().postNetForData(params, Constant.CREATE_DYNAMIC, new JsonCallBack<ResultBean<DynamicBean>>() {
+            @Override
+            public void onSuccess(ResultBean<DynamicBean> mResultBean) {
+                UIHelper.dissmissProgressDialog(pd);
+                EventBus.getDefault().post(mResultBean.data);
+                ActivityUtils.finishActivity(mContext);
+
+            }
+
+            @Override
+            public void onError(ResultBean<DynamicBean> mResultBean) {
+                UIHelper.dissmissProgressDialog(pd);
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+
+            }
+        });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void updateTopic(TopicBean mTopicBean) {
+        if (mTopicBean == null) {
+
+            return;
+        }
+        setTopicMsg(mTopicBean);
+
     }
 
     @Override
@@ -188,15 +241,13 @@ public class CreateDynActivity extends BaseActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        AMapLocationUtils.getmAMapLocationUtils().stopLocation();
-        AMapLocationUtils.getmAMapLocationUtils().onDestroyLocation();
-
+    protected int getLayoutID() {
+        return R.layout.activity_send_dynamic;
     }
 
     @Override
-    protected int getLayoutID() {
-        return R.layout.activity_send_dynamic;
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

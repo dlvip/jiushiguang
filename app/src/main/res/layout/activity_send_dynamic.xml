@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     android:orientation="vertical"
     tools:context="com.old.time.activitys.CreateDynActivity">
 
@@ -31,6 +32,23 @@
                 android:textColor="@color/color_000"
                 android:textSize="@dimen/text_14" />
 
+            <TextView
+                android:id="@+id/tv_topic_title"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="@dimen/line_height"
+                android:layout_marginTop="@dimen/line_height"
+                android:background="@color/color_fff"
+                android:drawableEnd="@mipmap/public_arrow_right"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLength="20"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10"
+                android:text="# 自然界的美丽纹理"
+                android:textColor="@color/color_005abc"
+                android:textSize="@dimen/text_14" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,13 +66,6 @@
                     android:padding="@dimen/layout_10"
                     android:src="@mipmap/ic_camera_n" />
 
-                <ImageView
-                    android:id="@+id/img_rich_location"
-                    android:layout_width="@dimen/layout_40"
-                    android:layout_height="@dimen/layout_40"
-                    android:padding="@dimen/layout_10"
-                    android:src="@mipmap/rich_edit_location" />
-
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -63,20 +74,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/line_height"
                 android:background="@color/color_fff" />
-
-            <TextView
-                android:id="@+id/tv_user_location"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:background="@color/color_fff"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:maxLength="20"
-                android:paddingLeft="@dimen/layout_10"
-                android:paddingRight="@dimen/layout_10"
-                android:textColor="@color/color_005abc"
-                android:textSize="@dimen/text_14"
-                android:visibility="gone" />
 
         </LinearLayout>
 

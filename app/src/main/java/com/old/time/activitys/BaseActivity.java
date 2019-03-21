@@ -7,17 +7,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.dialogs.DialogPromptCentre;
 import com.old.time.interfaces.OnClickViewCallBack;
-import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
+import com.old.time.views.SuspensionPopupWindow;
 
 /**
  * Created by NING on 2018/2/23.
@@ -153,5 +154,49 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     protected abstract @LayoutRes
     int getLayoutID();
+
+    private int W, H;
+    private int showX, showY;
+    private SuspensionPopupWindow mSuspensionPopupWindow;
+
+    /**
+     * 发送内容入口
+     */
+    public void showSuspensionPopupWindow() {
+        if (mSuspensionPopupWindow == null) {
+            ScreenTools mScreenTools = ScreenTools.instance(this);
+            W = mScreenTools.getScreenWidth();
+            H = mScreenTools.getScreenHeight();
+            showX = W / 2 - UIHelper.dip2px(40);
+            showY = H - UIHelper.dip2px(80);
+            mSuspensionPopupWindow = new SuspensionPopupWindow(this, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setSuspensionPopupWindowClick();
+
+                }
+            });
+        }
+        mSuspensionPopupWindow.showAtLocationXY(getWindow().getDecorView(), Gravity.TOP, showX, showY);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mSuspensionPopupWindow != null) {
+            mSuspensionPopupWindow.dismiss();
+            mSuspensionPopupWindow = null;
+
+        }
+    }
+
+    /**
+     * 按钮点击事件
+     */
+    public void setSuspensionPopupWindowClick() {
+
+
+    }
 
 }

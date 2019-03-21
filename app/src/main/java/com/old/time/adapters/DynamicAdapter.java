@@ -12,6 +12,7 @@ import com.old.time.activitys.DynamicSActivity;
 import com.old.time.activitys.DynamicDetailCActivity;
 import com.old.time.beans.DynamicBean;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.utils.StringUtils;
 import com.old.time.views.ExpandableTextView;
 import com.old.time.views.NineImageView;
 
@@ -29,7 +30,7 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
 
     @Override
     protected void convert(DynamicViewHolder helper, final DynamicBean item) {
-        helper.setText(R.id.tv_content_time, item.getCreateTime().substring(0, 10));
+        helper.setText(R.id.tv_create_time, StringUtils.getCreateTime(item.getCreateTime()));
         ExpandableTextView expand_text_view = helper.mExpandableTextView;
         if (TextUtils.isEmpty(item.getContent())) {
             expand_text_view.setVisibility(View.GONE);
@@ -49,7 +50,7 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
 
         }
         ImageView img_user_header = helper.getView(R.id.img_user_header);
-        GlideUtils.getInstance().setRadiusImageView(mContext, item.getUserInfoBean().getAvatar(), img_user_header, 10);
+        GlideUtils.getInstance().setRadiusImageView(mContext, item.getUserEntity().getAvatar(), img_user_header, 10);
         helper.getView(R.id.img_user_header).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

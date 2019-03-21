@@ -49,7 +49,7 @@ public class PicsManageCActivity extends BaseCActivity {
 
         View view = View.inflate(this, R.layout.bottom_layout_view, null);
         view.findViewById(R.id.relative_layout_creat).setBackgroundResource(R.drawable.shape_radius0_stroke_line_bgfff);
-        TextView tv_crest_address = (TextView) view.findViewById(R.id.tv_crest_address);
+        TextView tv_crest_address = view.findViewById(R.id.tv_crest_address);
         tv_crest_address.setText("删除");
         tv_crest_address.setTextColor(getResources().getColor(R.color.color_ff4444));
         linear_layout_more.removeAllViews();
@@ -65,8 +65,8 @@ public class PicsManageCActivity extends BaseCActivity {
     }
 
     @Override
-    public void setmSuspensionPopupWindowClick() {
-        super.setmSuspensionPopupWindowClick();
+    public void setSuspensionPopupWindowClick() {
+        super.setSuspensionPopupWindowClick();
         TakePicActivity.startCameraActivity(mContext, Code.REQUEST_CODE_30);
 
     }

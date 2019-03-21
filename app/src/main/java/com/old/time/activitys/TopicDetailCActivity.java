@@ -128,7 +128,7 @@ public class TopicDetailCActivity extends BaseCActivity {
         pd = UIHelper.showProgressMessageDialog(mContext, getString(R.string.please_wait));
         HttpParams params = new HttpParams();
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
-        params.put("topicId", mTopicBean.getTopicId());
+        params.put("topicId", mTopicBean.getId());
         params.put("comment", comment);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_INSERT_COMMENT, new JsonCallBack<ResultBean<CommentBean>>() {
             @Override
@@ -161,9 +161,7 @@ public class TopicDetailCActivity extends BaseCActivity {
             tv_topic_count = headerView.findViewById(R.id.tv_topic_count);
 
         }
-        tv_topic_title.setText(mTopicBean.getTopicTitle());
-        tv_topic_detail.setText(mTopicBean.getTopicContent());
-        tv_topic_count.setText(mTopicBean.getTopicCount());
+        tv_topic_title.setText(mTopicBean.getTopic());
 
     }
 
@@ -179,7 +177,7 @@ public class TopicDetailCActivity extends BaseCActivity {
 
         }
         HttpParams params = new HttpParams();
-        params.put("topicId", mTopicBean.getTopicId());
+        params.put("topicId", mTopicBean.getId());
         params.put("pageNum", pageNum);
         params.put("pageSize", Constant.PageSize);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_COMMENT_LIST, new JsonCallBack<ResultBean<List<CommentBean>>>() {

@@ -109,51 +109,6 @@ public abstract class BaseCActivity extends BaseActivity {
 
     }
 
-    private int W, H;
-    private int showX, showY;
-    private SuspensionPopupWindow mSuspensionPopupWindow;
-
-    /**
-     * 发送内容入口
-     */
-    public void showSuspensionPopupWindow() {
-        if (mSuspensionPopupWindow == null) {
-            ScreenTools mScreenTools = ScreenTools.instance(this);
-            W = mScreenTools.getScreenWidth();
-            H = mScreenTools.getScreenHeight();
-            showX = W / 2 - UIHelper.dip2px(40);
-            showY = H - UIHelper.dip2px(80);
-            mSuspensionPopupWindow = new SuspensionPopupWindow(this, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setmSuspensionPopupWindowClick();
-
-                }
-            });
-        }
-        mSuspensionPopupWindow.showAtLocationXY(getWindow().getDecorView(), Gravity.TOP, showX, showY);
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mSuspensionPopupWindow != null) {
-            mSuspensionPopupWindow.dismiss();
-            mSuspensionPopupWindow = null;
-
-        }
-    }
-
-    /**
-     * 按钮点击事件
-     */
-    public void setmSuspensionPopupWindowClick() {
-
-
-    }
-
-
     public abstract void getDataFromNet(boolean isRefresh);
 
 }
