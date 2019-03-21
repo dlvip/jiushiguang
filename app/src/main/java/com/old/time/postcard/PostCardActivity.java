@@ -184,8 +184,7 @@ public class PostCardActivity extends BaseActivity {
 
                             break;
                         case "服务号":
-                            DynamicsActivity.startDynamicsActivity(mContext);
-//                            FastMailActivity.startFastMailActivity(mContext);
+                            FastMailActivity.startFastMailActivity(mContext);
 
                             break;
                         case "个人中心":

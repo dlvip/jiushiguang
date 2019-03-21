@@ -85,17 +85,17 @@ public class PermissionUtil {
     }
 
     public static String[] needPermissions = {
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.DISABLE_KEYGUARD,
-            Manifest.permission.RECEIVE_BOOT_COMPLETED,
-            Manifest.permission.READ_CONTACTS,
-            Manifest.permission.CALL_PHONE,
+//            Manifest.permission.ACCESS_COARSE_LOCATION,
+//            Manifest.permission.ACCESS_FINE_LOCATION,
+//            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//            Manifest.permission.READ_EXTERNAL_STORAGE,
+//            Manifest.permission.READ_PHONE_STATE,
+//            Manifest.permission.DISABLE_KEYGUARD,
+//            Manifest.permission.RECEIVE_BOOT_COMPLETED,
+//            Manifest.permission.READ_CONTACTS,
+//            Manifest.permission.CALL_PHONE,
             Manifest.permission.INTERNET,
-            Manifest.permission.READ_SMS,
+//            Manifest.permission.READ_SMS,
 
     };
 }

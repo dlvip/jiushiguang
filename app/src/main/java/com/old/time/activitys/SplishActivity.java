@@ -15,7 +15,6 @@ import com.old.time.R;
 import com.old.time.beans.SplashBean;
 import com.old.time.constants.Constant;
 import com.old.time.permission.PermissionUtil;
-import com.old.time.postcard.PostCardActivity;
 import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;

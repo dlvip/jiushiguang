@@ -49,8 +49,6 @@ public class TopicsCActivity extends BaseCActivity {
         super.initView();
         setTitleText("话题");
         mRecyclerView.setLayoutManager(new MyGridLayoutManager(mContext, 2));
-        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10));
-        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mTopicAdapter = new TopicAdapter(topicBeans);
         mRecyclerView.setAdapter(mTopicAdapter);
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);

@@ -21,7 +21,6 @@
             android:id="@+id/c_recycler_view"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@color/main_bg"
             app:r_orientation="VERTICAL" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
