@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
 import com.old.time.activitys.TopicDetailCActivity;
+import com.old.time.activitys.UserDynamicActivity;
 import com.old.time.beans.DynamicBean;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.beans.TopicBean;
@@ -53,11 +54,19 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
 
         }
         ImageView img_user_header = helper.getView(R.id.img_user_header);
-        UserInfoBean userInfoBean = item.getUserEntity();
+        final UserInfoBean userInfoBean = item.getUserEntity();
         if (userInfoBean != null) {
             GlideUtils.getInstance().setRadiusImageView(mContext, userInfoBean.getAvatar(), img_user_header, 10);
             helper.setText(R.id.tv_user_name, userInfoBean.getUserName());
+            img_user_header.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!(mContext instanceof UserDynamicActivity)) {
+                        UserDynamicActivity.startUserDynamicActivity(mContext, userInfoBean);
 
+                    }
+                }
+            });
         }
         final TopicBean topicBean = item.getTopicEntity();
         if (topicBean != null) {

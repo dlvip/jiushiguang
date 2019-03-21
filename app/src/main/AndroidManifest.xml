@@ -191,7 +191,8 @@
         <activity android:name=".activitys.SignListActivity" />
         <activity android:name=".postcard.UserCardActivity" />
         <activity android:name=".activitys.SignDetailActivity" />
-        <activity android:name=".postcard.UserSignActivity"></activity>
+        <activity android:name=".postcard.UserSignActivity" />
+        <activity android:name=".activitys.UserDynamicActivity"/>
     </application>
 
 </manifest>
