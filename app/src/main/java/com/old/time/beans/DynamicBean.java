@@ -36,6 +36,16 @@ public class DynamicBean implements Serializable {
 
     private UserInfoBean userEntity;
 
+    private TopicBean topicEntity;
+
+    public TopicBean getTopicEntity() {
+        return topicEntity;
+    }
+
+    public void setTopicEntity(TopicBean topicEntity) {
+        this.topicEntity = topicEntity;
+    }
+
     private List<PhotoInfoBean> contentImages = new ArrayList<>();
 
     public String getTopicId() {

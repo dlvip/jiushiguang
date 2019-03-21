@@ -181,7 +181,13 @@ public class Constant {
     //动态详情
     public static final String GET_DYNAMIC_DETAIL = BASE_DYNAMIC + "getDynamicDetail";
 
-    //动态列表
+    //用户动态列表
+    public static final String GET_USER_DYNAMIC_LIST = BASE_DYNAMIC + "getUserDynamicEntities";
+
+    //话题动态列表
+    public static final String GET_TOPIC_DYNAMIC_LIST = BASE_DYNAMIC + "getTopicDynamicEntities";
+
+    //所有动态列表
     public static final String GET_DYNAMIC_LIST = BASE_DYNAMIC + "getDynamicEntities";
 
     //删除动态

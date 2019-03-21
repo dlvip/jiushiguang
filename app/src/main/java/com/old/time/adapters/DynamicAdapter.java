@@ -1,5 +1,6 @@
 package com.old.time.adapters;
 
+import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -7,7 +8,10 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
+import com.old.time.activitys.TopicDetailCActivity;
 import com.old.time.beans.DynamicBean;
+import com.old.time.beans.PhotoInfoBean;
+import com.old.time.beans.TopicBean;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.StringUtils;
@@ -39,22 +43,35 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
 
         }
         NineImageView mNineImageView = helper.mNineImageView;
-        if (item.getContentImages() == null || item.getContentImages().size() == 0) {
+        List<PhotoInfoBean> photoInfoBeans = item.getContentImages();
+        if (photoInfoBeans == null || photoInfoBeans.size() == 0) {
             mNineImageView.setVisibility(View.GONE);
 
         } else {
             mNineImageView.setVisibility(View.VISIBLE);
-            mNineImageView.setDataForView(item.getContentImages());
+            mNineImageView.setDataForView(photoInfoBeans);
 
         }
         ImageView img_user_header = helper.getView(R.id.img_user_header);
         UserInfoBean userInfoBean = item.getUserEntity();
-        if (userInfoBean == null) {
+        if (userInfoBean != null) {
+            GlideUtils.getInstance().setRadiusImageView(mContext, userInfoBean.getAvatar(), img_user_header, 10);
+            helper.setText(R.id.tv_user_name, userInfoBean.getUserName());
 
-            return;
         }
-        GlideUtils.getInstance().setRadiusImageView(mContext, item.getUserEntity().getAvatar(), img_user_header, 10);
-        helper.setText(R.id.tv_user_name, userInfoBean.getUserName());
+        final TopicBean topicBean = item.getTopicEntity();
+        if (topicBean != null) {
+            helper.setText(R.id.tv_topic_title, topicBean.getTopic());
+            helper.getView(R.id.tv_topic_title).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!(mContext instanceof TopicDetailCActivity)) {
+                        TopicDetailCActivity.startTopicDetailActivity((Activity) mContext, topicBean);
+
+                    }
+                }
+            });
+        }
     }
 
     public class DynamicViewHolder extends BaseViewHolder {

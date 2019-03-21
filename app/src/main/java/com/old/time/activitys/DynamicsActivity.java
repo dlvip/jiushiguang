@@ -72,6 +72,7 @@ public class DynamicsActivity extends BaseCActivity {
         mAdapter.removeAllHeaderView();
         mAdapter.addHeaderView(headerView);
         mAdapter.setNewData(mDynamicBeans);
+        mAdapter.setHeaderAndEmpty(true);
 
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
         mRecyclerView.post(new Runnable() {
@@ -150,8 +151,6 @@ public class DynamicsActivity extends BaseCActivity {
 
         }
         HttpParams params = new HttpParams();
-        params.put("userId", UserLocalInfoUtils.instance().getUserId());
-        params.put("topicId", "");
         params.put("pageNum", startNum);
         params.put("pageSize", Constant.PageSize);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_DYNAMIC_LIST, new JsonCallBack<ResultBean<List<DynamicBean>>>() {
@@ -172,7 +171,7 @@ public class DynamicsActivity extends BaseCActivity {
 
                 }
                 mAdapter.addData(mResultBean.data);
-                if (mAdapter.getItemCount() == 0) {
+                if (mAdapter.getData().size() == 0) {
                     mCustomNetView.setDataForView(CustomNetView.NO_DATA);
                     mAdapter.setEmptyView(mCustomNetView);
 
@@ -182,7 +181,7 @@ public class DynamicsActivity extends BaseCActivity {
             @Override
             public void onError(ResultBean<List<DynamicBean>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
-                if (mAdapter.getItemCount() == 0) {
+                if (mAdapter.getData().size() == 0) {
                     mCustomNetView.setDataForView(CustomNetView.NET_ERREY);
                     mAdapter.setEmptyView(mCustomNetView);
 
