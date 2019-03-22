@@ -289,6 +289,7 @@ public class GlideUtils {
                         .diskCacheStrategy(DiskCacheStrategy.ALL)//
                         .transform(new GlideRoundTransform(context, radius))//
                         .dontAnimate()//
+                        .error(R.color.color_666)
 //                        .centerCrop()//
                         .priority(Priority.HIGH))//
                 .transition(DrawableTransitionOptions.withCrossFade())//

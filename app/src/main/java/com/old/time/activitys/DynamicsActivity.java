@@ -2,6 +2,8 @@ package com.old.time.activitys;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -9,8 +11,10 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.adapters.DynamicAdapter;
+import com.old.time.adapters.TopicDAdapter;
 import com.old.time.beans.DynamicBean;
 import com.old.time.beans.ResultBean;
+import com.old.time.beans.TopicBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
@@ -35,7 +39,7 @@ public class DynamicsActivity extends BaseCActivity {
     private List<DynamicBean> mDynamicBeans = new ArrayList<>();
     private CustomNetView mCustomNetView;
     private DynamicAdapter mAdapter;
-    private View relative_layout_more;
+    private View relative_layout_more, relative_layout_user;
 
     /**
      * 旧时光圈子
@@ -54,6 +58,9 @@ public class DynamicsActivity extends BaseCActivity {
 
     }
 
+    private List<TopicBean> topicBeans = new ArrayList<>();
+    private TopicDAdapter topicDAdapter;
+
     @Override
     protected void initView() {
         super.initView();
@@ -65,26 +72,46 @@ public class DynamicsActivity extends BaseCActivity {
         mAdapter = new DynamicAdapter(mDynamicBeans);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mAdapter);
+
         View headerView = View.inflate(mContext, R.layout.header_post_cart, null);
-        headerView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                SignListActivity.startSignListActivity(mContext);
-
-            }
-        });
+        relative_layout_user = headerView.findViewById(R.id.relative_layout_user);
+        topicDAdapter = new TopicDAdapter(topicBeans);
+        RecyclerView recycler_view = headerView.findViewById(R.id.recycler_view);
+        recycler_view.setLayoutManager(new GridLayoutManager(mContext, 2));
+        recycler_view.setAdapter(topicDAdapter);
         mAdapter.removeAllHeaderView();
         mAdapter.addHeaderView(headerView);
         mAdapter.setNewData(mDynamicBeans);
         mAdapter.setHeaderAndEmpty(true);
 
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void initEvent() {
+        super.initEvent();
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                getDataFromNet(false);
+
+            }
+        }, mRecyclerView);
         mRecyclerView.post(new Runnable() {
 
             @Override
             public void run() {
                 showSuspensionPopupWindow();
+
+            }
+        });
+        relative_layout_user.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                SignListActivity.startSignListActivity(mContext);
 
             }
         });
@@ -95,9 +122,11 @@ public class DynamicsActivity extends BaseCActivity {
 
             }
         });
-        EventBus.getDefault().register(this);
     }
 
+    /**
+     * 发布弹框
+     */
     private PostCartPop mPostCartPop;
 
     private void showMoreBtnPopWindow() {
@@ -135,24 +164,13 @@ public class DynamicsActivity extends BaseCActivity {
 
     }
 
-    @Override
-    protected void initEvent() {
-        super.initEvent();
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                getDataFromNet(false);
-
-            }
-        }, mRecyclerView);
-    }
-
     private int startNum;
 
     @Override
     public void getDataFromNet(final boolean isRefresh) {
         if (isRefresh) {
             startNum = 0;
+            getTopices();
 
         }
         HttpParams params = new HttpParams();
@@ -194,6 +212,31 @@ public class DynamicsActivity extends BaseCActivity {
                     mAdapter.loadMoreFail();
 
                 }
+            }
+        });
+    }
+
+    /**
+     *
+     */
+    private void getTopices() {
+        HttpParams params = new HttpParams();
+        params.put("pageNum", "0");
+        params.put("pageSize", "4");
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_TOPIC_LIST, new JsonCallBack<ResultBean<List<TopicBean>>>() {
+            @Override
+            public void onSuccess(ResultBean<List<TopicBean>> mResultBean) {
+                if (mResultBean == null || mResultBean.data == null || mResultBean.data.size() == 0) {
+
+                    return;
+                }
+                topicDAdapter.setNewData(mResultBean.data);
+
+            }
+
+            @Override
+            public void onError(ResultBean<List<TopicBean>> mResultBean) {
+
             }
         });
     }

@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_fff"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/layout_10">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/relative_layout_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/shape_radius0_stroke_line_bgfff"
         android:paddingBottom="@dimen/layout_10"
+        android:paddingLeft="@dimen/layout_10"
         android:paddingTop="@dimen/layout_10">
 
         <ImageView
@@ -40,5 +41,12 @@
 
     </RelativeLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/layout_10"
+        android:paddingLeft="@dimen/layout_15"
+        android:paddingTop="@dimen/layout_10" />
 
 </LinearLayout>

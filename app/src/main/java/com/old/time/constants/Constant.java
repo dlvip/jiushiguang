@@ -144,6 +144,12 @@ public class Constant {
     //获取图书信息
     public static final String GET_BOOK_INFO = BASE_BOOK + "getBookInfo";
 
+    //图书列表
+    public static final String GET_BOOK_LIST = BASE_BOOK + "getBookEntities";
+
+    //用户图书列表
+    public static final String GET_USER_BOOK_LIST = BASE_BOOK + "getUserBookList";
+
     /**
      * 书签
      */

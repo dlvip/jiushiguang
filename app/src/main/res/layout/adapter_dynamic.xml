@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/img_user_header"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="@dimen/layout_20"
         android:src="@mipmap/head_circle" />
 

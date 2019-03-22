@@ -27,12 +27,9 @@ import com.old.time.views.CustomNetView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import static com.old.time.views.CustomNetView.NET_ERREY;
 import static com.old.time.views.CustomNetView.NO_DATA;
 
 public class UserSignActivity extends BaseSActivity {

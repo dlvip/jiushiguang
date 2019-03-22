@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radius0_stroke_line_bgfff"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_book_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_40"
+        android:background="@color/color_fff"
+        android:drawableEnd="@mipmap/public_arrow_right"
+        android:drawablePadding="@dimen/layout_10"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        android:text="推荐图书"
+        android:textColor="@color/color_2e6cd3"
+        android:textSize="@dimen/text_16" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line_bg" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/layout_5"
+        android:paddingTop="@dimen/layout_5" />
+
+</LinearLayout>

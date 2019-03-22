@@ -130,6 +130,7 @@ public class TopicDetailCActivity extends BaseSActivity {
             img_header_bg = headerView.findViewById(R.id.img_header_bg);
 
         }
+        setTitleText(mTopicBean.getTopic());
         tv_user_name.setText(mTopicBean.getTopic());
         GlideUtils.getInstance().setImgTransRes(mContext, mTopicBean.getPic(), img_header_bg, 0, 0);
 
