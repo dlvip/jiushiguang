@@ -16,6 +16,7 @@ import com.old.time.activitys.BaseActivity;
 import com.old.time.activitys.PhotoPagerActivity;
 import com.old.time.activitys.RQCodeActivity;
 import com.old.time.activitys.TouchSettingActivity;
+import com.old.time.activitys.UserLoginActivity;
 import com.old.time.activitys.UserMsgActivity;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.RQCodeBean;
@@ -51,6 +52,11 @@ public class UserCardActivity extends BaseActivity {
      * @param context
      */
     public static void startUserCardActivity(Context context, String friendId) {
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UserLoginActivity.startUserLoginActivity((Activity) context);
+
+            return;
+        }
         Intent intent = new Intent(context, UserCardActivity.class);
         intent.putExtra(FRIEND_ID, friendId);
         ActivityUtils.startActivity((Activity) context, intent);

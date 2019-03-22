@@ -168,8 +168,8 @@ public class CreateDynActivity extends BaseActivity {
      */
     private void sendCircleContent(String content, String images, String topicId) {
         HttpParams params = new HttpParams();
-        UserInfoBean userInfoBean = UserLocalInfoUtils.instance().getmUserInfoBean();
-        if ("15093073252".equals(userInfoBean.getMobile()) || "17600075773".equals(userInfoBean.getMobile())) {
+        UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
+        if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
             params.put("userId", String.valueOf(mRandom.nextInt(62)));
 
         } else {

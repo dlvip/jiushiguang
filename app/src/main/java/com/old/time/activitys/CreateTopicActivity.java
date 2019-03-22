@@ -139,8 +139,8 @@ public class CreateTopicActivity extends BaseActivity {
      */
     private void createTopic(String topicStr, String pic) {
         HttpParams params = new HttpParams();
-        UserInfoBean userInfoBean = UserLocalInfoUtils.instance().getmUserInfoBean();
-        if ("15093073252".equals(userInfoBean.getMobile()) || "17600075773".equals(userInfoBean.getMobile())) {
+        UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
+        if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
             params.put("userId", String.valueOf(mRandom.nextInt(62)));
 
         } else {

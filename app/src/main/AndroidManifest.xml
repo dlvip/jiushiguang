@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.old.time">
 
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
@@ -70,7 +71,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="n">
 
         <!-- 热更新配置 -->
         <activity
@@ -192,7 +194,7 @@
         <activity android:name=".postcard.UserCardActivity" />
         <activity android:name=".activitys.SignDetailActivity" />
         <activity android:name=".postcard.UserSignActivity" />
-        <activity android:name=".activitys.UserDynamicActivity"/>
+        <activity android:name=".activitys.UserDynamicActivity" />
     </application>
 
 </manifest>

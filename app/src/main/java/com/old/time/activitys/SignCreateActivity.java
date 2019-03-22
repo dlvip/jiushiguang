@@ -289,9 +289,9 @@ public class SignCreateActivity extends BaseActivity {
      * 创建书签
      */
     private void uploadDateForLine(String signPic) {
-        UserInfoBean userInfoBean = UserLocalInfoUtils.instance().getmUserInfoBean();
+        UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
         HttpParams params = new HttpParams();
-        if ("15093073252".equals(userInfoBean.getMobile()) || "17600075773".equals(userInfoBean.getMobile())) {
+        if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
             params.put("userId", String.valueOf(mRandom.nextInt(62)));
 
         } else {
@@ -347,8 +347,8 @@ public class SignCreateActivity extends BaseActivity {
                 break;
             case CaptureActivity.REQ_CODE:
                 String str = data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
-                if ("15093073252".equals(UserLocalInfoUtils.instance().getmUserInfoBean().getMobile()) //
-                        || "17600075773".equals(UserLocalInfoUtils.instance().getmUserInfoBean().getMobile())) {
+                UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
+                if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
                     str = DataUtils.getSystemBookId(mRandom.nextInt(24));
 
                 }

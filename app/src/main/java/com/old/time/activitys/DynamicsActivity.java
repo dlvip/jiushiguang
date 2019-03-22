@@ -47,11 +47,6 @@ public class DynamicsActivity extends BaseCActivity {
      * @param mContext
      */
     public static void startDynamicsActivity(Activity mContext) {
-        if (!UserLocalInfoUtils.instance().isUserLogin()) {
-            UserLoginActivity.startUserLoginActivity(mContext);
-
-            return;
-        }
         Intent intent = new Intent(mContext, DynamicsActivity.class);
         ActivityUtils.startActivity(mContext, intent);
         ActivityUtils.finishActivity(mContext);

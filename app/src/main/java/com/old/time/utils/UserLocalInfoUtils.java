@@ -3,8 +3,6 @@ package com.old.time.utils;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Key;
 
-import java.util.Random;
-
 /**
  * Created by NING on 2018/4/5.
  */
@@ -40,6 +38,20 @@ public class UserLocalInfoUtils {
     }
 
     /**
+     * 获取用户手机号
+     *
+     * @return
+     */
+    public String getMobile() {
+        if (mUserInfoBean == null) {
+
+            return "-1";
+        }
+
+        return mUserInfoBean.getMobile();
+    }
+
+    /**
      * 获取用户心id
      *
      * @return
@@ -50,21 +62,6 @@ public class UserLocalInfoUtils {
             return "-1";
         }
         return mUserInfoBean.getUserId();
-    }
-
-    /**
-     * 是否是admin账户
-     *
-     * @return
-     */
-    public boolean isAdmin() {
-        if (mUserInfoBean == null) {
-
-            return false;
-        }
-
-        return "15093073252".equals(mUserInfoBean.getMobile());
-
     }
 
     /**

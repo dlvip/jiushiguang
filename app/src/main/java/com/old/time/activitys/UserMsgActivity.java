@@ -44,7 +44,7 @@ public class UserMsgActivity extends BaseActivity {
     private RelativeLayout right_layout_send;
 
     /**
-     * 消息通知
+     * 资料信息
      *
      * @param mContext
      */
