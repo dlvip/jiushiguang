@@ -22,6 +22,10 @@ import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.CustomNetView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +72,15 @@ public class TopicDetailCActivity extends BaseSActivity {
         adapter.setHeaderAndEmpty(true);
         setHeaderView(mTopicBean);
 
+        mRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                showSuspensionPopupWindow();
+
+            }
+        });
+        EventBus.getDefault().register(this);
+
     }
 
     @Override
@@ -80,6 +93,28 @@ public class TopicDetailCActivity extends BaseSActivity {
 
             }
         }, mRecyclerView);
+    }
+
+    @Override
+    public void setSuspensionPopupWindowClick() {
+        super.setSuspensionPopupWindowClick();
+        TopicsCActivity.startTopicsActivity(mContext);
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void createDynamic(DynamicBean mDynamicBean) {
+        if (mDynamicBean == null || adapter == null) {
+
+            return;
+        }
+        if (!mTopicBean.getId().equals(mDynamicBean.getTopicId())) {
+
+            return;
+        }
+        adapter.addData(0, mDynamicBean);
+        seleteToPosition(0);
+
     }
 
     /**
@@ -151,5 +186,12 @@ public class TopicDetailCActivity extends BaseSActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+
     }
 }

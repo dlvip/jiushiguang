@@ -201,7 +201,7 @@ public class DynamicsActivity extends BaseCActivity {
     @Override
     public void setSuspensionPopupWindowClick() {
         super.setSuspensionPopupWindowClick();
-        CreateDynActivity.startCreateDynActivity(mContext);
+        TopicsCActivity.startTopicsActivity(mContext);
 
     }
 

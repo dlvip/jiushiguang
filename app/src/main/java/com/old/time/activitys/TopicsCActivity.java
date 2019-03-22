@@ -15,7 +15,6 @@ import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyGridLayoutManager;
-import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
@@ -69,10 +68,11 @@ public class TopicsCActivity extends BaseCActivity {
         EventBus.getDefault().register(this);
 
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 TopicBean topicBean = mTopicAdapter.getData().get(position);
-                EventBus.getDefault().post(topicBean);
+                CreateDynActivity.startCreateDynActivity(mContext, topicBean);
                 ActivityUtils.finishActivity(mContext);
 
             }

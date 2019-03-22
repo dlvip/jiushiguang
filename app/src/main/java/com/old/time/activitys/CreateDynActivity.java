@@ -32,8 +32,6 @@ import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,12 +46,14 @@ import static com.old.time.activitys.PhotoPickActivity.SELECT_PHOTO_LIST;
 
 public class CreateDynActivity extends BaseActivity {
 
+    private static final String TOPICBEAN = "TopicBean";
+
     /**
      * 发送动态
      *
      * @param mContext
      */
-    public static void startCreateDynActivity(Activity mContext) {
+    public static void startCreateDynActivity(Activity mContext, TopicBean mTopicBean) {
         if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
                 , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, ACCESS_COARSE_LOCATION)) {
 
@@ -65,6 +65,7 @@ public class CreateDynActivity extends BaseActivity {
             return;
         }
         Intent intent = new Intent(mContext, CreateDynActivity.class);
+        intent.putExtra(TOPICBEAN, mTopicBean);
         ActivityUtils.startActivity(mContext, intent);
 
     }
@@ -92,9 +93,8 @@ public class CreateDynActivity extends BaseActivity {
         recycler_view_pics.setLayoutManager(new MyGridLayoutManager(mContext, 3));
         mPicAdapter = new CirclePicAdapter(picUrls);
         recycler_view_pics.setAdapter(mPicAdapter);
-
-        EventBus.getDefault().register(this);
-        getTopicList();
+        TopicBean mTopicBean = (TopicBean) getIntent().getSerializableExtra(TOPICBEAN);
+        setTopicMsg(mTopicBean);
     }
 
     @Override
@@ -105,13 +105,6 @@ public class CreateDynActivity extends BaseActivity {
             public void onClick(View view) {
                 PhotoPickActivity.startPhotoPickActivity(mContext, false, PIC_COUNT_SIZE//
                         , (Serializable) mPicAdapter.getData(), Code.REQUEST_CODE_30);
-
-            }
-        });
-        tv_topic_title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TopicsCActivity.startTopicsActivity(mContext);
 
             }
         });
@@ -154,31 +147,6 @@ public class CreateDynActivity extends BaseActivity {
     }
 
     private TopicBean mTopicBean;
-
-    /**
-     * 获取话题列表
-     */
-    private void getTopicList() {
-        HttpParams params = new HttpParams();
-        params.put("pageNum", "0");
-        params.put("pageSize", "1");
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_TOPIC_LIST, new JsonCallBack<ResultBean<List<TopicBean>>>() {
-            @Override
-            public void onSuccess(ResultBean<List<TopicBean>> mResultBean) {
-                if (mResultBean == null || mResultBean.data == null || mResultBean.data.size() == 0) {
-
-                    return;
-                }
-                setTopicMsg(mResultBean.data.get(0));
-            }
-
-            @Override
-            public void onError(ResultBean<List<TopicBean>> mResultBean) {
-
-
-            }
-        });
-    }
 
     /**
      * 设置话题
@@ -225,19 +193,8 @@ public class CreateDynActivity extends BaseActivity {
                 UIHelper.dissmissProgressDialog(pd);
                 UIHelper.ToastMessage(mContext, mResultBean.msg);
 
-
             }
         });
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void updateTopic(TopicBean mTopicBean) {
-        if (mTopicBean == null) {
-
-            return;
-        }
-        setTopicMsg(mTopicBean);
-
     }
 
     @Override
@@ -261,9 +218,4 @@ public class CreateDynActivity extends BaseActivity {
         return R.layout.activity_send_dynamic;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 }

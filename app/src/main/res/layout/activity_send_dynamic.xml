@@ -39,7 +39,6 @@
                 android:layout_marginBottom="@dimen/line_height"
                 android:layout_marginTop="@dimen/line_height"
                 android:background="@color/color_fff"
-                android:drawableEnd="@mipmap/public_arrow_right"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLength="20"

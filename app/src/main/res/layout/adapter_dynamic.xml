@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/img_user_header"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="@dimen/layout_20"
         android:src="@mipmap/head_circle" />
 
@@ -22,7 +22,8 @@
         android:gravity="center_vertical"
         android:text="@string/app_name"
         android:textColor="@color/color_2e6cd3"
-        android:textSize="@dimen/text_18" />
+        android:textSize="@dimen/text_16"
+        android:textStyle="bold" />
 
     <com.old.time.views.ExpandableTextView
         android:id="@+id/expand_text_view"
@@ -61,7 +62,7 @@
         android:paddingTop="@dimen/layout_10"
         android:text="# 自然界的美丽纹理"
         android:textColor="@color/color_2e6cd3"
-        android:textSize="@dimen/text_14" />
+        android:textSize="@dimen/text_14"/>
 
     <LinearLayout
         android:layout_width="match_parent"
