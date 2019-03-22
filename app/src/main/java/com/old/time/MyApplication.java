@@ -64,7 +64,7 @@ public class MyApplication extends MultiDexApplication {
         initLoadSirs();
         initQbSdk();
         initOkGo();
-        RongIMUtils.initRongIM();
+//        RongIMUtils.initRongIM();
 
     }
 
