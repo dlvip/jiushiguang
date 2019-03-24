@@ -98,7 +98,7 @@ public class TopicDetailCActivity extends BaseSActivity {
     @Override
     public void setSuspensionPopupWindowClick() {
         super.setSuspensionPopupWindowClick();
-        TopicsCActivity.startTopicsActivity(mContext);
+        CreateDynActivity.startCreateDynActivity(mContext, mTopicBean);
 
     }
 

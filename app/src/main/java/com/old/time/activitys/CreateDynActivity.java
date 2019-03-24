@@ -18,7 +18,6 @@ import com.old.time.beans.DynamicBean;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.TopicBean;
-import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.interfaces.UploadImagesCallBack;
@@ -170,7 +169,7 @@ public class CreateDynActivity extends BaseActivity {
         HttpParams params = new HttpParams();
         UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
         if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
-            params.put("userId", String.valueOf(mRandom.nextInt(62)));
+            params.put("userId", String.valueOf("01" + mRandom.nextInt(56)));
 
         } else {
             params.put("userId", UserLocalInfoUtils.instance().getUserId());

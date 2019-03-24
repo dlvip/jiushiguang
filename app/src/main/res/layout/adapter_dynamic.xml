@@ -60,7 +60,7 @@
         android:minWidth="@dimen/layout_100"
         android:paddingBottom="@dimen/layout_10"
         android:paddingTop="@dimen/layout_10"
-        android:text="# 自然界的美丽纹理"
+        android:text=""
         android:textColor="@color/color_2e6cd3"
         android:textSize="@dimen/text_14"/>
 

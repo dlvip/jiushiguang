@@ -292,7 +292,7 @@ public class SignCreateActivity extends BaseActivity {
         UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
         HttpParams params = new HttpParams();
         if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
-            params.put("userId", String.valueOf(mRandom.nextInt(62)));
+            params.put("userId", String.valueOf("01" + mRandom.nextInt(56)));
 
         } else {
             params.put("userId", UserLocalInfoUtils.instance().getUserId());

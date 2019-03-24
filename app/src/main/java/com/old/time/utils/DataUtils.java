@@ -184,8 +184,9 @@ public class DataUtils {
     public static void registerUserInfo() {
         String[] userNames = getUserNameS();
         String[] userAvatars = getUserAravers();
-        int j = 0;
+        int j;
         for (int i = 0; i < userNames.length; i++) {
+            j = i;
             if (i >= userAvatars.length) {
                 j = userAvatars.length - 1;
 
@@ -199,8 +200,8 @@ public class DataUtils {
         HttpParams params = new HttpParams();
         params.put("avatar", avatar);
         params.put("userName", userName);
-        params.put("userId", userId);
-        params.put("mobile", mobile);
+        params.put("userId", "01" + userId);
+        params.put("mobile", "01" + mobile);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_SYSTEM_REGISTER, new JsonCallBack<ResultBean<UserInfoBean>>() {
             @Override
             public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
@@ -218,89 +219,123 @@ public class DataUtils {
     private static String[] getUserNameS() {
 
 
-        return new String[]{"黄昏半晓、拾忆", "梦落轻寻", "清茶也醉人", "阳光①夏", "喝醉了梦", "铁树开花@", "风居住的味道", //
-                "夏花冬雪", "簡單ǒ愛√", "ミ灬纯真小女孩", "云之铃。", "那场櫻花雨", "掌中花", "聆听、这幸福", "等一朵彼岸花开",//
-                "情花。，初放", "花雨淋湿了梦境", "羙仯丶亾泩", "青瓷花羽", "暮浴ゞ晨曦", "許願樹丅啲祈禱", "玻璃里的彩虹", //
-                "满眼、的温柔", "深海里的星星", "爱是蓝色", "清水漪澜", "夏天的巴比伦狠美", "安。忆雅", "风の痕迹", "孤海未蓝",//
-                "玫瑰花的代替", "时光凉透初时模样", "灰色世界里的红玫瑰", "夏日落◇◆", "流星、划过sky", "画朵纸鸢花", "春风十里·",//
-                "细致如美瓷╯", "红莺绿柳", "雨嫣", "若雪樱花草", "就像蓝鲸忘了海", "Rain Sounds", "惆怅暮烟垂", "淡藍色瞳孔。",//
-                "︶彩虹餹dē夢", "〤twinkle繁夏", "夏初的伤", "秋末的美。", "像儚辷様媄", "薰衣草的夏天", "四号花店", "枕花眠", //
-                "捕星光", "舀一瓢月色", "邀我花前醉", "摇铃唤白鹿", "偷捧时间煮酒喝", "扑流萤", "萤火眠眠", "月下无痕", "风居住的街道",//
-                "睡于麋鹿林"};
+        return new String[]{"嘴角的樱桃汁",
+                "Cookie",
+                "性子野、",
+                "喝了酱油耍酒疯",
+                "喝可乐的猫",
+                "甚是乖巧",
+                "娇软甜",
+                "日光倾城未必温暖",
+                "凉柚",
+                "官方小可爱√",
+                "你列表最软的妹.",
+                "睡美人的小仙女",
+                "今天小雨转甜",
+                "章鱼小肉丸",
+                "果味小可爱",
+                "萌主系我",
+                "我宣你你造吗",
+                "习惯性、依赖",
+                "我恋小黄人",
+                "攒一口袋星星",
+                "吐个泡泡",
+                "蘸点软妹酱",
+                "试卷是一张微凉的遗书",
+                "鱼巷猫归",
+                "脸红",
+                "不解风情的老妖怪",
+                "颈上鲜草莓",
+                "爱咬吸管的少女",
+                "素小花",
+                "全球少女萌主",
+                "雨含思念",
+                "小可爱在此",
+                "甜蜜的人儿@",
+                "乖乖=猪",
+                "我有小乖乖 ！",
+                "卷猫",
+                "好女人就是我@",
+                "你若不离我便不弃",
+                "天真点",
+                "软萝",
+                "偸吻月亮",
+                "可爱害羞",
+                "偷糖的奶妹",
+                "小梨窝很甜",
+                "奶音能量",
+                "荫酱小可爱",
+                "迴吥箌過祛",
+                "红颜一笑丶尽是殇°",
+                "素小言″",
+                "琴声如瑟月微凉i",
+                "芭比的双重性格",
+                "总有逗比挑衅本宫",
+                "人潮拥挤我尿急",
+                "殺无赦",
+                "风软一江水",
+                "青春喂了作业",
+                "稚屿"};
     }
 
     private static String[] getUserAravers() {
 
-        return new String[]{"http://www.tbw-xie.com/tuxieJDEwLmFsaWNkbi5jb20vYmFvL3VwbG9hZGVkL2kxL1RCMUlPYWlRViQ2WHFhcCQ1JDM.jpg"//
-                , "http://img10.360buyimg.com/n0/jfs/t2587/344/774058668/175754/c0b47695/5725aab4Ne8e023fd.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=3797202546,2028562705&fm=214&gp=0.jpg"//
-                , "http://img.mp.itc.cn/upload/20170323/bd834e03006a4ceb9c3c3ff995f772bd_th.jpeg"//
-                , "http://img5.imgtn.bdimg.com/it/u=3769986249,4040529360&fm=15&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=4278407699,649956952&fm=15&gp=0.jpg"//
-                , "http://img2.imgtn.bdimg.com/it/u=529706351,2873558001&fm=15&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=1185058603,1112505556&fm=26&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=3425809397,1315010404&fm=15&gp=0.jpg"//
-                , "http://image4.suning.cn/uimg/b2c/newcatentries/0070181417-000000010115726974_1_800x800.jpg"//
-                , "http://img2.imgtn.bdimg.com/it/u=79255844,2460060828&fm=15&gp=0.jpg"//
-                , "http://img4.imgtn.bdimg.com/it/u=4291212875,3026070603&fm=15&gp=0.jpg"//
-                , "http://img3.imgtn.bdimg.com/it/u=1404253326,3567317521&fm=15&gp=0.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=1457574772,4208571193&fm=26&gp=0.jpg"//
-                , "http://img3.imgtn.bdimg.com/it/u=2036960203,446986364&fm=26&gp=0.jpg"//
-                , "http://img4.imgtn.bdimg.com/it/u=977089818,2972028142&fm=26&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=1974953716,3054353363&fm=26&gp=0.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=2935349475,2125694918&fm=26&gp=0.jpg"//
-                , "http://img3.imgtn.bdimg.com/it/u=1709642607,2725224868&fm=26&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=884440541,2903227536&fm=26&gp=0.jpg"//
-                , "http://img2.imgtn.bdimg.com/it/u=2471126106,2382116736&fm=26&gp=0.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=2053400127,1461463396&fm=26&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=1002266063,3139943970&fm=15&gp=0.jpg"//
-                , "http://img0.imgtn.bdimg.com/it/u=2385213701,2719092767&fm=15&gp=0.jpg"//
-                , "http://img4.imgtn.bdimg.com/it/u=4042731134,1652766081&fm=214&gp=0.jpg"//
-                , "http://img0.imgtn.bdimg.com/it/u=325099414,703644908&fm=26&gp=0.jpg"//
-                , "http://img0.imgtn.bdimg.com/it/u=3369162403,1185901905&fm=26&gp=0.jpg"//
-                , "http://img3.imgtn.bdimg.com/it/u=1444029598,1453968551&fm=26&gp=0.jpg"//
-                , "http://img4.imgtn.bdimg.com/it/u=505544546,292271648&fm=26&gp=0.jpg"//
-                , "http://5b0988e595225.cdn.sohucs.com/images/20171201/1ab51a8403c04683b405f6d5a1182d18.jpeg"//
-                , "http://img1.imgtn.bdimg.com/it/u=1764954471,971112304&fm=26&gp=0.jpg"//
-                , "http://img4.imgtn.bdimg.com/it/u=3804696990,2201605820&fm=26&gp=0.jpg"//
-                , "http://img2.imgtn.bdimg.com/it/u=790647051,1365287513&fm=26&gp=0.jpg"//
-                , "http://inews.gtimg.com/newsapp_bt/0/7894738697/1000"//
-                , "http://img0.imgtn.bdimg.com/it/u=3319122996,4241936236&fm=15&gp=0.jpg"//
-                , "http://img0.imgtn.bdimg.com/it/u=221098100,4228486634&fm=15&gp=0.jpg"//
-                , "http://res.cngoldres.com/upload/2014/1125/5761e583fc17dca0d90704db5cb84383.jpg"//
-                , "http://inews.gtimg.com/newsapp_bt/0/8037040335/1000"//
-                , "http://image4.suning.cn/uimg/b2c/newcatentries/0070175918-000000000818291409_3_800x800.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=384565084,3624724591&fm=15&gp=0.jpg"//
-                , "http://inews.gtimg.com/newsapp_bt/0/7776100820/1000"//
-                , "http://image5.suning.cn/uimg/b2c/newcatentries/0070174141-000000010099611492_2_800x800.jpg"//
-                , "http://img0.imgtn.bdimg.com/it/u=1706673149,3281931845&fm=15&gp=0.jpg"//
-                , "http://image2.suning.cn/uimg/b2c/newcatentries/0070187915-000000010474108823_1_800x800.jpg"//
-                , "http://image3.suning.cn/uimg/b2c/newcatentries/0070181476-000000010070445834_2_800x800.jpg"//
-                , "http://image2.suning.cn/uimg/b2c/newcatentries/0070139594-000000010491224730_1_200x200.jpg"//
-                , "http://img0.imgtn.bdimg.com/it/u=2597319635,3568582421&fm=15&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=1931723891,3490150378&fm=15&gp=0.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=3138066373,1321306114&fm=15&gp=0.jpg"//
-                , "http://img4.imgtn.bdimg.com/it/u=3113074184,3942921252&fm=15&gp=0.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=2180904612,2091192637&fm=15&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=3245806547,1873515280&fm=15&gp=0.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=2173969411,4239827968&fm=15&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=3934308742,3201105497&fm=15&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=3555678337,2289521240&fm=15&gp=0.jpg"//
-                , "http://image2.suning.cn/uimg/b2c/newcatentries/0070168967-000000000651473205_4_800x800.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=351775468,3824694901&fm=15&gp=0.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=1390895217,923441152&fm=15&gp=0.jpg"//
-                , "http://img2.imgtn.bdimg.com/it/u=3678997334,4235644582&fm=15&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=1589904128,2751643939&fm=15&gp=0.jpg"//
-                , "http://img2.imgtn.bdimg.com/it/u=2448847534,2087942582&fm=15&gp=0.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=407390361,1468817992&fm=15&gp=0.jpg"//
-                , "http://img2.imgtn.bdimg.com/it/u=4101042559,4201958447&fm=26&gp=0.jpg"//
-                , "http://img2.imgtn.bdimg.com/it/u=35546168,3156494880&fm=15&gp=0.jpg"//
-                , "http://img3.imgtn.bdimg.com/it/u=404627947,3635187596&fm=15&gp=0.jpg"//
-                , "http://img0.imgtn.bdimg.com/it/u=1591911801,2515622973&fm=15&gp=0.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=1176017423,3925985284&fm=15&gp=0.jpg"//
-                , "http://img1.imgtn.bdimg.com/it/u=1374398101,3801518356&fm=15&gp=0.jpg"//
-                , "http://m.360buyimg.com/n12/jfs/t2221/243/764855307/468465/9f9334f0/5628aec4Ne7bba205.jpg%21q70.jpg"//
-                , "http://img5.imgtn.bdimg.com/it/u=3418510389,719081792&fm=15&gp=0.jpg",};
+        return new String[]{"http://img5.duitang.com/uploads/item/201412/26/20141226121110_Y3TEe.jpeg"//
+                , "http://g.hiphotos.baidu.com/zhidao/pic/item/8cb1cb1349540923d33ac7c29058d109b3de493e.jpg"//
+                , "http://g.hiphotos.baidu.com/zhidao/pic/item/8cb1cb1349540923d33ac7c29058d109b3de493e.jpg"//
+                , "http://img4.duitang.com/uploads/item/201412/07/20141207150727_RUAna.jpeg"//
+                , "http://cdn.duitang.com/uploads/item/201406/07/20140607104949_Ra52Y.thumb.600_0.jpeg"//
+                , "http://image.biaobaiju.com/uploads/20180802/03/1533150534-NhWDyQfjIb.png"//
+                , "http://b-ssl.duitang.com/uploads/item/201804/05/20180405125220_YMwnN.thumb.700_0.jpeg"//
+                , "http://b-ssl.duitang.com/uploads/item/201804/22/20180422110049_naixP.thumb.700_0.jpeg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/31/20181231164957_xnhhr.thumb.700_0.jpg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/03/20181203132619_lutlx.thumb.700_0.jpeg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/06/20181206125057_xytrw.thumb.700_0.jpg"//
+                , "http://b-ssl.duitang.com/uploads/item/201804/11/20180411215320_EFYMH.thumb.700_0.jpeg"//
+                , "http://gss0.baidu.com/7Po3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/77c6a7efce1b9d16ca37e3caf8deb48f8d5464ac.jpg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/31/20181231204925_dxqmi.thumb.700_0.jpg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/06/20181206125033_hbake.thumb.700_0.jpg"//
+                , "http://b-ssl.duitang.com/uploads/item/201804/22/20180422111043_uEKVd.thumb.700_0.jpeg"//
+                , "http://b-ssl.duitang.com/uploads/item/201802/11/20180211200037_Xntsk.thumb.700_0.png"//
+                , "http://b-ssl.duitang.com/uploads/item/201804/11/20180411215433_iPzN8.thumb.700_0.jpeg"//
+                , "http://image.biaobaiju.com/uploads/20181018/15/1539849070-IzuqivyZKO.jpg"//
+                , "http://b-ssl.duitang.com/uploads/item/201808/11/20180811210204_kAvwV.jpeg"//
+                , "http://b-ssl.duitang.com/uploads/item/201804/05/20180405125220_YMwnN.thumb.700_0.jpeg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/31/20181231204929_hmukd.thumb.700_0.jpg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/06/20181206125812_xqenj.thumb.700_0.jpg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/06/20181206130500_nludt.thumb.700_0.jpg"//
+                , "http://pic.qqtn.com/up/2018-6/15285121866017973.jpg"//
+                , "http://upload.mnw.cn/2018/0115/1516008979127.jpg"//
+                , "http://img.52z.com/upload/news/image/20180628/20180628121141_53328.jpg"//
+                , "http://img.52z.com/upload/news/image/20180620/20180620113459_67561.jpg"//
+                , "http://img.52z.com/upload/news/image/20180823/20180823052048_61686.jpg"//
+                , "http://img.52z.com/upload/news/image/20180828/20180828030424_34000.jpg"//
+                , "http://www.caisheng.net/UploadFiles/img_1_3526257594_2702226647_27.jpg"//
+                , "http://img.52z.com/upload/news/image/20180823/20180823052049_34069.jpg"//
+                , "http://cdn.duitang.com/uploads/item/201210/22/20121022235213_WmVvK.thumb.700_0.jpeg"//
+                , "http://img4.duitang.com/uploads/blog/201406/20/20140620125558_ZYrYN.thumb.700_0.jpeg"//
+                , "http://img4.duitang.com/uploads/item/201404/19/20140419213843_CYkKk.thumb.700_0.jpeg"//
+                , "http://img4.duitang.com/uploads/item/201408/26/20140826012944_sGSPM.jpeg"//
+                , "http://tupian.qqjay.com/tou2/2018/0426/fe7db87899f5bf3058c67911da2dccb1.jpg"//
+                , "http://cdn.duitang.com/uploads/item/201411/21/20141121120839_a8NUk.thumb.700_0.jpeg"//
+                , "http://img4.duitang.com/uploads/item/201512/13/20151213102616_rCiEx.thumb.700_0.jpeg"//
+                , "http://img5.duitang.com/uploads/item/201412/05/20141205223608_NYckj.thumb.700_0.jpeg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/07/20181207173003_zdddw.jpg"//
+                , "http://b-ssl.duitang.com/uploads/item/201812/25/20181225233301_ekjwg.jpg"//
+                , "http://img4.duitang.com/uploads/item/201404/19/20140419213843_CYkKk.thumb.700_0.jpeg"//
+                , "http://img4.duitang.com/uploads/item/201410/16/20141016134922_ncEv4.thumb.700_0.jpeg"//
+                , "http://img4.duitang.com/uploads/item/201408/26/20140826012944_sGSPM.jpeg"//
+                , "http://img4.duitang.com/uploads/item/201405/25/20140525105001_8RBxj.thumb.700_0.jpeg"//
+                , "http://img4.duitang.com/uploads/item/201411/10/20141110193251_mzTvi.thumb.700_0.jpeg"//
+                , "http://img3.imgtn.bdimg.com/it/u=4230562066,3381494163&fm=26&gp=0.jpg"//
+                , "http://img4.duitang.com/uploads/item/201406/07/20140607131350_mUGGB.thumb.600_0.jpeg"//
+                , "http://cdn.duitang.com/uploads/item/201602/23/20160223124339_d2NkX.jpeg"//
+                , "http://cdn.duitang.com/uploads/item/201308/13/20130813115619_EJCWm.thumb.700_0.jpeg"//
+                , "http://img5.duitang.com/uploads/item/201410/22/20141022214913_sJUkx.thumb.700_0.jpeg"//
+                , "http://img4.duitang.com/uploads/blog/201309/21/20130921084017_JXvSy.thumb.700_0.png"//
+                , "http://img5q.duitang.com/uploads/item/201507/03/20150703224804_vHGrm.thumb.700_0.jpeg"//
+                , "http://img4.duitang.com/uploads/item/201306/26/20130626090600_AE4Pn.thumb.700_0.jpeg"//
+        };
     }
 
     public static String getSystemBookId(int indext) {

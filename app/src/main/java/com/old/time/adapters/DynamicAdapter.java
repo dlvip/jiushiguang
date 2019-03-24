@@ -59,6 +59,7 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
             GlideUtils.getInstance().setRadiusImageView(mContext, userInfoBean.getAvatar(), img_user_header, 10);
             helper.setText(R.id.tv_user_name, userInfoBean.getUserName());
             img_user_header.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
                     if (!(mContext instanceof UserDynamicActivity)) {

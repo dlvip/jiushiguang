@@ -89,7 +89,7 @@ public class SignListActivity extends BaseCActivity {
         tv_book_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                BooksActivity.startBooksActivity(mContext);
 
             }
         });

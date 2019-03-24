@@ -22,6 +22,7 @@ import com.old.time.pops.PostCartPop;
 import com.old.time.postcard.FastMailActivity;
 import com.old.time.postcard.UserCardActivity;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UserLocalInfoUtils;
@@ -81,6 +82,7 @@ public class DynamicsActivity extends BaseCActivity {
 
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
 
+//        DataUtils.registerUserInfo();
         EventBus.getDefault().register(this);
     }
 
