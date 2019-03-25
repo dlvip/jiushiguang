@@ -24,25 +24,39 @@
         android:textSize="@dimen/text_16" />
 
     <TextView
-        android:id="@+id/tv_book_print"
+        android:id="@+id/tv_book_describe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_book_name"
         android:layout_marginTop="@dimen/layout_10"
         android:layout_toEndOf="@+id/img_book_pic"
-        android:text="@string/title"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/title_detail"
         android:textColor="@color/color_999"
-        android:textSize="@dimen/text_14" />
+        android:textSize="@dimen/text_12" />
+
 
     <TextView
         android:id="@+id/tv_book_author"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/img_book_pic"
         android:layout_toEndOf="@+id/img_book_pic"
         android:paddingBottom="@dimen/layout_3"
         android:text="@string/title"
         android:textColor="@color/color_666"
+        android:textSize="@dimen/text_12" />
+
+    <TextView
+        android:id="@+id/tv_book_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_book_pic"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="@dimen/layout_3"
+        android:text=""
+        android:textColor="@color/holo_red_light"
         android:textSize="@dimen/text_12" />
 
 </RelativeLayout>

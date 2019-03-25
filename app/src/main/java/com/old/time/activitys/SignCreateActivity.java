@@ -289,15 +289,8 @@ public class SignCreateActivity extends BaseActivity {
      * 创建书签
      */
     private void uploadDateForLine(String signPic) {
-        UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
         HttpParams params = new HttpParams();
-        if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
-            params.put("userId", String.valueOf("01" + mRandom.nextInt(56)));
-
-        } else {
-            params.put("userId", UserLocalInfoUtils.instance().getUserId());
-
-        }
+        params.put("userId", UserLocalInfoUtils.instance().getParamUserId());
         params.put("picUrl", signPic);
         params.put("content", signStr);
         params.put("bookId", bookId);

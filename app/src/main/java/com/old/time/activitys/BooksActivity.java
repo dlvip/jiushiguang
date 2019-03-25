@@ -40,6 +40,7 @@ public class BooksActivity extends BaseCActivity {
     @Override
     protected void initView() {
         super.initView();
+        setTitleText("图书列表");
         adapter = new BooksAdapter(bookEntities);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(adapter);

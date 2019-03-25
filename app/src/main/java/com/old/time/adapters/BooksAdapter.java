@@ -27,8 +27,9 @@ public class BooksAdapter extends BaseQuickAdapter<BookEntity, BaseViewHolder> {
         ImageView img_book_pic = helper.getView(R.id.img_book_pic);
         GlideUtils.getInstance().setImageView(mContext, item.getImages_medium(), img_book_pic);
         helper.setText(R.id.tv_book_name, item.getTitle())//
-                .setText(R.id.tv_book_print, item.getPublisher())
-                .setText(R.id.tv_book_author, item.getAuthor());
+                .setText(R.id.tv_book_describe, item.getSummary())//
+                .setText(R.id.tv_book_author, item.getAuthor())//
+                .setText(R.id.tv_book_price, item.getPrice());
 
     }
 }

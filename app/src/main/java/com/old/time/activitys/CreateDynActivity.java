@@ -35,7 +35,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.CAMERA;
@@ -160,21 +159,12 @@ public class CreateDynActivity extends BaseActivity {
 
     }
 
-    private Random mRandom = new Random();
-
     /**
      * 发送圈子内容
      */
     private void sendCircleContent(String content, String images, String topicId) {
         HttpParams params = new HttpParams();
-        UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
-        if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
-            params.put("userId", String.valueOf("01" + mRandom.nextInt(56)));
-
-        } else {
-            params.put("userId", UserLocalInfoUtils.instance().getUserId());
-
-        }
+        params.put("userId", UserLocalInfoUtils.instance().getParamUserId());
         params.put("content", content);
         params.put("images", images);
         params.put("topicId", topicId);

@@ -14,7 +14,6 @@ import com.old.time.R;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.TopicBean;
-import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
@@ -32,7 +31,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class CreateTopicActivity extends BaseActivity {
 
@@ -116,6 +114,7 @@ public class CreateTopicActivity extends BaseActivity {
 
             return;
         }
+
         pd = UIHelper.showProgressMessageDialog(mContext, getString(R.string.please_wait));
         AliyPostUtil.getInstance(mContext).uploadCompresImgsToAliyun(Collections.singletonList(outputPath), new UploadImagesCallBack() {
             @Override
@@ -126,28 +125,20 @@ public class CreateTopicActivity extends BaseActivity {
 
                     return;
                 }
-                createTopic(topicDetail, mPhotoInfoBeans.get(0).picKey);
+                createTopic("#" + topicDetail, mPhotoInfoBeans.get(0).picKey);
             }
         });
     }
 
     private ProgressDialog pd;
-    private Random mRandom = new Random();
 
     /**
      * 创建话题
      */
     private void createTopic(String topicStr, String pic) {
         HttpParams params = new HttpParams();
-        UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
-        if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
-            params.put("userId", String.valueOf("01" + mRandom.nextInt(56)));
-
-        } else {
-            params.put("userId", UserLocalInfoUtils.instance().getUserId());
-
-        }
-        params.put("topic", "#" + topicStr);
+        params.put("userId", UserLocalInfoUtils.instance().getParamUserId());
+        params.put("topic", topicStr);
         params.put("pic", pic);
         OkGoUtils.getInstance().postNetForData(params, Constant.INSERT_TOPIC, new JsonCallBack<ResultBean<TopicBean>>() {
             @Override
