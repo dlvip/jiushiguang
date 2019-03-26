@@ -12,6 +12,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="@dimen/layout_20"
+        android:background="@drawable/shape_radius10_bgfff_strok_efefef"
+        android:padding="0.5dp"
         android:src="@mipmap/head_circle" />
 
     <TextView
@@ -62,7 +64,7 @@
         android:paddingTop="@dimen/layout_10"
         android:text=""
         android:textColor="@color/color_2e6cd3"
-        android:textSize="@dimen/text_14"/>
+        android:textSize="@dimen/text_14" />
 
     <LinearLayout
         android:layout_width="match_parent"
