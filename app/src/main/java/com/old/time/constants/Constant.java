@@ -151,6 +151,17 @@ public class Constant {
     public static final String GET_USER_BOOK_LIST = BASE_BOOK + "getUserBookList";
 
     /**
+     * 书评
+     */
+    public static final String BASE_BOOK_COMMENT = BASE_TEST_URL + "bookComment/";
+
+    //创建书评
+    public static final String CREATE_BOOK_COMMENT = BASE_BOOK_COMMENT + "createBookComment";
+
+    //获取书评列表
+    public static final String GET_BOOK_COMMENTS = BASE_BOOK_COMMENT + "getBookComments";
+
+    /**
      * 书签
      */
     private static final String BASE_SIGN = BASE_TEST_URL + "signname/";
