@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_main" />
+
+    <TextView
+        android:id="@+id/tv_book_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_40"
+        android:layout_marginTop="@dimen/layout_20"
+        android:background="@drawable/shape_radius0_stroke_line_bgfff"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/layout_15"
+        android:paddingRight="@dimen/layout_15"
+        android:text="@string/title"
+        android:textColor="@color/color_2e6cd3"
+        android:textSize="@dimen/text_16"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_comment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_10"
+        android:background="@drawable/shape_radius0_stroke_line_bgfff"
+        android:gravity="top"
+        android:hint="对这本书说点什么"
+        android:minHeight="@dimen/layout_200"
+        android:padding="@dimen/layout_15"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_14" />
+
+</LinearLayout>
