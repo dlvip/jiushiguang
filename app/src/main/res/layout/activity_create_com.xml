@@ -28,7 +28,7 @@
         android:layout_marginTop="@dimen/layout_10"
         android:background="@drawable/shape_radius0_stroke_line_bgfff"
         android:gravity="top"
-        android:hint="对这本书说点什么"
+        android:hint="说点什么"
         android:minHeight="@dimen/layout_200"
         android:padding="@dimen/layout_15"
         android:textColor="@color/color_000"

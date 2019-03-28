@@ -21,6 +21,8 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class CreateComActivity extends BaseActivity {
 
     private static final String BOOK_ENTITY = "BookEntity";
@@ -59,11 +61,11 @@ public class CreateComActivity extends BaseActivity {
         super.save(view);
         String edtContentStr = edtContent.getText().toString().trim();
         if (TextUtils.isEmpty(edtContentStr)) {
-            UIHelper.ToastMessage(mContext, "对这本书说点什么");
+            UIHelper.ToastMessage(mContext, "说点什么");
 
             return;
         }
-        pd = UIHelper.showProgressDialog(getString(R.string.please_wait));
+        pd = UIHelper.showProgressMessageDialog(mContext, getString(R.string.please_wait));
         HttpParams params = new HttpParams();
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
         params.put("bookId", bookEntity.getId());
@@ -72,12 +74,15 @@ public class CreateComActivity extends BaseActivity {
             @Override
             public void onSuccess(ResultBean<BookComEntity> mResultBean) {
                 UIHelper.dissmissProgressDialog(pd);
+                EventBus.getDefault().post(mResultBean.data);
+                ActivityUtils.finishActivity(mContext);
 
             }
 
             @Override
             public void onError(ResultBean<BookComEntity> mResultBean) {
                 UIHelper.dissmissProgressDialog(pd);
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
 
             }
         });

@@ -11,6 +11,7 @@ import com.old.time.beans.BookEntity;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.utils.StringUtils;
+import com.old.time.views.ExpandableTextView;
 
 import java.util.List;
 
@@ -34,8 +35,9 @@ public class BookComAapter extends BaseQuickAdapter<BookComEntity, BaseViewHolde
             GlideUtils.getInstance().setRadiusImageView(mContext, item.getUserEntity().getAvatar(), img_user_header, 10);
 
         }
-        helper.setText(R.id.expand_text_view, item.getComment())//
-                .setText(R.id.tv_create_time, StringUtils.getCreateTime(item.getCreateTime()));
+        ExpandableTextView expand_text_view = helper.getView(R.id.expand_text_view);
+        expand_text_view.setText(item.getComment());
+        helper.setText(R.id.tv_create_time, StringUtils.getCreateTime(item.getCreateTime()));
         BookEntity bookEntity = item.getBookEntity();
         if (bookEntity != null) {
             helper.setText(R.id.tv_book_name, "--" + bookEntity.getTitle());

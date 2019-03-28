@@ -37,6 +37,17 @@
         android:textColor="@color/color_484848"
         android:textSize="@dimen/text_18" />
 
+    <ImageView
+        android:id="@+id/img_sign"
+        android:layout_width="@dimen/main_header_height"
+        android:layout_height="@dimen/main_header_height"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/layout_60"
+        android:padding="@dimen/layout_9"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/icon_sign"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/relative_layout_more"
         android:layout_width="@dimen/main_header_height"

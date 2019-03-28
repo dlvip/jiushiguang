@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -22,7 +23,6 @@ import com.old.time.pops.PostCartPop;
 import com.old.time.postcard.FastMailActivity;
 import com.old.time.postcard.UserCardActivity;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DataUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UserLocalInfoUtils;
@@ -56,10 +56,13 @@ public class DynamicsActivity extends BaseCActivity {
 
     private List<TopicBean> topicBeans = new ArrayList<>();
     private TopicDAdapter topicDAdapter;
+    private ImageView img_sign;
 
     @Override
     protected void initView() {
         super.initView();
+        img_sign = findViewById(R.id.img_sign);
+        img_sign.setVisibility(View.VISIBLE);
         findViewById(R.id.left_layout).setVisibility(View.GONE);
         relative_layout_more = findViewById(R.id.relative_layout_more);
         relative_layout_more.setVisibility(View.VISIBLE);
@@ -108,7 +111,7 @@ public class DynamicsActivity extends BaseCActivity {
 
             @Override
             public void onClick(View v) {
-                SignListActivity.startSignListActivity(mContext);
+                BookComsActivity.startBookComsActivity(mContext);
 
             }
         });
@@ -116,6 +119,13 @@ public class DynamicsActivity extends BaseCActivity {
             @Override
             public void onClick(View v) {
                 showMoreBtnPopWindow();
+
+            }
+        });
+        img_sign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SignListActivity.startSignListActivity(mContext);
 
             }
         });

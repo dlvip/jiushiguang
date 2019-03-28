@@ -196,7 +196,9 @@
         <activity android:name=".postcard.UserSignActivity" />
         <activity android:name=".activitys.UserDynamicActivity" />
         <activity android:name=".activitys.BooksActivity" />
-        <activity android:name=".activitys.CreateComActivity"></activity>
+        <activity android:name=".activitys.CreateComActivity" />
+        <activity android:name=".activitys.BookComsActivity" />
+        <activity android:name=".activitys.SelectBookActivity"></activity>
     </application>
 
 </manifest>

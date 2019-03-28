@@ -101,7 +101,6 @@ public class SignListActivity extends BaseCActivity {
     public void getDataFromNet(final boolean isRefresh) {
         if (isRefresh) {
             startNum = 0;
-            getBookEntities();
 
         }
         HttpParams params = new HttpParams();
@@ -145,31 +144,6 @@ public class SignListActivity extends BaseCActivity {
                     adapter.loadMoreFail();
 
                 }
-            }
-        });
-    }
-
-    /**
-     * 获取推荐图书
-     */
-    private void getBookEntities() {
-        HttpParams params = new HttpParams();
-        params.put("pageNum", "0");
-        params.put("pageSize", "4");
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_BOOK_LIST, new JsonCallBack<ResultBean<List<BookEntity>>>() {
-            @Override
-            public void onSuccess(ResultBean<List<BookEntity>> mResultBean) {
-                if (mResultBean == null || mResultBean.data == null || mResultBean.data.size() == 0) {
-
-                    return;
-                }
-                bookSignAdapter.setNewData(mResultBean.data);
-
-            }
-
-            @Override
-            public void onError(ResultBean<List<BookEntity>> mResultBean) {
-
             }
         });
     }
