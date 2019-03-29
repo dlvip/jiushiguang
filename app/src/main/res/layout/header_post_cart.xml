@@ -27,7 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/layout_10"
             android:layout_toEndOf="@+id/img_user_pic"
-            android:text="每日书签"
+            android:text="图书推荐"
             android:textColor="@color/color_000"
             android:textSize="@dimen/text_14" />
 

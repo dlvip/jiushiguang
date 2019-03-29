@@ -2,61 +2,95 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_fff"
+    android:background="@drawable/shape_radius0_stroke_line_bgfff"
     android:padding="@dimen/layout_10">
 
     <ImageView
         android:id="@+id/img_book_pic"
-        android:layout_width="@dimen/layout_65"
-        android:layout_height="@dimen/layout_100"
-        android:layout_marginRight="@dimen/layout_10"
+        android:layout_width="@dimen/layout_90"
+        android:layout_height="@dimen/layout_130"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/layout_10"
+        android:background="@color/color_666"
         android:paddingTop="@dimen/layout_3"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/img_default" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tv_book_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/img_book_pic"
+        android:layout_toLeftOf="@+id/img_book_pic"
         android:text="@string/title"
         android:textColor="@color/color_000"
-        android:textSize="@dimen/text_16" />
+        android:textSize="@dimen/text_16"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tv_book_describe"
+        android:id="@+id/tv_book_author"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_book_name"
         android:layout_marginTop="@dimen/layout_10"
-        android:layout_toEndOf="@+id/img_book_pic"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:text="@string/title_detail"
-        android:textColor="@color/color_999"
-        android:textSize="@dimen/text_12" />
-
-
-    <TextView
-        android:id="@+id/tv_book_author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/img_book_pic"
-        android:layout_toEndOf="@+id/img_book_pic"
-        android:paddingBottom="@dimen/layout_3"
+        android:layout_toLeftOf="@+id/img_book_pic"
         android:text="@string/title"
         android:textColor="@color/color_666"
         android:textSize="@dimen/text_12" />
 
     <TextView
-        android:id="@+id/tv_book_price"
+        android:id="@+id/tv_book_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_book_leve"
+        android:layout_below="@+id/tv_book_author"
+        android:layout_marginTop="@dimen/layout_10"
+        android:layout_toLeftOf="@+id/img_book_pic"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/layout_3"
+        android:text="@string/circle_content"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_12" />
+
+    <TextView
+        android:id="@+id/tv_leve_text"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/img_book_pic"
+        android:layout_marginTop="@dimen/layout_15"
+        android:gravity="center_vertical"
+        android:text="推荐指数:"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_12"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_book_leve"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/img_book_pic"
+        android:layout_marginLeft="@dimen/layout_10"
+        android:layout_marginTop="@dimen/layout_15"
+        android:layout_toRightOf="@+id/tv_leve_text"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/layout_3"
+        android:text="9.8"
+        android:textColor="@color/color_ff4444"
+        android:textSize="@dimen/text_16"
+        android:textStyle="italic|bold" />
+
+    <TextView
+        android:id="@+id/tv_book_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/img_book_pic"
         android:layout_alignParentRight="true"
-        android:paddingBottom="@dimen/layout_3"
-        android:text=""
-        android:textColor="@color/holo_red_light"
-        android:textSize="@dimen/text_12" />
+        android:layout_below="@+id/img_book_pic"
+        android:layout_marginTop="@dimen/layout_15"
+        android:gravity="center"
+        android:paddingBottom="@dimen/layout_10"
+        android:paddingLeft="@dimen/layout_15"
+        android:paddingRight="@dimen/layout_15"
+        android:paddingTop="@dimen/layout_10"
+        android:text="了解更多"
+        android:textColor="@color/color_3691ff"
+        android:textSize="@dimen/text_14" />
 
 </RelativeLayout>

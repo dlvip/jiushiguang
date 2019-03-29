@@ -3,23 +3,18 @@ package com.old.time.activitys;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
-import com.old.time.adapters.BookSignAdapter;
 import com.old.time.adapters.SignNameAdapter;
-import com.old.time.beans.BookEntity;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.SignNameEntity;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
@@ -48,10 +43,6 @@ public class SignListActivity extends BaseCActivity {
     private SignNameAdapter adapter;
     private CustomNetView mCustomNetView;
 
-    private List<BookEntity> bookEntities = new ArrayList<>();
-    private BookSignAdapter bookSignAdapter;
-    private TextView tv_book_title;
-
     @Override
     protected void initView() {
         super.initView();
@@ -60,15 +51,6 @@ public class SignListActivity extends BaseCActivity {
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         adapter = new SignNameAdapter(signNameEntities);
-        View headerView = View.inflate(mContext, R.layout.header_book_sign, null);
-        tv_book_title = headerView.findViewById(R.id.tv_book_title);
-        RecyclerView recyclerHeader = headerView.findViewById(R.id.recycler_view);
-        recyclerHeader.setLayoutManager(new MyGridLayoutManager(mContext, 4));
-        bookSignAdapter = new BookSignAdapter(bookEntities);
-        recyclerHeader.setAdapter(bookSignAdapter);
-
-        adapter.removeAllHeaderView();
-        adapter.addHeaderView(headerView);
         mRecyclerView.setAdapter(adapter);
         adapter.setHeaderAndEmpty(true);
 
@@ -86,13 +68,6 @@ public class SignListActivity extends BaseCActivity {
 
             }
         }, mRecyclerView);
-        tv_book_title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BooksActivity.startBooksActivity(mContext);
-
-            }
-        });
     }
 
     private int startNum;

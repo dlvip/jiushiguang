@@ -111,7 +111,7 @@ public class DynamicsActivity extends BaseCActivity {
 
             @Override
             public void onClick(View v) {
-                BookComsActivity.startBookComsActivity(mContext);
+                BooksActivity.startBooksActivity(mContext);
 
             }
         });

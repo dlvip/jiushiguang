@@ -42,7 +42,11 @@
     <string name="title">家庭教育指导社群</string>
     <string name="title_detail">每天10分钟，牢记小学600个单词，破解最强大脑记忆密码，孩子有成就更爱学</string>
     <string name="circle_title">旧时光帮你记录漫长岁月</string>
-    <string name="circle_content">有时候我会想,要是能在你长大了或者想要结婚的时候遇到你就好了.可我却偏偏在十几岁时遇见了你.这么尴尬的年龄或许可能成了你喜欢的人却不可能成为陪你共度一生的人,十几岁的誓言并不是浮夸或怎样我们只是没有办法没有能力去实现,这样的年龄没有过去也没有未来.却让我铭记一辈子</string>
+    <string name="circle_content">有时候我会想,要是能在你长大了或者想要结婚的时候遇到你就好了.
+        可我却偏偏在十几岁时遇见了你.
+        这么尴尬的年龄或许可能成了你喜欢的人却不可能成为陪你共度一生的人,
+        十几岁的誓言并不是浮夸或怎样我们只是没有办法没有能力去实现,
+        这样的年龄没有过去也没有未来.却让我铭记一辈子</string>
 
     <string name="user_login_register">登陆/注册</string>
     <string name="mine_message">消息中心</string>
