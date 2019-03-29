@@ -342,7 +342,7 @@ public class SignCreateActivity extends BaseActivity {
                 String str = data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
                 UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
                 if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
-                    str = DataUtils.getSystemBookId(mRandom.nextInt(24));
+                    str = DataUtils.getSystemBookId(mRandom.nextInt(36));
 
                 }
                 if (TextUtils.isEmpty(str) || (str.length() != 10 && str.length() != 13)) {

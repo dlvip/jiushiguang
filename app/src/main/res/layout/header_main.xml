@@ -7,19 +7,16 @@
 
     <RelativeLayout
         android:id="@+id/left_layout"
-        android:layout_width="50dip"
+        android:layout_width="@dimen/main_header_height"
         android:layout_height="@dimen/main_header_height"
         android:background="@drawable/selected_bg"
-        android:clickable="true"
         android:onClick="back">
 
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="@dimen/layout_23"
             android:layout_height="@dimen/layout_23"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:scaleType="fitCenter"
+            android:layout_centerInParent="true"
             android:src="@mipmap/zxing_abc_ic_ab_back_mtrl_am_alpha" />
     </RelativeLayout>
 
@@ -32,7 +29,7 @@
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:paddingLeft="@dimen/layout_15"
+        android:paddingLeft="@dimen/layout_10"
         android:text="@string/app_name"
         android:textColor="@color/color_484848"
         android:textSize="@dimen/text_18" />
@@ -103,7 +100,7 @@
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height2"
+        android:layout_height="@dimen/line_height"
         android:layout_below="@+id/top_title"
         android:background="@color/line_bg" />
 
