@@ -23,7 +23,6 @@ import com.old.time.beans.JHBaseBean;
 import com.old.time.beans.PhotoInfoBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.SignNameEntity;
-import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Code;
 import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogPromptCentre;
@@ -226,7 +225,6 @@ public class SignCreateActivity extends BaseActivity {
                 }
                 createBookInfo(mResultBean.result);
 
-
             }
 
             @Override
@@ -342,7 +340,7 @@ public class SignCreateActivity extends BaseActivity {
                 String str = data.getStringExtra(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
                 UserLocalInfoUtils infoUtils = UserLocalInfoUtils.instance();
                 if ("15093073252".equals(infoUtils.getMobile()) || "17600075773".equals(infoUtils.getMobile())) {
-                    str = DataUtils.getSystemBookId(mRandom.nextInt(36));
+                    str = DataUtils.getSystemBookId(mRandom.nextInt(38));
 
                 }
                 if (TextUtils.isEmpty(str) || (str.length() != 10 && str.length() != 13)) {

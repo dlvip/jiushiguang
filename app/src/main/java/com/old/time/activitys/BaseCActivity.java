@@ -6,16 +6,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.old.time.R;
 import com.old.time.constants.Code;
 import com.old.time.utils.MyLinearLayoutManager;
-import com.old.time.utils.ScreenTools;
-import com.old.time.utils.UIHelper;
-import com.old.time.views.SuspensionPopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;

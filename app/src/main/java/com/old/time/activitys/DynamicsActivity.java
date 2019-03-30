@@ -56,13 +56,15 @@ public class DynamicsActivity extends BaseCActivity {
 
     private List<TopicBean> topicBeans = new ArrayList<>();
     private TopicDAdapter topicDAdapter;
-    private ImageView img_sign;
+    private ImageView img_sign, img_more;
 
     @Override
     protected void initView() {
         super.initView();
         img_sign = findViewById(R.id.img_sign);
         img_sign.setVisibility(View.VISIBLE);
+        img_more = findViewById(R.id.img_more);
+        img_more.setImageResource(R.mipmap.icon_black_more);
         findViewById(R.id.left_layout).setVisibility(View.GONE);
         relative_layout_more = findViewById(R.id.relative_layout_more);
         relative_layout_more.setVisibility(View.VISIBLE);
