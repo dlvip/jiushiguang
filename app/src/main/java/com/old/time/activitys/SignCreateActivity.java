@@ -190,7 +190,7 @@ public class SignCreateActivity extends BaseActivity {
             public void onSuccess(ResultBean<BookEntity> mResultBean) {
                 UIHelper.dissmissProgressDialog(pd);
                 if (mResultBean == null || mResultBean.data == null) {
-                    UIHelper.ToastMessage(mContext, "内容不存在");
+                    UIHelper.ToastMessage(mContext, "内容没找到已备注");
 
                     return;
                 }
@@ -219,7 +219,7 @@ public class SignCreateActivity extends BaseActivity {
             public void onSuccess(JHBaseBean<BookEntity> mResultBean) {
                 if (mResultBean == null || mResultBean.result == null) {
                     UIHelper.dissmissProgressDialog(pd);
-                    UIHelper.ToastMessage(mContext, "内容不存在");
+                    UIHelper.ToastMessage(mContext, "内容没找到已备注");
 
                     return;
                 }

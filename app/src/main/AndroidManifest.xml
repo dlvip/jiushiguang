@@ -198,7 +198,8 @@
         <activity android:name=".activitys.BooksActivity" />
         <activity android:name=".activitys.CreateComActivity" />
         <activity android:name=".activitys.BookComsActivity" />
-        <activity android:name=".activitys.SelectBookActivity"></activity>
+        <activity android:name=".activitys.SelectBookActivity" />
+        <activity android:name=".activitys.BookDetailActivity"></activity>
     </application>
 
 </manifest>

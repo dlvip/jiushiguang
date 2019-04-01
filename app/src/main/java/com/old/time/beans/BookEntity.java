@@ -149,6 +149,12 @@ public class BookEntity implements Serializable {
         return "￥ " + price;
     }
 
+    public String getPriceStr() {
+        double d = Double.parseDouble(price) * 0.4 + 2;
+
+        return "优惠价：￥ " + (double) (Math.round(d * 100) / 100);
+    }
+
     public void setPrice(String price) {
         this.price = price;
     }

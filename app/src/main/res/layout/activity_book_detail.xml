@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.old.time.activitys.BookDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_bg">
+
+        <RelativeLayout
+            android:id="@+id/relative_layout_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_40"
+                android:background="@color/main_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10"
+                android:text="豆油推荐"
+                android:textColor="@color/color_2e6cd3"
+                android:textSize="@dimen/text_18"
+                android:textStyle="normal" />
+
+            <RelativeLayout
+                android:id="@+id/relative_layout_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_detail_title"
+                android:background="@color/color_fff"
+                android:padding="@dimen/layout_10">
+
+                <ImageView
+                    android:id="@+id/img_book_pic"
+                    android:layout_width="@dimen/layout_90"
+                    android:layout_height="@dimen/layout_130"
+                    android:layout_marginRight="@dimen/layout_10"
+                    android:background="@color/color_666"
+                    android:paddingTop="@dimen/layout_3"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/tv_book_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/tv_book_leve"
+                    android:layout_toRightOf="@id/img_book_pic"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/title"
+                    android:textColor="@color/color_000"
+                    android:textSize="@dimen/text_14" />
+
+                <TextView
+                    android:id="@+id/tv_book_leve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="9.8"
+                    android:textColor="@color/color_ff4444"
+                    android:textSize="@dimen/text_18"
+                    android:textStyle="italic|bold" />
+
+                <TextView
+                    android:id="@+id/tv_book_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_book_name"
+                    android:layout_marginTop="@dimen/layout_12"
+                    android:layout_toRightOf="@id/img_book_pic"
+                    android:text="[英] 石黑一雄"
+                    android:textColor="@color/color_666"
+                    android:textSize="@dimen/text_12" />
+
+                <TextView
+                    android:id="@+id/tv_book_public_sher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_book_author"
+                    android:layout_marginTop="@dimen/layout_15"
+                    android:layout_toRightOf="@id/img_book_pic"
+                    android:text="上海译文出版社"
+                    android:textColor="@color/color_666"
+                    android:textSize="@dimen/text_14" />
+
+                <TextView
+                    android:id="@+id/tv_book_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_book_public_sher"
+                    android:layout_marginTop="@dimen/layout_20"
+                    android:layout_toRightOf="@id/img_book_pic"
+                    android:text="优惠价：90.00"
+                    android:textColor="@color/color_cb5278"
+                    android:textSize="@dimen/text_18" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_below="@+id/relative_layout_header"
+                android:background="@color/main_bg"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10"
+                android:text="简介"
+                android:textColor="@color/color_000"
+                android:textSize="@dimen/text_18" />
+
+            <TextView
+                android:id="@+id/tv_book_describe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative_layout_header"
+                android:layout_marginTop="@dimen/layout_44"
+                android:background="@color/color_fff"
+                android:padding="@dimen/layout_10"
+                android:text="@string/title_detail"
+                android:textColor="@color/color_999"
+                android:textSize="@dimen/text_14" />
+
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_40"
+                android:layout_below="@+id/tv_book_describe"
+                android:background="@color/color_fff" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_80"
+                android:layout_below="@+id/view_line"
+                android:background="@color/color_fff"
+                android:paddingLeft="@dimen/layout_10"
+                android:paddingRight="@dimen/layout_10"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="长按识别二维码,下载查看更多"
+                    android:textColor="@color/color_000"
+                    android:textSize="@dimen/text_16" />
+
+                <ImageView
+                    android:layout_width="@dimen/layout_80"
+                    android:layout_height="@dimen/layout_80"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/uwdc" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <include layout="@layout/header_main" />
+
+</RelativeLayout>
