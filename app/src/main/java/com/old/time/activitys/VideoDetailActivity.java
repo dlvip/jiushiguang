@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.dueeeke.videoplayer.controller.StandardVideoController;
+import com.dueeeke.videoplayer.player.IjkPlayer;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.dueeeke.videoplayer.player.PlayerConfig;
 import com.old.time.R;
@@ -55,7 +56,7 @@ public class VideoDetailActivity extends BaseActivity {
                 .savingProgress() //保存播放进度
 //                .enableMediaCodec()//启动硬解码
 //                .usingSurfaceView()//使用SurfaceView
-//                .setCustomMediaPlayer(new ExoMediaPlayer(this))//
+                .setCustomMediaPlayer(new IjkPlayer(this))//
 //                .setCustomMediaPlayer(new AndroidMediaPlayer(this))//
                 .build());
         mMNVideoPlayer.setUrl(getIntent().getStringExtra(PLAY_URL));

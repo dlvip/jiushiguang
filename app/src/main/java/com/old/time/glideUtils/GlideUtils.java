@@ -74,8 +74,7 @@ public class GlideUtils {
         FutureTarget<File> future = getRequestManager(context).load(url).downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
         try {
             File cacheFile = future.get();
-            String absolutePath = cacheFile.getAbsolutePath();
-            return absolutePath;
+            return cacheFile.getAbsolutePath();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

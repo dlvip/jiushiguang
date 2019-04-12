@@ -68,7 +68,6 @@ public class UserLocalInfoUtils {
 
     private Random mRandom = new Random();
 
-
     /**
      * 获取用户userId
      *
@@ -122,5 +121,19 @@ public class UserLocalInfoUtils {
         SpUtils.clear();
         mUserInfoBean = null;
 
+    }
+
+    /**
+     * 获取融云token
+     *
+     * @return
+     */
+    public String getRongIMToken() {
+        if (mUserInfoBean == null) {
+
+            return "-1";
+        }
+
+        return mUserInfoBean.getToken();
     }
 }

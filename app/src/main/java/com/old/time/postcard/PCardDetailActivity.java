@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.rong.callkit.RongCallKit;
+import io.rong.imkit.RongIM;
 
 public class PCardDetailActivity extends BaseActivity {
 

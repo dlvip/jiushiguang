@@ -32,13 +32,5 @@ public class BooksAdapter extends BaseQuickAdapter<BookEntity, BaseViewHolder> {
                 .setText(R.id.tv_book_author, item.getAuthor() + " / " + item.getBinding())//
                 .setText(R.id.tv_book_describe, item.getSummary())//
                 .setText(R.id.tv_book_leve, item.getLevelNum());
-
-        helper.getConvertView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BookDetailActivity.startBookDetailActivity(mContext, item);
-
-            }
-        });
     }
 }

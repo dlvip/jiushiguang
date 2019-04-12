@@ -67,4 +67,21 @@ public class RongIMUtils {
             }
         });
     }
+
+
+    /**
+     * 融云初始化
+     */
+    public static void RongIMInit() {
+        RongIM.init(MyApplication.getInstance());
+
+    }
+
+    /**
+     * 链接融云服务器
+     */
+    public static void RongIMConnect(String token, RongIMClient.ConnectCallback connectCallback) {
+        RongIM.connect(token, connectCallback);
+
+    }
 }

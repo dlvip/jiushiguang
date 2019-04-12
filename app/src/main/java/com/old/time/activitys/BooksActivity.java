@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.zxing.activity.CaptureActivity;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
@@ -21,15 +22,18 @@ import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DataUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
+import com.old.time.utils.RongIMUtils;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class BooksActivity extends BaseCActivity {
 
@@ -80,6 +84,55 @@ public class BooksActivity extends BaseCActivity {
 
             }
         }, mRecyclerView);
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter mAdapter, View view, int position) {
+//                BookDetailActivity.startBookDetailActivity(mContext, adapter.getItem(position));
+                BookEntity bookEntity = adapter.getItem(position);
+                if (bookEntity == null) {
+
+                    return;
+                }
+                connectRongService(TextUtils.isEmpty(bookEntity.getIsbn13()) ? bookEntity.getIsbn10() : bookEntity.getIsbn13());
+
+            }
+        });
+    }
+
+    /**
+     * 链接融云服务器
+     */
+    private void connectRongService(final String roomId) {
+        RongIMUtils.RongIMConnect(UserLocalInfoUtils.instance().getRongIMToken(), new RongIMClient.ConnectCallback() {
+
+            @Override
+            public void onTokenIncorrect() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UIHelper.ToastMessage(mContext, "链接失败 token失效");
+
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                RongIM.getInstance().startChatRoomChat(mContext, roomId, true);
+
+            }
+
+            @Override
+            public void onError(final RongIMClient.ErrorCode errorCode) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UIHelper.ToastMessage(mContext, "链接失败 code:" + errorCode);
+
+                    }
+                });
+            }
+        });
     }
 
     private int startNum;
