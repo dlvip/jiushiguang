@@ -87,7 +87,6 @@ public class DynamicsActivity extends BaseCActivity {
 
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
 
-//        DataUtils.registerUserInfo();
         EventBus.getDefault().register(this);
     }
 

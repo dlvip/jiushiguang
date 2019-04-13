@@ -43,10 +43,11 @@
         android:layout_above="@+id/tv_book_leve"
         android:layout_below="@+id/tv_book_author"
         android:layout_marginTop="@dimen/layout_10"
-        android:layout_toLeftOf="@+id/img_book_pic"
+        android:layout_toStartOf="@+id/img_book_pic"
         android:ellipsize="end"
         android:lineSpacingExtra="@dimen/layout_3"
-        android:text="@string/circle_content"
+        android:maxLines="4"
+        android:text=""
         android:textColor="@color/color_000"
         android:textSize="@dimen/text_12" />
 

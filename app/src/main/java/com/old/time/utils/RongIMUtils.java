@@ -1,5 +1,6 @@
 package com.old.time.utils;
 
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.lzy.okgo.model.HttpParams;
@@ -7,11 +8,13 @@ import com.old.time.MyApplication;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Constant;
+import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 
 public class RongIMUtils {
 
@@ -82,6 +85,17 @@ public class RongIMUtils {
      */
     public static void RongIMConnect(String token, RongIMClient.ConnectCallback connectCallback) {
         RongIM.connect(token, connectCallback);
+
+    }
+
+    /**
+     * 设置当前用户¬信息，
+     */
+    public static void setCurrentUser() {
+        RongIM.getInstance().setMessageAttachedUserInfo(true);
+        UserInfoBean userInfoBean = UserLocalInfoUtils.instance().getmUserInfoBean();
+        UserInfo userInfo = new UserInfo(userInfoBean.getUserId(), userInfoBean.getUserName(), Uri.parse(GlideUtils.getPicUrl(userInfoBean.getAvatar())));
+        RongIM.getInstance().setCurrentUserInfo(userInfo);
 
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_fff"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/layout_15"
+        android:background="@drawable/shape_radius20_bgffff_stroke3c4"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/layout_10"
+        android:paddingLeft="@dimen/layout_20"
+        android:paddingRight="@dimen/layout_20"
+        android:paddingTop="@dimen/layout_10">
+
+        <ImageView
+            android:layout_width="@dimen/layout_20"
+            android:layout_height="@dimen/layout_20"
+            android:src="@mipmap/head_circle" />
+
+        <TextView
+            android:id="@+id/tv_topic_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_10"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="#权力的游戏"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_14" />
+
+        <TextView
+            android:id="@+id/tv_join_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="132人参与"
+            android:textColor="@color/color_969696"
+            android:textSize="@dimen/text_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_35"
+            android:drawableEnd="@mipmap/public_arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/layout_10"
+            android:paddingRight="@dimen/layout_10"
+            android:text="剧集"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_16" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -61,7 +61,7 @@
 
         <!-- new voip config end -->
 
-        <activity android:name=".CallSelectMemberActivity"></activity>
+        <activity android:name=".CallSelectMemberActivity"/>
     </application>
 
 </manifest>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_radiu10_tran_60">
+
+    <TextView
+        android:id="@+id/tv_video_position"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:text="01"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_14"
+        android:textStyle="bold" />
+
+</LinearLayout>

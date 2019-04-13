@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/header_main" />
+
     <fragment
         android:id="@+id/conversationlist"
         android:name="io.rong.imkit.fragment.ConversationListFragment"

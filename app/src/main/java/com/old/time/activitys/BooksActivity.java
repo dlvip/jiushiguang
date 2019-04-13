@@ -48,7 +48,6 @@ public class BooksActivity extends BaseCActivity {
 
     }
 
-
     private BooksAdapter adapter;
     private CustomNetView mCustomNetView;
     private List<BookEntity> bookEntities = new ArrayList<>();
@@ -85,9 +84,9 @@ public class BooksActivity extends BaseCActivity {
             }
         }, mRecyclerView);
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+
             @Override
             public void onSimpleItemClick(BaseQuickAdapter mAdapter, View view, int position) {
-//                BookDetailActivity.startBookDetailActivity(mContext, adapter.getItem(position));
                 BookEntity bookEntity = adapter.getItem(position);
                 if (bookEntity == null) {
 
@@ -103,6 +102,12 @@ public class BooksActivity extends BaseCActivity {
      * 链接融云服务器
      */
     private void connectRongService(final String roomId) {
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UserLoginActivity.startUserLoginActivity(mContext);
+
+            return;
+        }
+        RongIMUtils.setCurrentUser();
         RongIMUtils.RongIMConnect(UserLocalInfoUtils.instance().getRongIMToken(), new RongIMClient.ConnectCallback() {
 
             @Override
@@ -127,7 +132,7 @@ public class BooksActivity extends BaseCActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        UIHelper.ToastMessage(mContext, "链接失败 code:" + errorCode);
+                        UIHelper.ToastMessage(mContext, "链接失败 Code:" + errorCode);
 
                     }
                 });

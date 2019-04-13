@@ -492,6 +492,11 @@ public abstract class BaseIjkVideoView extends FrameLayout implements MediaPlaye
         if (mVideoListener != null) mVideoListener.onPrepared();
     }
 
+    /**
+     * 高级设置（可选，须在start()之前调用方可生效）
+     *
+     * @param config
+     */
     public void setPlayerConfig(PlayerConfig config) {
         this.mPlayerConfig = config;
     }
