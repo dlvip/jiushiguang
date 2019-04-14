@@ -12,7 +12,8 @@
         android:background="@drawable/shape_radius0_stroke_line_bgfff"
         android:paddingBottom="@dimen/layout_10"
         android:paddingLeft="@dimen/layout_10"
-        android:paddingTop="@dimen/layout_10">
+        android:paddingTop="@dimen/layout_10"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/img_user_pic"
@@ -40,6 +41,7 @@
             android:src="@mipmap/public_arrow_right" />
 
     </RelativeLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

@@ -31,11 +31,6 @@ public class TopicDAdapter extends BaseQuickAdapter<TopicBean, BaseViewHolder> {
         helper.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (helper.getLayoutPosition() == 0) {
-                    VideoDetailActivity.startVideoDetailActivity(mContext, Constant.MP4_PATH_URL);
-
-                    return;
-                }
                 TopicDetailCActivity.startTopicDetailActivity((Activity) mContext, item);
 
             }

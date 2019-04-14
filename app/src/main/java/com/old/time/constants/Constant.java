@@ -230,6 +230,14 @@ public class Constant {
      */
     public static final String INSTER_ACTION_BEAN = BASE_TEST_URL + "action/insertAction";
 
+    /**
+     * 获取视频信息
+     */
+    private static final String BASE_VIDEO = BASE_TEST_URL + "video/";
+
+    //获取视频信息
+    public static final String GET_VIDEO_DETAIL = BASE_VIDEO + "getVideoDetail";
+
     public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 
     public static String MP4_PATH_URL = "http://iqiyi.qq-zuidazy.com//20181115//768_ea6fbf2b//index.m3u8";

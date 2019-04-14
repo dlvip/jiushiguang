@@ -9,6 +9,10 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.dueeeke.videoplayer.controller.StandardVideoController;
+import com.dueeeke.videoplayer.player.IjkPlayer;
+import com.dueeeke.videoplayer.player.IjkVideoView;
+import com.dueeeke.videoplayer.player.PlayerConfig;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.adapters.DynamicAdapter;
@@ -87,6 +91,14 @@ public class DynamicsActivity extends BaseCActivity {
 
         mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
 
+        IjkVideoView mMNVideoPlayer = findViewById(R.id.video_player);
+        StandardVideoController controller = new StandardVideoController(this);
+        mMNVideoPlayer.setPlayerConfig(new PlayerConfig.Builder().autoRotate()//
+                .savingProgress().setCustomMediaPlayer(new IjkPlayer(this)).build());
+        mMNVideoPlayer.setVideoController(controller);
+        mMNVideoPlayer.setUrl(Constant.MP4_PATH_URL);
+        mMNVideoPlayer.start();
+
         EventBus.getDefault().register(this);
     }
 
@@ -100,14 +112,6 @@ public class DynamicsActivity extends BaseCActivity {
 
             }
         }, mRecyclerView);
-        mRecyclerView.post(new Runnable() {
-
-            @Override
-            public void run() {
-                showSuspensionPopupWindow();
-
-            }
-        });
         relative_layout_user.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -272,5 +276,10 @@ public class DynamicsActivity extends BaseCActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
 
+    }
+
+    @Override
+    protected int getLayoutID() {
+        return R.layout.activity_dyname;
     }
 }
