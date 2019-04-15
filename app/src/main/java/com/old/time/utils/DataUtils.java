@@ -9,6 +9,7 @@ import com.old.time.beans.JHBaseBean;
 import com.old.time.beans.PhoneInfo;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.UserInfoBean;
+import com.old.time.beans.VideoBean;
 import com.old.time.beans.VideosBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
@@ -341,5 +342,38 @@ public class DataUtils {
                 , "9787521700077"//债务危机
                 , "9787541153259"//怪物少女妮莫娜
                 ,}[indext];
+    }
+
+    /**
+     * 创建电视剧信息
+     */
+    public static void createVideoInfo() {
+        HttpParams params = new HttpParams();
+        params.put("name", "权力的游戏 第八季");
+        params.put("detail", "HBO剧集《权力的游戏》第八季将于2019年4月14日播出，本季共6集。 \n" + "　　故事发展至第八季，重返临冬城的琼恩·雪诺（基特·哈灵顿 Kit Harington 饰）在布兰·史塔克（伊萨克·亨普斯特德-怀特 Isaac Hempstead-Wright 饰）口中得知了自己身世的秘密，让他与丹妮莉丝·塔格利安（艾米莉亚·克拉克 Emilia Clarke 饰）的关系蒙上了一层冰霜。 \n" + "　　詹姆·兰尼斯特（尼古拉·科斯特-瓦尔道 Nikolaj Coster-Waldau 饰）试图召集河间地驻军北伐异鬼，却发现艾德慕·徒利（托比亚斯·门基斯 Tobias Menzies 饰）已经包围你了奔流城。 \n" + "　　攸伦·葛雷乔伊（皮鲁·埃斯贝克 Pilou Asbæ 饰）将黄金团带至君临获取了瑟曦（琳娜·海蒂 Lena Headey 饰）的信任，而实际上，他已经与无面者贾昆·赫加尔（汤姆·拉斯齐哈 Tom Wlaschiha 饰）私下达成了秘密协议。");
+        params.put("pic", "https://img1.doubanio.com/view/photo/l/public/p2549996977.jpg");
+        params.put("country", "美国");
+        params.put("film", "电视剧");
+        params.put("type", "奇幻");
+        params.put("score", "9.8");
+        params.put("episodes", "1");
+        params.put("totalEpisodes", "6");
+        OkGoUtils.getInstance().postNetForData(params, Constant.CREATE_VIDEO_INFO, new JsonCallBack<ResultBean<VideoBean>>() {
+            @Override
+            public void onSuccess(ResultBean<VideoBean> mResultBean) {
+                if (mResultBean == null || mResultBean.data == null) {
+
+                    return;
+                }
+                DebugLog.d("createVideoInfo==onSuccess>>", mResultBean.data.toString());
+
+            }
+
+            @Override
+            public void onError(ResultBean<VideoBean> mResultBean) {
+                DebugLog.d("createVideoInfo==onError>>", mResultBean.msg);
+
+            }
+        });
     }
 }

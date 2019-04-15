@@ -12,8 +12,7 @@
         android:background="@drawable/shape_radius0_stroke_line_bgfff"
         android:paddingBottom="@dimen/layout_10"
         android:paddingLeft="@dimen/layout_10"
-        android:paddingTop="@dimen/layout_10"
-        android:visibility="gone">
+        android:paddingTop="@dimen/layout_10">
 
         <ImageView
             android:id="@+id/img_user_pic"

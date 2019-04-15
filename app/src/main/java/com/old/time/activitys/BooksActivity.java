@@ -92,50 +92,8 @@ public class BooksActivity extends BaseCActivity {
 
                     return;
                 }
-                connectRongService(TextUtils.isEmpty(bookEntity.getIsbn13()) ? bookEntity.getIsbn10() : bookEntity.getIsbn13());
+                BookDetailActivity.startBookDetailActivity(mContext, bookEntity);
 
-            }
-        });
-    }
-
-    /**
-     * 链接融云服务器
-     */
-    private void connectRongService(final String roomId) {
-        if (!UserLocalInfoUtils.instance().isUserLogin()) {
-            UserLoginActivity.startUserLoginActivity(mContext);
-
-            return;
-        }
-        RongIMUtils.setCurrentUser();
-        RongIMUtils.RongIMConnect(UserLocalInfoUtils.instance().getRongIMToken(), new RongIMClient.ConnectCallback() {
-
-            @Override
-            public void onTokenIncorrect() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UIHelper.ToastMessage(mContext, "链接失败 token失效");
-
-                    }
-                });
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                RongIM.getInstance().startChatRoomChat(mContext, roomId, true);
-
-            }
-
-            @Override
-            public void onError(final RongIMClient.ErrorCode errorCode) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UIHelper.ToastMessage(mContext, "链接失败 Code:" + errorCode);
-
-                    }
-                });
             }
         });
     }

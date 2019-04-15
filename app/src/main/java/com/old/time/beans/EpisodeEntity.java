@@ -25,6 +25,17 @@ public class EpisodeEntity implements Serializable {
      */
     private String createTime;
 
+    private boolean isSelect;
+
+    public boolean getSelect() {
+
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
     public String getId() {
         return id;
     }

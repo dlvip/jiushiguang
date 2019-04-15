@@ -185,4 +185,9 @@ public class VideoBean implements Serializable {
 
         return score + "分 · " + country + " · 更新至" + episodes + "集 · 全" + totalEpisodes + "集";
     }
+
+    @Override
+    public String toString() {
+        return "VideoBean{" + "id='" + id + '\'' + ", name='" + name + '\'' + ", detail='" + detail + '\'' + ", pic='" + pic + '\'' + ", country='" + country + '\'' + ", film='" + film + '\'' + ", type='" + type + '\'' + ", score='" + score + '\'' + ", episodes=" + episodes + ", totalEpisodes=" + totalEpisodes + ", createTime='" + createTime + '\'' + ", weight=" + weight + ", episodeEntities=" + episodeEntities + '}';
+    }
 }

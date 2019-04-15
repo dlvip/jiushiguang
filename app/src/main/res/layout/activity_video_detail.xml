@@ -48,6 +48,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_video_ds"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/layout_35"
                     android:layout_alignParentEnd="true"

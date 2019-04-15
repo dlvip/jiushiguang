@@ -65,6 +65,9 @@ public class Constant {
      */
     public static String BASE_TEST_URL = BuildConfig.BASE_TEST_URL;
 
+    //检查更新
+    public static final String CHECK_UPDATE = BASE_TEST_URL + "checkUpdate";
+
     //保存快递信息
     public static final String GET_FAST_MAIL_LIST = BASE_TEST_URL + "fastMail/getFastMailList";
 
@@ -234,6 +237,9 @@ public class Constant {
      * 获取视频信息
      */
     private static final String BASE_VIDEO = BASE_TEST_URL + "video/";
+
+    //上传视频
+    public static final String CREATE_VIDEO_INFO = BASE_VIDEO + "createVideoEntity";
 
     //获取视频信息
     public static final String GET_VIDEO_DETAIL = BASE_VIDEO + "getVideoDetail";

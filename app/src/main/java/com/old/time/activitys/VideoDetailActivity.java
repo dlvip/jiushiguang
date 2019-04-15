@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.dueeeke.videoplayer.controller.StandardVideoController;
 import com.dueeeke.videoplayer.player.IjkPlayer;
 import com.dueeeke.videoplayer.player.IjkVideoView;
@@ -21,12 +22,16 @@ import com.old.time.beans.EpisodeEntity;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.VideoBean;
 import com.old.time.constants.Constant;
+import com.old.time.dialogs.DialogVideoDetail;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VideoDetailActivity extends BaseActivity {
 
@@ -51,6 +56,8 @@ public class VideoDetailActivity extends BaseActivity {
     private BaseQuickAdapter<EpisodeEntity, BaseViewHolder> pAdapter;
 
     private TextView tv_video_name, tv_video_type;
+
+    private int lastPosition;
 
     @Override
     protected void initView() {
@@ -77,19 +84,59 @@ public class VideoDetailActivity extends BaseActivity {
         pAdapter = new BaseQuickAdapter<EpisodeEntity, BaseViewHolder>(R.layout.adapter_video_item) {
             @Override
             protected void convert(BaseViewHolder helper, EpisodeEntity item) {
-                int position = helper.getLayoutPosition() - pAdapter.getHeaderLayoutCount() + 1;
-                if (position > 9) {
-                    helper.setText(R.id.tv_video_position, String.valueOf(helper.getLayoutPosition()));
+                int position = helper.getLayoutPosition();
+                helper.setText(R.id.tv_video_position, String.valueOf(position + 1));
+                if (item.getSelect()) {
+                    lastPosition = position;
+                    helper.setTextColor(R.id.tv_video_position, mContext.getResources().getColor(R.color.color_ff9441));
+                    mMNVideoPlayer.setUrl(item.getUrl());
+                    mMNVideoPlayer.start();
 
                 } else {
-                    helper.setText(R.id.tv_video_position, "0" + String.valueOf(helper.getLayoutPosition()));
+                    helper.setTextColor(R.id.tv_video_position, mContext.getResources().getColor(R.color.color_000));
 
                 }
             }
         };
         pRecyclerView.setAdapter(pAdapter);
+        pRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                EpisodeEntity mEpisodeEntity = pAdapter.getData().get(position);
+                mEpisodeEntity.setSelect(true);
+                pAdapter.setData(lastPosition, mEpisodeEntity);
+
+                EpisodeEntity LEpisodeEntity = pAdapter.getData().get(lastPosition);
+                LEpisodeEntity.setSelect(false);
+                pAdapter.setData(lastPosition, LEpisodeEntity);
+
+            }
+        });
+        findViewById(R.id.tv_video_ds).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showVideoDetailDialog();
+
+            }
+        });
 
         getVideoDetail();
+    }
+
+    private DialogVideoDetail mDialogVideoDetail;
+
+    private void showVideoDetailDialog() {
+        if (videoBean == null) {
+
+            return;
+        }
+        if (mDialogVideoDetail == null) {
+            mDialogVideoDetail = new DialogVideoDetail(mContext);
+
+        }
+        mDialogVideoDetail.showDialog(videoBean);
+
     }
 
     /**
@@ -97,6 +144,7 @@ public class VideoDetailActivity extends BaseActivity {
      */
     private void getVideoDetail() {
         HttpParams params = new HttpParams();
+        params.put("type", 0);//0:话题id，1：视频id，2：图书id
         params.put("videoId", videoId);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_VIDEO_DETAIL, new JsonCallBack<ResultBean<VideoBean>>() {
             @Override
@@ -114,6 +162,8 @@ public class VideoDetailActivity extends BaseActivity {
         });
     }
 
+    private VideoBean videoBean;
+
     /**
      * 设置数据
      */
@@ -122,14 +172,20 @@ public class VideoDetailActivity extends BaseActivity {
 
             return;
         }
+        this.videoBean = mVideoBean;
         tv_video_name.setText(mVideoBean.getName());
         tv_video_type.setText(mVideoBean.getVideoTypeStr());
-        pAdapter.setNewData(mVideoBean.getEpisodeEntities());
-        if (pAdapter.getData().size() > 0) {
-            mMNVideoPlayer.setUrl(pAdapter.getData().get(0).getUrl());
-            mMNVideoPlayer.start();
+        List<EpisodeEntity> mEpisodeEntitys = mVideoBean.getEpisodeEntities();
+        if (mEpisodeEntitys == null) {
+            mEpisodeEntitys = new ArrayList<>();
 
         }
+        if (mEpisodeEntitys.size() > 0) {
+            mEpisodeEntitys.get(mEpisodeEntitys.size() - 1).setSelect(true);
+
+        }
+        pAdapter.setNewData(mEpisodeEntitys);
+
     }
 
     @Override
@@ -150,18 +206,21 @@ public class VideoDetailActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         mMNVideoPlayer.pause();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mMNVideoPlayer.resume();
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mMNVideoPlayer.release();
+
     }
 
     @Override

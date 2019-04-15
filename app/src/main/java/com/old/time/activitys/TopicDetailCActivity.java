@@ -72,13 +72,6 @@ public class TopicDetailCActivity extends BaseSActivity {
         adapter.setHeaderAndEmpty(true);
         setHeaderView(mTopicBean);
 
-        mRecyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                showSuspensionPopupWindow();
-
-            }
-        });
         EventBus.getDefault().register(this);
 
     }
@@ -93,6 +86,24 @@ public class TopicDetailCActivity extends BaseSActivity {
 
             }
         }, mRecyclerView);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mTopicBean == null) {
+
+                    return;
+                }
+                VideoDetailActivity.startVideoDetailActivity(mContext, mTopicBean.getId());
+
+            }
+        });
+        mRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                showSuspensionPopupWindow();
+
+            }
+        });
     }
 
     @Override

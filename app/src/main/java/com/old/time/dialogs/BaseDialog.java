@@ -47,6 +47,7 @@ public abstract class BaseDialog extends Dialog {
             case R.style.transparentFrameWindowStyle://底部弹出
                 setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 window = getWindow();
+                assert window != null;
                 window.setWindowAnimations(R.style.main_menu_animstyle);
                 WindowManager.LayoutParams wl = window.getAttributes();
                 wl.x = 0;

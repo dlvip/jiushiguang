@@ -78,6 +78,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
         tv_send.setText(text);
 
+    }
+
+    public void setSendTextColor(int textColor) {
+        if (tv_send == null) {
+            tv_send = findViewById(R.id.tv_send);
+            findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
+
+        }
+        tv_send.setTextColor(getResources().getColor(textColor));
 
     }
 

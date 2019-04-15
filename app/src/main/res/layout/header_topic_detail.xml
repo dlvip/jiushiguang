@@ -10,6 +10,7 @@
         android:layout_height="0dp"
         android:background="@color/color_fff"
         android:gravity="center"
+        android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="5:3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
