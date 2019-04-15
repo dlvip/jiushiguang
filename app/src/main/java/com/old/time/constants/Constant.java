@@ -241,8 +241,16 @@ public class Constant {
     //上传视频
     public static final String CREATE_VIDEO_INFO = BASE_VIDEO + "createVideoEntity";
 
+    /**
+     * 关联id
+     */
+    private static final String BASE_TVB = BASE_TEST_URL + "topicVideoBook/";
+
+    //根据视频id获取话题id
+    public static final String GET_TOPIC_ID = BASE_TVB + "getTopicId";
+
     //获取视频信息
-    public static final String GET_VIDEO_DETAIL = BASE_VIDEO + "getVideoDetail";
+    public static final String GET_VIDEO_DETAIL = BASE_TVB + "getVideoDetail";
 
     public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 

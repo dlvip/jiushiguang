@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -28,10 +29,15 @@ import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
+import com.old.time.utils.RongIMUtils;
 import com.old.time.utils.UIHelper;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
 
 public class VideoDetailActivity extends BaseActivity {
 
@@ -103,13 +109,13 @@ public class VideoDetailActivity extends BaseActivity {
 
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                EpisodeEntity mEpisodeEntity = pAdapter.getData().get(position);
-                mEpisodeEntity.setSelect(true);
-                pAdapter.setData(lastPosition, mEpisodeEntity);
-
                 EpisodeEntity LEpisodeEntity = pAdapter.getData().get(lastPosition);
                 LEpisodeEntity.setSelect(false);
                 pAdapter.setData(lastPosition, LEpisodeEntity);
+
+                EpisodeEntity mEpisodeEntity = pAdapter.getData().get(position);
+                mEpisodeEntity.setSelect(true);
+                pAdapter.setData(position, mEpisodeEntity);
 
             }
         });
@@ -120,12 +126,30 @@ public class VideoDetailActivity extends BaseActivity {
 
             }
         });
+        findViewById(R.id.img_join_count).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getTopicId();
+
+            }
+        });
+
+        findViewById(R.id.tv_join_count).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getTopicId();
+
+            }
+        });
 
         getVideoDetail();
     }
 
     private DialogVideoDetail mDialogVideoDetail;
 
+    /**
+     * 显示简介
+     */
     private void showVideoDetailDialog() {
         if (videoBean == null) {
 
@@ -138,6 +162,74 @@ public class VideoDetailActivity extends BaseActivity {
         mDialogVideoDetail.showDialog(videoBean);
 
     }
+
+    /**
+     * 获取话题id
+     */
+    private void getTopicId() {
+        HttpParams params = new HttpParams();
+        params.put("videoId", videoId);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_TOPIC_ID, new JsonCallBack<ResultBean<String>>() {
+            @Override
+            public void onSuccess(ResultBean<String> mResultBean) {
+                if (mResultBean == null || TextUtils.isEmpty(mResultBean.data)) {
+
+                    return;
+                }
+                connectRongService(mResultBean.data);
+
+            }
+
+            @Override
+            public void onError(ResultBean<String> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+
+            }
+        });
+    }
+
+    /**
+     * 链接融云服务器
+     */
+    private void connectRongService(final String roomId) {
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UserLoginActivity.startUserLoginActivity(mContext);
+
+            return;
+        }
+        RongIMUtils.setCurrentUser();
+        RongIMUtils.RongIMConnect(UserLocalInfoUtils.instance().getRongIMToken(), new RongIMClient.ConnectCallback() {
+
+            @Override
+            public void onTokenIncorrect() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UIHelper.ToastMessage(mContext, "链接失败 token失效");
+
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                RongIM.getInstance().startChatRoomChat(mContext, roomId, true);
+
+            }
+
+            @Override
+            public void onError(final RongIMClient.ErrorCode errorCode) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UIHelper.ToastMessage(mContext, "链接失败 Code:" + errorCode);
+
+                    }
+                });
+            }
+        });
+    }
+
 
     /**
      * 获取视频信息

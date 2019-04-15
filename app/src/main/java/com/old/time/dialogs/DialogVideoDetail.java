@@ -51,6 +51,7 @@ public class DialogVideoDetail extends BaseDialog {
 
             return;
         }
+        show();
         tv_video_name.setText(videoBean.getName());
         tv_video_detail.setText(videoBean.getDetail());
     }
