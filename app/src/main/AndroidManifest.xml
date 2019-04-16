@@ -209,12 +209,11 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <!--会话界面-->
+        <!-- 会话界面 -->
         <activity
             android:name=".rongIM.ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -226,6 +225,7 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+        <activity android:name=".activitys.ShareVDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -13,7 +13,6 @@ import com.old.time.interfaces.OnClickViewCallBack;
  * Created by NING on 2018/1/12.
  * 统一提示框
  */
-
 public class DialogPromptCentre extends BaseDialog {
 
     private OnClickViewCallBack onClickViewCallBack;

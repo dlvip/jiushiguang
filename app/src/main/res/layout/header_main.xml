@@ -54,6 +54,8 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/layout_10"
         android:layout_marginRight="@dimen/layout_10"
+        android:background="@drawable/selected_bg"
+        android:onClick="more"
         android:visibility="gone">
 
         <View

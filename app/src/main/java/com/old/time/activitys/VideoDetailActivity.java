@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -55,7 +54,7 @@ public class VideoDetailActivity extends BaseActivity {
 
     }
 
-    private String videoId;
+    private String topicId;
 
     private IjkVideoView mMNVideoPlayer;
 
@@ -67,7 +66,7 @@ public class VideoDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        videoId = getIntent().getStringExtra(VIDEO_ID);
+        topicId = getIntent().getStringExtra(VIDEO_ID);
         setTitleText("");
         findViewById(R.id.header_main).setBackgroundResource(R.color.transparent);
         findViewById(R.id.view_line).setBackgroundResource(R.color.transparent);
@@ -129,7 +128,7 @@ public class VideoDetailActivity extends BaseActivity {
         findViewById(R.id.img_join_count).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getTopicId();
+                connectRongService(topicId);
 
             }
         });
@@ -137,7 +136,14 @@ public class VideoDetailActivity extends BaseActivity {
         findViewById(R.id.tv_join_count).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getTopicId();
+                connectRongService(topicId);
+
+            }
+        });
+        findViewById(R.id.img_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShareVDetailActivity.startShareVDetailActivity(mContext, videoBean);
 
             }
         });
@@ -161,31 +167,6 @@ public class VideoDetailActivity extends BaseActivity {
         }
         mDialogVideoDetail.showDialog(videoBean);
 
-    }
-
-    /**
-     * 获取话题id
-     */
-    private void getTopicId() {
-        HttpParams params = new HttpParams();
-        params.put("videoId", videoId);
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_TOPIC_ID, new JsonCallBack<ResultBean<String>>() {
-            @Override
-            public void onSuccess(ResultBean<String> mResultBean) {
-                if (mResultBean == null || TextUtils.isEmpty(mResultBean.data)) {
-
-                    return;
-                }
-                connectRongService(mResultBean.data);
-
-            }
-
-            @Override
-            public void onError(ResultBean<String> mResultBean) {
-                UIHelper.ToastMessage(mContext, mResultBean.msg);
-
-            }
-        });
     }
 
     /**
@@ -230,14 +211,13 @@ public class VideoDetailActivity extends BaseActivity {
         });
     }
 
-
     /**
      * 获取视频信息
      */
     private void getVideoDetail() {
         HttpParams params = new HttpParams();
         params.put("type", 0);//0:话题id，1：视频id，2：图书id
-        params.put("videoId", videoId);
+        params.put("videoId", topicId);
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_VIDEO_DETAIL, new JsonCallBack<ResultBean<VideoBean>>() {
             @Override
             public void onSuccess(ResultBean<VideoBean> mResultBean) {

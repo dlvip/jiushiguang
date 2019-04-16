@@ -6,10 +6,12 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.old.time.R;
@@ -77,6 +79,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
         }
         tv_send.setText(text);
+
+    }
+
+    private ImageView img_more;
+
+    public void setRightMoreImg(@DrawableRes int imgRes) {
+        if (img_more == null) {
+            img_more = findViewById(R.id.img_more);
+            findViewById(R.id.relative_layout_more).setVisibility(View.VISIBLE);
+
+        }
+        img_more.setImageResource(imgRes);
 
     }
 
@@ -151,6 +165,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
     public void save(View view) {
+
+    }
+
+    public void more(View view) {
 
     }
 
