@@ -16,7 +16,9 @@ import com.dueeeke.videoplayer.controller.StandardVideoController;
 import com.dueeeke.videoplayer.player.IjkPlayer;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.dueeeke.videoplayer.player.PlayerConfig;
+import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
+import com.lzy.okserver.OkDownload;
 import com.old.time.R;
 import com.old.time.beans.EpisodeEntity;
 import com.old.time.beans.ResultBean;
@@ -144,6 +146,13 @@ public class VideoDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 ShareVDetailActivity.startShareVDetailActivity(mContext, videoBean);
+
+            }
+        });
+        findViewById(R.id.img_down_load).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIHelper.ToastMessage(mContext, "请期待");
 
             }
         });
