@@ -1,5 +1,6 @@
 package com.old.time.utils;
 
+import com.old.time.BuildConfig;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Key;
 
@@ -78,7 +79,7 @@ public class UserLocalInfoUtils {
 
             return "-1";
         }
-        if ("15093073252".equals(getMobile()) || "17600075773".equals(getMobile())) {
+        if (!BuildConfig.DEBUG && ("15093073252".equals(getMobile()) || "17600075773".equals(getMobile()))) {
 
             return String.valueOf("01" + mRandom.nextInt(56));
         } else {

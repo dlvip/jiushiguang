@@ -81,7 +81,7 @@ public class CreateDynActivity extends BaseActivity {
     protected void initView() {
         PhotoPickActivity.startPhotoPickActivity(mContext, false, PIC_COUNT_SIZE//
                 , (Serializable) picUrls, Code.REQUEST_CODE_30);
-        setTitleText("发布乐趣动态");
+        setTitleText("发布动态");
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         input_send_text = findViewById(R.id.input_send_text);
@@ -115,7 +115,7 @@ public class CreateDynActivity extends BaseActivity {
         super.save(view);
         final String contentStr = input_send_text.getText().toString().trim();
         if (TextUtils.isEmpty(contentStr)) {
-            UIHelper.ToastMessage(mContext, "描述下乐趣吧");
+            UIHelper.ToastMessage(mContext, "描述下吧");
 
             return;
         }

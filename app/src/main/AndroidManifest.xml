@@ -225,7 +225,8 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activitys.ShareVDetailActivity"></activity>
+        <activity android:name=".activitys.ShareVDetailActivity" />
+        <activity android:name=".activitys.AboutActivity"></activity>
     </application>
 
 </manifest>

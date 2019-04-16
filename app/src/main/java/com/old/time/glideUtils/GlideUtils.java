@@ -267,11 +267,6 @@ public class GlideUtils {
      * @param radius    角度
      */
     public void setRadiusImageView(Context context, String url, ImageView imageView, int radius) {
-        if (TextUtils.isEmpty(url)) {
-            setImageView(context, imageView, R.color.color_666);
-
-            return;
-        }
         url = getPicUrl(url);
         if (context == null) {
 
@@ -289,7 +284,6 @@ public class GlideUtils {
                         .transform(new GlideRoundTransform(context, radius))//
                         .dontAnimate()//
                         .error(R.color.color_666)
-//                        .centerCrop()//
                         .priority(Priority.HIGH))//
                 .transition(DrawableTransitionOptions.withCrossFade())//
                 .into(imageView);

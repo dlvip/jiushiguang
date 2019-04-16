@@ -282,6 +282,10 @@ public class DynamicsActivity extends BaseCActivity {
                             UserCardActivity.startUserCardActivity(mContext, UserLocalInfoUtils.instance().getUserId());
 
                             break;
+                        case "联系我们":
+                            AboutActivity.startAboutActivity(mContext);
+
+                            break;
                         default:
 
                             break;
@@ -289,7 +293,7 @@ public class DynamicsActivity extends BaseCActivity {
                 }
             });
         }
-        mPostCartPop.showPopWindow(relative_layout_more, new String[]{"扫一扫", "服务号", "个人中心"});
+        mPostCartPop.showPopWindow(relative_layout_more, new String[]{"扫一扫", "服务号", "个人中心", "联系我们"});
 
     }
 

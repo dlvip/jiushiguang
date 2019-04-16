@@ -239,15 +239,17 @@ public class UserCardActivity extends BaseActivity {
                                             , friendId)), userInfoBean.getAvatar());
 
                             break;
-                        case "开启指纹/手势":
-                            TouchSettingActivity.startSettingTouchActivity(mContext);
+                        case "退出登陆":
+                            UserLocalInfoUtils.instance().setUserLogOut();
+                            ActivityUtils.finishActivity(mContext);
+//                            TouchSettingActivity.startSettingTouchActivity(mContext);
 
                             break;
                     }
                 }
             });
         }
-        dialogListManager.setDialogViewData("更多设置", new String[]{"编辑信息", "名片二维码", "开启指纹/手势"});
+        dialogListManager.setDialogViewData("更多设置", new String[]{"编辑信息", "名片二维码", "退出登陆"});
 
     }
 

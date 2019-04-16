@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_fff"
+    android:orientation="vertical"
+    tools:context="com.old.time.activitys.AboutActivity">
+
+    <include layout="@layout/header_main" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_10"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        android:text="Q  Q：1371985810"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_10"
+        android:paddingLeft="@dimen/layout_10"
+        android:paddingRight="@dimen/layout_10"
+        android:text="邮箱：1371985810@qq.com"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16" />
+
+</LinearLayout>

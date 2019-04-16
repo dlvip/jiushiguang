@@ -25,7 +25,7 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initView() {
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
-        setTitleText("设置");
+        setTitleText("关于我们");
 
         tv_app_version = findViewById(R.id.tv_app_version);
         tv_app_version.setText("V " + StringUtils.getVersion(this));
@@ -35,17 +35,21 @@ public class SettingActivity extends BaseActivity {
 
     }
 
+    private TextView tv_user_logout;
+
     @Override
     protected void initEvent() {
         super.initEvent();
         findViewById(R.id.relative_layout_memory).setOnClickListener(this);
         findViewById(R.id.relative_layout_opinion).setOnClickListener(this);
         findViewById(R.id.relative_layout_about).setOnClickListener(this);
-        findViewById(R.id.tv_user_logout).setOnClickListener(this);
-        if (BuildConfig.DEBUG) {
-            View tv_more = findViewById(R.id.tv_more);
-            tv_more.setVisibility(View.VISIBLE);
-            tv_more.setOnClickListener(this);
+        tv_user_logout = findViewById(R.id.tv_user_logout);
+        tv_user_logout.setOnClickListener(this);
+        if (UserLocalInfoUtils.instance().isUserLogin()) {
+            tv_user_logout.setText("退出");
+
+        } else {
+            tv_user_logout.setText("登陆");
 
         }
     }
@@ -68,15 +72,15 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.tv_user_logout:
+                if (!UserLocalInfoUtils.instance().isUserLogin()) {
+                    UserLoginActivity.startUserLoginActivity(mContext);
+
+                    break;
+                }
                 UserLocalInfoUtils.instance().setUserLogOut();
                 ActivityUtils.finishActivity(mContext);
 
                 break;
-            case R.id.tv_more:
-                CreateCActivity.startCreateActivity(mContext);
-
-                break;
-
         }
     }
 

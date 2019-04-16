@@ -176,16 +176,6 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_more"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_44"
-        android:gravity="center"
-        android:text="更多"
-        android:textColor="@color/color_000"
-        android:textSize="@dimen/text_14"
-        android:visibility="gone" />
-
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
