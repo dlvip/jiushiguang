@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -32,5 +33,15 @@
         app:layout_constraintDimensionRatio="5:3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:layout_width="@dimen/layout_44"
+        android:layout_height="@dimen/layout_44"
+        android:padding="@dimen/layout_5"
+        android:src="@mipmap/icon_talk_chat"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="316dp"
+        tools:layout_editor_absoluteY="172dp" />
 
 </android.support.constraint.ConstraintLayout>
