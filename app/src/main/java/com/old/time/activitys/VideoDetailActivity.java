@@ -16,9 +16,7 @@ import com.dueeeke.videoplayer.controller.StandardVideoController;
 import com.dueeeke.videoplayer.player.IjkPlayer;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.dueeeke.videoplayer.player.PlayerConfig;
-import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.HttpParams;
-import com.lzy.okserver.OkDownload;
 import com.old.time.R;
 import com.old.time.beans.EpisodeEntity;
 import com.old.time.beans.ResultBean;
@@ -96,8 +94,6 @@ public class VideoDetailActivity extends BaseActivity {
                 if (item.getSelect()) {
                     lastPosition = position;
                     helper.setTextColor(R.id.tv_video_position, mContext.getResources().getColor(R.color.color_ff9441));
-                    mMNVideoPlayer.setUrl(item.getUrl());
-                    mMNVideoPlayer.start();
 
                 } else {
                     helper.setTextColor(R.id.tv_video_position, mContext.getResources().getColor(R.color.color_000));
@@ -117,6 +113,8 @@ public class VideoDetailActivity extends BaseActivity {
                 EpisodeEntity mEpisodeEntity = pAdapter.getData().get(position);
                 mEpisodeEntity.setSelect(true);
                 pAdapter.setData(position, mEpisodeEntity);
+
+                playMNPlayer(mEpisodeEntity);
 
             }
         });
@@ -158,6 +156,21 @@ public class VideoDetailActivity extends BaseActivity {
         });
 
         getVideoDetail();
+    }
+
+    /**
+     * 播放
+     *
+     * @param episodeEntity
+     */
+    private void playMNPlayer(EpisodeEntity episodeEntity) {
+        if (episodeEntity == null) {
+
+            return;
+        }
+        mMNVideoPlayer.setUrl(episodeEntity.getUrl());
+        mMNVideoPlayer.start();
+
     }
 
     private DialogVideoDetail mDialogVideoDetail;
@@ -263,9 +276,11 @@ public class VideoDetailActivity extends BaseActivity {
         }
         if (mEpisodeEntitys.size() > 0) {
             mEpisodeEntitys.get(mEpisodeEntitys.size() - 1).setSelect(true);
+            playMNPlayer(mEpisodeEntitys.get(mEpisodeEntitys.size() - 1));
 
         }
         pAdapter.setNewData(mEpisodeEntitys);
+
 
     }
 
