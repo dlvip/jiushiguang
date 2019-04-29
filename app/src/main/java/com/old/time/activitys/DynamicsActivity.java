@@ -120,13 +120,8 @@ public class DynamicsActivity extends BaseCActivity {
 
                     return;
                 }
-                if (position == 0) {
-                    VideoDetailActivity.startVideoDetailActivity(mContext, topicBean.getId());
+                connectRongService(String.valueOf(topicBean.getId()));
 
-                } else {
-                    connectRongService(String.valueOf(topicBean.getId()));
-
-                }
             }
         });
         relative_layout_user.setOnClickListener(new View.OnClickListener() {
