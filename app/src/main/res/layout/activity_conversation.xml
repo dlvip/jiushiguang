@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,7 +11,67 @@
         android:id="@+id/conversation"
         android:name="io.rong.imkit.fragment.ConversationFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relative_layout_big"
+        tools:ignore="UnknownIdInLayout" />
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_big"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_200"
+        android:layout_below="@+id/header_main"
+        android:background="@color/color_000"
+        android:paddingBottom="@dimen/layout_10"
+        android:paddingTop="@dimen/layout_10"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/img_big_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@color/pic_lib_color_666" />
+
+        <ImageView
+            android:layout_width="@dimen/layout_40"
+            android:layout_height="@dimen/layout_40"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_player_start" />
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="@dimen/layout_40"
+            android:layout_height="@dimen/layout_40"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="@dimen/layout_15"
+            android:paddingLeft="@dimen/layout_15"
+            android:src="@mipmap/btn_close" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_small"
+        android:layout_width="@dimen/layout_80"
+        android:layout_height="@dimen/layout_80"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/header_main"
+        android:visibility="gone"
+        tools:ignore="UnknownIdInLayout">
+
+        <ImageView
+            android:id="@+id/img_small_pic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@color/pic_lib_color_666" />
+
+        <ImageView
+            android:layout_width="@dimen/layout_40"
+            android:layout_height="@dimen/layout_40"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_player_start" />
+
+    </RelativeLayout>
 
 
-</LinearLayout>
+</RelativeLayout>
