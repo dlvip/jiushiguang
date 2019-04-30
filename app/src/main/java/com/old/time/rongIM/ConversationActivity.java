@@ -17,7 +17,6 @@ import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
-import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.UIHelper;
 
 public class ConversationActivity extends BaseActivity {
@@ -143,7 +142,7 @@ public class ConversationActivity extends BaseActivity {
 
             @Override
             public void onError(ResultBean<VideoBean> mResultBean) {
-                ActivityUtils.finishActivity(mContext);
+
 
             }
         });

@@ -28,6 +28,10 @@ android {
             storePassword 'jiushiguang2018'
             storeFile file('../jiushiguang_key_store')
         }
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
     }
     buildTypes {
         release {
