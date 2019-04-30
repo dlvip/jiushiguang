@@ -1,10 +1,12 @@
 package com.old.time.utils;
 
+import android.app.Activity;
 import android.net.Uri;
 import android.text.TextUtils;
 
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.MyApplication;
+import com.old.time.activitys.UserLoginActivity;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Constant;
@@ -83,9 +85,59 @@ public class RongIMUtils {
     /**
      * 链接融云服务器
      */
-    public static void RongIMConnect(String token, RongIMClient.ConnectCallback connectCallback) {
-        RongIM.connect(token, connectCallback);
+    public static void RongIMConnect(final Activity activity, final String roomId) {
+        if (!UserLocalInfoUtils.instance().isUserLogin()) {
+            UserLoginActivity.startUserLoginActivity(activity);
 
+            return;
+        }
+        if (TextUtils.isEmpty(roomId)) {
+
+            return;
+        }
+        RongIMUtils.setCurrentUser();
+        RongIM.connect(UserLocalInfoUtils.instance().getRongIMToken(), new RongIMClient.ConnectCallback() {
+
+            @Override
+            public void onTokenIncorrect() {
+                if (activity == null || activity.isDestroyed()) {
+
+                    return;
+                }
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UIHelper.ToastMessage(activity, "链接失败 token失效");
+
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(String s) {
+                if (activity == null || activity.isDestroyed()) {
+
+                    return;
+                }
+                RongIM.getInstance().startChatRoomChat(activity, roomId, true);
+
+            }
+
+            @Override
+            public void onError(final RongIMClient.ErrorCode errorCode) {
+                if (activity == null || activity.isDestroyed()) {
+
+                    return;
+                }
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UIHelper.ToastMessage(activity, "链接失败 Code:" + errorCode);
+
+                    }
+                });
+            }
+        });
     }
 
     /**

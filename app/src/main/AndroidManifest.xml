@@ -226,7 +226,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activitys.ShareVDetailActivity" />
-        <activity android:name=".activitys.AboutActivity"></activity>
+        <activity android:name=".activitys.AboutActivity"/>
     </application>
 
 </manifest>

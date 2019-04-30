@@ -54,7 +54,7 @@ public class SplashDownLoadService extends IntentService {
      */
     private void loadSplashNetDate(final int[] WH) {
         SplashBean splashBean = new SplashBean();
-        splashBean.photos = "http://longbei-pro-media-out.oss-cn-hangzhou.aliyuncs.com/sns/2019-2/1126215501411612590.jpg";
+        splashBean.photos = "http://puui.qpic.cn/vcover_vt_pic/0/nilk5fd4bkqdk3a1556530742/0";
         splashBean.click_url = Constant.MP4_PATH_URL;
         splashBean.splashLocal = Constant.SPLASH_PATH;
         initDownLoadData(splashBean, WH);

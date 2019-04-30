@@ -31,7 +31,6 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.RongIMUtils;
-import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
 
@@ -41,9 +40,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 
 public class DynamicsActivity extends BaseCActivity {
 
@@ -120,7 +116,7 @@ public class DynamicsActivity extends BaseCActivity {
 
                     return;
                 }
-                connectRongService(String.valueOf(topicBean.getId()));
+                RongIMUtils.RongIMConnect(mContext, String.valueOf(topicBean.getId()));
 
             }
         });
@@ -203,48 +199,6 @@ public class DynamicsActivity extends BaseCActivity {
             });
         }
         mDialogPromptCentre.showDialog("您的版本过低，建议升级！");
-    }
-
-    /**
-     * 链接融云服务器
-     */
-    private void connectRongService(final String roomId) {
-        if (!UserLocalInfoUtils.instance().isUserLogin()) {
-            UserLoginActivity.startUserLoginActivity(mContext);
-
-            return;
-        }
-        RongIMUtils.setCurrentUser();
-        RongIMUtils.RongIMConnect(UserLocalInfoUtils.instance().getRongIMToken(), new RongIMClient.ConnectCallback() {
-
-            @Override
-            public void onTokenIncorrect() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UIHelper.ToastMessage(mContext, "链接失败 token失效");
-
-                    }
-                });
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                RongIM.getInstance().startChatRoomChat(mContext, roomId, true);
-
-            }
-
-            @Override
-            public void onError(final RongIMClient.ErrorCode errorCode) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UIHelper.ToastMessage(mContext, "链接失败 Code:" + errorCode);
-
-                    }
-                });
-            }
-        });
     }
 
     /**

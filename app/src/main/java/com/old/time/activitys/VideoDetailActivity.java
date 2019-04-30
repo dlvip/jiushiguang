@@ -30,13 +30,9 @@ import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.RongIMUtils;
 import com.old.time.utils.UIHelper;
-import com.old.time.utils.UserLocalInfoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 
 public class VideoDetailActivity extends BaseActivity {
 
@@ -128,7 +124,7 @@ public class VideoDetailActivity extends BaseActivity {
         findViewById(R.id.img_join_count).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                connectRongService(topicId);
+                RongIMUtils.RongIMConnect(mContext, topicId);
 
             }
         });
@@ -136,7 +132,7 @@ public class VideoDetailActivity extends BaseActivity {
         findViewById(R.id.tv_join_count).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                connectRongService(topicId);
+                RongIMUtils.RongIMConnect(mContext, topicId);
 
             }
         });
@@ -189,48 +185,6 @@ public class VideoDetailActivity extends BaseActivity {
         }
         mDialogVideoDetail.showDialog(videoBean);
 
-    }
-
-    /**
-     * 链接融云服务器
-     */
-    private void connectRongService(final String roomId) {
-        if (!UserLocalInfoUtils.instance().isUserLogin()) {
-            UserLoginActivity.startUserLoginActivity(mContext);
-
-            return;
-        }
-        RongIMUtils.setCurrentUser();
-        RongIMUtils.RongIMConnect(UserLocalInfoUtils.instance().getRongIMToken(), new RongIMClient.ConnectCallback() {
-
-            @Override
-            public void onTokenIncorrect() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UIHelper.ToastMessage(mContext, "链接失败 token失效");
-
-                    }
-                });
-            }
-
-            @Override
-            public void onSuccess(String s) {
-                RongIM.getInstance().startChatRoomChat(mContext, roomId, true);
-
-            }
-
-            @Override
-            public void onError(final RongIMClient.ErrorCode errorCode) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        UIHelper.ToastMessage(mContext, "链接失败 Code:" + errorCode);
-
-                    }
-                });
-            }
-        });
     }
 
     /**

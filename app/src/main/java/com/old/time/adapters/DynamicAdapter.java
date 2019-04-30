@@ -15,6 +15,7 @@ import com.old.time.beans.PhotoInfoBean;
 import com.old.time.beans.TopicBean;
 import com.old.time.beans.UserInfoBean;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.utils.RongIMUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.views.ExpandableTextView;
 import com.old.time.views.NineImageView;
@@ -76,7 +77,7 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicBean, DynamicAdapter
                 @Override
                 public void onClick(View v) {
                     if (!(mContext instanceof TopicDetailCActivity)) {
-                        TopicDetailCActivity.startTopicDetailActivity((Activity) mContext, topicBean);
+                        RongIMUtils.RongIMConnect((Activity) mContext, String.valueOf(topicBean.getId()));
 
                     }
                 }
