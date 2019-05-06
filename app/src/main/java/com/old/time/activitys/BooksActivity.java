@@ -49,7 +49,6 @@ public class BooksActivity extends BaseCActivity {
     }
 
     private BooksAdapter adapter;
-    private CustomNetView mCustomNetView;
     private List<BookEntity> bookEntities = new ArrayList<>();
 
     @Override
@@ -59,8 +58,6 @@ public class BooksActivity extends BaseCActivity {
         adapter = new BooksAdapter(bookEntities);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(adapter);
-
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
 
         setSendText("添书");
 

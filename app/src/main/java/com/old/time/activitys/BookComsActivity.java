@@ -38,7 +38,6 @@ public class BookComsActivity extends BaseCActivity {
     }
 
     private List<BookComEntity> bookComEntities = new ArrayList<>();
-    private CustomNetView mCustomNetView;
     private BookComAapter mAdapter;
 
     @Override
@@ -55,7 +54,6 @@ public class BookComsActivity extends BaseCActivity {
 
             }
         }, mRecyclerView);
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
 
         mRecyclerView.post(new Runnable() {
             @Override

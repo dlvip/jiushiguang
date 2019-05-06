@@ -49,8 +49,6 @@ public class TopicDetailCActivity extends BaseSActivity {
     private DynamicAdapter adapter;
     private TopicBean mTopicBean;
 
-    private CustomNetView mCustomNetView;
-
     private View headerView;
     private TextView tv_user_name;
     private ImageView img_header_bg;
@@ -68,7 +66,6 @@ public class TopicDetailCActivity extends BaseSActivity {
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(adapter);
 
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
         adapter.setHeaderAndEmpty(true);
         setHeaderView(mTopicBean);
 

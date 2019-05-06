@@ -44,7 +44,6 @@ import java.util.List;
 public class DynamicsActivity extends BaseCActivity {
 
     private List<DynamicBean> mDynamicBeans = new ArrayList<>();
-    private CustomNetView mCustomNetView;
     private DynamicAdapter mAdapter;
     private View relative_layout_more, relative_layout_user;
 
@@ -92,8 +91,6 @@ public class DynamicsActivity extends BaseCActivity {
         mAdapter.addHeaderView(headerView);
         mAdapter.setNewData(mDynamicBeans);
         mAdapter.setHeaderAndEmpty(true);
-
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
 
         EventBus.getDefault().register(this);
     }

@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.adapters.UserDressAdapter;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
 public class UserDressCActivity extends BaseCActivity {
@@ -16,7 +17,7 @@ public class UserDressCActivity extends BaseCActivity {
         super.initView();
         setTitleText("地址管理");
         linear_layout_more.setVisibility(View.VISIBLE);
-        mAdapter = new UserDressAdapter(strings);
+        mAdapter = new UserDressAdapter(DataUtils.getDateStrings(20));
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mAdapter);
         View view = View.inflate(this, R.layout.bottom_layout_view, null);

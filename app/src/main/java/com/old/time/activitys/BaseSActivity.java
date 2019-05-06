@@ -16,6 +16,7 @@ import com.old.time.constants.Code;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
+import com.old.time.views.CustomNetView;
 
 /**
  * Created by NING on 2018/3/22.
@@ -29,6 +30,8 @@ public abstract class BaseSActivity extends BaseActivity {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener;
     public SwipeRefreshLayout mSwipeRefreshLayout;
     public RecyclerView mRecyclerView;
+    public CustomNetView mCustomNetView;
+
     public LinearLayout linear_layout_more;
     public RelativeLayout.LayoutParams layoutParams;
     public Handler mHandler = new Handler() {
@@ -126,6 +129,8 @@ public abstract class BaseSActivity extends BaseActivity {
                 }
             }
         });
+
+        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
     }
 
     //监听recyclerView 的高度变化

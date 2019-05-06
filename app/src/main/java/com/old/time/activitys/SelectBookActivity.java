@@ -33,7 +33,6 @@ public class SelectBookActivity extends BaseCActivity {
     }
 
     private TopicBookAdapter adapter;
-    private CustomNetView mCustomNetView;
     private List<BookEntity> bookEntities = new ArrayList<>();
 
     @Override
@@ -49,8 +48,6 @@ public class SelectBookActivity extends BaseCActivity {
 
             }
         }, mRecyclerView);
-
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
 
         mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
             @Override

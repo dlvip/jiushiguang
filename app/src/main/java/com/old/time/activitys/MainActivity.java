@@ -12,10 +12,7 @@ import com.old.time.R;
 import com.old.time.fragments.FindFragment;
 import com.old.time.fragments.HomeFragment;
 import com.old.time.fragments.MineFragment;
-import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
-
-import static android.Manifest.permission.READ_PHONE_STATE;
 
 public class MainActivity extends BaseActivity {
 

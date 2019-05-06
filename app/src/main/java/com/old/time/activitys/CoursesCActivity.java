@@ -29,14 +29,12 @@ public class CoursesCActivity extends BaseCActivity {
 
     }
 
-    private CustomNetView mCustomNetView;
     private CourseAdapter courseAdapter;
     private List<CourseBean> courseBeans;
 
     @Override
     protected void initView() {
         super.initView();
-//        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         courseBeans = new ArrayList<>();
         courseAdapter = new CourseAdapter(courseBeans);
         mRecyclerView.setAdapter(courseAdapter);
@@ -47,7 +45,6 @@ public class CoursesCActivity extends BaseCActivity {
 
             }
         }, mRecyclerView);
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
         linear_layout_more.setVisibility(View.VISIBLE);
         layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
         linear_layout_more.setLayoutParams(layoutParams);

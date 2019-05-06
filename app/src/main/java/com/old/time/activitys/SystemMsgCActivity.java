@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.old.time.adapters.SystemMsgAdapter;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
 public class SystemMsgCActivity extends BaseCActivity {
@@ -26,7 +27,7 @@ public class SystemMsgCActivity extends BaseCActivity {
     protected void initView() {
         super.initView();
         setTitleText("消息通知");
-        mAdapter = new SystemMsgAdapter(strings);
+        mAdapter = new SystemMsgAdapter(DataUtils.getDateStrings(20));
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mAdapter);
 

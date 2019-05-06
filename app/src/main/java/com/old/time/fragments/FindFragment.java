@@ -42,7 +42,6 @@ import java.util.List;
 public class FindFragment extends CBaseFragment {
 
     private BaseQuickAdapter<ActionBean, BaseViewHolder> mAdapter;
-    private CustomNetView mCustomNetView;
     private List<ActionBean> actionBeans;
 
     private TopicAdapter topicAdapter;
@@ -95,8 +94,6 @@ public class FindFragment extends CBaseFragment {
 
             }
         });
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
-
         mAdapter.addHeaderView(headerView);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setHeaderAndEmpty(true);

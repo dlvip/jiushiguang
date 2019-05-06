@@ -8,6 +8,7 @@ import android.view.View;
 import com.old.time.R;
 import com.old.time.adapters.TalkAdapter;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
 public class TalksCActivity extends BaseCActivity {
@@ -24,7 +25,7 @@ public class TalksCActivity extends BaseCActivity {
     protected void initView() {
         super.initView();
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
-        mTalkAdapter = new TalkAdapter(R.layout.adapter_talk, strings);
+        mTalkAdapter = new TalkAdapter(R.layout.adapter_talk, DataUtils.getDateStrings(20));
         mRecyclerView.setAdapter(mTalkAdapter);
 
     }

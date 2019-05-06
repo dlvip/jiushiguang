@@ -45,8 +45,6 @@ public class UserDynamicActivity extends BaseSActivity {
     private TextView tv_user_name;
     private ImageView img_header_bg, img_user_pic;
 
-    private CustomNetView mCustomNetView;
-
     private List<DynamicBean> dynamicBeans = new ArrayList<>();
     private DynamicAdapter adapter;
 
@@ -70,7 +68,6 @@ public class UserDynamicActivity extends BaseSActivity {
         adapter.removeAllHeaderView();
         adapter.addHeaderView(headerView);
         mRecyclerView.setAdapter(adapter);
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
         adapter.setHeaderAndEmpty(true);
 
     }

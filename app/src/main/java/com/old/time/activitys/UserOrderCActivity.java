@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.old.time.adapters.UserOrderAdapter;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DataUtils;
 import com.old.time.utils.RecyclerItemDecoration;
 
 public class UserOrderCActivity extends BaseCActivity {
@@ -26,7 +27,7 @@ public class UserOrderCActivity extends BaseCActivity {
     protected void initView() {
         super.initView();
         setTitleText("订单管理");
-        mAdapter = new UserOrderAdapter(strings);
+        mAdapter = new UserOrderAdapter(DataUtils.getDateStrings(20));
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mAdapter);
 

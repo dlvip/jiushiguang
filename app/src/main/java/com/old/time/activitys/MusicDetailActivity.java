@@ -48,7 +48,6 @@ public class MusicDetailActivity extends BaseCActivity {
     private ImageView img_music_pic;
     private CourseBean mCourseBean;
     private ChapterAdapter mAdapter;
-    private CustomNetView mCustomNetView;
     private List<ChapterBean> chapterList = new ArrayList<>();
 
     @Override
@@ -60,8 +59,6 @@ public class MusicDetailActivity extends BaseCActivity {
             position = SpUtils.getInt(PlayServiceIBinder.SP_PLAY_POSITION, -1);
 
         }
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
-
         headerView = View.inflate(mContext, R.layout.header_music_detail, null);
         img_music_pic = headerView.findViewById(R.id.img_music_pic);
         tv_music_title = headerView.findViewById(R.id.tv_music_title);

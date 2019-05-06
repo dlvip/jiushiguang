@@ -75,7 +75,6 @@ public class UserSignActivity extends BaseSActivity {
 
             }
         }, mRecyclerView);
-        mCustomNetView = new CustomNetView(mContext, NO_DATA);
 
         img_user_pic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +87,6 @@ public class UserSignActivity extends BaseSActivity {
         });
     }
 
-    private CustomNetView mCustomNetView;
     private int startNum;
 
     @Override

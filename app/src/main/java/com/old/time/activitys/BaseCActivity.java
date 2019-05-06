@@ -12,9 +12,7 @@ import android.widget.LinearLayout;
 import com.old.time.R;
 import com.old.time.constants.Code;
 import com.old.time.utils.MyLinearLayoutManager;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.old.time.views.CustomNetView;
 
 public abstract class BaseCActivity extends BaseActivity {
 
@@ -23,6 +21,9 @@ public abstract class BaseCActivity extends BaseActivity {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener;
     public SwipeRefreshLayout mSwipeRefreshLayout;
     public RecyclerView mRecyclerView;
+
+    public CustomNetView mCustomNetView;
+
     public LinearLayout linear_layout_more;
     public LinearLayout.LayoutParams layoutParams;
     public Handler mHandler = new Handler() {
@@ -43,8 +44,6 @@ public abstract class BaseCActivity extends BaseActivity {
         }
     };
 
-    public List<String> strings = new ArrayList<>();
-
     @Override
     protected int getLayoutID() {
         return R.layout.activity_cbase;
@@ -53,10 +52,6 @@ public abstract class BaseCActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
-        for (int i = 0; i < 10; i++) {
-            strings.add(TAG);
-
-        }
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         linear_layout_more = findViewById(R.id.linear_layout_more);
         layoutParams = (LinearLayout.LayoutParams) linear_layout_more.getLayoutParams();
@@ -84,6 +79,8 @@ public abstract class BaseCActivity extends BaseActivity {
 
             }
         });
+
+        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
     }
 
     /**

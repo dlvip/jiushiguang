@@ -39,7 +39,6 @@ public class TopicsCActivity extends BaseCActivity {
 
     }
 
-    private CustomNetView mCustomNetView;
     private TopicAdapter mTopicAdapter;
     private List<TopicBean> topicBeans = new ArrayList<>();
 
@@ -50,7 +49,6 @@ public class TopicsCActivity extends BaseCActivity {
         mRecyclerView.setLayoutManager(new MyGridLayoutManager(mContext, 2));
         mTopicAdapter = new TopicAdapter(topicBeans);
         mRecyclerView.setAdapter(mTopicAdapter);
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
         mTopicAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {

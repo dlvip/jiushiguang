@@ -41,7 +41,6 @@ public class SignListActivity extends BaseCActivity {
 
     private List<SignNameEntity> signNameEntities = new ArrayList<>();
     private SignNameAdapter adapter;
-    private CustomNetView mCustomNetView;
 
     @Override
     protected void initView() {
@@ -54,7 +53,6 @@ public class SignListActivity extends BaseCActivity {
         mRecyclerView.setAdapter(adapter);
         adapter.setHeaderAndEmpty(true);
 
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
         EventBus.getDefault().register(this);
     }
 

@@ -10,14 +10,11 @@ import android.widget.LinearLayout;
 
 import com.old.time.R;
 import com.old.time.constants.Code;
-import com.old.time.constants.Constant;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.old.time.views.CustomNetView;
 
 /**
  * Created by diliang on 2017/1/16.
@@ -27,10 +24,11 @@ public abstract class CBaseFragment extends BaseFragment {
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener;
     public SwipeRefreshLayout mSwipeRefreshLayout;
     public RecyclerView mRecyclerView;
+    public CustomNetView mCustomNetView;
+
     public LinearLayoutManager mLayoutManager;
     public LinearLayout linear_layout_more;
     public LinearLayout.LayoutParams layoutParams;
-    public List<String> strings = new ArrayList<>();
     public Handler loadHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -58,20 +56,6 @@ public abstract class CBaseFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        strings.clear();
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
-        strings.add(Constant.PHOTO_PIC_URL);
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         mRecyclerView = findViewById(R.id.c_recycler_view);
         mLayoutManager = new MyLinearLayoutManager(mContext);
@@ -104,8 +88,8 @@ public abstract class CBaseFragment extends BaseFragment {
 
             }
         });
-
         mRecyclerView.getAdapter();
+        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
     }
 
     /**

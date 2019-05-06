@@ -28,7 +28,6 @@ public class FArticleActivity extends BaseCActivity {
     }
 
     private ArticleAdapter mAdapter;
-    private CustomNetView mCustomNetView;
     private List<ArticleBean> articleBeans = new ArrayList<>();
 
     @Override
@@ -44,7 +43,6 @@ public class FArticleActivity extends BaseCActivity {
 
             }
         }, mRecyclerView);
-        mCustomNetView = new CustomNetView(mContext, CustomNetView.NO_DATA);
 
     }
 
