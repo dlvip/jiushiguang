@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:text="9.8"
-                    android:textColor="@color/color_ff4444"
+                    android:textColor="@color/color_ff9441"
                     android:textSize="@dimen/text_18"
                     android:textStyle="italic|bold" />
 
@@ -90,6 +90,7 @@
                     android:textColor="@color/color_666"
                     android:textSize="@dimen/text_14" />
 
+
                 <TextView
                     android:id="@+id/tv_book_price"
                     android:layout_width="match_parent"
@@ -97,8 +98,8 @@
                     android:layout_below="@+id/tv_book_public_sher"
                     android:layout_marginTop="@dimen/layout_20"
                     android:layout_toRightOf="@id/img_book_pic"
-                    android:text="优惠价：90.00"
-                    android:textColor="@color/color_cb5278"
+                    android:text="￥ 90.00"
+                    android:textColor="@color/color_ff2a27"
                     android:textSize="@dimen/text_18" />
 
             </RelativeLayout>
