@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.zxing.activity.CaptureActivity;
 import com.lzy.okgo.model.HttpParams;
@@ -18,22 +21,18 @@ import com.old.time.beans.BookEntity;
 import com.old.time.beans.JHBaseBean;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Constant;
+import com.old.time.dialogs.DialogMallCart;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
-import com.old.time.utils.RongIMUtils;
 import com.old.time.utils.UIHelper;
-import com.old.time.utils.UserLocalInfoUtils;
 import com.old.time.views.CustomNetView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
 
 public class BooksActivity extends BaseCActivity {
 
@@ -51,6 +50,10 @@ public class BooksActivity extends BaseCActivity {
     private BooksAdapter adapter;
     private List<BookEntity> bookEntities = new ArrayList<>();
 
+    private View bottomView;
+    private ImageView img_btn_more;
+    private TextView tv_mall_count, tv_mall_money, tv_mall_commit;
+
     @Override
     protected void initView() {
         super.initView();
@@ -58,8 +61,18 @@ public class BooksActivity extends BaseCActivity {
         adapter = new BooksAdapter(bookEntities);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(adapter);
-
         setSendText("添书");
+
+        linear_layout_more.setVisibility(View.VISIBLE);
+        layoutParams.height = UIHelper.dip2px(60);
+        linear_layout_more.setLayoutParams(layoutParams);
+        linear_layout_more.removeAllViews();
+        bottomView = View.inflate(mContext, R.layout.mall_cart_bottom, null);
+        img_btn_more = bottomView.findViewById(R.id.img_btn_more);
+        tv_mall_count = bottomView.findViewById(R.id.tv_mall_count);
+        tv_mall_money = bottomView.findViewById(R.id.tv_mall_money);
+        tv_mall_commit = bottomView.findViewById(R.id.tv_mall_commit);
+        linear_layout_more.addView(bottomView);
 
     }
 
@@ -73,6 +86,20 @@ public class BooksActivity extends BaseCActivity {
     @Override
     protected void initEvent() {
         super.initEvent();
+        img_btn_more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMallCartDialog();
+
+            }
+        });
+        tv_mall_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UIHelper.ToastMessage(mContext, "去结算");
+
+            }
+        });
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -93,6 +120,79 @@ public class BooksActivity extends BaseCActivity {
 
             }
         });
+        mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {
+
+            @Override
+            public void onSimpleItemChildClick(BaseQuickAdapter mAdapter, View view, int position) {
+                switch (view.getId()) {
+                    case R.id.img_book_cart:
+                        BookEntity bookEntity = adapter.getItem(position);
+                        if (bookEntity == null) {
+
+                            return;
+                        }
+                        bookEntity.setSelect(!bookEntity.isSelect());
+                        adapter.setData(position, bookEntity);
+                        setDataForBottomView(bookEntity);
+
+                        break;
+                }
+            }
+        });
+    }
+
+    private DialogMallCart dialogMallCart;
+
+    /**
+     * 购物车
+     */
+    private void showMallCartDialog() {
+        if (dialogMallCart == null) {
+            dialogMallCart = new DialogMallCart(mContext, new DialogMallCart.OnItemDateUpdateListener() {
+                @Override
+                public void onItemListener(BookEntity bookEntity) {
+                    setDataForBottomView(bookEntity);
+
+                }
+            });
+        }
+        dialogMallCart.showMallCartDialog(linear_layout_more, books);
+
+    }
+
+    /**
+     * 选择图书
+     */
+    private List<BookEntity> books = new ArrayList<>();
+
+    /**
+     * 修改底部显示
+     */
+    private void setDataForBottomView(BookEntity bookEntity) {
+        if (bottomView == null || bookEntity == null) {
+
+            return;
+        }
+        if (bookEntity.getCount() < 1) {
+            books.remove(bookEntity);
+            int position = bookEntities.indexOf(bookEntity);
+            bookEntity.setCount(1);
+            bookEntity.setSelect(false);
+            adapter.setData(position, bookEntity);
+
+        } else if (!books.contains(bookEntity)) {
+            books.add(bookEntity);
+
+        }
+        double money = 0;//总价
+        int count = 0;//总数（本）
+        for (BookEntity b : books) {
+            money += b.getDPrice() * b.getCount();
+            count += b.getCount();
+
+        }
+        tv_mall_money.setText(String.valueOf("合计：￥" + money));
+        tv_mall_count.setText(String.valueOf("已选择" + books.size() + "种 共" + count + "本"));
     }
 
     private int startNum;
@@ -112,6 +212,7 @@ public class BooksActivity extends BaseCActivity {
                 mSwipeRefreshLayout.setRefreshing(false);
                 startNum++;
                 if (isRefresh) {
+                    mSwipeRefreshLayout.setEnabled(false);
                     bookEntities.clear();
                     adapter.setNewData(bookEntities);
 

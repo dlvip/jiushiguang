@@ -32,6 +32,8 @@ public class BooksAdapter extends BaseQuickAdapter<BookEntity, BaseViewHolder> {
                 .setText(R.id.tv_book_author, item.getAuthor() + " / " + item.getBinding())//
                 .setText(R.id.tv_book_describe, item.getSummary())//
                 .setText(R.id.tv_book_leve, item.getLevelNum())//
-                .setText(R.id.tv_book_price, item.getPriceStr());
+                .setText(R.id.tv_book_price, item.getPriceStr())//
+                .addOnClickListener(R.id.img_book_cart)//
+                .setVisible(R.id.img_book_cart, !item.isSelect());
     }
 }

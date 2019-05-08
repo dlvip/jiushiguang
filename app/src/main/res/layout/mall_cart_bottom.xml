@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/layout_60"
+    android:background="@drawable/shape_radius0_stroke_line_bgfff"
+    android:maxHeight="@dimen/layout_60">
+
+    <ImageView
+        android:id="@+id/img_btn_more"
+        android:layout_width="@dimen/layout_40"
+        android:layout_height="@dimen/layout_40"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/layout_10"
+        android:src="@mipmap/navi_cart_gray" />
+
+    <TextView
+        android:id="@+id/tv_mall_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/layout_10"
+        android:layout_marginTop="@dimen/layout_10"
+        android:layout_toEndOf="@+id/img_btn_more"
+        android:text="已选0种、共0本图书"
+        android:textColor="@color/color_666"
+        android:textSize="@dimen/text_14" />
+
+    <TextView
+        android:id="@+id/tv_mall_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_mall_count"
+        android:layout_marginStart="@dimen/layout_10"
+        android:layout_marginTop="@dimen/layout_5"
+        android:layout_toEndOf="@+id/img_btn_more"
+        android:text="合计：￥0.00"
+        android:textColor="@color/color_666"
+        android:textSize="@dimen/text_14" />
+
+    <TextView
+        android:id="@+id/tv_mall_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_mall_count"
+        android:layout_marginTop="@dimen/layout_6"
+        android:layout_toStartOf="@+id/tv_mall_commit"
+        android:text="超过100元包邮"
+        android:textColor="@color/color_999"
+        android:textSize="@dimen/text_12" />
+
+    <TextView
+        android:id="@+id/tv_mall_commit"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/layout_10"
+        android:background="@color/color_ff4444"
+        android:gravity="center"
+        android:text="去结算"
+        android:textColor="@color/color_fff"
+        android:textSize="@dimen/text_14" />
+
+</RelativeLayout>

@@ -1,7 +1,5 @@
 package com.old.time.beans;
 
-import android.text.TextUtils;
-
 import java.io.Serializable;
 
 public class BookEntity implements Serializable {
@@ -25,6 +23,28 @@ public class BookEntity implements Serializable {
     private String summary;
     private String price;
     private String url;
+
+    //选购数量
+    private int count = 1;
+    //选择状态
+    private boolean isSelect;
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
 
     public String getId() {
         return id;
@@ -152,9 +172,15 @@ public class BookEntity implements Serializable {
         return price;
     }
 
+    public double getDPrice(){
+        double d = Double.parseDouble(price) * 0.3 + 2;
+
+        return (double) (Math.round(d * 100) / 100);
+    }
+
     public String getPriceStr() {
 
-        double d = Double.parseDouble(price) * 0.4 + 2;
+        double d = Double.parseDouble(price) * 0.3 + 2;
 
         return "￥ " + (double) (Math.round(d * 100) / 100);
     }

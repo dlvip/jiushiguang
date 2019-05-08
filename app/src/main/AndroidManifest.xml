@@ -227,7 +227,8 @@
         </activity>
         <activity android:name=".activitys.ShareVDetailActivity" />
         <activity android:name=".activitys.AboutActivity" />
-        <activity android:name=".mall.MallBookActivity"></activity>
+        <activity android:name=".mall.MallBookActivity" />
+        <activity android:name=".mall.MallCartActivity"></activity>
     </application>
 
 </manifest>
