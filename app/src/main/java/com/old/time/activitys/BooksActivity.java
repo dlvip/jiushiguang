@@ -5,7 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.PopupWindowCompat;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
+import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.CustomNetView;
 
@@ -156,7 +159,10 @@ public class BooksActivity extends BaseCActivity {
                 }
             });
         }
-        dialogMallCart.showMallCartDialog(linear_layout_more, books);
+        dialogMallCart.showMallCartDialog(books);
+        int offsetX = Math.abs(ScreenTools.instance(mContext).getScreenWidth() - linear_layout_more.getWidth()) / 2;
+        int offsetY = -(books.size() * UIHelper.dip2px(80) + UIHelper.dip2px(130));
+        PopupWindowCompat.showAsDropDown(dialogMallCart, linear_layout_more, offsetX, offsetY, Gravity.START);
 
     }
 

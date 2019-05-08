@@ -2,6 +2,7 @@ package com.old.time.dialogs;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.PopupWindowCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
@@ -17,8 +18,12 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.pops.BasePopWindow;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
+import com.old.time.utils.ScreenTools;
+import com.old.time.utils.UIHelper;
 
 import java.util.List;
+
+import static io.rong.common.fwlog.FwLog.W;
 
 public class DialogMallCart extends BasePopWindow {
 
@@ -115,6 +120,7 @@ public class DialogMallCart extends BasePopWindow {
 
             }
         });
+        setBackgroundDrawable(context.getResources().getDrawable(R.color.color_60000000));
     }
 
     /**
@@ -122,14 +128,11 @@ public class DialogMallCart extends BasePopWindow {
      *
      * @param bookEntities
      */
-    public void showMallCartDialog(View view, List<BookEntity> bookEntities) {
+    public void showMallCartDialog(List<BookEntity> bookEntities) {
         if (bookEntities == null || bookEntities.size() == 0) {
 
             return;
         }
-        int[] location = new int[2];
-        view.getLocationOnScreen(location);
-        showAtLocation(view, Gravity.NO_GRAVITY, (location[0] + view.getWidth() / 2) - getWidth() / 2, location[1] - getHeight());
         mAdapter.setNewData(bookEntities);
 
     }

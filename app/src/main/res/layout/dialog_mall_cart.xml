@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/color_fff"
+    android:layout_height="match_parent"
+    android:background="@color/color_60000000"
     android:maxHeight="350dp"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_60000000"
+        android:visibility="gone" />
+
     <LinearLayout
+        android:id="@+id/linear_layout_num"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_40"
+        android:layout_above="@+id/view_line_top"
+        android:background="@color/color_fff"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/layout_10"
         android:paddingRight="@dimen/layout_10">
@@ -51,21 +60,25 @@
         android:id="@+id/view_line_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_height"
+        android:layout_above="@+id/recycler_view"
         android:background="@color/line_bg" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_max_money"
         android:background="@color/color_fff" />
 
     <TextView
+        android:id="@+id/tv_max_money"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_30"
+        android:layout_alignParentBottom="true"
         android:background="@color/holo_orange_light"
         android:gravity="center"
         android:text="金额超过100元免运费"
         android:textColor="@color/pic_lib_color_666"
         android:textSize="@dimen/text_14" />
 
-</LinearLayout>
+</RelativeLayout>

@@ -3,11 +3,15 @@ package com.old.time.mall;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.google.zxing.activity.CaptureActivity;
 import com.old.time.R;
+import com.old.time.activitys.AboutActivity;
 import com.old.time.activitys.BaseCActivity;
 import com.old.time.dialogs.DialogListManager;
 import com.old.time.interfaces.OnClickManagerCallBack;
+import com.old.time.postcard.UserCardActivity;
 import com.old.time.utils.RecyclerItemDecoration;
+import com.old.time.utils.UserLocalInfoUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -58,7 +62,7 @@ public class MallBookActivity extends BaseCActivity {
 
                 break;
             case R.id.relative_layout_more:
-
+                showMoreDialog();
 
                 break;
         }
@@ -70,16 +74,28 @@ public class MallBookActivity extends BaseCActivity {
      * 更多弹框
      */
     private void showMoreDialog() {
-        if(dialogListManager == null){
+        if (dialogListManager == null) {
             dialogListManager = new DialogListManager(mContext, new OnClickManagerCallBack() {
                 @Override
                 public void onClickRankManagerCallBack(int position, String typeName) {
+                    switch (typeName) {
+                        case "扫一扫":
+                            CaptureActivity.startCaptureActivity(mContext);
 
+                            break;
+                        case "个人中心":
+                            UserCardActivity.startUserCardActivity(mContext, UserLocalInfoUtils.instance().getUserId());
 
+                            break;
+                        case "联系我们":
+                            AboutActivity.startAboutActivity(mContext);
+
+                            break;
+                    }
                 }
             });
         }
-        dialogListManager.setDialogViewData("更多操作",new String[]{"联系我们"});
+        dialogListManager.setDialogViewData("更多操作", new String[]{"扫一扫", "个人中心", "联系我们"});
 
     }
 
