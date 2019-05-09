@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_60000000"
-    android:maxHeight="350dp"
     android:orientation="vertical">
 
-    <View
+    <LinearLayout
+        android:id="@+id/linear_layout_parent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_60000000"
-        android:visibility="gone" />
+        android:gravity="bottom"
+        android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linear_layout_num"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_40"
-        android:layout_above="@+id/view_line_top"
-        android:background="@color/color_fff"
-        android:gravity="center_vertical"
-        android:paddingLeft="@dimen/layout_10"
-        android:paddingRight="@dimen/layout_10">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="增加减少系数"
-            android:textColor="@color/color_000"
-            android:textSize="@dimen/text_16" />
-
-        <ImageView
-            android:id="@+id/img_count_reduce"
-            android:layout_width="@dimen/layout_40"
+        <LinearLayout
+            android:id="@+id/linear_layout_num"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/layout_40"
-            android:padding="@dimen/layout_5"
-            android:src="@mipmap/message_delgroupuser" />
+            android:layout_marginTop="@dimen/layout_200"
+            android:background="@color/color_fff"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/layout_10"
+            android:paddingRight="@dimen/layout_10">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="增加减少系数"
+                android:textColor="@color/color_000"
+                android:textSize="@dimen/text_16" />
+
+            <ImageView
+                android:id="@+id/img_count_reduce"
+                android:layout_width="@dimen/layout_40"
+                android:layout_height="@dimen/layout_40"
+                android:padding="@dimen/layout_5"
+                android:src="@mipmap/message_delgroupuser" />
+
+            <TextView
+                android:id="@+id/tv_book_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minWidth="@dimen/layout_30"
+                android:text="1"
+                android:textColor="@color/color_000"
+                android:textSize="@dimen/text_14" />
+
+            <ImageView
+                android:id="@+id/img_count_plus"
+                android:layout_width="@dimen/layout_40"
+                android:layout_height="@dimen/layout_40"
+                android:padding="@dimen/layout_5"
+                android:src="@mipmap/message_addgroupuser" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view_line_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_height"
+            android:background="@color/line_bg" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_fff" />
 
         <TextView
-            android:id="@+id/tv_book_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_max_money"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_30"
+            android:background="@color/color_FFFCD8"
             android:gravity="center"
-            android:minWidth="@dimen/layout_30"
-            android:text="1"
-            android:textColor="@color/color_000"
+            android:text="金额超过100元免运费"
+            android:textColor="@color/pic_lib_color_666"
             android:textSize="@dimen/text_14" />
-
-        <ImageView
-            android:id="@+id/img_count_plus"
-            android:layout_width="@dimen/layout_40"
-            android:layout_height="@dimen/layout_40"
-            android:padding="@dimen/layout_5"
-            android:src="@mipmap/message_addgroupuser" />
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/view_line_top"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        android:layout_above="@+id/recycler_view"
-        android:background="@color/line_bg" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tv_max_money"
-        android:background="@color/color_fff" />
-
-    <TextView
-        android:id="@+id/tv_max_money"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_30"
-        android:layout_alignParentBottom="true"
-        android:background="@color/holo_orange_light"
-        android:gravity="center"
-        android:text="金额超过100元免运费"
-        android:textColor="@color/pic_lib_color_666"
-        android:textSize="@dimen/text_14" />
-
-</RelativeLayout>
+</LinearLayout>

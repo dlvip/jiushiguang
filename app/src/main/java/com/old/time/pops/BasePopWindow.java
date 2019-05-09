@@ -2,7 +2,6 @@ package com.old.time.pops;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.IdRes;
 import android.view.Gravity;
 import android.view.View;
@@ -14,7 +13,7 @@ import com.old.time.R;
 public abstract class BasePopWindow extends PopupWindow {
 
     protected Context context;
-    private View parentView;
+    protected View parentView;
 
     public BasePopWindow(Context context) {
         this.context = context;

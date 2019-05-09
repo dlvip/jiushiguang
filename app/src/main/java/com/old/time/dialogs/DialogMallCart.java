@@ -1,12 +1,18 @@
 package com.old.time.dialogs;
 
 import android.app.Activity;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.PopupWindowCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -44,6 +50,12 @@ public class DialogMallCart extends BasePopWindow {
 
     @Override
     protected void initView() {
+        View linear_layout_parent = parentView.findViewById(R.id.linear_layout_parent);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linear_layout_parent.getLayoutParams();
+        params.height = ScreenTools.instance(context).getScreenHeight() - UIHelper.dip2px(60);
+        linear_layout_parent.setLayoutParams(params);
+
+        setBackgroundDrawable(context.getResources().getDrawable(R.drawable.shape_radiu10_tran_60));
         tv_book_num = findViewById(R.id.tv_book_num);
         recycler_view = findViewById(R.id.recycler_view);
         recycler_view.setLayoutManager(new MyLinearLayoutManager(context));
@@ -120,7 +132,13 @@ public class DialogMallCart extends BasePopWindow {
 
             }
         });
-        setBackgroundDrawable(context.getResources().getDrawable(R.color.color_60000000));
+        linear_layout_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+
+            }
+        });
     }
 
     /**
@@ -128,12 +146,20 @@ public class DialogMallCart extends BasePopWindow {
      *
      * @param bookEntities
      */
-    public void showMallCartDialog(List<BookEntity> bookEntities) {
+    public void showMallCartDialog(View view, List<BookEntity> bookEntities) {
         if (bookEntities == null || bookEntities.size() == 0) {
 
             return;
         }
         mAdapter.setNewData(bookEntities);
+
+        //获取自身的长宽高
+        parentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int popupHeight = parentView.getMeasuredHeight();
+
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        showAtLocation(view, Gravity.NO_GRAVITY, location[0], location[1] - popupHeight);
 
     }
 
