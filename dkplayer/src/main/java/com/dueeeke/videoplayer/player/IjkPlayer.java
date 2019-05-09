@@ -16,10 +16,10 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class IjkPlayer extends AbstractPlayer {
 
-    protected IjkMediaPlayer mMediaPlayer;
+    private IjkMediaPlayer mMediaPlayer;
     private boolean isLooping;
     private boolean isEnableMediaCodec;
-    protected Context mAppContext;
+    private Context mAppContext;
     private int mBufferedPercent;
 
     public IjkPlayer(Context context) {

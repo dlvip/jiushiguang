@@ -106,4 +106,7 @@ dependencies {
 
     implementation externalASSALiyun
     implementation externalHanZiToPinyin
+
+    //小说阅读器
+    implementation externalGithubHwTxtReader
 }

@@ -50,6 +50,9 @@ ext {
     externalMockito = 'org.mockito:mockito-core:1.10.19'
     externalJunit = 'junit:junit:4.12'
 
+    //小说阅读器
+    externalGithubHwTxtReader = 'com.github.bifan-wei:HwTxtReader:V2.1.1'
+
     //Application Layer
     externalEventBus = 'org.greenrobot:eventbus:3.1.1'
     externalGlideOkHttp = 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
