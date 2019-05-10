@@ -1,5 +1,7 @@
 package com.old.time.beans;
 
+import android.text.TextUtils;
+
 import java.io.Serializable;
 
 public class BookEntity implements Serializable {
@@ -168,21 +170,24 @@ public class BookEntity implements Serializable {
     }
 
     public String getPrice() {
+        if (TextUtils.isEmpty(price)) {
+            price = "0";
+
+        }
 
         return price;
     }
 
-    public double getDPrice(){
-        double d = Double.parseDouble(price) * 0.3 + 2;
+    public double getDPrice() {
+        double d = Double.parseDouble(getPrice()) * 0.3 + 2;
 
         return (double) (Math.round(d * 100) / 100);
     }
 
     public String getPriceStr() {
 
-        double d = Double.parseDouble(price) * 0.3 + 2;
 
-        return "￥ " + (double) (Math.round(d * 100) / 100);
+        return "￥ " + getDPrice();
     }
 
     public void setPrice(String price) {

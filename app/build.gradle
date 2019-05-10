@@ -85,9 +85,7 @@ dependencies {
     implementation externalGithubGravitySnapHelper
     implementation externalGithubVerticalViewPager
     implementation externalEventBus
-    implementation project(path: ':okserver')
     implementation project(path: ':zxing')
-    implementation project(path: ':okgo')
     implementation project(path: ':dkplayer')
     implementation project(path: ':CallKit')
     implementation project(path: ':CallLib')
@@ -103,10 +101,11 @@ dependencies {
     //指纹识别
     implementation externalTouchFingerPrintidentify
     implementation externalMp4parser
-
     implementation externalASSALiyun
     implementation externalHanZiToPinyin
-
+    //网络请求框架
+    implementation externalOKHTTP
+    implementation exernalOkServerHttp
     //小说阅读器
-    implementation externalGithubHwTxtReader
+    //    implementation externalGithubHwTxtReader
 }
