@@ -1,7 +1,11 @@
 package com.old.time.okhttps;
 
 import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.HttpParams;
+import com.old.time.constants.Constant;
+
+import java.io.File;
 
 /**
  * Created by wcl on 2018/7/19.
@@ -40,6 +44,17 @@ public class OkGoUtils {
     public <T> void getNetForData(HttpParams params, String postUrl, JsonCallBack<T> jsonCallBack) {
         String cacheKey = postUrl + (params == null ? "" : params.toString());
         OkGo.<T>get(postUrl).params(params).cacheKey(cacheKey).execute(jsonCallBack);
+
+    }
+
+    /**
+     * 文件下载
+     *
+     * @param fileUrl
+     * @param fileCallback
+     */
+    public void downLoadFile(String fileUrl, FileCallback fileCallback) {
+        OkGo.<File>get(Constant.OSSURL + fileUrl).cacheKey(fileUrl).execute(fileCallback);
 
     }
 }

@@ -89,6 +89,7 @@ dependencies {
     implementation project(path: ':dkplayer')
     implementation project(path: ':CallKit')
     implementation project(path: ':CallLib')
+    implementation project(path: ':hwtxtreaderlib')
     //热修复相关
     implementation externalAndroidMultiDex
     implementation externalTencentCrashreportUpgrade
@@ -107,5 +108,5 @@ dependencies {
     implementation externalOKHTTP
     implementation exernalOkServerHttp
     //小说阅读器
-    //    implementation externalGithubHwTxtReader
+//    implementation externalGithubHwTxtReader
 }
