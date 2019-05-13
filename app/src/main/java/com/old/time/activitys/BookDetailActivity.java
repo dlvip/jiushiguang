@@ -4,16 +4,26 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bifan.txtreaderlib.ui.HwTxtPlayActivity;
+import com.lzy.okgo.callback.FileCallback;
+import com.lzy.okgo.model.Progress;
+import com.lzy.okgo.model.Response;
 import com.old.time.R;
 import com.old.time.beans.BookEntity;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.BitmapUtils;
+import com.old.time.utils.DebugLog;
+import com.old.time.utils.SpUtils;
+
+import java.io.File;
 
 public class BookDetailActivity extends BaseActivity {
 
@@ -33,10 +43,11 @@ public class BookDetailActivity extends BaseActivity {
 
     private BookEntity bookEntity;
 
-    private View relative_layout_more;
     private RelativeLayout relative_layout_parent;
     private ImageView img_book_pic;
     private TextView tv_book_name, tv_book_leve, tv_book_author, tv_book_public_sher, tv_book_price, tv_book_describe;
+
+    private TextView tv_read_book;
 
 
     @Override
@@ -50,31 +61,95 @@ public class BookDetailActivity extends BaseActivity {
         tv_book_price = findViewById(R.id.tv_book_price);
         tv_book_describe = findViewById(R.id.tv_book_describe);
 
-        relative_layout_more = findViewById(R.id.relative_layout_more);
-        relative_layout_more.setVisibility(View.VISIBLE);
-        relative_layout_more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = BitmapUtils.saveBitmap(mContext, relative_layout_parent);
-                Intent imageIntent = new Intent(Intent.ACTION_SEND);
-                imageIntent.setType("image/*");
-                imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                startActivity(Intent.createChooser(imageIntent, "分享"));
+        tv_read_book = findViewById(R.id.tv_read_book);
+        if (TextUtils.isEmpty(bookEntity.getFilePath())) {
+            tv_read_book.setVisibility(View.GONE);
 
-            }
-        });
+        } else {
+            tv_read_book.setVisibility(View.VISIBLE);
+
+        }
 
         relative_layout_parent = findViewById(R.id.relative_layout_parent);
+
+        setRightMoreImg(R.mipmap.icon_sign);
 
         GlideUtils.getInstance().setImageView(mContext, bookEntity.getImages_large(), img_book_pic);
         setTitleText(bookEntity.getTitle());
         tv_book_name.setText(bookEntity.getTitle());
-        tv_book_author.setText(bookEntity.getAuthor() + " / " + bookEntity.getBinding());
+        tv_book_author.setText(String.valueOf(bookEntity.getAuthor() + " / " + bookEntity.getBinding()));
         tv_book_leve.setText(bookEntity.getLevelNum());
-        tv_book_public_sher.setText("出版：" + bookEntity.getPublisher() + " " + bookEntity.getPubdate());
+        tv_book_public_sher.setText(String.valueOf("出版：" + bookEntity.getPublisher() + " " + bookEntity.getPubdate()));
         tv_book_price.setText(bookEntity.getPriceStr());
         tv_book_describe.setText(bookEntity.getSummary());
 
+    }
+
+    @Override
+    protected void initEvent() {
+        super.initEvent();
+        tv_read_book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downLoadFile(bookEntity);
+
+            }
+        });
+    }
+
+    @Override
+    public void more(View view) {
+        super.more(view);
+        if (relative_layout_parent == null) {
+
+            return;
+        }
+        Uri uri = BitmapUtils.saveBitmap(mContext, relative_layout_parent);
+        Intent imageIntent = new Intent(Intent.ACTION_SEND);
+        imageIntent.setType("image/*");
+        imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(imageIntent, "分享"));
+    }
+
+    /**
+     * 下载图书
+     */
+    private void downLoadFile(final BookEntity bookEntity) {
+        if (bookEntity == null) {
+
+            return;
+        }
+        String filePath = (String) SpUtils.get(bookEntity.getIsbn13(), "");
+        if (!TextUtils.isEmpty(filePath)) {
+            HwTxtPlayActivity.loadTxtFile(mContext, filePath);
+
+            return;
+        }
+        OkGoUtils.getInstance().downLoadFile(bookEntity.getFilePath(), new FileCallback() {
+            @Override
+            public void downloadProgress(Progress progress) {
+                super.downloadProgress(progress);
+                if (progress != null) DebugLog.d(TAG, progress.toString());
+
+            }
+
+            @Override
+            public void onSuccess(Response<File> response) {
+                if (response == null || response.body() == null || TextUtils.isEmpty(response.body().getPath())) {
+
+                    return;
+                }
+                String filePath = response.body().getPath();
+                SpUtils.put(bookEntity.getIsbn13(), filePath);
+                HwTxtPlayActivity.loadTxtFile(mContext, filePath);
+            }
+
+            @Override
+            public void onError(Response<File> response) {
+                super.onError(response);
+
+            }
+        });
     }
 
     @Override

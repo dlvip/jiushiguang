@@ -26,10 +26,20 @@ public class BookEntity implements Serializable {
     private String price;
     private String url;
 
+    private String filePath;
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     //选购数量
     private int count = 1;
     //选择状态
-    private boolean isSelect;
+    private boolean isSelect = true;
 
     public void setSelect(boolean select) {
         isSelect = select;

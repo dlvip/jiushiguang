@@ -10,16 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bifan.txtreaderlib.main.TxtConfig;
-import com.bifan.txtreaderlib.ui.HwTxtPlayActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.google.zxing.activity.CaptureActivity;
-import com.lzy.okgo.callback.FileCallback;
 import com.lzy.okgo.model.HttpParams;
-import com.lzy.okgo.model.Progress;
-import com.lzy.okgo.model.Response;
 import com.old.time.R;
 import com.old.time.adapters.BooksAdapter;
 import com.old.time.beans.BookEntity;
@@ -31,14 +26,11 @@ import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DebugLog;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
-import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.CustomNetView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +63,7 @@ public class BooksActivity extends BaseCActivity {
         mRecyclerView.setAdapter(adapter);
         setSendText("添书");
 
-        linear_layout_more.setVisibility(View.VISIBLE);
+        linear_layout_more.setVisibility(View.GONE);
         layoutParams.height = UIHelper.dip2px(60);
         linear_layout_more.setLayoutParams(layoutParams);
         linear_layout_more.removeAllViews();
@@ -104,7 +96,7 @@ public class BooksActivity extends BaseCActivity {
         tv_mall_commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UIHelper.ToastMessage(mContext, "去结算");
+                AboutActivity.startAboutActivity(mContext);
 
             }
         });
@@ -124,25 +116,7 @@ public class BooksActivity extends BaseCActivity {
 
                     return;
                 }
-                OkGoUtils.getInstance().downLoadFile("txt/jinpingmei.txt", new FileCallback() {
-                    @Override
-                    public void downloadProgress(Progress progress) {
-                        super.downloadProgress(progress);
-                        if (progress != null) DebugLog.d(TAG, progress.toString());
-
-                    }
-
-                    @Override
-                    public void onSuccess(Response<File> response) {
-                        if (response == null || response.body() == null || TextUtils.isEmpty(response.body().getPath())) {
-
-                            return;
-                        }
-                        HwTxtPlayActivity.loadTxtFile(mContext, response.body().getPath());
-                    }
-                });
-//                BookDetailActivity.startBookDetailActivity(mContext, bookEntity);
-
+                BookDetailActivity.startBookDetailActivity(mContext, bookEntity);
             }
         });
         mRecyclerView.addOnItemTouchListener(new OnItemChildClickListener() {

@@ -54,7 +54,8 @@ public class OkGoUtils {
      * @param fileCallback
      */
     public void downLoadFile(String fileUrl, FileCallback fileCallback) {
-        OkGo.<File>get(Constant.OSSURL + fileUrl).cacheKey(fileUrl).execute(fileCallback);
+        String bookUrl = Constant.OSSURL + fileUrl;
+        OkGo.<File>get(bookUrl).cacheKey(fileUrl).execute(fileCallback);
 
     }
 }

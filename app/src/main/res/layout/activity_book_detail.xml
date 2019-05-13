@@ -166,4 +166,16 @@
 
     <include layout="@layout/header_main" />
 
+    <TextView
+        android:id="@+id/tv_read_book"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_44"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_radius0_stroke_line_bgfff"
+        android:gravity="center"
+        android:text="开始阅读"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16"
+        android:visibility="gone" />
+
 </RelativeLayout>

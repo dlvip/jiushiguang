@@ -1,5 +1,14 @@
 ext {
 
+    //Android SDK/Tools Version
+    externalVersionId = 'com.old.time'
+    externalVersionCode = 1
+    externalVersionName = '1.0.2'
+    externalMinSdkVersion = 17
+    externalTargetSdkVersion = 27
+    externalCompileSdkVersion = 27
+    externalBuildToolsVersion = '27.0.2'
+
     //高德地图
     externalMapLocationLib = 'com.amap.api:location:latest.integration'//定位
     externalMapSearchLib = 'com.amap.api:search:latest.integration'//搜索
@@ -71,14 +80,5 @@ ext {
     externalHttpCore = 'org.apache.httpcomponents:httpcore:4.4.1'
     //视频编辑解析库
     externalMp4parser = 'com.googlecode.mp4parser:isoparser:1.1.21'
-
-    //Android SDK/Tools Version
-    externalVersionId = 'com.old.time'
-    externalVersionCode = 1
-    externalVersionName = '1.0.2'
-    externalMinSdkVersion = 17
-    externalTargetSdkVersion = 28
-    externalCompileSdkVersion = 28
-    externalBuildToolsVersion = '28.0.3'
 
 }
