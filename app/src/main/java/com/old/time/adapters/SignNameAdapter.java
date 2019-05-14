@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.old.time.R;
+import com.old.time.activitys.BookDetailActivity;
 import com.old.time.activitys.SignDetailActivity;
 import com.old.time.beans.SignNameEntity;
 import com.old.time.glideUtils.GlideUtils;
@@ -58,7 +59,7 @@ public class SignNameAdapter extends BaseQuickAdapter<SignNameEntity, BaseViewHo
         helper.getView(R.id.img_btn_more).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignDetailActivity.startSignDetailActivity(mContext, item);
+                BookDetailActivity.startBookDetailActivity(mContext, item.getBookEntity());
 
             }
         });

@@ -1,6 +1,7 @@
 package com.old.time.activitys;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,10 +14,10 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.BuildConfig;
 import com.old.time.R;
-import com.old.time.adapters.DynamicAdapter;
+import com.old.time.adapters.SignNameAdapter;
 import com.old.time.adapters.TopicDAdapter;
-import com.old.time.beans.DynamicBean;
 import com.old.time.beans.ResultBean;
+import com.old.time.beans.SignNameEntity;
 import com.old.time.beans.SystemBean;
 import com.old.time.beans.TopicBean;
 import com.old.time.constants.Constant;
@@ -41,43 +42,35 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DynamicsActivity extends BaseCActivity {
+public class HomeActivity extends BaseCActivity {
 
-    /**
-     * 旧时光圈子
-     *
-     * @param mContext
-     */
-    public static void startDynamicsActivity(Activity mContext) {
-        Intent intent = new Intent(mContext, DynamicsActivity.class);
-        ActivityUtils.startActivity(mContext, intent);
-        ActivityUtils.finishActivity(mContext);
+    public static void startHomeActivity(Context context) {
+        Intent intent = new Intent(context, HomeActivity.class);
+        ActivityUtils.startActivity((Activity) context, intent);
+        ActivityUtils.finishActivity((Activity) context);
 
     }
 
-    private List<DynamicBean> mDynamicBeans = new ArrayList<>();
-    private DynamicAdapter mAdapter;
+    private List<SignNameEntity> signNameEntities = new ArrayList<>();
+    private SignNameAdapter mAdapter;
     private View relative_layout_more, relative_layout_user;
 
     private List<TopicBean> topicBeans = new ArrayList<>();
     private TopicDAdapter topicDAdapter;
-    private ImageView img_sign, img_more;
 
     private RecyclerView recycler_view;
 
     @Override
     protected void initView() {
         super.initView();
-        img_sign = findViewById(R.id.img_sign);
-        img_sign.setVisibility(View.VISIBLE);
-        img_more = findViewById(R.id.img_more);
+        ImageView img_more = findViewById(R.id.img_more);
         img_more.setImageResource(R.mipmap.icon_black_more);
         findViewById(R.id.left_layout).setVisibility(View.GONE);
         relative_layout_more = findViewById(R.id.relative_layout_more);
         relative_layout_more.setVisibility(View.VISIBLE);
         setTitleText("期待觅邮");
-        mDynamicBeans.clear();
-        mAdapter = new DynamicAdapter(mDynamicBeans);
+        signNameEntities.clear();
+        mAdapter = new SignNameAdapter(signNameEntities);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(mAdapter);
 
@@ -89,7 +82,6 @@ public class DynamicsActivity extends BaseCActivity {
         recycler_view.setAdapter(topicDAdapter);
         mAdapter.removeAllHeaderView();
         mAdapter.addHeaderView(headerView);
-        mAdapter.setNewData(mDynamicBeans);
         mAdapter.setHeaderAndEmpty(true);
 
         EventBus.getDefault().register(this);
@@ -129,13 +121,6 @@ public class DynamicsActivity extends BaseCActivity {
             @Override
             public void onClick(View v) {
                 showMoreBtnPopWindow();
-
-            }
-        });
-        img_sign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SignListActivity.startSignListActivity(mContext);
 
             }
         });
@@ -238,7 +223,7 @@ public class DynamicsActivity extends BaseCActivity {
                 }
             });
         }
-        mPostCartPop.showPopWindow(relative_layout_more, new String[]{"个人中心", "联系我们"});
+        mPostCartPop.showPopWindow(relative_layout_more, new String[]{"扫一扫", "个人中心", "联系我们"});
 
     }
 
@@ -252,16 +237,18 @@ public class DynamicsActivity extends BaseCActivity {
 
         }
         HttpParams params = new HttpParams();
+        params.put("userId", UserLocalInfoUtils.instance().getUserId());
+        params.put("friendId", "");
         params.put("pageNum", startNum);
         params.put("pageSize", Constant.PageSize);
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_DYNAMIC_LIST, new JsonCallBack<ResultBean<List<DynamicBean>>>() {
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_SIGN_NAME_LIST, new JsonCallBack<ResultBean<List<SignNameEntity>>>() {
             @Override
-            public void onSuccess(ResultBean<List<DynamicBean>> mResultBean) {
+            public void onSuccess(ResultBean<List<SignNameEntity>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 startNum++;
                 if (isRefresh) {
-                    mDynamicBeans.clear();
-                    mAdapter.setNewData(mDynamicBeans);
+                    signNameEntities.clear();
+                    mAdapter.setNewData(signNameEntities);
 
                 }
                 if (mResultBean.data.size() < Constant.PageSize) {
@@ -280,7 +267,7 @@ public class DynamicsActivity extends BaseCActivity {
             }
 
             @Override
-            public void onError(ResultBean<List<DynamicBean>> mResultBean) {
+            public void onError(ResultBean<List<SignNameEntity>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (mAdapter.getData().size() == 0) {
                     mCustomNetView.setDataForView(CustomNetView.NET_ERREY);
@@ -319,20 +306,13 @@ public class DynamicsActivity extends BaseCActivity {
         });
     }
 
-    @Override
-    public void setSuspensionPopupWindowClick() {
-        super.setSuspensionPopupWindowClick();
-        TopicsCActivity.startTopicsActivity(mContext);
-
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void createDynamic(DynamicBean mDynamicBean) {
-        if (mDynamicBean == null || mAdapter == null) {
+    public void createDynamic(SignNameEntity mSignNameEntity) {
+        if (mSignNameEntity == null || mAdapter == null) {
 
             return;
         }
-        mAdapter.addData(0, mDynamicBean);
+        mAdapter.addData(0, mSignNameEntity);
         seleteToPosition(0);
 
     }

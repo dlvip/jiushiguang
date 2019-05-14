@@ -59,6 +59,18 @@ public class SignCreateActivity extends BaseActivity {
 
     }
 
+    /**
+     * 上传签名
+     *
+     * @param context
+     */
+    public static void startSignCreateActivity(Context context, BookEntity bookEntity) {
+        Intent intent = new Intent(context, SignCreateActivity.class);
+        intent.putExtra("bookEntity", bookEntity);
+        ActivityUtils.startActivity((Activity) context, intent);
+
+    }
+
     private RelativeLayout relative_layout_select_pic, relative_layout_right;
     private ImageView img_select_pic;
     private EditText edt_sign_content;
@@ -66,8 +78,15 @@ public class SignCreateActivity extends BaseActivity {
     private String outputPath;
     private String signStr, bookId = "-1";
 
+    private BookEntity bookEntity;
+
     @Override
     protected void initView() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            bookEntity = (BookEntity) getIntent().getSerializableExtra("bookEntity");
+
+        }
         setTitleText("创建书签");
         findViewById(R.id.relative_layout_more).setVisibility(View.GONE);
         relative_layout_right = findViewById(R.id.relative_layout_right);
@@ -116,13 +135,20 @@ public class SignCreateActivity extends BaseActivity {
 
             }
         });
-        findViewById(R.id.img_open_camera).setOnClickListener(new View.OnClickListener() {
+        ImageView img_open_camera = findViewById(R.id.img_open_camera);
+        img_open_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PictureUtil.captureCode(mContext);
 
             }
         });
+        if (bookEntity != null) {
+            img_open_camera.setVisibility(View.GONE);
+            tv_book_name.setText(bookEntity.getTitle());
+            bookId = bookEntity.getId();
+
+        }
     }
 
     private DialogPromptCentre dialogPromptCentre;
@@ -296,9 +322,13 @@ public class SignCreateActivity extends BaseActivity {
             @Override
             public void onSuccess(ResultBean<SignNameEntity> mResultBean) {
                 UIHelper.dissmissProgressDialog(pd);
-                EventBus.getDefault().post(mResultBean.data);
-                ActivityUtils.finishActivity(mContext);
+                SignNameEntity mSignNameEntity = mResultBean.data;
+                if (mSignNameEntity != null) {
+                    mSignNameEntity.setBookEntity(bookEntity);
+                    EventBus.getDefault().post(mResultBean.data);
+                    ActivityUtils.finishActivity(mContext);
 
+                }
             }
 
             @Override

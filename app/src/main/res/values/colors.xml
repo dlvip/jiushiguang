@@ -51,6 +51,8 @@
     <!--进度条的颜色-->
 
     <color name="color_ff7400">#ff7400</color>
+    <color name="color_ebd69a">#ebd69a</color>
+    <color name="color_bd9029">#bd9029</color>
     <color name="color_9013fe">#9013fe</color>
 
     <!--文字贴纸-->

@@ -229,6 +229,9 @@
         <activity android:name=".activitys.AboutActivity" />
         <activity android:name=".mall.MallBookActivity" />
         <activity android:name=".mall.MallCartActivity" />
+        <activity
+            android:name=".activitys.HomeActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

@@ -181,7 +181,7 @@ public class UserRegisterActivity extends BaseActivity {
                     return;
                 }
                 UserLocalInfoUtils.instance().setmUserInfoBean(mResultBean.data);
-                DynamicsActivity.startDynamicsActivity(mContext);
+                HomeActivity.startHomeActivity(mContext);
 
             }
 

@@ -51,9 +51,10 @@ public class SignDetailActivity extends BaseActivity {
         }
         tv_sign_content.setText(mSignNameEntity.getContent());
         GlideUtils.getInstance().setImageView(mContext, mSignNameEntity.getPicUrl(), img_card_pic);
-        tv_app_name.setText(getString(R.string.app_name) + "：" + BuildConfig.VERSION_NAME);
+        tv_app_name.setText(String.valueOf(getString(R.string.app_name) + "：" + BuildConfig.VERSION_NAME));
 
         findViewById(R.id.tv_save_pic).setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Uri uri = BitmapUtils.saveBitmap(mContext, constraint_layout_parent);

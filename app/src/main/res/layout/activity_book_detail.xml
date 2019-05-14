@@ -9,6 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/linear_layout_bottom"
         android:background="@color/main_bg">
 
         <RelativeLayout
@@ -43,7 +44,6 @@
                     android:layout_height="@dimen/layout_130"
                     android:layout_marginRight="@dimen/layout_10"
                     android:background="@color/color_666"
-                    android:paddingTop="@dimen/layout_3"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -166,16 +166,64 @@
 
     <include layout="@layout/header_main" />
 
-    <TextView
-        android:id="@+id/tv_read_book"
+    <LinearLayout
+        android:id="@+id/linear_layout_bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_44"
+        android:layout_height="@dimen/layout_50"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/shape_radius0_stroke_line_bgfff"
-        android:gravity="center"
-        android:text="开始阅读"
-        android:textColor="@color/color_000"
-        android:textSize="@dimen/text_16"
-        android:visibility="gone" />
+        android:orientation="horizontal">
 
+        <FrameLayout
+            android:id="@+id/frame_layout_share"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <ImageView
+                android:layout_width="@dimen/layout_30"
+                android:layout_height="@dimen/layout_30"
+                android:layout_gravity="center"
+                android:padding="@dimen/layout_5"
+                android:src="@mipmap/icon_share" />
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="@dimen/line_height"
+            android:layout_height="match_parent"
+            android:background="@color/line_bg" />
+
+        <FrameLayout
+            android:id="@+id/frame_layout_sign"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <ImageView
+                android:layout_width="@dimen/layout_30"
+                android:layout_height="@dimen/layout_30"
+                android:layout_gravity="center"
+                android:padding="@dimen/layout_3"
+                android:src="@mipmap/icon_sign" />
+
+        </FrameLayout>
+
+        <View
+            android:layout_width="@dimen/line_height"
+            android:layout_height="match_parent"
+            android:background="@color/line_bg" />
+
+        <TextView
+            android:id="@+id/tv_read_book"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="@color/color_bd9029"
+            android:gravity="center"
+            android:text="开始阅读"
+            android:textColor="@color/color_fff"
+            android:textSize="@dimen/text_16"
+            android:textStyle="normal" />
+
+    </LinearLayout>
 </RelativeLayout>

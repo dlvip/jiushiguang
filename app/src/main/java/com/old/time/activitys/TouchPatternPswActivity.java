@@ -62,14 +62,14 @@ public class TouchPatternPswActivity extends BaseActivity implements ChaosGestur
                 PreferenceCache.putGestureFlag(false);
                 gestureView.clearCache();
                 UIHelper.ToastMessage(mContext, "清空手势密码成功");
-                DynamicsActivity.startDynamicsActivity(mContext);
+                HomeActivity.startHomeActivity(mContext);
 
             } else if (gestureFlg == 2) {//修改密码
                 UIHelper.ToastMessage(mContext, "验证手势密码成功,请重新设置");
-                DynamicsActivity.startDynamicsActivity(mContext);
+                HomeActivity.startHomeActivity(mContext);
 
             } else if (gestureFlg == 3) {//指纹开启
-                DynamicsActivity.startDynamicsActivity(mContext);
+                HomeActivity.startHomeActivity(mContext);
 
             }
         } else {

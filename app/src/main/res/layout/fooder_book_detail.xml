@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/shape_radius0_stroke_line_bgfff">
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+
+        <ImageView
+            android:layout_width="@dimen/layout_30"
+            android:layout_height="@dimen/layout_30"
+            android:layout_gravity="center"
+            android:padding="@dimen/layout_5"
+            android:src="@mipmap/icon_share" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="@dimen/line_height"
+        android:layout_height="match_parent"
+        android:background="@color/line_bg" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+
+        <ImageView
+            android:layout_width="@dimen/layout_30"
+            android:layout_height="@dimen/layout_30"
+            android:layout_gravity="center"
+            android:padding="@dimen/layout_5"
+            android:src="@mipmap/icon_sign" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="@dimen/line_height"
+        android:layout_height="match_parent"
+        android:background="@color/line_bg" />
+
+    <TextView
+        android:id="@+id/tv_read_book"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:background="@color/color_ebd69a"
+        android:gravity="center"
+        android:text="开始阅读"
+        android:textColor="@color/color_fff"
+        android:textSize="@dimen/text_16"
+        android:textStyle="normal" />
+
+
+</LinearLayout>

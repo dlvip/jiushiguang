@@ -63,16 +63,14 @@ public class BookDetailActivity extends BaseActivity {
 
         tv_read_book = findViewById(R.id.tv_read_book);
         if (TextUtils.isEmpty(bookEntity.getFilePath())) {
-            tv_read_book.setVisibility(View.GONE);
+            tv_read_book.setBackgroundResource(R.color.color_aaa);
 
         } else {
-            tv_read_book.setVisibility(View.VISIBLE);
+            tv_read_book.setBackgroundResource(R.color.color_bd9029);
 
         }
 
         relative_layout_parent = findViewById(R.id.relative_layout_parent);
-
-        setRightMoreImg(R.mipmap.icon_sign);
 
         GlideUtils.getInstance().setImageView(mContext, bookEntity.getImages_large(), img_book_pic);
         setTitleText(bookEntity.getTitle());
@@ -95,11 +93,26 @@ public class BookDetailActivity extends BaseActivity {
 
             }
         });
+        findViewById(R.id.frame_layout_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareBookDetail();
+
+            }
+        });
+        findViewById(R.id.frame_layout_sign).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SignCreateActivity.startSignCreateActivity(mContext, bookEntity);
+
+            }
+        });
     }
 
-    @Override
-    public void more(View view) {
-        super.more(view);
+    /**
+     * 分享
+     */
+    private void shareBookDetail() {
         if (relative_layout_parent == null) {
 
             return;
@@ -109,13 +122,14 @@ public class BookDetailActivity extends BaseActivity {
         imageIntent.setType("image/*");
         imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
         startActivity(Intent.createChooser(imageIntent, "分享"));
+
     }
 
     /**
      * 下载图书
      */
     private void downLoadFile(final BookEntity bookEntity) {
-        if (bookEntity == null) {
+        if (bookEntity == null || TextUtils.isEmpty(bookEntity.getFilePath())) {
 
             return;
         }

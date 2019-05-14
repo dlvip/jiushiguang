@@ -98,7 +98,7 @@ public class SplishActivity extends BaseActivity {
 
             return;
         }
-        DynamicsActivity.startDynamicsActivity(mContext);
+        HomeActivity.startHomeActivity(mContext);
     }
 
     private void startClock() {

@@ -100,7 +100,7 @@ public class TouchVerifyFingerActivity extends BaseActivity {
                     mDialogTouch.dismiss();
 
                 }
-                DynamicsActivity.startDynamicsActivity(mContext);
+                HomeActivity.startHomeActivity(mContext);
 
             }
 
