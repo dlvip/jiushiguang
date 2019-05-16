@@ -21,6 +21,7 @@ import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.ScreenTools;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.SuspensionPopupWindow;
+import com.umeng.socialize.UMShareAPI;
 
 /**
  * Created by NING on 2018/2/23.
@@ -223,6 +224,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      */
     public void setSuspensionPopupWindowClick() {
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 
     }
 

@@ -21,6 +21,9 @@ public class Constant {
     //热更新App ID
     public static final String TINK_APP_ID = "726aeba59a";
 
+    //友盟分享appKey
+    public static final String YOU_MENG_APP_KEY = "5cdd0dbb3fc195fdaf000a39";
+
     //阿里云环境配置
     public static final String accessKeyId = "LTAIZI9pk9HdFbtB";
     public static final String accessKeySecret = "rGH6Ug2QEJOt3T7Ple9qTgn7XRLqP8";

@@ -26,6 +26,9 @@ import com.old.time.utils.RongIMUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.smtt.sdk.QbSdk;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.media.UMImage;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -61,10 +64,26 @@ public class MyApplication extends MultiDexApplication {
     private void init() {
         initBugly();
         client = new ReadClient();//初始化客户端配置信息管理者
+        UMShareInfo();
         initLoadSirs();
         initQbSdk();
         initOkGo();
         RongIMUtils.RongIMInit();
+
+    }
+
+    /**
+     * 友盟分享初始化
+     */
+    private void UMShareInfo() {
+
+        /**
+         * 初始化common库
+         * 参数1:上下文，不能为空
+         * 参数2:设备类型，UMConfigure.DEVICE_TYPE_PHONE为手机、UMConfigure.DEVICE_TYPE_BOX为盒子，默认为手机
+         * 参数3:Push推送业务的secret
+         */
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, Constant.YOU_MENG_APP_KEY);
 
     }
 

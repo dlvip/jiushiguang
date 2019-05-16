@@ -108,5 +108,8 @@ dependencies {
     implementation externalOKHTTP
     implementation exernalOkServerHttp
     //小说阅读器
-//    implementation externalGithubHwTxtReader
+    //    implementation externalGithubHwTxtReader
+
+    implementation 'com.umeng.sdk:common:latest.integration'
+    implementation 'com.umeng.sdk:analytics:latest.integration'
 }
