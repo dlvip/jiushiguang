@@ -10,7 +10,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="5dp"
-        android:src="@drawable/umeng_socialize_menu_default" />
+        android:src="@drawable/umeng_socialize_qq" />
 
     <TextView
         android:id="@+id/socialize_text_view"
@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:ellipsize="end"
+        android:gravity="center"
         android:singleLine="true"
         android:text="未知"
         android:textSize="12sp" />

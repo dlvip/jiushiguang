@@ -3,7 +3,6 @@ package com.old.time.activitys;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,8 +17,8 @@ import com.old.time.R;
 import com.old.time.beans.BookEntity;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.OkGoUtils;
+import com.old.time.pops.SharePopWindow;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.BitmapUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
 
@@ -109,6 +108,8 @@ public class BookDetailActivity extends BaseActivity {
         });
     }
 
+    private SharePopWindow sharePopWindow;
+
     /**
      * 分享
      */
@@ -117,11 +118,16 @@ public class BookDetailActivity extends BaseActivity {
 
             return;
         }
-        Uri uri = BitmapUtils.saveBitmap(mContext, relative_layout_parent);
-        Intent imageIntent = new Intent(Intent.ACTION_SEND);
-        imageIntent.setType("image/*");
-        imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(imageIntent, "分享"));
+        if(sharePopWindow == null){
+            sharePopWindow = new SharePopWindow(mContext);
+
+        }
+        sharePopWindow.showAtLocation(relative_layout_parent);
+//        Uri uri = BitmapUtils.saveBitmap(mContext, relative_layout_parent);
+//        Intent imageIntent = new Intent(Intent.ACTION_SEND);
+//        imageIntent.setType("image/*");
+//        imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
+//        startActivity(Intent.createChooser(imageIntent, "分享"));
 
     }
 

@@ -65,6 +65,13 @@ public class SignDetailActivity extends BaseActivity {
 
             }
         });
+        constraint_layout_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityUtils.finishActivity(mContext);
+
+            }
+        });
     }
 
     @Override
