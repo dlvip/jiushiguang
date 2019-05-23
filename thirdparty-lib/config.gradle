@@ -5,9 +5,10 @@ ext {
     externalVersionCode = 1
     externalVersionName = '1.0.2'
     externalMinSdkVersion = 17
-    externalTargetSdkVersion = 27
-    externalCompileSdkVersion = 27
-    externalBuildToolsVersion = '27.0.2'
+    externalTargetSdkVersion = 28
+    externalCompileSdkVersion = 28
+    externalBuildToolsVersion = '28.0.3'
+    AndroidSDK = '27.0.2'
 
     //高德地图
     externalMapLocationLib = 'com.amap.api:location:latest.integration'//定位
@@ -37,8 +38,6 @@ ext {
     externalGithubAdapterHelper = 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     externalGithubVideocache = 'com.danikula:videocache:2.7.0'
     externalGithubIjkplayer = 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-
-    AndroidSDK = '27.0.2'
 
     //Android support Libraries
     externalAndroidSupportCompat = 'com.android.support:support-compat:' + AndroidSDK
