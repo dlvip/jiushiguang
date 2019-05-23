@@ -2,6 +2,7 @@ package com.old.time.pops;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -10,6 +11,7 @@ import com.old.time.R;
 import com.old.time.utils.DataUtils;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
+import com.old.time.utils.UIHelper;
 
 public class SharePopWindow extends BasePopWindow {
 
@@ -36,6 +38,9 @@ public class SharePopWindow extends BasePopWindow {
         recycler_view = findViewById(R.id.recycler_view);
         recycler_view.setLayoutManager(new MyGridLayoutManager(context, 3));
         recycler_view.addItemDecoration(new RecyclerItemDecoration(context, RecyclerItemDecoration.HORIZONTAL_LIST));
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) recycler_view.getLayoutParams();
+        params.height = UIHelper.dip2px(150);
+        recycler_view.setLayoutParams(params);
         adapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.share_menu_item) {
 
             @Override
