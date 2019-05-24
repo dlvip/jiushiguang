@@ -37,8 +37,15 @@ public abstract class BasePopWindow extends PopupWindow {
 
     protected abstract int getLayoutId();
 
+    protected View mAtLocationView;
+
     //pop显示位置   7.0以后突然popwindows显示位置往上飘
     public void showAtLocation(View view) {
+        if (isShowing() || view == null) {
+
+            return;
+        }
+        this.mAtLocationView = view;
         if (android.os.Build.VERSION.SDK_INT == 24) {//7.1已经修复改bug
             int[] a = new int[2];
             view.getLocationInWindow(a);
@@ -48,5 +55,17 @@ public abstract class BasePopWindow extends PopupWindow {
             showAsDropDown(view);
 
         }
+    }
+
+    public void showBottomAtLocation(View view) {
+        if (isShowing() || view == null) {
+
+            return;
+        }
+        this.mAtLocationView = view;
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        showAtLocation(view, Gravity.BOTTOM, 0, -location[1]);
+
     }
 }

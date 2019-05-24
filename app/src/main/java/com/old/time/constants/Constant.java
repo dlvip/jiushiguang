@@ -9,6 +9,19 @@ import com.old.time.MyApplication;
 
 public class Constant {
 
+    //蒲公英下载地址
+    public static final String PU_GONG_YING_URL = "https://www.pgyer.com/UWDC";
+
+    /*****友盟分享*****/
+    public static final String WX_APP_ID = "wxf4a007831b155c2e";
+    public static final String WX_APP_SECRET = "31b37546a1af3df0b5faafddb418e29e";
+
+    public static final String WB_APP_KEY = "136328941";
+    public static final String WB_APP_SECRET = "248f2423c5d091b9d4b755595e25e4ce";
+
+    public static final String QQ_APP_ID = "1109165436";
+    public static final String QQ_APP_KEY = "NkzRMjyOPEfRejyO";
+
     public static final String SPLASH_FILE_NAME = "splash.srr";
 
     //动态闪屏序列化地址
@@ -249,13 +262,8 @@ public class Constant {
      */
     private static final String BASE_TVB = BASE_TEST_URL + "topicVideoBook/";
 
-    //根据视频id获取话题id
-    public static final String GET_TOPIC_ID = BASE_TVB + "getTopicId";
-
     //获取视频信息
     public static final String GET_VIDEO_DETAIL = BASE_TVB + "getVideoDetail";
-
-    public static String PHOTO_PIC_URL = "http://up.enterdesk.com/edpic_source/8f/e5/f7/8fe5f7a16412b3d234847311bacafa7c.jpg";
 
     public static String MP4_PATH_URL = "http://iqiyi.qq-zuidazy.com//20181115//768_ea6fbf2b//index.m3u8";
 

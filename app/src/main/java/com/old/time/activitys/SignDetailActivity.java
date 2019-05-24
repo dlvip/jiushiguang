@@ -57,7 +57,7 @@ public class SignDetailActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-                Uri uri = BitmapUtils.saveBitmap(mContext, constraint_layout_parent);
+                Uri uri = BitmapUtils.saveBitmap(constraint_layout_parent);
                 Intent imageIntent = new Intent(Intent.ACTION_SEND);
                 imageIntent.setType("image/*");
                 imageIntent.putExtra(Intent.EXTRA_STREAM, uri);

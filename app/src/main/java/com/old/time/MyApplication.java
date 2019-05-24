@@ -28,6 +28,8 @@ import com.tencent.bugly.beta.Beta;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.media.UMImage;
 
 import java.security.cert.CertificateException;
@@ -83,7 +85,18 @@ public class MyApplication extends MultiDexApplication {
          * 参数2:设备类型，UMConfigure.DEVICE_TYPE_PHONE为手机、UMConfigure.DEVICE_TYPE_BOX为盒子，默认为手机
          * 参数3:Push推送业务的secret
          */
-        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, Constant.YOU_MENG_APP_KEY);
+        UMConfigure.init(this, Constant.YOU_MENG_APP_KEY, "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+//        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, Constant.YOU_MENG_APP_KEY);
+
+        //微信 appid appsecret
+        PlatformConfig.setWeixin(Constant.WX_APP_ID, Constant.WX_APP_SECRET);
+        //新浪微博 appkey appsecret
+        PlatformConfig.setSinaWeibo(Constant.WB_APP_KEY, Constant.WB_APP_SECRET, "http://sns.whalecloud.com");
+        //QQ和Qzone appid appkey
+        PlatformConfig.setQQZone(Constant.QQ_APP_ID, Constant.QQ_APP_KEY);
+        UMShareConfig config = new UMShareConfig();
+        config.isNeedAuthOnGetUserInfo(true);
+        UMShareAPI.get(this).setShareConfig(config);
 
     }
 

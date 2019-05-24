@@ -61,7 +61,7 @@ public class ShareVDetailActivity extends BaseActivity {
     @Override
     public void more(View view) {
         super.more(view);
-        Uri uri = BitmapUtils.saveBitmap(mContext, card_view_parent);
+        Uri uri = BitmapUtils.saveBitmap(card_view_parent);
         Intent imageIntent = new Intent(Intent.ACTION_SEND);
         imageIntent.setType("image/*");
         imageIntent.putExtra(Intent.EXTRA_STREAM, uri);

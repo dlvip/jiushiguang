@@ -15,6 +15,8 @@ import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.old.time.R;
 import com.old.time.beans.BookEntity;
+import com.old.time.beans.UMShareBean;
+import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.pops.SharePopWindow;
@@ -114,20 +116,24 @@ public class BookDetailActivity extends BaseActivity {
      * 分享
      */
     private void shareBookDetail() {
-        if (relative_layout_parent == null) {
+        if (relative_layout_parent == null || bookEntity == null) {
 
             return;
         }
-        if(sharePopWindow == null){
-            sharePopWindow = new SharePopWindow(mContext);
+        if (sharePopWindow == null) {
+            sharePopWindow = new SharePopWindow(mContext, new SharePopWindow.ShareModelCallBackListener() {
+                @Override
+                public UMShareBean getShareModel() {
+                    UMShareBean umShareBean = new UMShareBean();
+                    umShareBean.setImgUrl(bookEntity.getImages_large());
+                    umShareBean.setTitle(bookEntity.getTitle());
+                    umShareBean.setShareUrl(Constant.PU_GONG_YING_URL);
 
+                    return umShareBean;
+                }
+            });
         }
-        sharePopWindow.showAtLocation(relative_layout_parent);
-//        Uri uri = BitmapUtils.saveBitmap(mContext, relative_layout_parent);
-//        Intent imageIntent = new Intent(Intent.ACTION_SEND);
-//        imageIntent.setType("image/*");
-//        imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
-//        startActivity(Intent.createChooser(imageIntent, "分享"));
+        sharePopWindow.showBottomAtLocation(relative_layout_parent);
 
     }
 

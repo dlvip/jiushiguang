@@ -209,7 +209,7 @@ public class BitmapUtils {
     /**
      * 保存View为图片的方法
      */
-    public static Uri saveBitmap(Context context, View v) {
+    public static Uri saveBitmap(View v) {
         Uri uri = null;
         try {
             Bitmap bm = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
@@ -231,12 +231,17 @@ public class BitmapUtils {
      * @return Bitmap
      */
     public static Bitmap createBitmapFromView(View view) {
-        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        view.draw(canvas);
+        Bitmap bitmap = null;
+        try {
+            bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            view.draw(canvas);
+
+        } catch (Exception e) {
+            DebugLog.d(TAG, e.getMessage());
+
+        }
 
         return bitmap;
     }
-
-
 }
