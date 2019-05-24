@@ -10,6 +10,10 @@ ext {
     externalBuildToolsVersion = '28.0.3'
     AndroidSDK = '27.0.2'
 
+    //友盟统计
+    exernalUMengCommon = 'com.umeng.sdk:common:latest.integration'
+    exernalUMengAnalytics = 'com.umeng.sdk:analytics:latest.integration'
+
     //高德地图
     externalMapLocationLib = 'com.amap.api:location:latest.integration'//定位
     externalMapSearchLib = 'com.amap.api:search:latest.integration'//搜索

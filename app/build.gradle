@@ -26,7 +26,7 @@ android {
             keyAlias 'jiushiguang'
             keyPassword 'jiushiguang2018'
             storePassword 'jiushiguang2018'
-            storeFile file('../jiushiguang_key_store')
+            storeFile file('../jiushiguang_key_store.jks')
         }
         release {
             v1SigningEnabled true
@@ -108,8 +108,8 @@ dependencies {
     implementation externalOKHTTP
     implementation exernalOkServerHttp
     //小说阅读器
-    //    implementation externalGithubHwTxtReader
+    //implementation externalGithubHwTxtReader
 
-    implementation 'com.umeng.sdk:common:latest.integration'
-    implementation 'com.umeng.sdk:analytics:latest.integration'
+    implementation exernalUMengCommon
+    implementation exernalUMengAnalytics
 }
