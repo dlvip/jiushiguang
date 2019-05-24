@@ -125,8 +125,9 @@ public class BookDetailActivity extends BaseActivity {
                 @Override
                 public UMShareBean getShareModel() {
                     UMShareBean umShareBean = new UMShareBean();
-                    umShareBean.setImgUrl(bookEntity.getImages_large());
                     umShareBean.setTitle(bookEntity.getTitle());
+                    umShareBean.setImgUrl(bookEntity.getImages_large());
+                    umShareBean.setDescription(bookEntity.getSummary());
                     umShareBean.setShareUrl(Constant.PU_GONG_YING_URL);
 
                     return umShareBean;

@@ -14,7 +14,7 @@ public class Constant {
 
     /*****友盟分享*****/
     public static final String WX_APP_ID = "wxf4a007831b155c2e";
-    public static final String WX_APP_SECRET = "31b37546a1af3df0b5faafddb418e29e";
+    public static final String WX_APP_SECRET = "2109bae597bf752e77af3191b3fe42ed";
 
     public static final String WB_APP_KEY = "136328941";
     public static final String WB_APP_SECRET = "248f2423c5d091b9d4b755595e25e4ce";
