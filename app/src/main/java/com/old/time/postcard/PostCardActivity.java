@@ -17,8 +17,6 @@ import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.utils.ImageFindQrUtils;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
-import com.old.time.activitys.DynamicsActivity;
-import com.old.time.activitys.SignListActivity;
 import com.old.time.activitys.UserLoginActivity;
 import com.old.time.activitys.WebViewActivity;
 import com.old.time.adapters.LetterAdapter;
@@ -85,17 +83,6 @@ public class PostCardActivity extends BaseActivity {
         mRecyclerView = findViewById(R.id.c_recycler_view);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         adapter = new PhoneAdapter(postCartBeans);
-        View headerView = View.inflate(mContext, R.layout.header_post_cart, null);
-        headerView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                SignListActivity.startSignListActivity(mContext);
-
-            }
-        });
-        adapter.removeAllHeaderView();
-        adapter.addHeaderView(headerView);
         mRecyclerView.setAdapter(adapter);
 
         mRView = findViewById(R.id.recycler_view_bottom);

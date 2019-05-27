@@ -104,7 +104,7 @@ public class BookDetailActivity extends BaseActivity {
         findViewById(R.id.frame_layout_sign).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignCreateActivity.startSignCreateActivity(mContext, bookEntity);
+                SignListActivity.startSignListActivity(mContext, bookEntity);
 
             }
         });

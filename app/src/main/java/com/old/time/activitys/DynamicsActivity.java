@@ -61,15 +61,13 @@ public class DynamicsActivity extends BaseCActivity {
 
     private List<TopicBean> topicBeans = new ArrayList<>();
     private TopicDAdapter topicDAdapter;
-    private ImageView img_sign, img_more;
+    private ImageView img_more;
 
     private RecyclerView recycler_view;
 
     @Override
     protected void initView() {
         super.initView();
-        img_sign = findViewById(R.id.img_sign);
-        img_sign.setVisibility(View.VISIBLE);
         img_more = findViewById(R.id.img_more);
         img_more.setImageResource(R.mipmap.icon_black_more);
         findViewById(R.id.left_layout).setVisibility(View.GONE);
@@ -129,13 +127,6 @@ public class DynamicsActivity extends BaseCActivity {
             @Override
             public void onClick(View v) {
                 showMoreBtnPopWindow();
-
-            }
-        });
-        img_sign.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SignListActivity.startSignListActivity(mContext);
 
             }
         });
