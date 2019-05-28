@@ -3,6 +3,7 @@ package com.bifan.txtreaderlib.main;
 import android.graphics.Canvas;
 import android.graphics.Region;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.view.MotionEvent;
 import android.widget.Scroller;
 
@@ -46,8 +47,13 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
         mPath.lineTo(getWidth(), getHeight());
         mPath.lineTo(startPosition, getHeight());
         mPath.lineTo(startPosition, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            canvas.clipPath(mPath);
 
-        canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+        } else {
+            canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+
+        }
         canvas.drawBitmap(getBottomPage(), startPosition, 0, null);
 
 
@@ -91,8 +97,13 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
         mPath.lineTo(startPosition, getHeight());
         mPath.lineTo(0, getHeight());
         mPath.lineTo(0, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            canvas.clipPath(mPath);
 
-        canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+        } else {
+            canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+
+        }
         canvas.drawBitmap(getBottomPage(), startPosition - getWidth(), 0, null);
 
     }

@@ -126,7 +126,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
      * @param FilePath 文本文件路径
      */
     public static void loadTxtFile(Context context, String FilePath) {
-        TxtConfig.saveIsOnVerticalPageMode(context,false);
+        TxtConfig.saveIsOnVerticalPageMode(context, false);
         loadTxtFile(context, FilePath, null);
     }
 
@@ -186,27 +186,27 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     protected void init() {
         mHandler = new Handler();
         mChapterMsgView = findViewById(R.id.activity_hwtxtplay_chapter_msg);
-        mChapterMsgName = (TextView) findViewById(R.id.chapter_name);
-        mChapterMsgProgress = (TextView) findViewById(R.id.charpter_progress);
+        mChapterMsgName = findViewById(R.id.chapter_name);
+        mChapterMsgProgress = findViewById(R.id.charpter_progress);
         mTopDecoration = findViewById(R.id.activity_hwtxtplay_top);
         mBottomDecoration = findViewById(R.id.activity_hwtxtplay_bottom);
-        mTxtReaderView = (TxtReaderView) findViewById(R.id.activity_hwtxtplay_readerView);
-        mChapterNameText = (TextView) findViewById(R.id.activity_hwtxtplay_chaptername);
-        mChapterMenuText = (TextView) findViewById(R.id.activity_hwtxtplay_chapter_menutext);
-        mProgressText = (TextView) findViewById(R.id.activity_hwtxtplay_progress_text);
-        mSettingText = (TextView) findViewById(R.id.activity_hwtxtplay_setting_text);
+        mTxtReaderView = findViewById(R.id.activity_hwtxtplay_readerView);
+        mChapterNameText = findViewById(R.id.activity_hwtxtplay_chaptername);
+        mChapterMenuText = findViewById(R.id.activity_hwtxtplay_chapter_menutext);
+        mProgressText = findViewById(R.id.activity_hwtxtplay_progress_text);
+        mSettingText = findViewById(R.id.activity_hwtxtplay_setting_text);
         mTopMenu = findViewById(R.id.activity_hwtxtplay_menu_top);
         mBottomMenu = findViewById(R.id.activity_hwtxtplay_menu_bottom);
         mCoverView = findViewById(R.id.activity_hwtxtplay_cover);
         ClipboardView = findViewById(R.id.activity_hwtxtplay_Clipboar);
-        mSelectedText = (TextView) findViewById(R.id.activity_hwtxtplay_selected_text);
+        mSelectedText = findViewById(R.id.activity_hwtxtplay_selected_text);
 
-        mMenuHolder.mTitle = (TextView) findViewById(R.id.txtreadr_menu_title);
-        mMenuHolder.mPreChapter = (TextView) findViewById(R.id.txtreadr_menu_chapter_pre);
-        mMenuHolder.mNextChapter = (TextView) findViewById(R.id.txtreadr_menu_chapter_next);
-        mMenuHolder.mSeekBar = (SeekBar) findViewById(R.id.txtreadr_menu_seekbar);
+        mMenuHolder.mTitle = findViewById(R.id.txtreadr_menu_title);
+        mMenuHolder.mPreChapter = findViewById(R.id.txtreadr_menu_chapter_pre);
+        mMenuHolder.mNextChapter = findViewById(R.id.txtreadr_menu_chapter_next);
+        mMenuHolder.mSeekBar = findViewById(R.id.txtreadr_menu_seekbar);
         mMenuHolder.mTextSizeDel = findViewById(R.id.txtreadr_menu_textsize_del);
-        mMenuHolder.mTextSize = (TextView) findViewById(R.id.txtreadr_menu_textsize);
+        mMenuHolder.mTextSize = findViewById(R.id.txtreadr_menu_textsize);
         mMenuHolder.mTextSizeAdd = findViewById(R.id.txtreadr_menu_textsize_add);
         mMenuHolder.mBoldSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting1_bold);
         mMenuHolder.mNormalSelectedLayout = findViewById(R.id.txtreadr_menu_textsetting1_normal);
@@ -324,7 +324,7 @@ public class HwTxtPlayActivity extends AppCompatActivity {
         if (mTxtReaderView.getTxtReaderContext().getFileMsg() != null) {
             FileName = mTxtReaderView.getTxtReaderContext().getFileMsg().FileName;
         }
-        mMenuHolder.mTextSize.setText(mTxtReaderView.getTextSize() + "");
+        mMenuHolder.mTextSize.setText(String.valueOf(mTxtReaderView.getTextSize()));
         mTopDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
         mBottomDecoration.setBackgroundColor(mTxtReaderView.getBackgroundColor());
         //mTxtReaderView.setLeftSlider(new MuiLeftSlider());//修改左滑动条

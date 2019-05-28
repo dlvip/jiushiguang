@@ -3,6 +3,9 @@ package com.bifan.txtreaderlib.main;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
+
+import com.bifan.txtreaderlib.R;
 
 /**
  * Created by HP on 2017/11/26.
@@ -26,20 +29,21 @@ public class TxtConfig {
     public static final String C_PAGE_SWITCH_DURATION = "PAGE_SWITCH_DURATION";
     public static final String C_PAGE_VERTICAL_MODE = "PAGE_VERTICAL_MODE ";
 
-    public static  int Page_PaddingLeft = 20;//in px
-    public static  int Page_PaddingBottom = 20;//in px
-    public static  int Page_PaddingTop = 20;//in px
-    public static  int Page_PaddingRight = 20;//in px
-    public static  int Page_LinePadding = 30;//in px
-    public static  int Page_Paragraph_margin = 20;//in px,为0，没有间距
+    public static int Page_PaddingLeft = 20;//in px
+    public static int Page_PaddingBottom = 20;//in px
+    public static int Page_PaddingTop = 20;//in px
+    public static int Page_PaddingRight = 20;//in px
+    public static int Page_LinePadding = 30;//in px
+    public static int Page_Paragraph_margin = 20;//in px,为0，没有间距
 
 
-    public static  int MAX_TEXT_SIZE = 150;//in px
-    public static  int MIN_TEXT_SIZE = 30;//in px
-    public static  int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
-    public static  int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
+    public static int MAX_TEXT_SIZE = 150;//in px
+    public static int MIN_TEXT_SIZE = 30;//in px
+    public static int DEFAULT_SELECT_TEXT_COLOR = Color.parseColor("#44f6950b");
+    public static int DEFAULT_SLIDER_COLOR = Color.parseColor("#1f4cf5");
+    public static int DEFAULT_TEXT_SIZE = 60;//默认字体大小
 
-    public int textSize = MIN_TEXT_SIZE;//字体大小
+    public int textSize = DEFAULT_TEXT_SIZE;//字体大小
     public int textColor = Color.BLACK;//字体颜色
     public int backgroundColor = Color.WHITE;//背景颜色
     public int NoteColor = Color.RED;//笔记颜色
@@ -51,9 +55,9 @@ public class TxtConfig {
     public Boolean canPressSelect = true;//是否能长按选中
     public Boolean SwitchByTranslate = true;//是否平移切换
     public Boolean VerticalPageMode = false;
-    public Boolean Bold = false;//是否加粗
-    public Boolean ShowSpecialChar = true;//是否显示特殊符号，对于数字、英文，可以显示特定颜色
-    public float CenterClickArea = 0.35f;//0~1,中间点击区域占View宽度的百分比，区域为高为宽两倍的矩形，如果为1f，说明点击翻页将不起效果
+    public Boolean Bold = true;//是否加粗
+    public Boolean ShowSpecialChar = false;//是否显示特殊符号，对于数字、英文，可以显示特定颜色
+    public float CenterClickArea = 0.4f;//0~1,中间点击区域占View宽度的百分比，区域为高为宽两倍的矩形，如果为1f，说明点击翻页将不起效果
     public int PageSwitchDuration = 400;//页面滑动时间间隔，毫秒，建议不要低于200
 
     public static final SharedPreferences getS(Context context) {
@@ -71,7 +75,7 @@ public class TxtConfig {
         SharedPreferences share = getS(context);
         SharedPreferences.Editor editor = share.edit();
         editor.putInt(C_PAGE_SWITCH_DURATION, duration);
-        editor.commit();
+        editor.apply();
     }
 
     public static int getPageSwitchDuration(Context context) {
@@ -85,12 +89,12 @@ public class TxtConfig {
         SharedPreferences share = getS(context);
         SharedPreferences.Editor editor = share.edit();
         editor.putInt(C_TEXT_SIZE, textSize);
-        editor.commit();
+        editor.apply();
     }
 
     public static int getTextSize(Context context) {
         SharedPreferences share = getS(context);
-        return share.getInt(C_TEXT_SIZE, MIN_TEXT_SIZE);
+        return share.getInt(C_TEXT_SIZE, DEFAULT_TEXT_SIZE);
     }
 
     public static void saveTextColor(Context context, int textColor) {
@@ -129,7 +133,7 @@ public class TxtConfig {
 
     public static int getSelectTextColor(Context context) {
         SharedPreferences share = getS(context);
-        return share.getInt(C_SELECT_TEXT_COLOR, DEFAULT_SELECT_TEXT_COLOR);
+        return share.getInt(C_SELECT_TEXT_COLOR, Color.parseColor("#453e33"));
     }
 
 
@@ -143,7 +147,7 @@ public class TxtConfig {
 
     public static int getBackgroundColor(Context context) {
         SharedPreferences share = getS(context);
-        return share.getInt(C_BACKGROUND_COLOR, Color.WHITE);
+        return share.getInt(C_BACKGROUND_COLOR, ContextCompat.getColor(context, R.color.hwtxtreader_styleclor3));
     }
 
     public static void saveCenterClickArea(Context context, float CenterClickArea) {
