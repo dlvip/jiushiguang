@@ -32,7 +32,7 @@ public class SignListActivity extends BaseSignsActivity {
     protected void initView() {
         bookEntity = (BookEntity) getIntent().getSerializableExtra("bookEntity");
         super.initView();
-        setTitleText("每日书签");
+        setTitleText(bookEntity.getTitle());
         setSendText("创建");
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
 
@@ -49,7 +49,7 @@ public class SignListActivity extends BaseSignsActivity {
         params.put("bookId", bookEntity.getId());
         params.put("pageNum", startNum);
         params.put("pageSize", Constant.PageSize);
-        OkGoUtils.getInstance().postNetForData(params, Constant.GET_SIGN_NAME_LIST, jsonCallBack);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_BOOK_SIGN_NAME_LIST, jsonCallBack);
 
     }
 

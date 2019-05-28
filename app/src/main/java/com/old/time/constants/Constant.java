@@ -191,6 +191,9 @@ public class Constant {
     //书签列表
     public static final String GET_SIGN_NAME_LIST = BASE_SIGN + "getSignNameList";
 
+    //图书书签
+    public static final String GET_BOOK_SIGN_NAME_LIST = BASE_SIGN + "getBookSignNameList";
+
 
     /**
      * 话题

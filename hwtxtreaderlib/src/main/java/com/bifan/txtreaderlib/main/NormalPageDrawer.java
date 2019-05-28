@@ -7,6 +7,7 @@ import android.os.Build;
 import android.view.MotionEvent;
 import android.widget.Scroller;
 
+import com.bifan.txtreaderlib.BuildConfig;
 import com.bifan.txtreaderlib.interfaces.IReaderViewDrawer;
 
 
@@ -47,14 +48,13 @@ public class NormalPageDrawer extends PageDrawerBase implements IReaderViewDrawe
         mPath.lineTo(getWidth() + getMoveDistance(), getHeight());
         mPath.lineTo(getWidth() + getMoveDistance(), 0);
 
-//        if (Build.VERSION.SDK_INT >= 28) {
-//            canvas.clipPath(mPath);
-//
-//        } else {
-//            canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
-//
-//        }
-        canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            canvas.clipPath(mPath);
+
+        } else {
+            canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+
+        }
         canvas.drawBitmap(getBottomPage(), 0, 0, null);
 
     }
@@ -69,7 +69,7 @@ public class NormalPageDrawer extends PageDrawerBase implements IReaderViewDrawe
         mPath.lineTo(0, getHeight());
         mPath.lineTo(0, 0);
         canvas.clipPath(mPath);
-        canvas.drawBitmap(getTopPage(), getMoveDistance()+1, 0, null);
+        canvas.drawBitmap(getTopPage(), getMoveDistance() + 1, 0, null);
     }
 
     @Override
@@ -96,14 +96,13 @@ public class NormalPageDrawer extends PageDrawerBase implements IReaderViewDrawe
         mPath.lineTo(getMoveDistance(), getHeight());
         mPath.lineTo(0, getHeight());
         mPath.lineTo(0, 0);
-//        if (Build.VERSION.SDK_INT >= 28) {
-//            canvas.clipPath(mPath);
-//
-//        } else {
-//            canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
-//
-//        }
-        canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            canvas.clipPath(mPath);
+
+        } else {
+            canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
+
+        }
         canvas.drawBitmap(getBottomPage(), 0, 0, null);
     }
 
