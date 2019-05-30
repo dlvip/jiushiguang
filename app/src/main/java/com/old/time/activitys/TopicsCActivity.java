@@ -70,8 +70,7 @@ public class TopicsCActivity extends BaseCActivity {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 TopicBean topicBean = mTopicAdapter.getData().get(position);
-                CreateDynActivity.startCreateDynActivity(mContext, topicBean);
-                ActivityUtils.finishActivity(mContext);
+                TopicDetailCActivity.startTopicDetailActivity(mContext, topicBean);
 
             }
         });

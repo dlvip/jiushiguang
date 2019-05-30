@@ -1,6 +1,5 @@
 package com.old.time.activitys;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -13,6 +12,9 @@ import com.old.time.dialogs.DialogPromptCentre;
 import com.old.time.interfaces.OnClickViewCallBack;
 import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 /**
  * Created by NING on 2019/2/23.
@@ -78,7 +80,7 @@ public abstract class PermissionActivity extends AppCompatActivity implements Pe
      */
     protected String[] getNeedPermissions() {
 
-        return new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        return new String[]{READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
     }
 
     @Override

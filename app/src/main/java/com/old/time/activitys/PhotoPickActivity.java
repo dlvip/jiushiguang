@@ -17,7 +17,6 @@ import com.old.time.adapters.DisplayImgAdapter;
 import com.old.time.adapters.PhotoGalleyAdapter;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.models.ImageSize;
-import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.AlbumController;
 import com.old.time.utils.PhotoSelectorHelper;
@@ -57,11 +56,6 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
 
     public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount//
             , Serializable picPaths, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
-                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
-
-            return;
-        }
         Intent intent = new Intent(mContext, PhotoPickActivity.class);
         intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, isShowCamera);
         intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, maxPickCount);
@@ -72,11 +66,6 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
 
     public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int maxPickCount//
             , int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
-                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
-
-            return;
-        }
         Intent intent = new Intent(mContext, PhotoPickActivity.class);
         intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, isShowCamera);
         intent.putExtra(PhotoPickActivity.MAX_PICK_COUNT, maxPickCount);
@@ -85,11 +74,6 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
     }
 
     public static void startPhotoPickActivity(Activity mContext, boolean isShowCamera, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
-                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
-
-            return;
-        }
         Intent intent = new Intent(mContext, PhotoPickActivity.class);
         intent.putExtra(PhotoPickActivity.IS_SHOW_CAMERA, isShowCamera);
         ActivityUtils.startActivityForResult(mContext, intent, requestCode);
@@ -97,14 +81,15 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
     }
 
     public static void startPhotoPickActivity(Activity mContext, int requestCode) {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext, CAMERA//
-                , WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE)) {
-
-            return;
-        }
         Intent intent = new Intent(mContext, PhotoPickActivity.class);
         ActivityUtils.startActivityForResult(mContext, intent, requestCode);
 
+    }
+
+    @Override
+    protected String[] getNeedPermissions() {
+
+        return new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE};
     }
 
     @Override
@@ -159,7 +144,7 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
         setTitleText("最近照片");
         findViewById(R.id.left_layout).setVisibility(View.VISIBLE);
         findViewById(R.id.right_layout_send).setVisibility(View.VISIBLE);
-        TextView tv_send =  findViewById(R.id.tv_send);
+        TextView tv_send = findViewById(R.id.tv_send);
         tv_send.setText("相册");
 
         List<String> list = getIntent().getStringArrayListExtra(SELECT_PHOTO_LIST);
@@ -173,9 +158,9 @@ public class PhotoPickActivity extends BaseActivity implements PhotoSelectorHelp
         }
         maxPickCount = getIntent().getIntExtra(MAX_PICK_COUNT, 1);
         isShowCamera = getIntent().getBooleanExtra(IS_SHOW_CAMERA, false);
-        mGridView =  findViewById(R.id.mp_galley_gridView);
+        mGridView = findViewById(R.id.mp_galley_gridView);
         mGridView.setOnItemClickListener(this);
-        mCountText =  findViewById(R.id.tv_to_confirm);
+        mCountText = findViewById(R.id.tv_to_confirm);
         mPickAlbumView = findViewById(R.id.right_layout_send);
         mLastAlbumName = AlbumController.RECENT_PHOTO;
         mHelper = new PhotoSelectorHelper(this);
