@@ -184,6 +184,8 @@ public class HwTxtPlayActivity extends AppCompatActivity {
     protected MenuHolder mMenuHolder = new MenuHolder();
 
     protected void init() {
+        //保持屏幕常亮
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         mHandler = new Handler();
         mChapterMsgView = findViewById(R.id.activity_hwtxtplay_chapter_msg);
         mChapterMsgName = findViewById(R.id.chapter_name);

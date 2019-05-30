@@ -7,7 +7,6 @@ import android.os.Build;
 import android.view.MotionEvent;
 import android.widget.Scroller;
 
-import com.bifan.txtreaderlib.BuildConfig;
 import com.bifan.txtreaderlib.interfaces.IReaderViewDrawer;
 
 

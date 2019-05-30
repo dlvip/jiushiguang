@@ -3,6 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.bifan.txtreaderlib.main.TxtReaderView
+        android:id="@+id/activity_hwtxtplay_readerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff" />
+
     <RelativeLayout
         android:id="@+id/activity_hwtxtplay_top"
         android:layout_width="match_parent"
@@ -53,17 +59,7 @@
                 android:text="章节"
                 android:textColor="#858582" />
         </LinearLayout>
-
-
     </RelativeLayout>
-
-    <com.bifan.txtreaderlib.main.TxtReaderView
-        android:id="@+id/activity_hwtxtplay_readerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/activity_hwtxtplay_bottom"
-        android:layout_below="@+id/activity_hwtxtplay_top"
-        android:background="#ffffff" />
 
     <RelativeLayout
         android:id="@+id/activity_hwtxtplay_bottom"

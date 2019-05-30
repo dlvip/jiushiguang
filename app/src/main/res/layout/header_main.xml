@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/header_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -25,21 +26,42 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_header_height"
         android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@+id/left_layout"
+        android:layout_toEndOf="@+id/left_layout"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:paddingLeft="@dimen/layout_10"
+        android:paddingStart="@dimen/layout_10"
         android:text="@string/app_name"
         android:textColor="@color/color_484848"
-        android:textSize="@dimen/text_18" />
+        android:textSize="@dimen/text_18"
+        tools:ignore="RtlSymmetry" />
+
+    <FrameLayout
+        android:id="@+id/fm_talk_home"
+        android:layout_width="@dimen/layout_40"
+        android:layout_height="@dimen/layout_40"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/layout_60"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="#"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_18"
+            android:textStyle="bold" />
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/img_sign"
         android:layout_width="@dimen/main_header_height"
         android:layout_height="@dimen/main_header_height"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/layout_60"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/layout_60"
         android:padding="@dimen/layout_9"
         android:scaleType="fitCenter"
         android:src="@mipmap/icon_sign"
@@ -55,7 +77,8 @@
         android:layout_marginEnd="@dimen/layout_10"
         android:layout_marginRight="@dimen/layout_10"
         android:onClick="more"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:ignore="RtlHardcoded">
 
         <View
             android:id="@+id/view_line_bg"
@@ -79,9 +102,10 @@
         android:id="@+id/right_layout_send"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/main_header_height"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:background="@drawable/selected_bg"
         android:clickable="true"
+        android:focusable="true"
         android:onClick="save"
         android:visibility="gone">
 

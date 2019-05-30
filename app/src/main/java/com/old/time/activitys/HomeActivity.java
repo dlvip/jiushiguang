@@ -59,10 +59,13 @@ public class HomeActivity extends BaseCActivity {
     private TopicDAdapter topicDAdapter;
 
     private RecyclerView recycler_view;
+    private View fm_talk_home;
 
     @Override
     protected void initView() {
         super.initView();
+        fm_talk_home = findViewById(R.id.fm_talk_home);
+        fm_talk_home.setVisibility(View.VISIBLE);
         ImageView img_more = findViewById(R.id.img_more);
         img_more.setImageResource(R.mipmap.icon_black_more);
         findViewById(R.id.left_layout).setVisibility(View.GONE);
@@ -84,12 +87,20 @@ public class HomeActivity extends BaseCActivity {
         mAdapter.addHeaderView(headerView);
         mAdapter.setHeaderAndEmpty(true);
 
+
         EventBus.getDefault().register(this);
     }
 
     @Override
     protected void initEvent() {
         super.initEvent();
+        fm_talk_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TopicsCActivity.startTopicsActivity(mContext);
+
+            }
+        });
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
