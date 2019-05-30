@@ -1,11 +1,17 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="HwTxtFullScreen" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
-    <style name="HwTxtChapterMenuAnimation"  parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/abc_popup_enter</item>
-        <item name="android:windowExitAnimation">@anim/abc_popup_exit</item>
+
+    <style name="HwTxtChapterMenuAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation" tools:ignore="PrivateResource">
+            @anim/abc_popup_enter
+        </item>
+        <item name="android:windowExitAnimation" tools:ignore="PrivateResource">
+            @anim/abc_popup_exit
+        </item>
     </style>
 </resources>

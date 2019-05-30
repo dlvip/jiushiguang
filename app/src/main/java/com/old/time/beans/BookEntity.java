@@ -7,6 +7,8 @@ import java.io.Serializable;
 public class BookEntity implements Serializable {
 
 
+
+
     private String id;
 
     private String levelNum;

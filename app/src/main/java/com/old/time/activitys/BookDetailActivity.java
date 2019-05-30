@@ -11,24 +11,29 @@ import android.widget.TextView;
 
 import com.bifan.txtreaderlib.ui.HwTxtPlayActivity;
 import com.lzy.okgo.callback.FileCallback;
+import com.lzy.okgo.model.HttpParams;
 import com.lzy.okgo.model.Progress;
 import com.lzy.okgo.model.Response;
 import com.old.time.R;
 import com.old.time.beans.BookEntity;
+import com.old.time.beans.ResultBean;
 import com.old.time.beans.UMShareBean;
 import com.old.time.constants.Constant;
 import com.old.time.glideUtils.GlideUtils;
+import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.pops.SharePopWindow;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
+import com.old.time.utils.UIHelper;
 
 import java.io.File;
 
 public class BookDetailActivity extends BaseActivity {
 
     private static final String BOOK_ENTITY = "bookEntity";
+    private static final String BOOK_ISBN = "isbn";
 
     /**
      * 图书详情
@@ -36,8 +41,28 @@ public class BookDetailActivity extends BaseActivity {
      * @param context
      */
     public static void startBookDetailActivity(Context context, BookEntity bookEntity) {
+        if (bookEntity == null) {
+
+            return;
+        }
         Intent intent = new Intent(context, BookDetailActivity.class);
         intent.putExtra(BOOK_ENTITY, bookEntity);
+        ActivityUtils.startActivity((Activity) context, intent);
+
+    }
+
+    /**
+     * 图书详情
+     *
+     * @param context
+     */
+    public static void startBookDetailActivity(Context context, String isbn) {
+        if (TextUtils.isEmpty(isbn)) {
+
+            return;
+        }
+        Intent intent = new Intent(context, BookDetailActivity.class);
+        intent.putExtra(BOOK_ISBN, isbn);
         ActivityUtils.startActivity((Activity) context, intent);
 
     }
@@ -53,7 +78,12 @@ public class BookDetailActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        bookEntity = (BookEntity) getIntent().getSerializableExtra(BOOK_ENTITY);
+        Intent intent = getIntent();
+        isbn = intent.getStringExtra("isbn");
+        if (TextUtils.isEmpty(isbn)) {
+            bookEntity = (BookEntity) getIntent().getSerializableExtra(BOOK_ENTITY);
+
+        }
         img_book_pic = findViewById(R.id.img_book_pic);
         tv_book_name = findViewById(R.id.tv_book_name);
         tv_book_leve = findViewById(R.id.tv_book_leve);
@@ -62,7 +92,22 @@ public class BookDetailActivity extends BaseActivity {
         tv_book_price = findViewById(R.id.tv_book_price);
         tv_book_describe = findViewById(R.id.tv_book_describe);
 
+        relative_layout_parent = findViewById(R.id.relative_layout_parent);
+
         tv_read_book = findViewById(R.id.tv_read_book);
+
+        setBookForView(bookEntity);
+    }
+
+    /**
+     * 设置view
+     */
+    private void setBookForView(BookEntity bookEntity) {
+        if (bookEntity == null) {
+            getBookDetailInfo();
+
+            return;
+        }
         if (TextUtils.isEmpty(bookEntity.getFilePath())) {
             tv_read_book.setBackgroundResource(R.color.color_aaa);
 
@@ -70,8 +115,6 @@ public class BookDetailActivity extends BaseActivity {
             tv_read_book.setBackgroundResource(R.color.color_bd9029);
 
         }
-
-        relative_layout_parent = findViewById(R.id.relative_layout_parent);
 
         GlideUtils.getInstance().setImageView(mContext, bookEntity.getImages_large(), img_book_pic);
         setTitleText(bookEntity.getTitle());
@@ -82,6 +125,32 @@ public class BookDetailActivity extends BaseActivity {
         tv_book_price.setText(bookEntity.getPriceStr());
         tv_book_describe.setText(bookEntity.getSummary());
 
+    }
+
+    private String isbn;
+
+    private void getBookDetailInfo() {
+        HttpParams params = new HttpParams();
+        params.put("isbn", isbn);
+        OkGoUtils.getInstance().postNetForData(params, Constant.GET_BOOK_INFO, new JsonCallBack<ResultBean<BookEntity>>() {
+            @Override
+            public void onSuccess(ResultBean<BookEntity> mResultBean) {
+                if (mResultBean == null || mResultBean.data == null) {
+                    ActivityUtils.finishActivity(mContext);
+
+                    return;
+                }
+                setBookForView(mResultBean.data);
+
+            }
+
+            @Override
+            public void onError(ResultBean<BookEntity> mResultBean) {
+                UIHelper.ToastMessage(mContext, mResultBean.msg);
+                ActivityUtils.finishActivity(mContext);
+
+            }
+        });
     }
 
     @Override
@@ -111,6 +180,7 @@ public class BookDetailActivity extends BaseActivity {
     }
 
     private SharePopWindow sharePopWindow;
+    private UMShareBean umShareBean;
 
     /**
      * 分享
@@ -124,16 +194,20 @@ public class BookDetailActivity extends BaseActivity {
             sharePopWindow = new SharePopWindow(mContext, new SharePopWindow.ShareModelCallBackListener() {
                 @Override
                 public UMShareBean getShareModel() {
-                    UMShareBean umShareBean = new UMShareBean();
-                    umShareBean.setTitle(bookEntity.getTitle());
-                    umShareBean.setImgUrl(bookEntity.getImages_large());
-                    umShareBean.setDescription(bookEntity.getSummary());
-                    umShareBean.setShareUrl(Constant.PU_GONG_YING_URL);
 
                     return umShareBean;
                 }
             });
         }
+        if (umShareBean == null) {
+            umShareBean = new UMShareBean();
+
+        }
+        umShareBean.setTitle(bookEntity.getTitle());
+        umShareBean.setImgUrl(bookEntity.getImages_large());
+        umShareBean.setDescription(bookEntity.getSummary());
+        umShareBean.setShareUrl(Constant.PU_GONG_YING_URL);
+
         sharePopWindow.showBottomAtLocation(relative_layout_parent);
 
     }

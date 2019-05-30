@@ -1,7 +1,6 @@
 package com.old.time.activitys;
 
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,8 +13,6 @@ import com.old.time.MyApplication;
 import com.old.time.R;
 import com.old.time.beans.SplashBean;
 import com.old.time.constants.Constant;
-import com.old.time.permission.PermissionUtil;
-import com.old.time.service.manager.PlayServiceManager;
 import com.old.time.task.CallBackTask;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.ComputeUtils;
@@ -65,12 +62,11 @@ public class SplishActivity extends BaseActivity {
         img_splish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startPostCardActivity();
+                BookDetailActivity.startBookDetailActivity(mContext, "9787540487645");
+                ActivityUtils.finishActivity(mContext);
 
             }
         });
-
-        PlayServiceManager.startPlayService(mContext);
 
         startClock();
 
@@ -80,11 +76,6 @@ public class SplishActivity extends BaseActivity {
      * 跳转activity
      */
     private void startPostCardActivity() {
-        if (!PermissionUtil.checkAndRequestPermissionsInActivity(mContext//
-                , PermissionUtil.needPermissions)) {
-
-            return;
-        }
         cancelDownTimer();
         //指纹高优先级
         if (PreferenceCache.getFingerFlg()) {
@@ -187,30 +178,6 @@ public class SplishActivity extends BaseActivity {
 
         }
     };
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionUtil.onPermissionResult(this, permissions, grantResults, new PermissionUtil.PermissionCallBack() {
-
-            @Override
-            public void onSuccess() {
-                startPostCardActivity();
-
-            }
-
-            @Override
-            public void onShouldShow() {
-
-            }
-
-            @Override
-            public void onFailed() {
-                showDialogPermission();
-
-            }
-        });
-    }
 
     @Override
     protected void onPause() {

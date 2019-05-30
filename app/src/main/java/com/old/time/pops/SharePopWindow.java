@@ -97,7 +97,7 @@ public class SharePopWindow extends BasePopWindow {
                 ItemBean itemBean = itemBeans.get(position);
                 if (itemBean.platform != null) {
                     shareMorePlatform(itemBean.platform);
-                    
+
                 } else {
                     showMoreShare();
 
@@ -112,6 +112,10 @@ public class SharePopWindow extends BasePopWindow {
      * 分享到更多平台
      */
     private void shareMorePlatform(SHARE_MEDIA platform) {
+        if (platform == SHARE_MEDIA.SINA) {
+
+            return;
+        }
         if (shareModelCallBackListener == null || mAtLocationView == null) {
 
             return;
