@@ -33,7 +33,7 @@ import java.io.File;
 public class BookDetailActivity extends BaseActivity {
 
     private static final String BOOK_ENTITY = "bookEntity";
-    private static final String BOOK_ISBN = "isbn";
+    public static final String BOOK_ISBN = "isbn";
 
     /**
      * 图书详情

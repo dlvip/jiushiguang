@@ -1,5 +1,6 @@
 package com.old.time.activitys;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.old.time.utils.DebugLog;
 import com.old.time.utils.PreferenceCache;
 import com.old.time.utils.SplashDownLoadService;
 import com.old.time.utils.StringUtils;
+
+import static com.old.time.activitys.BookDetailActivity.BOOK_ISBN;
 
 public class SplishActivity extends BaseActivity {
 
@@ -43,7 +46,8 @@ public class SplishActivity extends BaseActivity {
         img_splish.setLayoutParams(params);
         img_logo = findViewById(R.id.img_logo);
 
-        versionText.setText(getString(R.string.app_name) + " V：" + StringUtils.getVersion(this));
+        versionText.setText(String.valueOf(getString(R.string.app_name) //
+                + " V：" + StringUtils.getVersion(this)));
         rootLayout.postDelayed(new Runnable() {
 
             @Override
@@ -62,7 +66,10 @@ public class SplishActivity extends BaseActivity {
         img_splish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BookDetailActivity.startBookDetailActivity(mContext, "9787540487645");
+                Intent intent = new Intent(mContext, HomeActivity.class);
+                Intent intent1 = new Intent(mContext, BookDetailActivity.class);
+                intent1.putExtra(BOOK_ISBN, "9787540487645");
+                ActivityUtils.startActivitys(mContext, new Intent[]{intent, intent1});
                 ActivityUtils.finishActivity(mContext);
 
             }
@@ -167,13 +174,13 @@ public class SplishActivity extends BaseActivity {
         @Override
         public void onTick(long millisUntilFinished) {
             relative_layout_next.setVisibility(View.VISIBLE);
-            tv_time_next.setText("跳过(" + millisUntilFinished / 1000 + "s)");
+            tv_time_next.setText(String.valueOf("跳过(" + millisUntilFinished / 1000 + "s)"));
 
         }
 
         @Override
         public void onFinish() {
-            tv_time_next.setText("跳过(" + 0 + "s)");
+            tv_time_next.setText(String.valueOf("跳过(" + 0 + "s)"));
             startActivity();
 
         }
