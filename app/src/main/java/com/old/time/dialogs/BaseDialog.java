@@ -45,7 +45,7 @@ public abstract class BaseDialog extends Dialog {
 
                 break;
             case R.style.transparentFrameWindowStyle://底部弹出
-                setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                setContentView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                 window = getWindow();
                 assert window != null;
                 window.setWindowAnimations(R.style.main_menu_animstyle);
@@ -63,6 +63,7 @@ public abstract class BaseDialog extends Dialog {
                 setCanceledOnTouchOutside(true);
                 setContentView(view);
                 window = getWindow();//设置dialog的显示位置
+                assert window != null;
                 WindowManager.LayoutParams wlp = window.getAttributes();
                 wlp.gravity = Gravity.BOTTOM;
                 wlp.width = WindowManager.LayoutParams.MATCH_PARENT;

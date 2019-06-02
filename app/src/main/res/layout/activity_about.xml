@@ -9,24 +9,58 @@
 
     <include layout="@layout/header_main" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_10"
-        android:paddingLeft="@dimen/layout_10"
-        android:paddingRight="@dimen/layout_10"
-        android:text="Q  Q：1371985810"
-        android:textColor="@color/color_000"
-        android:textSize="@dimen/text_16" />
+        android:layout_height="@dimen/layout_40"
+        android:layout_marginTop="@dimen/layout_15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/layout_10"
+            android:paddingRight="@dimen/layout_10"
+            android:text="Q  Q：1371985810"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:id="@+id/tv_cop_qq"
+            android:layout_width="@dimen/layout_70"
+            android:layout_height="@dimen/layout_30"
+            android:gravity="center"
+            android:text="复制"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_14" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/layout_10"
-        android:paddingLeft="@dimen/layout_10"
-        android:paddingRight="@dimen/layout_10"
-        android:text="邮箱：1371985810@qq.com"
-        android:textColor="@color/color_000"
-        android:textSize="@dimen/text_16" />
+        android:layout_height="@dimen/layout_40"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/layout_10"
+            android:paddingRight="@dimen/layout_10"
+            android:text="Q 群：704134967  "
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_16" />
+
+        <TextView
+            android:id="@+id/tv_cop_group"
+            android:layout_width="@dimen/layout_70"
+            android:layout_height="@dimen/layout_30"
+            android:gravity="center"
+            android:text="复制"
+            android:textColor="@color/color_000"
+            android:textSize="@dimen/text_14" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
