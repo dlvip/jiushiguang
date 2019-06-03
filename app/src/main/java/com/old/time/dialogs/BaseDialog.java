@@ -78,6 +78,14 @@ public abstract class BaseDialog extends Dialog {
         initDialogView();
     }
 
+    public void showDialog() {
+        if (isShowing()) {
+
+            return;
+        }
+        show();
+    }
+
     protected abstract void initDialogView();
 
     /**

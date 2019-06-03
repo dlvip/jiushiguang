@@ -154,4 +154,10 @@
         <!-- 字体的大小-->
         <attr name="paintTextSize" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="CircleViewImage">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
 </resources>

@@ -23,6 +23,8 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.pops.SharePopWindow;
+import com.old.time.readLib.ReadActivity;
+import com.old.time.readLib.db.BookList;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
@@ -216,41 +218,54 @@ public class BookDetailActivity extends BaseActivity {
      * 下载图书
      */
     private void downLoadFile(final BookEntity bookEntity) {
-        if (bookEntity == null || TextUtils.isEmpty(bookEntity.getFilePath())) {
+        ///storage/emulated/0/Download/云边有个小卖部.txt
+        //云边有个小卖部
+        //64986
+        //GB18030
+        //1
+        BookList bookList = new BookList();
+        bookList.setBookname("云边有个小卖部");
+        bookList.setBookpath("/storage/emulated/0/Download/云边有个小卖部.txt");
+        bookList.setCharset("GB18030");
+        bookList.setBegin(64986);
+        ReadActivity.openBook(bookList, mContext);
 
-            return;
-        }
-        String filePath = (String) SpUtils.get(bookEntity.getIsbn13(), "");
-        if (!TextUtils.isEmpty(filePath)) {
-            HwTxtPlayActivity.loadTxtFile(mContext, filePath);
 
-            return;
-        }
-        OkGoUtils.getInstance().downLoadFile(bookEntity.getFilePath(), new FileCallback() {
-            @Override
-            public void downloadProgress(Progress progress) {
-                super.downloadProgress(progress);
-                if (progress != null) DebugLog.d(TAG, progress.toString());
-
-            }
-
-            @Override
-            public void onSuccess(Response<File> response) {
-                if (response == null || response.body() == null || TextUtils.isEmpty(response.body().getPath())) {
-
-                    return;
-                }
-                String filePath = response.body().getPath();
-                SpUtils.put(bookEntity.getIsbn13(), filePath);
-                HwTxtPlayActivity.loadTxtFile(mContext, filePath);
-            }
-
-            @Override
-            public void onError(Response<File> response) {
-                super.onError(response);
-
-            }
-        });
+//        if (bookEntity == null || TextUtils.isEmpty(bookEntity.getFilePath())) {
+//
+//            return;
+//        }
+//        String filePath = (String) SpUtils.get(bookEntity.getIsbn13(), "");
+//        if (!TextUtils.isEmpty(filePath)) {
+//            HwTxtPlayActivity.loadTxtFile(mContext, filePath);
+//
+//            return;
+//        }
+//        OkGoUtils.getInstance().downLoadFile(bookEntity.getFilePath(), new FileCallback() {
+//            @Override
+//            public void downloadProgress(Progress progress) {
+//                super.downloadProgress(progress);
+//                if (progress != null) DebugLog.d(TAG, progress.toString());
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(Response<File> response) {
+//                if (response == null || response.body() == null || TextUtils.isEmpty(response.body().getPath())) {
+//
+//                    return;
+//                }
+//                String filePath = response.body().getPath();
+//                SpUtils.put(bookEntity.getIsbn13(), filePath);
+//                HwTxtPlayActivity.loadTxtFile(mContext, filePath);
+//            }
+//
+//            @Override
+//            public void onError(Response<File> response) {
+//                super.onError(response);
+//
+//            }
+//        });
     }
 
     @Override

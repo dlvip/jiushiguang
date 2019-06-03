@@ -32,6 +32,8 @@ import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.media.UMImage;
 
+import org.litepal.LitePalApplication;
+
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
@@ -64,6 +66,8 @@ public class MyApplication extends MultiDexApplication {
     }
 
     private void init() {
+        //字体初始化
+        LitePalApplication.initialize(this);
         initBugly();
         client = new ReadClient();//初始化客户端配置信息管理者
         UMShareInfo();

@@ -47,13 +47,7 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
         mPath.lineTo(getWidth(), getHeight());
         mPath.lineTo(startPosition, getHeight());
         mPath.lineTo(startPosition, 0);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            canvas.clipPath(mPath);
-
-        } else {
-            canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
-
-        }
+        canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
         canvas.drawBitmap(getBottomPage(), startPosition, 0, null);
 
 
@@ -97,13 +91,7 @@ public class SerialPageDrawer extends PageDrawerBase implements IReaderViewDrawe
         mPath.lineTo(startPosition, getHeight());
         mPath.lineTo(0, getHeight());
         mPath.lineTo(0, 0);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            canvas.clipPath(mPath);
-
-        } else {
-            canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
-
-        }
+        canvas.clipPath(mPath, Region.Op.REVERSE_DIFFERENCE);
         canvas.drawBitmap(getBottomPage(), startPosition - getWidth(), 0, null);
 
     }

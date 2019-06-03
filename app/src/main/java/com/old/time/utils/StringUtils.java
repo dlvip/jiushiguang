@@ -227,4 +227,15 @@ public class StringUtils {
 
         return timeStr.replace("-", "/").substring(5, 16);
     }
+
+    public static String subString(String text, int num) {
+        String content = "";
+        if (text.length() > num) {
+            content = text.substring(0, num - 1) + "...";
+        } else {
+            content = text;
+        }
+
+        return content;
+    }
 }

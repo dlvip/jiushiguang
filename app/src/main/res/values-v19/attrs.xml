@@ -11,4 +11,9 @@
         <attr name="civClipRoundCorner" format="dimension|reference" />
         <attr name="civClipCircle" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="CircleViewImage">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
 </resources>

@@ -109,7 +109,10 @@ dependencies {
     implementation exernalOkServerHttp
     //小说阅读器
     //implementation externalGithubHwTxtReader
-
     implementation exernalUMengCommon
     implementation exernalUMengAnalytics
+
+    //数据库操作
+    implementation externalAndroidCore
+    implementation files('libs/juniversalchardet-1.0.3.jar')
 }

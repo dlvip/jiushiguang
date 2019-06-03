@@ -139,4 +139,20 @@
         <!--  圆角矩形宽高相等,取较宽高中大值 -->
         <attr name="mv_isWidthHeightEqual" format="boolean"/>
     </declare-styleable>
+
+    <style name="setting_dialog_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:textColor">@color/color_fff</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="text_style">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
