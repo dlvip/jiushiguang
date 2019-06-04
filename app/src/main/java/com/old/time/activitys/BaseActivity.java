@@ -1,6 +1,7 @@
 package com.old.time.activitys;
 
 import android.content.Intent;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.view.Gravity;
@@ -62,6 +63,15 @@ public abstract class BaseActivity extends PermissionActivity implements View.On
 
         }
         if (tv_title != null) tv_title.setText(text);
+
+    }
+
+    public void setTitleColor(@ColorRes int color) {
+        if (tv_title == null) {
+            tv_title = findViewById(R.id.top_title);
+
+        }
+        if (tv_title != null) tv_title.setTextColor(getResources().getColor(color));
 
     }
 
@@ -132,7 +142,8 @@ public abstract class BaseActivity extends PermissionActivity implements View.On
 
     protected abstract void initView();
 
-    protected abstract @LayoutRes int getLayoutID();
+    protected abstract @LayoutRes
+    int getLayoutID();
 
     private int W, H;
     private int showX, showY;

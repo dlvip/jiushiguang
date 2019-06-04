@@ -1,1 +1,1 @@
-include ':app', ':zxing', ':dkplayer', ':piclib', ':CallLib', ':IMLib', ':IMKit', ':CallKit', ':hwtxtreaderlib'
+include ':app', ':zxing', ':dkplayer', ':piclib', ':CallLib', ':IMLib', ':IMKit', ':CallKit'

@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.old.time.MyApplication;
 import com.old.time.R;
+import com.old.time.beans.BookEntity;
 import com.old.time.readLib.db.BookCatalogue;
-import com.old.time.readLib.db.BookList;
 import com.old.time.utils.FileUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
@@ -136,7 +136,7 @@ public class PageFactory {
     private String bookPath = "";
     //书本名字
     private String bookName = "";
-    private BookList bookList;
+    private BookEntity bookEntity;
     //书本章节
     private int currentCharter = 0;
     //当前电量
@@ -281,13 +281,13 @@ public class PageFactory {
             currentCharter = getCurrentCharter();
         }
         //更新数据库进度
-        if (currentPage != null && bookList != null) {
+        if (currentPage != null && bookEntity != null) {
             new Thread() {
                 @Override
                 public void run() {
                     super.run();
                     values.put("begin", currentPage.getBegin());
-                    DataSupport.update(BookList.class, values, bookList.getId());
+                    DataSupport.update(BookEntity.class, values, Long.valueOf(bookEntity.getId()));
                 }
             }.start();
         }
@@ -306,6 +306,7 @@ public class PageFactory {
             for (String strLine : m_lines) {
                 y += m_fontSize + lineSpace;
                 c.drawText(strLine, measureMarginWidth, y, mPaint);
+
             }
         }
 
@@ -410,14 +411,13 @@ public class PageFactory {
      *
      * @throws IOException
      */
-    public void openBook(BookList bookList) throws IOException {
+    void openBook(BookEntity bookEntity) throws IOException {
         //清空数据
         currentCharter = 0;
-//        m_mbBufLen = 0;
         initBg(config.getDayOrNight());
 
-        this.bookList = bookList;
-        bookPath = bookList.getBookpath();
+        this.bookEntity = bookEntity;
+        bookPath = bookEntity.getFilePath();
         bookName = FileUtils.getFileName(bookPath);
 
         mStatus = Status.OPENING;
@@ -425,33 +425,36 @@ public class PageFactory {
         drawStatus(mBookPageWidget.getNextPage());
         if (bookTask != null && bookTask.getStatus() != AsyncTask.Status.FINISHED) {
             bookTask.cancel(true);
+
         }
         bookTask = new BookTask();
-        bookTask.execute(bookList.getBegin());
+        bookTask.execute(bookEntity.getBegin());
     }
 
     private class BookTask extends AsyncTask<Long, Void, Boolean> {
+
         private long begin = 0;
 
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
-            Log.e("onPostExecute", isCancelled() + "");
             if (isCancelled()) {
+
                 return;
             }
             if (result) {
                 PageFactory.mStatus = PageFactory.Status.FINISH;
-//                m_mbBufLen = mBookUtil.getBookLen();
                 currentPage = getPageForBegin(begin);
                 if (mBookPageWidget != null) {
                     currentPage(true);
+
                 }
             } else {
                 PageFactory.mStatus = PageFactory.Status.FAIL;
                 drawStatus(mBookPageWidget.getCurPage());
                 drawStatus(mBookPageWidget.getNextPage());
                 Toast.makeText(mContext, "打开书本失败！", Toast.LENGTH_SHORT).show();
+
             }
         }
 
@@ -470,7 +473,8 @@ public class PageFactory {
         protected Boolean doInBackground(Long... params) {
             begin = params[0];
             try {
-                mBookUtil.openBook(bookList);
+                mBookUtil.openBook(bookEntity);
+
             } catch (Exception e) {
                 e.printStackTrace();
                 return false;
@@ -649,7 +653,7 @@ public class PageFactory {
     }
 
     //获取现在的章
-    public int getCurrentCharter() {
+    int getCurrentCharter() {
         int num = 0;
         for (int i = 0; getDirectoryList().size() > i; i++) {
             BookCatalogue bookCatalogue = getDirectoryList().get(i);
@@ -789,7 +793,7 @@ public class PageFactory {
         currentCharter = 0;
         bookPath = "";
         bookName = "";
-        bookList = null;
+        bookEntity = null;
         mBookPageWidget = null;
         mPageEvent = null;
         cancelPage = null;

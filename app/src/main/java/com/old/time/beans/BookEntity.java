@@ -2,12 +2,11 @@ package com.old.time.beans;
 
 import android.text.TextUtils;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.Serializable;
 
-public class BookEntity implements Serializable {
-
-
-
+public class BookEntity extends DataSupport implements Serializable {
 
     private String id;
 
@@ -29,6 +28,24 @@ public class BookEntity implements Serializable {
     private String url;
 
     private String filePath;
+    private long begin;
+    private String charset;
+
+    public long getBegin() {
+        return begin;
+    }
+
+    public void setBegin(long begin) {
+        this.begin = begin;
+    }
+
+    public void setCharset(String charset) {
+        this.charset = charset;
+    }
+
+    public String getCharset() {
+        return charset;
+    }
 
     public String getFilePath() {
         return filePath;
@@ -61,6 +78,10 @@ public class BookEntity implements Serializable {
 
 
     public String getId() {
+        if (TextUtils.isEmpty(id)) {
+
+            return "0";
+        }
         return id;
     }
 

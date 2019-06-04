@@ -6,7 +6,6 @@
 
     <list>
         <mapping class="com.old.time.readLib.db.BookCatalogue" />
-        <mapping class="com.old.time.readLib.db.BookList" />
-        <mapping class="com.old.time.readLib.db.BookMarks" />
+        <mapping class="com.old.time.beans.BookEntity" />
     </list>
 </litepal>
