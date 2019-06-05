@@ -287,7 +287,7 @@ public class PageFactory {
                 public void run() {
                     super.run();
                     values.put("begin", currentPage.getBegin());
-                    DataSupport.update(BookEntity.class, values, Long.valueOf(bookEntity.getId()));
+                    DataSupport.update(BookEntity.class, values, bookEntity.getId());
                 }
             }.start();
         }
@@ -308,6 +308,10 @@ public class PageFactory {
                 c.drawText(strLine, measureMarginWidth, y, mPaint);
 
             }
+        }
+        if (currentPage == null) {
+
+            return;
         }
 
         //画进度及时间
@@ -382,7 +386,7 @@ public class PageFactory {
 
     //向后翻页
     public void nextPage() {
-        if (currentPage.getEnd() >= mBookUtil.getBookLen()) {
+        if (currentPage == null || currentPage.getEnd() >= mBookUtil.getBookLen()) {
             Log.e(TAG, "已经是最后一页了");
             if (!m_islastPage) {
                 Toast.makeText(mContext, "已经是最后一页了", Toast.LENGTH_SHORT).show();

@@ -146,7 +146,7 @@ public class SignCreateActivity extends BaseActivity {
         if (bookEntity != null) {
             img_open_camera.setVisibility(View.GONE);
             tv_book_name.setText(bookEntity.getTitle());
-            bookId = bookEntity.getId();
+            bookId = String.valueOf(bookEntity.getId());
 
         }
     }
@@ -221,7 +221,7 @@ public class SignCreateActivity extends BaseActivity {
                     return;
                 }
                 tv_book_name.setText(mResultBean.data.getTitle());
-                bookId = mResultBean.data.getId();
+                bookId = String.valueOf(mResultBean.data.getId());
 
             }
 
@@ -294,7 +294,7 @@ public class SignCreateActivity extends BaseActivity {
                     return;
                 }
                 tv_book_name.setText(mResultBean.data.getTitle());
-                bookId = mResultBean.data.getId();
+                bookId = String.valueOf(mResultBean.data.getId());
 
             }
 

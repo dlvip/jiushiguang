@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -23,10 +24,15 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.beans.BookEntity;
+import com.old.time.readLib.db.BookCatalogue;
 import com.old.time.utils.ActivityUtils;
+import com.old.time.utils.DebugLog;
+import com.old.time.utils.MyLinearLayoutManager;
+import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 
 import org.litepal.crud.DataSupport;
@@ -84,6 +90,8 @@ public class ReadActivity extends BaseActivity {
 
     private DrawerLayout read_dl_slide;
 
+    private RecyclerView recycler_view;
+
     // 接收电池信息更新的广播
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
 
@@ -109,6 +117,9 @@ public class ReadActivity extends BaseActivity {
 
     }
 
+    private List<BookCatalogue> bookCatalogues = new ArrayList<>();
+    private BookCatalogueAdapter bookCatalogueAdapter;
+
     @Override
     public int getLayoutID() {
         return R.layout.activity_read;
@@ -121,6 +132,7 @@ public class ReadActivity extends BaseActivity {
 
         }
         mainView = findViewById(R.id.header_main);
+        mainView.findViewById(R.id.view_line).setVisibility(View.GONE);
         mainView.setBackgroundResource(R.color.color_2c2c2c);
         bookpage = findViewById(R.id.bookpage);
         tv_pre = findViewById(R.id.tv_pre);
@@ -131,6 +143,13 @@ public class ReadActivity extends BaseActivity {
         tv_pagemode = findViewById(R.id.tv_pagemode);
         tv_setting = findViewById(R.id.tv_setting);
         rl_bottom = findViewById(R.id.rl_bottom);
+
+        recycler_view = findViewById(R.id.recycler_view);
+        recycler_view.setLayoutManager(new MyLinearLayoutManager(mContext));
+        recycler_view.addItemDecoration(new RecyclerItemDecoration(mContext));
+        bookCatalogueAdapter = BookCatalogueAdapter.getInstance(bookCatalogues);
+        bookCatalogueAdapter.bindToRecyclerView(recycler_view);
+        recycler_view.setAdapter(bookCatalogueAdapter);
 
         read_dl_slide = findViewById(R.id.read_dl_slide);
         //禁止滑动展示DrawerLayout
@@ -156,10 +175,16 @@ public class ReadActivity extends BaseActivity {
 
         initDayOrNight();
 
+        List<BookEntity> bookEntities = DataSupport.findAll(BookEntity.class);
+        for (BookEntity b : bookEntities) {
+            DebugLog.d(TAG, b.toString());
+
+        }
+
         //获取intent中的携带的信息
         Intent intent = getIntent();
         BookEntity bookEntity = (BookEntity) intent.getSerializableExtra(EXTRA_BOOK);
-        saveBookFile(bookEntity);
+        setBookForView(bookEntity);
 
     }
 
@@ -195,13 +220,14 @@ public class ReadActivity extends BaseActivity {
      * @param bookEntity
      */
     private void saveBookFile(BookEntity bookEntity) {
-        BookEntity book = DataSupport.find(BookEntity.class, Long.valueOf(bookEntity.getId()));
+        BookEntity book = DataSupport.find(BookEntity.class, bookEntity.getId());
         if (book != null) {
             setBookForView(book);
 
             return;
         }
         List<BookEntity> bookEntities = new ArrayList<>();
+        bookEntities.add(bookEntity);
         SaveBookToSqlLiteTask mSaveBookToSqlLiteTask = new SaveBookToSqlLiteTask();
         mSaveBookToSqlLiteTask.execute(bookEntities);
 
@@ -219,7 +245,7 @@ public class ReadActivity extends BaseActivity {
         protected Integer doInBackground(List<BookEntity>... params) {
             List<BookEntity> bookLists = params[0];
             for (BookEntity bookList : bookLists) {
-                List<BookEntity> books = DataSupport.where("bookpath = ?", bookList.getFilePath()).find(BookEntity.class);
+                List<BookEntity> books = DataSupport.where("filePath = ?", bookList.getFilePath()).find(BookEntity.class);
                 if (books.size() > 0) {
                     repeatBookList = bookList;
 
@@ -249,11 +275,11 @@ public class ReadActivity extends BaseActivity {
                     break;
                 case SUCCESS:
                     msg = "添加书本成功";
-                    setBookForView(repeatBookList);
 
                     break;
                 case REPEAT:
                     msg = "书本" + repeatBookList.getTitle() + "重复了";
+                    setBookForView(repeatBookList);
 
                     break;
             }
@@ -323,6 +349,16 @@ public class ReadActivity extends BaseActivity {
     protected void initEvent() {
         super.initEvent();
         setOnclick(new View[]{tv_pre, tv_next, tv_directory, tv_dayornight, tv_pagemode, tv_setting});
+        bookCatalogueAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                read_dl_slide.openDrawer(Gravity.END);
+                BookCatalogue bookCatalogue = (BookCatalogue) adapter.getItem(position);
+                pageFactory.changeChapter(bookCatalogue != null ? bookCatalogue.getBookCatalogueStartPos() : 0);
+
+
+            }
+        });
         sb_progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             float pro;
@@ -514,6 +550,7 @@ public class ReadActivity extends BaseActivity {
                 break;
             case R.id.tv_directory:
                 hideReadSetting();
+                bookCatalogueAdapter.setNewData(bookCatalogues);
                 read_dl_slide.openDrawer(Gravity.START);
 
                 break;

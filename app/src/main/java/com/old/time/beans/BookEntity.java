@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class BookEntity extends DataSupport implements Serializable {
 
-    private String id;
+    private long id;
 
     private String levelNum;
     private String subtitle;
@@ -77,15 +77,11 @@ public class BookEntity extends DataSupport implements Serializable {
     }
 
 
-    public String getId() {
-        if (TextUtils.isEmpty(id)) {
-
-            return "0";
-        }
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -235,4 +231,8 @@ public class BookEntity extends DataSupport implements Serializable {
         this.url = url;
     }
 
+    @Override
+    public String toString() {
+        return "BookEntity{" + "id='" + id + '\'' + ", levelNum='" + levelNum + '\'' + ", subtitle='" + subtitle + '\'' + ", author='" + author + '\'' + ", pubdate='" + pubdate + '\'' + ", origin_title='" + origin_title + '\'' + ", binding='" + binding + '\'' + ", pages='" + pages + '\'' + ", images_medium='" + images_medium + '\'' + ", images_large='" + images_large + '\'' + ", publisher='" + publisher + '\'' + ", isbn10='" + isbn10 + '\'' + ", isbn13='" + isbn13 + '\'' + ", title='" + title + '\'' + ", summary='" + summary + '\'' + ", price='" + price + '\'' + ", url='" + url + '\'' + ", filePath='" + filePath + '\'' + ", begin=" + begin + ", charset='" + charset + '\'' + ", count=" + count + ", isSelect=" + isSelect + '}';
+    }
 }

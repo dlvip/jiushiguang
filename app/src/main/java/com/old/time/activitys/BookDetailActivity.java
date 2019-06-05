@@ -222,6 +222,7 @@ public class BookDetailActivity extends BaseActivity {
             return;
         }
         String filePath = (String) SpUtils.get(bookEntity.getIsbn13(), "");
+        bookEntity.setFilePath(filePath);
         if (!TextUtils.isEmpty(filePath)) {
             ReadActivity.openBook(mContext, bookEntity);
 
@@ -243,8 +244,9 @@ public class BookDetailActivity extends BaseActivity {
                 }
                 String filePath = response.body().getPath();
                 SpUtils.put(bookEntity.getIsbn13(), filePath);
-
+                bookEntity.setFilePath(filePath);
                 ReadActivity.openBook(mContext, bookEntity);
+
             }
 
             @Override

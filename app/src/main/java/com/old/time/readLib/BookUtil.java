@@ -184,7 +184,7 @@ public class BookUtil {
             }
             ContentValues values = new ContentValues();
             values.put("charset", m_strCharsetName);
-            DataSupport.update(BookEntity.class, values, Long.valueOf(bookEntity.getId()));
+            DataSupport.update(BookEntity.class, values, bookEntity.getId());
 
         } else {
             m_strCharsetName = bookEntity.getCharset();
@@ -242,7 +242,8 @@ public class BookUtil {
         }.start();
     }
 
-    private static final String ChapterPatternStr = "(^.{0,3}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
+//    private static final String ChapterPatternStr = "(^.{0,3}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
+    private static final String ChapterPatternStr = ".*第.{1,8}章.*";
 
     //获取章节
     private synchronized void getChapter() {
@@ -253,7 +254,7 @@ public class BookUtil {
                 String bufStr = new String(buf);
                 String[] paragraphs = bufStr.split("\r\n");
                 for (String str : paragraphs) {
-                    if (str.length() <= 30 && (str.matches(ChapterPatternStr) || str.matches(ChapterPatternStr))) {
+                    if (str.length() <= 30 && (str.matches(ChapterPatternStr) || str.matches(".*第.{1,8}节.*"))) {
                         BookCatalogue bookCatalogue = new BookCatalogue();
                         bookCatalogue.setBookCatalogueStartPos(size);
                         bookCatalogue.setBookCatalogue(str);
@@ -280,6 +281,10 @@ public class BookUtil {
     }
 
     List<BookCatalogue> getDirectoryList() {
+        if (directoryList == null || directoryList.size() == 0) {
+            getChapter();
+
+        }
         return directoryList;
     }
 
