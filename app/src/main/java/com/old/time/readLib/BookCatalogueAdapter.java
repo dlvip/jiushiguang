@@ -55,7 +55,7 @@ public class BookCatalogueAdapter extends BaseQuickAdapter<BookCatalogue, BaseVi
      *
      * @param position
      */
-    public void selectToPosition(int position) {
+    private void selectToPosition(int position) {
         if (mRecyclerView == null) {
             mRecyclerView = getRecyclerView();
 

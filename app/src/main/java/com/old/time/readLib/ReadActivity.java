@@ -30,7 +30,6 @@ import com.old.time.activitys.BaseActivity;
 import com.old.time.beans.BookEntity;
 import com.old.time.readLib.db.BookCatalogue;
 import com.old.time.utils.ActivityUtils;
-import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
@@ -175,12 +174,6 @@ public class ReadActivity extends BaseActivity {
 
         initDayOrNight();
 
-        List<BookEntity> bookEntities = DataSupport.findAll(BookEntity.class);
-        for (BookEntity b : bookEntities) {
-            DebugLog.d(TAG, b.toString());
-
-        }
-
         //获取intent中的携带的信息
         Intent intent = getIntent();
         BookEntity bookEntity = (BookEntity) intent.getSerializableExtra(EXTRA_BOOK);
@@ -210,80 +203,6 @@ public class ReadActivity extends BaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
             UIHelper.ToastMessage(mContext, "打开电子书失败");
-
-        }
-    }
-
-    /**
-     * 检查文件是否存在
-     *
-     * @param bookEntity
-     */
-    private void saveBookFile(BookEntity bookEntity) {
-        BookEntity book = DataSupport.find(BookEntity.class, bookEntity.getId());
-        if (book != null) {
-            setBookForView(book);
-
-            return;
-        }
-        List<BookEntity> bookEntities = new ArrayList<>();
-        bookEntities.add(bookEntity);
-        SaveBookToSqlLiteTask mSaveBookToSqlLiteTask = new SaveBookToSqlLiteTask();
-        mSaveBookToSqlLiteTask.execute(bookEntities);
-
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class SaveBookToSqlLiteTask extends AsyncTask<List<BookEntity>, Void, Integer> {
-
-        private static final int FAIL = 0;
-        private static final int SUCCESS = 1;
-        private static final int REPEAT = 2;
-        private BookEntity repeatBookList;
-
-        @Override
-        protected Integer doInBackground(List<BookEntity>... params) {
-            List<BookEntity> bookLists = params[0];
-            for (BookEntity bookList : bookLists) {
-                List<BookEntity> books = DataSupport.where("filePath = ?", bookList.getFilePath()).find(BookEntity.class);
-                if (books.size() > 0) {
-                    repeatBookList = bookList;
-
-                    return REPEAT;
-                }
-            }
-
-            try {
-                DataSupport.saveAll(bookLists);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-
-                return FAIL;
-            }
-            return SUCCESS;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-            String msg = "";
-            switch (result) {
-                case FAIL:
-                    msg = "由于一些原因添加书本失败";
-
-                    break;
-                case SUCCESS:
-                    msg = "添加书本成功";
-
-                    break;
-                case REPEAT:
-                    msg = "书本" + repeatBookList.getTitle() + "重复了";
-                    setBookForView(repeatBookList);
-
-                    break;
-            }
-            UIHelper.ToastMessage(mContext, msg);
 
         }
     }
@@ -352,7 +271,7 @@ public class ReadActivity extends BaseActivity {
         bookCatalogueAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                read_dl_slide.openDrawer(Gravity.END);
+                read_dl_slide.closeDrawer(Gravity.START);
                 BookCatalogue bookCatalogue = (BookCatalogue) adapter.getItem(position);
                 pageFactory.changeChapter(bookCatalogue != null ? bookCatalogue.getBookCatalogueStartPos() : 0);
 

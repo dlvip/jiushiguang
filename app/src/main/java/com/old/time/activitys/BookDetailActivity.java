@@ -1,8 +1,10 @@
 package com.old.time.activitys;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,7 +30,13 @@ import com.old.time.utils.DebugLog;
 import com.old.time.utils.SpUtils;
 import com.old.time.utils.UIHelper;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class BookDetailActivity extends BaseActivity {
 
@@ -51,20 +59,9 @@ public class BookDetailActivity extends BaseActivity {
 
     }
 
-    /**
-     * 图书详情
-     *
-     * @param context
-     */
-    public static void startBookDetailActivity(Context context, String isbn) {
-        if (TextUtils.isEmpty(isbn)) {
-
-            return;
-        }
-        Intent intent = new Intent(context, BookDetailActivity.class);
-        intent.putExtra(BOOK_ISBN, isbn);
-        ActivityUtils.startActivity((Activity) context, intent);
-
+    @Override
+    protected String[] getNeedPermissions() {
+        return super.getNeedPermissions();
     }
 
     private BookEntity bookEntity;
@@ -221,14 +218,14 @@ public class BookDetailActivity extends BaseActivity {
 
             return;
         }
-        String filePath = (String) SpUtils.get(bookEntity.getIsbn13(), "");
-        bookEntity.setFilePath(filePath);
-        if (!TextUtils.isEmpty(filePath)) {
-            ReadActivity.openBook(mContext, bookEntity);
+        BookEntity book = DataSupport.find(BookEntity.class, bookEntity.getId());
+        if (book != null) {
+            ReadActivity.openBook(mContext, book);
 
             return;
         }
         OkGoUtils.getInstance().downLoadFile(bookEntity.getFilePath(), new FileCallback() {
+
             @Override
             public void downloadProgress(Progress progress) {
                 super.downloadProgress(progress);
@@ -243,18 +240,63 @@ public class BookDetailActivity extends BaseActivity {
                     return;
                 }
                 String filePath = response.body().getPath();
-                SpUtils.put(bookEntity.getIsbn13(), filePath);
                 bookEntity.setFilePath(filePath);
-                ReadActivity.openBook(mContext, bookEntity);
 
+                SaveBookToSqlLiteTask mSaveBookToSqlLiteTask = new SaveBookToSqlLiteTask();
+                mSaveBookToSqlLiteTask.execute(bookEntity);
             }
 
             @Override
             public void onError(Response<File> response) {
                 super.onError(response);
+                UIHelper.ToastMessage(mContext, "加载图书失败");
 
             }
         });
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private class SaveBookToSqlLiteTask extends AsyncTask<BookEntity, Void, Integer> {
+
+        private static final int FAIL = 0;
+        private static final int SUCCESS = 1;
+        private BookEntity repeatBookEntity;
+
+        @Override
+        protected Integer doInBackground(BookEntity... params) {
+            BookEntity bookEntity = params[0];
+            List<BookEntity> books = DataSupport.where("filePath = ?", bookEntity.getFilePath()).find(BookEntity.class);
+            if (books.size() > 0) {
+                repeatBookEntity = books.get(0);
+
+                return SUCCESS;
+            }
+            try {
+                DataSupport.saveAll(Collections.singletonList(bookEntity));
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                return FAIL;
+            }
+            repeatBookEntity = bookEntity;
+            return SUCCESS;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+            switch (result) {
+                case FAIL:
+                    UIHelper.ToastMessage(mContext, "打开图书失败");
+
+                    break;
+                case SUCCESS:
+                    ReadActivity.openBook(mContext, repeatBookEntity);
+
+                    break;
+            }
+        }
     }
 
     @Override

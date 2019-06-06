@@ -152,6 +152,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/linear_layout_catalogue"
         android:layout_width="200dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

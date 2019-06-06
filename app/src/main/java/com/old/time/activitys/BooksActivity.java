@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,7 +23,6 @@ import com.old.time.constants.Constant;
 import com.old.time.dialogs.DialogMallCart;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
-import com.old.time.permission.PermissionUtil;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.PictureUtil;
 import com.old.time.utils.RecyclerItemDecoration;
@@ -33,6 +31,10 @@ import com.old.time.views.CustomNetView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class BooksActivity extends BaseCActivity {
 
@@ -74,6 +76,12 @@ public class BooksActivity extends BaseCActivity {
         tv_mall_commit = bottomView.findViewById(R.id.tv_mall_commit);
         linear_layout_more.addView(bottomView);
 
+    }
+
+    @Override
+    protected String[] getNeedPermissions() {
+
+        return new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE};
     }
 
     @Override
@@ -362,29 +370,6 @@ public class BooksActivity extends BaseCActivity {
             public void onError(ResultBean<BookEntity> mResultBean) {
                 UIHelper.dissmissProgressDialog(pd);
                 UIHelper.ToastMessage(mContext, mResultBean.msg);
-
-            }
-        });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionUtil.onPermissionResult(this, permissions, grantResults, new PermissionUtil.PermissionCallBack() {
-            @Override
-            public void onSuccess() {
-                PictureUtil.captureCode(mContext);
-
-            }
-
-            @Override
-            public void onShouldShow() {
-
-            }
-
-            @Override
-            public void onFailed() {
-                showDialogPermission();
 
             }
         });
