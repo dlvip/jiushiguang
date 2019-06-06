@@ -32,10 +32,6 @@ import com.old.time.views.CustomNetView;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.Manifest.permission.CAMERA;
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
 public class BooksActivity extends BaseCActivity {
 
     /**
@@ -63,7 +59,6 @@ public class BooksActivity extends BaseCActivity {
         adapter = new BooksAdapter(bookEntities);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
         mRecyclerView.setAdapter(adapter);
-        setSendText("添书");
 
         linear_layout_more.setVisibility(View.GONE);
         layoutParams.height = UIHelper.dip2px(60);
@@ -76,12 +71,6 @@ public class BooksActivity extends BaseCActivity {
         tv_mall_commit = bottomView.findViewById(R.id.tv_mall_commit);
         linear_layout_more.addView(bottomView);
 
-    }
-
-    @Override
-    protected String[] getNeedPermissions() {
-
-        return new String[]{CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE};
     }
 
     @Override
@@ -237,7 +226,6 @@ public class BooksActivity extends BaseCActivity {
                     adapter.setEmptyView(mCustomNetView);
 
                 }
-
             }
 
             @Override

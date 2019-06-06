@@ -20,6 +20,7 @@ import com.old.time.beans.BookEntity;
 import com.old.time.beans.ResultBean;
 import com.old.time.beans.UMShareBean;
 import com.old.time.constants.Constant;
+import com.old.time.dialogs.DialogShareContent;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
@@ -27,14 +28,11 @@ import com.old.time.pops.SharePopWindow;
 import com.old.time.readLib.ReadActivity;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DebugLog;
-import com.old.time.utils.SpUtils;
 import com.old.time.utils.UIHelper;
 
 import org.litepal.crud.DataSupport;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -177,7 +175,7 @@ public class BookDetailActivity extends BaseActivity {
         });
     }
 
-    private SharePopWindow sharePopWindow;
+    private DialogShareContent shareContent;
     private UMShareBean umShareBean;
 
     /**
@@ -188,8 +186,8 @@ public class BookDetailActivity extends BaseActivity {
 
             return;
         }
-        if (sharePopWindow == null) {
-            sharePopWindow = new SharePopWindow(mContext, new SharePopWindow.ShareModelCallBackListener() {
+        if (shareContent == null) {
+            shareContent = new DialogShareContent(mContext, new DialogShareContent.ShareModelCallBackListener() {
                 @Override
                 public UMShareBean getShareModel() {
 
@@ -206,7 +204,7 @@ public class BookDetailActivity extends BaseActivity {
         umShareBean.setDescription(bookEntity.getSummary());
         umShareBean.setShareUrl(Constant.PU_GONG_YING_URL);
 
-        sharePopWindow.showBottomAtLocation(relative_layout_parent);
+        shareContent.showShareContentDialog(relative_layout_parent);
 
     }
 

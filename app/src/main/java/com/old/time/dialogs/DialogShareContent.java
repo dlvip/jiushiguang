@@ -1,10 +1,10 @@
-package com.old.time.pops;
+package com.old.time.dialogs;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -29,29 +29,49 @@ import com.umeng.socialize.media.UMWeb;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SharePopWindow extends BasePopWindow {
+/**
+ * Created by wcliang on 2019/6/6.
+ */
+
+public class DialogShareContent extends BaseDialog {
 
     private ShareModelCallBackListener shareModelCallBackListener;
 
-    public SharePopWindow(Context context, ShareModelCallBackListener shareModelCallBackListener) {
-        super(context);
+    /**
+     * 分享弹框
+     *
+     * @param context
+     * @param shareModelCallBackListener
+     */
+    public DialogShareContent(@NonNull Activity context, ShareModelCallBackListener shareModelCallBackListener) {
+        super(context, R.style.transparentFrameWindowStyle);
         this.shareModelCallBackListener = shareModelCallBackListener;
 
     }
 
+    private TextView tv_dialog_title, tv_cancel;
     private RecyclerView recycler_view;
+
     private List<ItemBean> itemBeans;
     private BaseQuickAdapter<ItemBean, BaseViewHolder> adapter;
 
     @Override
-    protected void initView() {
-        TextView tv_dialog_title = findViewById(R.id.tv_dialog_title);
-        TextView tv_cancel = findViewById(R.id.tv_cancel);
+    protected void initDialogView() {
+        tv_dialog_title = findViewbyId(R.id.tv_dialog_title);
+        tv_dialog_title.setText("分享");
+        tv_cancel = findViewbyId(R.id.tv_cancel);
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
 
-        recycler_view = findViewById(R.id.recycler_view);
-        recycler_view.setLayoutManager(new MyGridLayoutManager(context, 3));
-        recycler_view.addItemDecoration(new RecyclerItemDecoration(context, RecyclerItemDecoration.HORIZONTAL_LIST));
-        recycler_view.addItemDecoration(new RecyclerItemDecoration(context, RecyclerItemDecoration.VERTICAL_LIST, 10, R.color.transparent));
+            }
+        });
+
+        recycler_view = findViewbyId(R.id.recycler_view);
+        recycler_view.setLayoutManager(new MyGridLayoutManager(mContext, 3));
+        recycler_view.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST));
+        recycler_view.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10, R.color.transparent));
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) recycler_view.getLayoutParams();
         params.height = UIHelper.dip2px(170);
         recycler_view.setLayoutParams(params);
@@ -87,6 +107,8 @@ public class SharePopWindow extends BasePopWindow {
 
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                dismiss();
+
                 ItemBean itemBean = itemBeans.get(position);
                 if (itemBean.platform != null) {
                     shareMorePlatform(itemBean.platform);
@@ -98,6 +120,17 @@ public class SharePopWindow extends BasePopWindow {
             }
         });
     }
+
+    public void showShareContentDialog(View mAtLocationView) {
+        if (!isShowing()) {
+            show();
+
+        }
+        this.mAtLocationView = mAtLocationView;
+
+    }
+
+    private View mAtLocationView;
 
     private ShareAction mShareAction;
 
@@ -119,7 +152,7 @@ public class SharePopWindow extends BasePopWindow {
             return;
         }
         if (mShareAction == null) {
-            mShareAction = new ShareAction((Activity) context);
+            mShareAction = new ShareAction(mContext);
             mShareAction.setCallback(umShareListener);
 
         }
@@ -127,10 +160,10 @@ public class SharePopWindow extends BasePopWindow {
         UMImage image;
         if (TextUtils.isEmpty(umShareBean.getImgUrl())) {
             Bitmap bitmap = BitmapUtils.createBitmapFromView(mAtLocationView);
-            image = new UMImage(context, bitmap);
+            image = new UMImage(mContext, bitmap);
 
         } else {
-            image = new UMImage(context, umShareBean.getImgUrl());
+            image = new UMImage(mContext, umShareBean.getImgUrl());
 
         }
         if (!TextUtils.isEmpty(umShareBean.getShareUrl())) {
@@ -159,7 +192,7 @@ public class SharePopWindow extends BasePopWindow {
         Intent imageIntent = new Intent(Intent.ACTION_SEND);
         imageIntent.setType("image/*");
         imageIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        context.startActivity(Intent.createChooser(imageIntent, "分享"));
+        mContext.startActivity(Intent.createChooser(imageIntent, "分享"));
 
     }
 
@@ -192,7 +225,7 @@ public class SharePopWindow extends BasePopWindow {
          */
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            UIHelper.ToastMessage(context, "分享成功");
+            UIHelper.ToastMessage(mContext, "分享成功");
 
         }
 
@@ -203,7 +236,7 @@ public class SharePopWindow extends BasePopWindow {
          */
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
-            UIHelper.ToastMessage(context, "分享失败：error【" + t.getMessage() + "】");
+            UIHelper.ToastMessage(mContext, "分享失败：error【" + t.getMessage() + "】");
 
         }
 
@@ -213,7 +246,7 @@ public class SharePopWindow extends BasePopWindow {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform) {
-            UIHelper.ToastMessage(context, "分享取消");
+            UIHelper.ToastMessage(mContext, "分享取消");
 
         }
     };
@@ -245,7 +278,7 @@ public class SharePopWindow extends BasePopWindow {
     }
 
     @Override
-    protected int getLayoutId() {
+    protected int setContentView() {
         return R.layout.dialog_manager_list;
     }
 }
