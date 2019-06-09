@@ -23,13 +23,15 @@ public class DialogPromptCentre extends BaseDialog {
 
     }
 
-    public TextView tv_prompt_content, tv_cancel, tv_true;
+    private View view_line;
+    private TextView tv_prompt_content, tv_cancel, tv_true;
 
     @Override
     protected void initDialogView() {
         tv_prompt_content = findViewbyId(R.id.tv_prompt_content);
         tv_cancel = findViewbyId(R.id.tv_cancel);
         tv_true = findViewbyId(R.id.tv_true);
+        view_line = findViewbyId(R.id.view_line);
         tv_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,10 +61,19 @@ public class DialogPromptCentre extends BaseDialog {
      *
      * @param contentStr
      */
-    public void showDialog(String contentStr) {
+    public DialogPromptCentre showDialog(String contentStr) {
         show();
         setPromptContent(contentStr);
 
+        return this;
+    }
+
+    public void hiteCancelBtn() {
+        if (tv_cancel != null) {
+            tv_cancel.setVisibility(View.GONE);
+            view_line.setVisibility(View.GONE);
+
+        }
     }
 
     /**

@@ -155,18 +155,19 @@ public class HomeActivity extends BaseCActivity {
     }
 
     private DialogPromptCentre mDialogPromptCentre;
-
+    private SystemBean mSystemBean;
 
     /**
      * 提示更新dialog
      *
-     * @param mSystemBean
+     * @param systemBean
      */
-    private void showUpdateAppDialog(SystemBean mSystemBean) {
+    private void showUpdateAppDialog(SystemBean systemBean) {
         if (mSystemBean == null) {
 
             return;
         }
+        this.mSystemBean = systemBean;
         int versionCode = BuildConfig.VERSION_CODE;
         if (mSystemBean.versionCode < versionCode) {
 
@@ -178,7 +179,8 @@ public class HomeActivity extends BaseCActivity {
                 public void onClickTrueView() {
                     Intent intent = new Intent();
                     intent.setAction("android.intent.action.VIEW");
-                    Uri content_url = Uri.parse("https://www.pgyer.com/UWDC");
+//                    Uri content_url = Uri.parse("https://www.pgyer.com/UWDC");
+                    Uri content_url = Uri.parse(mSystemBean.url);
                     intent.setData(content_url);
                     startActivity(intent);
 
@@ -191,7 +193,14 @@ public class HomeActivity extends BaseCActivity {
                 }
             });
         }
-        mDialogPromptCentre.showDialog("您的版本过低，建议升级！");
+        if (mSystemBean.isForce == 0) {
+            mDialogPromptCentre.showDialog(mSystemBean.describe);
+
+        } else {
+            mDialogPromptCentre.showDialog(mSystemBean.describe).hiteCancelBtn();
+
+        }
+
     }
 
     /**

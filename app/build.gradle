@@ -107,8 +107,8 @@ dependencies {
     //网络请求框架
     implementation externalOKHTTP
     implementation exernalOkServerHttp
-    //小说阅读器
-    //implementation externalGithubHwTxtReader
+
+    //友盟分享
     implementation exernalUMengCommon
     implementation exernalUMengAnalytics
 

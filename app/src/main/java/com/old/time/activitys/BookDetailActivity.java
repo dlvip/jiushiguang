@@ -24,7 +24,6 @@ import com.old.time.dialogs.DialogShareContent;
 import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
-import com.old.time.pops.SharePopWindow;
 import com.old.time.readLib.ReadActivity;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.DebugLog;

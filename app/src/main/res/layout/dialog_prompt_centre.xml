@@ -39,6 +39,7 @@
             android:textSize="13sp" />
 
         <View
+            android:id="@+id/view_line"
             android:layout_width="@dimen/line_height"
             android:layout_height="match_parent"
             android:background="@color/line_bg" />

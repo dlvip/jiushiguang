@@ -14,4 +14,14 @@ public class SystemBean implements Serializable {
      */
     public String describe;
 
+    /**
+     * 下载URl
+     */
+    public String url;
+
+    /**
+     * 是否强制升级
+     */
+    public int isForce;
+
 }
