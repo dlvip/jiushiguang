@@ -421,7 +421,7 @@ public class PageFactory {
         initBg(config.getDayOrNight());
 
         this.bookEntity = bookEntity;
-        bookPath = bookEntity.getFilePath();
+        bookPath = bookEntity.getLocalPath();
         bookName = FileUtils.getFileName(bookPath);
 
         mStatus = Status.OPENING;

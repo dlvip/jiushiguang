@@ -27,9 +27,39 @@ public class BookEntity extends DataSupport implements Serializable {
     private String price;
     private String url;
 
+    /**
+     * 网络路径
+     */
     private String filePath;
     private long begin;
     private String charset;
+
+    /**
+     * 本地路径
+     */
+    private String localPath;
+
+    public String getLocalPath() {
+        return localPath;
+    }
+
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
+    }
+
+    /**
+     * 是否是本地图书
+     */
+    private boolean isLocal;
+
+
+    public boolean isLocal() {
+        return isLocal;
+    }
+
+    public void setLocal(boolean local) {
+        isLocal = local;
+    }
 
     public long getBegin() {
         return begin;

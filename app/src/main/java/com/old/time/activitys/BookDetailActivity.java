@@ -236,8 +236,8 @@ public class BookDetailActivity extends BaseActivity {
 
                     return;
                 }
-                String filePath = response.body().getPath();
-                bookEntity.setFilePath(filePath);
+                String localPath = response.body().getPath();
+                bookEntity.setLocalPath(localPath);
 
                 SaveBookToSqlLiteTask mSaveBookToSqlLiteTask = new SaveBookToSqlLiteTask();
                 mSaveBookToSqlLiteTask.execute(bookEntity);
@@ -262,7 +262,7 @@ public class BookDetailActivity extends BaseActivity {
         @Override
         protected Integer doInBackground(BookEntity... params) {
             BookEntity bookEntity = params[0];
-            List<BookEntity> books = DataSupport.where("filePath = ?", bookEntity.getFilePath()).find(BookEntity.class);
+            List<BookEntity> books = DataSupport.where("localPath = ?", bookEntity.getLocalPath()).find(BookEntity.class);
             if (books.size() > 0) {
                 repeatBookEntity = books.get(0);
 

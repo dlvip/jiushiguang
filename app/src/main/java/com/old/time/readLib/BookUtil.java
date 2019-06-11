@@ -51,9 +51,9 @@ public class BookUtil {
     synchronized void openBook(BookEntity bookEntity) throws IOException {
         this.bookEntity = bookEntity;
         //如果当前缓存不是要打开的书本就缓存书本同时删除缓存
-        if (bookPath == null || !bookPath.equals(bookEntity.getFilePath())) {
+        if (bookPath == null || !bookPath.equals(bookEntity.getLocalPath())) {
             cleanCacheFile();
-            this.bookPath = bookEntity.getFilePath();
+            this.bookPath = bookEntity.getLocalPath();
             bookName = FileUtils.getFileName(bookPath);
             cacheBook();
 

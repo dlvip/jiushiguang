@@ -3,6 +3,7 @@ package com.old.time.readLib;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -14,6 +15,7 @@ import android.os.Message;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,11 +29,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.old.time.R;
 import com.old.time.activitys.BaseActivity;
 import com.old.time.beans.BookEntity;
+import com.old.time.dialogs.DialogPromptCentre;
+import com.old.time.interfaces.OnClickViewCallBack;
 import com.old.time.readLib.db.BookCatalogue;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
+
+import org.litepal.crud.DataSupport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -178,6 +184,8 @@ public class ReadActivity extends BaseActivity {
 
     }
 
+    private BookEntity bookEntity;
+
     /**
      * 开始阅读
      *
@@ -188,6 +196,7 @@ public class ReadActivity extends BaseActivity {
 
             return;
         }
+        this.bookEntity = bookEntity;
         setTitleColor(R.color.color_fff);
         setTitleText(bookEntity.getTitle());
 
@@ -452,6 +461,8 @@ public class ReadActivity extends BaseActivity {
         }
     }
 
+    private DialogPromptCentre dialogPromptCentre;
+
     @Override
     public void onClick(View view) {
         super.onClick(view);
@@ -485,5 +496,35 @@ public class ReadActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (bookEntity.isLocal()) {
+            super.onBackPressed();
+
+            return;
+        }
+        if (dialogPromptCentre == null) {
+            dialogPromptCentre = new DialogPromptCentre(mContext, new OnClickViewCallBack() {
+                @Override
+                public void onClickTrueView() {
+                    ContentValues values = new ContentValues();
+                    values.put("isLocal", true);
+                    DataSupport.update(BookEntity.class, values, bookEntity.getId());
+                    ReadActivity.super.onBackPressed();
+
+                }
+
+                @Override
+                public void onClickCancelView() {
+                    DataSupport.delete(BookEntity.class, bookEntity.getId());
+                    ReadActivity.super.onBackPressed();
+
+                }
+            });
+        }
+        dialogPromptCentre.showDialog("是否保存到书架");
+
     }
 }
