@@ -242,8 +242,8 @@ public class BookUtil {
         }.start();
     }
 
-//    private static final String ChapterPatternStr = "(^.{0,3}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
-    private static final String ChapterPatternStr = ".*第.{1,8}章.*";
+    private static final String ChapterPatternStr = "(^.{0,3}\\s*第)(.{1,9})[章节卷集部篇回](\\s*)";
+//    private static final String ChapterPatternStr = ".*第.{1,8}章.*";
 
     //获取章节
     private synchronized void getChapter() {

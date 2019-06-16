@@ -26,29 +26,10 @@
         android:layout_height="@dimen/layout_10"
         android:background="@color/line_bg" />
 
-    <include
-        android:id="@+id/include_course"
-        layout="@layout/title_recycler_view" />
-
-    <View
+    <LinearLayout
+        android:id="@+id/linear_layout_content"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        android:background="@color/main_bg" />
-
-    <include
-        android:id="@+id/include_music"
-        layout="@layout/title_recycler_view"
-        android:visibility="gone" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_height"
-        android:layout_marginTop="@dimen/layout_10"
-        android:background="@color/main_bg"
-        android:visibility="gone" />
-
-    <include
-        android:id="@+id/include_article"
-        layout="@layout/title_recycler_view" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
 
 </LinearLayout>

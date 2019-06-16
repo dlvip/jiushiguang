@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="wrap_content"
+    android:background="@color/color_fff">
+
+    <ImageView
+        android:id="@+id/img_book_pic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/shape_radius0_stroke_line_bgfff"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_default"
+        app:layout_constraintDimensionRatio="7:10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_book_name"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:paddingLeft="@dimen/layout_3"
+        android:paddingRight="@dimen/layout_3"
+        android:text="自然界的美丽纹理"
+        android:textColor="@color/color_969696"
+        android:textSize="@dimen/text_10"
+        app:layout_constraintTop_toBottomOf="@+id/img_book_pic" />
+
+
+    <TextView
+        android:id="@+id/tv_book_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:paddingLeft="@dimen/layout_3"
+        android:paddingRight="@dimen/layout_3"
+        android:text="自然界的美丽纹理"
+        android:textColor="@color/color_969696"
+        android:textSize="@dimen/text_8"
+        app:layout_constraintTop_toBottomOf="@+id/tv_book_name" />
+
+
+</android.support.constraint.ConstraintLayout>
