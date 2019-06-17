@@ -108,7 +108,7 @@ public abstract class BaseSActivity extends BaseActivity {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                int y = getScollYDistance();
+                int y = getScrollYDistance();
                 if (y <= 10) {   //设置标题的背景颜色
                     header_main.setBackgroundResource(R.color.transparent);
                     view_line.setBackgroundResource(R.color.transparent);
@@ -134,17 +134,17 @@ public abstract class BaseSActivity extends BaseActivity {
     }
 
     //监听recyclerView 的高度变化
-    public int getScollYDistance() {
+    public int getScrollYDistance() {
         LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         int position = layoutManager.findFirstVisibleItemPosition();
-        View firstVisiableChildView = layoutManager.findViewByPosition(position);
-        int itemHeight = firstVisiableChildView.getHeight();
+        View firstVisibleChildView = layoutManager.findViewByPosition(position);
+        int itemHeight = firstVisibleChildView.getHeight();
 
-        return (position) * itemHeight - firstVisiableChildView.getTop();
+        return (position) * itemHeight - firstVisibleChildView.getTop();
     }
 
 
-    public void seleteToPosition(int position) {
+    public void selectToPosition(int position) {
         if (mRecyclerView == null) {
 
             return;

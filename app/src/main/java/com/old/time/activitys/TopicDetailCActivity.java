@@ -110,7 +110,7 @@ public class TopicDetailCActivity extends BaseSActivity {
             return;
         }
         adapter.addData(0, mDynamicBean);
-        seleteToPosition(0);
+        selectToPosition(0);
 
     }
 
