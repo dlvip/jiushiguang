@@ -20,31 +20,16 @@
     <TextView
         android:id="@+id/tv_book_name"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:maxLines="2"
-        android:paddingLeft="@dimen/layout_3"
-        android:paddingRight="@dimen/layout_3"
-        android:text="自然界的美丽纹理"
-        android:textColor="@color/color_969696"
-        android:textSize="@dimen/text_10"
-        app:layout_constraintTop_toBottomOf="@+id/img_book_pic" />
-
-
-    <TextView
-        android:id="@+id/tv_book_author"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="2"
-        android:paddingLeft="@dimen/layout_3"
-        android:paddingRight="@dimen/layout_3"
+        android:minHeight="@dimen/layout_30"
+        android:padding="@dimen/layout_3"
         android:text="自然界的美丽纹理"
-        android:textColor="@color/color_969696"
-        android:textSize="@dimen/text_8"
-        app:layout_constraintTop_toBottomOf="@+id/tv_book_name" />
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_10"
+        app:layout_constraintTop_toBottomOf="@+id/img_book_pic" />
 
 
 </android.support.constraint.ConstraintLayout>

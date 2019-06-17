@@ -21,15 +21,10 @@
         android:paddingBottom="@dimen/layout_15"
         android:paddingTop="@dimen/layout_15" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/layout_10"
-        android:background="@color/line_bg" />
-
     <LinearLayout
-        android:id="@+id/linear_layout_content"
+        android:id="@+id/linear_layout_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:orientation="vertical"/>
 
 </LinearLayout>

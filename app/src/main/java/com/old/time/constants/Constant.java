@@ -157,6 +157,9 @@ public class Constant {
      */
     private static final String BASE_BOOK = BASE_TEST_URL + "book/";
 
+    //精选图书
+    public static final String GET_RECOMMENT_R_BOOK = "getRecommendRBook";
+
     //保存图书信息
     public static final String CREATE_BOOK_INFO = BASE_BOOK + "createBookInfo";
 
@@ -318,5 +321,7 @@ public class Constant {
     //关闭
     public static final String ACTION_CLOSE = "com.old.time.close";
 
-    /**音乐配置结束**/
+    /**
+     * 音乐配置结束
+     **/
 }

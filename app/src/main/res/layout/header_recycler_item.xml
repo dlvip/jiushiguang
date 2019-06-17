@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/layout_10">
+
+    <ImageView
+        android:id="@+id/img_book_pic"
+        android:layout_width="105dp"
+        android:layout_height="@dimen/layout_150"
+        android:layout_marginRight="@dimen/layout_10"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/img_default" />
+
+    <TextView
+        android:id="@+id/tv_book_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/img_book_pic"
+        android:padding="@dimen/layout_3"
+        android:text="@string/title"
+        android:textColor="@color/color_000"
+        android:textSize="@dimen/text_16" />
+
+    <TextView
+        android:id="@+id/tv_book_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_book_author"
+        android:layout_below="@+id/tv_book_name"
+        android:layout_marginTop="@dimen/layout_5"
+        android:layout_toRightOf="@+id/img_book_pic"
+        android:ellipsize="end"
+        android:lineSpacingExtra="@dimen/layout_3"
+        android:padding="@dimen/layout_3"
+        android:text="@string/circle_content"
+        android:textColor="@color/color_444"
+        android:textSize="@dimen/text_15" />
+
+    <TextView
+        android:id="@+id/tv_book_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/img_book_pic"
+        android:layout_toRightOf="@+id/img_book_pic"
+        android:padding="@dimen/layout_3"
+        android:text="@string/app_name"
+        android:textColor="@color/color_666"
+        android:textSize="@dimen/text_14" />
+
+</RelativeLayout>
