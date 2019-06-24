@@ -158,7 +158,10 @@ public class Constant {
     private static final String BASE_BOOK = BASE_TEST_URL + "book/";
 
     //精选图书
-    public static final String GET_RECOMMENT_R_BOOK = "getRecommendRBook";
+    public static final String GET_RECOMMENT_R_BOOK = BASE_BOOK + "getRecommendRBook";
+
+    //获取图书分类
+    public static final String GET_BOOK_MALL_LIST = BASE_BOOK + "getPeopleTypeList";
 
     //保存图书信息
     public static final String CREATE_BOOK_INFO = BASE_BOOK + "createBookInfo";

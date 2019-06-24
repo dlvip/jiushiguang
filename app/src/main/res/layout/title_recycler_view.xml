@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/color_fff"
     android:orientation="vertical">
 
     <View
@@ -13,7 +14,6 @@
         android:id="@+id/tv_recycler_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/layout_44"
-        android:background="@color/color_fff"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/layout_15"
         android:text="精品课堂"
@@ -21,9 +21,17 @@
         android:textSize="@dimen/text_16"
         android:textStyle="bold" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_content"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/layout_10" />
+
+    </RelativeLayout>
+
 
 </LinearLayout>

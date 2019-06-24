@@ -12,21 +12,23 @@ import com.old.time.glideUtils.GlideUtils;
 import java.util.List;
 
 /**
- * Created by wcl on 2019/6/17.
+ * Created by wcl on 2019/6/22.
  */
 
-public class RBookAdapter extends BaseQuickAdapter<RBookEntity, BaseViewHolder> {
+public class RBookListAdapter extends BaseQuickAdapter<RBookEntity, BaseViewHolder> {
 
-    public RBookAdapter(@Nullable List<RBookEntity> data) {
-        super(R.layout.item_book, data);
-
+    public RBookListAdapter(@Nullable List<RBookEntity> data) {
+        super(R.layout.header_recycler_item, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, RBookEntity item) {
         ImageView img_book_pic = helper.getView(R.id.img_book_pic);
         GlideUtils.getInstance().setImageView(mContext, item.getImages_large(), img_book_pic);
-        helper.setText(R.id.tv_book_name, item.getTitle());
+        helper.setText(R.id.tv_book_name, item.getTitle())//
+                .setText(R.id.tv_book_describe, item.getDes_cribe())//
+                .setText(R.id.tv_book_author, item.getAuthor());
+
 
     }
 }

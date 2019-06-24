@@ -9,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.adapters.RBookAdapter;
+import com.old.time.adapters.RBookListAdapter;
 import com.old.time.beans.BannerBean;
 import com.old.time.beans.RBookEntity;
 import com.old.time.beans.RItemBookEntity;
@@ -25,6 +28,7 @@ import com.old.time.utils.DebugLog;
 import com.old.time.utils.MyGridLayoutManager;
 import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
+import com.old.time.utils.UIHelper;
 import com.old.time.views.banner.BannerLayout;
 import com.old.time.views.banner.adapter.MzBannerAdapter;
 
@@ -72,20 +76,17 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
+        findViewById(R.id.left_layout).setVisibility(View.GONE);
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
                 R.color.holo_orange_light, R.color.holo_red_light);
 
-        LinearLayout linear_layout_content = findViewById(R.id.linear_layout_content);
-        linear_layout_content.removeAllViews();
-        View headerView = View.inflate(mContext, R.layout.header_fragment_home, null);
-        recycler_banner = headerView.findViewById(R.id.recycler_banner);
+        linear_layout_item = findViewById(R.id.linear_layout_content);
+        linear_layout_item.removeAllViews();
+        recycler_banner = findViewById(R.id.recycler_banner);
         bannerBeans = new ArrayList<>();
         mzBannerAdapter = new MzBannerAdapter(mContext, bannerBeans);
         recycler_banner.setmBannerAdapter(mzBannerAdapter);
-        linear_layout_content.addView(headerView);
-        linear_layout_item = headerView.findViewById(R.id.linear_layout_item);
-        linear_layout_item.removeAllViews();
 
         onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -119,11 +120,13 @@ public class HomeFragment extends BaseFragment {
                 return false;
             }
         });
+        rvContent.setPadding(UIHelper.dip2px(5), 0, UIHelper.dip2px(10), 0);
         tvTitle.setText(itemBookEntity.getTitle());
-        RBookAdapter rBookAdapter = new RBookAdapter(new ArrayList<RBookEntity>());
-        rvContent.setAdapter(rBookAdapter);
+        BaseQuickAdapter<RBookEntity, BaseViewHolder> adapter;
         switch (indext) {
             case 0:
+                adapter = new RBookAdapter(new ArrayList<RBookEntity>());
+
                 RBookEntity rBookEntity = itemBookEntity.getBookEntities().get(0);
                 View viewHeader = View.inflate(mContext, R.layout.header_recycler_item, null);
                 ImageView img_book_pic = viewHeader.findViewById(R.id.img_book_pic);
@@ -134,11 +137,14 @@ public class HomeFragment extends BaseFragment {
                 TextView tv_book_author = viewHeader.findViewById(R.id.tv_book_author);
                 tv_book_author.setText(rBookEntity.getAuthor());
                 GlideUtils.getInstance().setImageView(mContext, rBookEntity.getImages_large(), img_book_pic);
-                rBookAdapter.addHeaderView(viewHeader);
+                adapter.addHeaderView(viewHeader);
                 itemBookEntity.getBookEntities().remove(0);
+                rvContent.setAdapter(adapter);
+                adapter.setNewData(itemBookEntity.getBookEntities());
 
                 break;
             case 4:
+                adapter = new RBookListAdapter(new ArrayList<RBookEntity>());
                 rvContent.setLayoutManager(new MyLinearLayoutManager(mContext) {
                     @Override
                     public boolean canScrollVertically() {
@@ -147,13 +153,23 @@ public class HomeFragment extends BaseFragment {
                     }
                 });
                 rvContent.addItemDecoration(new RecyclerItemDecoration(mContext));
+                rvContent.setAdapter(adapter);
+                adapter.setNewData(itemBookEntity.getBookEntities());
 
                 break;
             default:
+                adapter = new RBookAdapter(new ArrayList<RBookEntity>());
+                rvContent.addItemDecoration(new RecyclerItemDecoration(mContext//
+                        , RecyclerItemDecoration.VERTICAL_LIST, 10, R.color.transparent));
+
+                rvContent.setAdapter(adapter);
+                adapter.setNewData(itemBookEntity.getBookEntities());
 
                 break;
         }
-        rBookAdapter.setNewData(itemBookEntity.getBookEntities());
+        rvContent.addItemDecoration(new RecyclerItemDecoration(mContext//
+                , RecyclerItemDecoration.HORIZONTAL_LIST, 10, R.color.transparent));
+
 
         return itemView;
     }
@@ -161,7 +177,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void getDataFromNet(final boolean isRefresh) {
         HttpParams params = new HttpParams();
-        params.put("", "");
+        params.put("aType", "0");
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_RECOMMENT_R_BOOK, new JsonCallBack<ResultBean<List<RItemBookEntity>>>() {
             @Override
             public void onSuccess(ResultBean<List<RItemBookEntity>> mResultBean) {

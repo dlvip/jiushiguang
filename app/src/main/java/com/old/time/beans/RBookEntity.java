@@ -1,12 +1,23 @@
 package com.old.time.beans;
 
+import com.chad.library.adapter.base.entity.SectionEntity;
+
 import java.io.Serializable;
 
 /**
  * Created by wcl on 2019/6/17.
  */
 
-public class RBookEntity implements Serializable{
+public class RBookEntity extends SectionEntity implements Serializable {
+
+    public RBookEntity(boolean isHeader, String header) {
+        super(isHeader, header);
+    }
+
+    public RBookEntity(RBookEntity rBookEntity) {
+        super(rBookEntity);
+    }
+
 
     private String id;
 
@@ -50,6 +61,21 @@ public class RBookEntity implements Serializable{
      */
     private String weight;
 
+    public static final int WEIGHT_00 = 0;
+    public static final int WEIGHT_01 = 1;
+    public static final int WEIGHT_02 = 2;
+    public static final int WEIGHT_03 = 3;
+    public static final int WEIGHT_04 = 4;
+    public static final int WEIGHT_10 = 10;
+    public static final int WEIGHT_11 = 11;
+    public static final int WEIGHT_12 = 12;
+    public static final int WEIGHT_13 = 13;
+    public static final int WEIGHT_14 = 14;
+    public static final int WEIGHT_20 = 20;
+    public static final int WEIGHT_21 = 21;
+    public static final int WEIGHT_22 = 22;
+    public static final int WEIGHT_23 = 23;
+    public static final int WEIGHT_24 = 24;
 
     public String getId() {
         return id;
