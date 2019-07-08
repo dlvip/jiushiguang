@@ -66,7 +66,7 @@ public class SplishActivity extends BaseActivity {
         img_splish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MainActivity.class);
+                Intent intent = new Intent(mContext, HomeActivity.class);
                 Intent intent1 = new Intent(mContext, BookDetailActivity.class);
                 intent1.putExtra(BOOK_ISBN, "9787540487645");
                 ActivityUtils.startActivitys(mContext, new Intent[]{intent, intent1});
@@ -96,7 +96,7 @@ public class SplishActivity extends BaseActivity {
 
             return;
         }
-        MainActivity.startMainActivity(mContext);
+        HomeActivity.startHomeActivity(mContext);
     }
 
     private void startClock() {

@@ -44,6 +44,11 @@ import java.util.List;
 
 public class HomeActivity extends BaseCActivity {
 
+    /**
+     * 首页
+     *
+     * @param context
+     */
     public static void startHomeActivity(Context context) {
         Intent intent = new Intent(context, HomeActivity.class);
         ActivityUtils.startActivity((Activity) context, intent);
@@ -87,8 +92,16 @@ public class HomeActivity extends BaseCActivity {
         mAdapter.addHeaderView(headerView);
         mAdapter.setHeaderAndEmpty(true);
 
-
         EventBus.getDefault().register(this);
+//        List<BookEntity> bookEntities = DataSupport.findAll(BookEntity.class);
+//        if (bookEntities == null) {
+//
+//            return;
+//        }
+//        for (int i = 0; i < bookEntities.size(); i++) {
+//            DebugLog.d("BookEntity::", bookEntities.get(i).toString());
+//
+//        }
     }
 
     @Override
@@ -179,7 +192,6 @@ public class HomeActivity extends BaseCActivity {
                 public void onClickTrueView() {
                     Intent intent = new Intent();
                     intent.setAction("android.intent.action.VIEW");
-//                    Uri content_url = Uri.parse("https://www.pgyer.com/UWDC");
                     Uri content_url = Uri.parse(mSystemBean.url);
                     intent.setData(content_url);
                     startActivity(intent);
@@ -200,7 +212,6 @@ public class HomeActivity extends BaseCActivity {
             mDialogPromptCentre.showDialog(mSystemBean.describe).hiteCancelBtn();
 
         }
-
     }
 
     /**

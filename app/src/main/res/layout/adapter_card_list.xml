@@ -58,8 +58,8 @@
             android:paddingLeft="@dimen/layout_20"
             android:paddingRight="@dimen/layout_20"
             android:paddingTop="@dimen/layout_15"
-            android:text="月亮与六便士 | "
-            android:textColor="@color/color_444"
+            android:text="月亮与六便士"
+            android:textColor="@color/color_2e6cd3"
             android:textSize="@dimen/text_8"
             app:layout_constraintTop_toBottomOf="@+id/img_card_pic" />
 

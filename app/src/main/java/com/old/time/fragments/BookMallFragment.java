@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.adapters.BookMallAdapter;
 import com.old.time.beans.BookMallEntity;
