@@ -50,9 +50,11 @@ public class HomeActivity extends BaseCActivity {
      * @param context
      */
     public static void startHomeActivity(Context context) {
-        Intent intent = new Intent(context, HomeActivity.class);
-        ActivityUtils.startActivity((Activity) context, intent);
-        ActivityUtils.finishActivity((Activity) context);
+        MainActivity.startMainActivity((Activity) context);
+
+//        Intent intent = new Intent(context, HomeActivity.class);
+//        ActivityUtils.startActivity((Activity) context, intent);
+//        ActivityUtils.finishActivity((Activity) context);
 
     }
 

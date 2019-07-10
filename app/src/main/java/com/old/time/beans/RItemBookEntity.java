@@ -10,7 +10,7 @@ import java.util.List;
 public class RItemBookEntity implements Serializable {
 
     private String title;
-    private List<RBookEntity> bookEntities;
+    private List<BookEntity> bookEntities;
 
     public String getTitle() {
         return title;
@@ -21,11 +21,11 @@ public class RItemBookEntity implements Serializable {
     }
 
 
-    public List<RBookEntity> getBookEntities() {
+    public List<BookEntity> getBookEntities() {
         return bookEntities;
     }
 
-    public void setBookEntities(List<RBookEntity> bookEntities) {
+    public void setBookEntities(List<BookEntity> bookEntities) {
         this.bookEntities = bookEntities;
     }
 }

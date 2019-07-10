@@ -34,7 +34,8 @@ public class BookMallFragment extends BaseFragment {
                 if (mResultBean != null && mResultBean.data != null && mResultBean.data.size() != 0) {
                     linear_layout_item.removeAllViews();
                     for (int i = 0; i < mResultBean.data.size(); i++) {
-                        linear_layout_item.addView(createItemView(mResultBean.data.get(i)));
+                        BookMallEntity bookMallEntity = mResultBean.data.get(i);
+                        linear_layout_item.addView(createItemView(bookMallEntity, i));
 
                     }
                 }
@@ -50,8 +51,16 @@ public class BookMallFragment extends BaseFragment {
     /**
      * 创建类型
      */
-    private View createItemView(BookMallEntity itemBookEntity) {
+    private View createItemView(BookMallEntity itemBookEntity, int position) {
         View itemView = View.inflate(mContext, R.layout.title_recycler_view, null);
+        View view_line = itemView.findViewById(R.id.view_line);
+        if (position == 0) {
+            view_line.setVisibility(View.GONE);
+
+        } else {
+            view_line.setVisibility(View.VISIBLE);
+
+        }
         TextView tvTitle = itemView.findViewById(R.id.tv_recycler_title);
         RecyclerView rvContent = itemView.findViewById(R.id.recycler_content);
         rvContent.setLayoutManager(new MyGridLayoutManager(mContext, 2) {
@@ -83,7 +92,6 @@ public class BookMallFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        findViewById(R.id.left_layout).setVisibility(View.GONE);
         linear_layout_item = findViewById(R.id.linear_layout_content);
         linear_layout_item.removeAllViews();
 

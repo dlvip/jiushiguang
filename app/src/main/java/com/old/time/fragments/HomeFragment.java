@@ -16,6 +16,7 @@ import com.old.time.R;
 import com.old.time.adapters.RBookAdapter;
 import com.old.time.adapters.RBookListAdapter;
 import com.old.time.beans.BannerBean;
+import com.old.time.beans.BookEntity;
 import com.old.time.beans.RBookEntity;
 import com.old.time.beans.RItemBookEntity;
 import com.old.time.beans.ResultBean;
@@ -122,29 +123,32 @@ public class HomeFragment extends BaseFragment {
         });
         rvContent.setPadding(UIHelper.dip2px(5), 0, UIHelper.dip2px(10), 0);
         tvTitle.setText(itemBookEntity.getTitle());
-        BaseQuickAdapter<RBookEntity, BaseViewHolder> adapter;
+        BaseQuickAdapter<BookEntity, BaseViewHolder> adapter;
         switch (indext) {
             case 0:
-                adapter = new RBookAdapter(new ArrayList<RBookEntity>());
+                adapter = new RBookAdapter(new ArrayList<BookEntity>());
+                List<BookEntity> bookEntities = itemBookEntity.getBookEntities();
+                if (bookEntities != null && bookEntities.size() != 0) {
+                    BookEntity bookEntity = bookEntities.get(0);
+                    View viewHeader = View.inflate(mContext, R.layout.header_recycler_item, null);
+                    ImageView img_book_pic = viewHeader.findViewById(R.id.img_book_pic);
+                    TextView tv_book_name = viewHeader.findViewById(R.id.tv_book_name);
+                    tv_book_name.setText(bookEntity.getTitle());
+                    TextView tv_book_describe = viewHeader.findViewById(R.id.tv_book_describe);
+                    tv_book_describe.setText(bookEntity.getSummary());
+                    TextView tv_book_author = viewHeader.findViewById(R.id.tv_book_author);
+                    tv_book_author.setText(bookEntity.getAuthor());
+                    GlideUtils.getInstance().setImageView(mContext, bookEntity.getImages_large(), img_book_pic);
+                    adapter.addHeaderView(viewHeader);
+                    itemBookEntity.getBookEntities().remove(0);
 
-                RBookEntity rBookEntity = itemBookEntity.getBookEntities().get(0);
-                View viewHeader = View.inflate(mContext, R.layout.header_recycler_item, null);
-                ImageView img_book_pic = viewHeader.findViewById(R.id.img_book_pic);
-                TextView tv_book_name = viewHeader.findViewById(R.id.tv_book_name);
-                tv_book_name.setText(rBookEntity.getTitle());
-                TextView tv_book_describe = viewHeader.findViewById(R.id.tv_book_describe);
-                tv_book_describe.setText(rBookEntity.getDes_cribe());
-                TextView tv_book_author = viewHeader.findViewById(R.id.tv_book_author);
-                tv_book_author.setText(rBookEntity.getAuthor());
-                GlideUtils.getInstance().setImageView(mContext, rBookEntity.getImages_large(), img_book_pic);
-                adapter.addHeaderView(viewHeader);
-                itemBookEntity.getBookEntities().remove(0);
+                }
                 rvContent.setAdapter(adapter);
                 adapter.setNewData(itemBookEntity.getBookEntities());
 
                 break;
             case 4:
-                adapter = new RBookListAdapter(new ArrayList<RBookEntity>());
+                adapter = new RBookListAdapter(new ArrayList<BookEntity>());
                 rvContent.setLayoutManager(new MyLinearLayoutManager(mContext) {
                     @Override
                     public boolean canScrollVertically() {
@@ -158,7 +162,7 @@ public class HomeFragment extends BaseFragment {
 
                 break;
             default:
-                adapter = new RBookAdapter(new ArrayList<RBookEntity>());
+                adapter = new RBookAdapter(new ArrayList<BookEntity>());
                 rvContent.addItemDecoration(new RecyclerItemDecoration(mContext//
                         , RecyclerItemDecoration.VERTICAL_LIST, 10, R.color.transparent));
 
@@ -177,7 +181,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void getDataFromNet(final boolean isRefresh) {
         HttpParams params = new HttpParams();
-        params.put("aType", "0");
+        params.put("tabId", "0");
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_RECOMMENT_R_BOOK, new JsonCallBack<ResultBean<List<RItemBookEntity>>>() {
             @Override
             public void onSuccess(ResultBean<List<RItemBookEntity>> mResultBean) {

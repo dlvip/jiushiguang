@@ -63,6 +63,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected void lazyLoad() {
+        findViewById(R.id.left_layout).setVisibility(View.GONE);
         TextView top_title = findViewById(R.id.top_title);
         top_title.setText(getString(R.string.main_tab_mine));
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
