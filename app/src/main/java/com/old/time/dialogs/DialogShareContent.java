@@ -209,7 +209,6 @@ public class DialogShareContent extends BaseDialog {
      */
     private UMShareListener umShareListener = new UMShareListener() {
 
-
         /**
          * @param platform 平台类型
          * @descrption 分享开始的回调
@@ -252,7 +251,6 @@ public class DialogShareContent extends BaseDialog {
     };
 
     private class ItemBean {
-
         ItemBean(String name, int imgRes, SHARE_MEDIA platform) {
             this.name = name;
             this.imgRes = imgRes;

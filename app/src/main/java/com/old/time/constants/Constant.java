@@ -172,6 +172,9 @@ public class Constant {
     //图书列表
     public static final String GET_BOOK_LIST = BASE_BOOK + "getBookEntities";
 
+    //获取图书列表
+    public static final String GET_TAB_BOOK_LIST = BASE_BOOK + "getTabBookList";
+
     //用户图书列表
     public static final String GET_USER_BOOK_LIST = BASE_BOOK + "getUserBookList";
 

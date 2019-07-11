@@ -277,6 +277,7 @@
             android:name=".activitys.HomeActivity"
             android:launchMode="singleTask" />
         <activity android:name=".readLib.ReadActivity" />
+        <activity android:name=".activitys.TabBooksActivity"></activity>
     </application>
 
 </manifest>

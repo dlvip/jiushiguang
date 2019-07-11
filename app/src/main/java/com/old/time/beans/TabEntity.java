@@ -1,12 +1,16 @@
 package com.old.time.beans;
 
+import java.io.Serializable;
+
 /**
  * Created by wcl on 2019/6/22.
  */
 
-public class TabEntity {
+public class TabEntity implements Serializable{
 
     private String id;
+
+    private String tabId;
 
     private String name;
 
@@ -18,6 +22,14 @@ public class TabEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTabId() {
+        return tabId;
+    }
+
+    public void setTabId(String tabId) {
+        this.tabId = tabId;
     }
 
     public String getName() {

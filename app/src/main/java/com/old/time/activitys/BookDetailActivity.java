@@ -185,6 +185,14 @@ public class BookDetailActivity extends BaseActivity {
 
             return;
         }
+        if (umShareBean == null) {
+            umShareBean = new UMShareBean();
+
+        }
+        umShareBean.setTitle(bookEntity.getTitle());
+        umShareBean.setImgUrl(bookEntity.getImages_large());
+        umShareBean.setDescription(bookEntity.getSummary());
+        umShareBean.setShareUrl(Constant.PU_GONG_YING_URL);
         if (shareContent == null) {
             shareContent = new DialogShareContent(mContext, new DialogShareContent.ShareModelCallBackListener() {
                 @Override
@@ -194,15 +202,6 @@ public class BookDetailActivity extends BaseActivity {
                 }
             });
         }
-        if (umShareBean == null) {
-            umShareBean = new UMShareBean();
-
-        }
-        umShareBean.setTitle(bookEntity.getTitle());
-        umShareBean.setImgUrl(bookEntity.getImages_large());
-        umShareBean.setDescription(bookEntity.getSummary());
-        umShareBean.setShareUrl(Constant.PU_GONG_YING_URL);
-
         shareContent.showShareContentDialog(relative_layout_parent);
 
     }
