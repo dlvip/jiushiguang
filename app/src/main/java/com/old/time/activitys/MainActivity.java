@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.old.time.R;
 import com.old.time.fragments.BookMallFragment;
 import com.old.time.fragments.HomeFragment;
-import com.old.time.fragments.MineFragment;
+import com.old.time.fragments.UserFragment;
 import com.old.time.utils.ActivityUtils;
 
 public class MainActivity extends BaseActivity {
@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity {
             case 2:
                 if (mMineFragment == null) {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    mMineFragment = new MineFragment();
+                    mMineFragment = UserFragment.getInstance();
                     fragmentTransaction.add(R.id.fl_content, mMineFragment);
                     fragmentTransaction.commit();
 
@@ -144,7 +144,7 @@ public class MainActivity extends BaseActivity {
 
 
     private HomeFragment mHomeFragment;
-    private MineFragment mMineFragment;
+    private UserFragment mMineFragment;
     private BookMallFragment mFindFragment;
     private FragmentTransaction fragmentTransaction;
 

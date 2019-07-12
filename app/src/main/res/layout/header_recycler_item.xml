@@ -8,10 +8,11 @@
     <ImageView
         android:id="@+id/img_book_pic"
         android:layout_width="105dp"
-        android:layout_height="@dimen/layout_150"
+        android:layout_height="@dimen/layout_155"
         android:layout_marginRight="@dimen/layout_10"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/img_default" />
+        android:background="@color/color_000"
+        android:padding="@dimen/line_height"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/tv_book_name"
@@ -29,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/tv_book_author"
         android:layout_below="@+id/tv_book_name"
-        android:layout_marginTop="@dimen/layout_5"
         android:layout_toRightOf="@+id/img_book_pic"
         android:ellipsize="end"
         android:lineSpacingExtra="@dimen/layout_3"

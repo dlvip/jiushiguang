@@ -244,8 +244,10 @@ public class BookEntity extends DataSupport implements Serializable {
     }
 
     public String getPriceStr() {
+        if (TextUtils.isEmpty(price)) {
 
-
+            return "免费";
+        }
         return "￥ " + getDPrice();
     }
 

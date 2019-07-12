@@ -116,7 +116,7 @@ public class BookDetailActivity extends BaseActivity {
         tv_book_name.setText(bookEntity.getTitle());
         tv_book_author.setText(String.valueOf(bookEntity.getAuthor() + " / " + bookEntity.getBinding()));
         tv_book_leve.setText(bookEntity.getLevelNum());
-        tv_book_public_sher.setText(String.valueOf("出版：" + bookEntity.getPublisher() + " " + bookEntity.getPubdate()));
+        tv_book_public_sher.setText(String.valueOf("更新：" + bookEntity.getPubdate()));
         tv_book_price.setText(bookEntity.getPriceStr());
         tv_book_describe.setText(bookEntity.getSummary());
 
