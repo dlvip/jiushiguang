@@ -160,4 +160,19 @@
         <attr name="border_color" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="LBTextView">
+        <!--边框宽度-->
+        <attr name="stroke_width" format="dimension" />
+        <!--圆角半径-->
+        <attr name="round_radius" format="dimension" />
+        <attr name="round_radius_top_left" format="dimension" />
+        <attr name="round_radius_top_right" format="dimension" />
+        <attr name="round_radius_bottom_left" format="dimension" />
+        <attr name="round_radius_bottom_right" format="dimension" />
+        <!--边框颜色-->
+        <attr name="stroke_color" format="color" />
+        <!--内部填充颜色-->
+        <attr name="fill_color" format="color" />
+    </declare-styleable>
+
 </resources>

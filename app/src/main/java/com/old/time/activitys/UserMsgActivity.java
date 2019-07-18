@@ -87,6 +87,7 @@ public class UserMsgActivity extends BaseActivity {
         findViewById(R.id.linear_layout_address).setOnClickListener(this);
         findViewById(R.id.linear_layout_brief).setOnClickListener(this);
         findViewById(R.id.frame_layout_header).setOnClickListener(this);
+        findViewById(R.id.logout_user).setOnClickListener(this);
 
     }
 
@@ -117,6 +118,11 @@ public class UserMsgActivity extends BaseActivity {
                 break;
             case R.id.right_layout_send:
                 updateUserMsg();
+
+                break;
+            case R.id.logout_user:
+                UserLocalInfoUtils.instance().setUserLogOut();
+                ActivityUtils.finishActivity(mContext);
 
                 break;
         }

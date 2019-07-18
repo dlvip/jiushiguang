@@ -25,6 +25,11 @@ import java.util.List;
 
 public class BookMallFragment extends BaseFragment {
 
+    public static BookMallFragment getInstance(){
+
+        return new BookMallFragment();
+    }
+
 
     @Override
     public void getDataFromNet(boolean isRefresh) {

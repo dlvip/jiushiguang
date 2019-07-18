@@ -1,37 +1,33 @@
 package com.old.time.views.banner;
 
 import android.app.Activity;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.old.time.R;
-import com.old.time.activitys.WebViewActivity;
-import com.old.time.beans.BannerBean;
+import com.old.time.beans.BookEntity;
+import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.views.banner.adapter.MzBannerAdapter;
 import com.old.time.views.banner.layoutmanager.BannerLayoutManager;
 
@@ -57,7 +53,7 @@ public class BannerLayout extends FrameLayout {
 
     protected boolean hasInit;
     protected int bannerSize = 1;
-    protected int currentIndex;
+    protected int currentIndex = 1000;
     protected boolean isPlaying = false;
 
     protected boolean isAutoPlaying = true;
@@ -68,8 +64,8 @@ public class BannerLayout extends FrameLayout {
         @Override
         public boolean handleMessage(Message msg) {
             if (msg.what == WHAT_AUTO_PLAY) {
-                ++currentIndex;
-                mRecyclerView.smoothScrollToPosition(currentIndex);
+                currentIndex++;
+                mRecyclerView.smoothScrollToPosition(currentIndex % bannerSize);
                 mHandler.sendEmptyMessageDelayed(WHAT_AUTO_PLAY, autoPlayDuration);
 
             }
@@ -141,17 +137,27 @@ public class BannerLayout extends FrameLayout {
         }
         a.recycle();
         //recyclerView部分
-        mRecyclerView = new RecyclerView(context);
+        mRecyclerView = new RecyclerView(mContext);
         LayoutParams vpLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         vpLayoutParams.gravity = Gravity.CENTER_VERTICAL;
         addView(mRecyclerView, vpLayoutParams);
-        mLayoutManager = new BannerLayoutManager(getContext(), orientation);
+        mLayoutManager = new BannerLayoutManager(mContext, orientation);
         mRecyclerView.setLayoutManager(mLayoutManager);
         new PagerSnapHelper().attachToRecyclerView(mRecyclerView);
 
+        this.mMzBannerAdapter = new MzBannerAdapter(new ArrayList<BookEntity>());
+        mRecyclerView.setAdapter(mMzBannerAdapter);
+        mMzBannerAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+
+            }
+        });
+
         //指示器部分
         indicatorContainer = new RecyclerView(context);
-        LinearLayoutManager indicatorLayoutManager = new LinearLayoutManager(context, orientation, false);
+        MyLinearLayoutManager indicatorLayoutManager = new MyLinearLayoutManager(context, orientation, false);
         indicatorContainer.setLayoutManager(indicatorLayoutManager);
         indicatorAdapter = new IndicatorAdapter();
         indicatorContainer.setAdapter(indicatorAdapter);
@@ -161,34 +167,21 @@ public class BannerLayout extends FrameLayout {
         addView(indicatorContainer, params);
         if (!showIndicator) {
             indicatorContainer.setVisibility(GONE);
+
         }
-    }
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-    /**
-     * 设置是否禁止滚动播放
-     */
-    public void setAutoPlaying(boolean isAutoPlaying) {
-        this.isAutoPlaying = isAutoPlaying;
-        setPlaying(this.isAutoPlaying);
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
-    }
+            }
 
-    public boolean isPlaying() {
-        return isPlaying;
-    }
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                refreshIndicator();
 
-    public void setShowIndicator(boolean showIndicator) {
-        this.showIndicator = showIndicator;
-        indicatorContainer.setVisibility(showIndicator ? VISIBLE : GONE);
-    }
-
-    /**
-     * 设置轮播间隔时间
-     *
-     * @param autoPlayDuration 时间毫秒
-     */
-    public void setAutoPlayDuration(int autoPlayDuration) {
-        this.autoPlayDuration = autoPlayDuration;
+            }
+        });
     }
 
     /**
@@ -201,66 +194,21 @@ public class BannerLayout extends FrameLayout {
             if (!isPlaying && playing) {
                 mHandler.sendEmptyMessageDelayed(WHAT_AUTO_PLAY, autoPlayDuration);
                 isPlaying = true;
+
             } else if (isPlaying && !playing) {
                 mHandler.removeMessages(WHAT_AUTO_PLAY);
                 isPlaying = false;
+
             }
         }
     }
 
-    private OnBannerItemClickListener onBannerItemClickListener;
-
-    public void setOnBannerItemClickListener(OnBannerItemClickListener onBannerItemClickListener) {
-        this.onBannerItemClickListener = onBannerItemClickListener;
-
-    }
-
-    /**
-     * 设置adapter
-     *
-     * @param mBannerAdapter
-     */
-    public void setmBannerAdapter(MzBannerAdapter mBannerAdapter) {
-        this.mMzBannerAdapter = mBannerAdapter;
-        mRecyclerView.setAdapter(mMzBannerAdapter);
-        mMzBannerAdapter.setOnBannerItemClickListener(new OnBannerItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-//                String detailUrl = bannerBeans.get(position).getDetailUrl();
-//                if (TextUtils.isEmpty(detailUrl)) {
-//
-//                    return;
-//                }
-//                detailUrl = "https://h5.m.jd.com/dev/XN1cqLK9PCzrXM45QJkA83FbpXf/index.html";
-//                WebViewActivity.startWebViewActivity(mContext, detailUrl);
-
-//                Intent intent = new Intent();
-//                intent.setAction("android.intent.action.VIEW");
-//                Uri uri = Uri.parse("https://detail.tmall.com/item.htm?id=575181668074"); // 商品地址
-//                intent.setData(uri);
-//                intent.setClassName("com.taobao.taobao", "com.taobao.tao.detail.activity.DetailActivity");
-//                mContext.startActivity(intent);
-
-                //获取剪贴板管理器：
-                ClipboardManager cm = (ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
-                // 创建普通字符型ClipData
-                ClipData mClipData = ClipData.newPlainText("Label", "牧鹿男士衬衫长袖格子加绒加厚修身,这款衬衫采用经典的方领设计】，https://m.tb.cn/h.3iKF0Do?sm=340cf1 点击链接，再选择浏览器咑閞；或復·制这段描述￥DJK8bTsjCm5￥后咑閞\uD83D\uDC49淘♂寳♀\uD83D\uDC48");
-                // 将ClipData内容放到系统剪贴板里。
-                cm.setPrimaryClip(mClipData);
-
-                Intent intent = mContext.getPackageManager().getLaunchIntentForPackage("com.taobao.taobao");
-                mContext.startActivity(intent);
-
-            }
-        });
-    }
-
-    private List<BannerBean> bannerBeans = new ArrayList();
+    private List<BookEntity> bannerBeans = new ArrayList<>();
 
     /**
      * 设置轮播数据集
      */
-    public void initBannerImageView(final List<BannerBean> list) {
+    public void initBannerImageView(final List<BookEntity> list) {
         if (list == null || list.size() == 0) {
 
             return;
@@ -268,28 +216,11 @@ public class BannerLayout extends FrameLayout {
         bannerBeans.clear();
         bannerBeans.addAll(list);
         bannerSize = bannerBeans.size();
-        mMzBannerAdapter.notifyDataSetChanged();
-        currentIndex = 10000;
-        mRecyclerView.scrollToPosition(currentIndex);
+        indicatorAdapter.notifyDataSetChanged();
+        mMzBannerAdapter.setNewData(bannerBeans);
+        mRecyclerView.scrollToPosition(currentIndex % bannerSize);
         hasInit = true;
         setPlaying(true);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                int first = mLayoutManager.getCurrentPosition();
-                if (currentIndex != first) {
-                    currentIndex = first;
-
-                }
-                refreshIndicator();
-            }
-        });
     }
 
     @Override
@@ -335,12 +266,6 @@ public class BannerLayout extends FrameLayout {
      */
     protected class IndicatorAdapter extends RecyclerView.Adapter {
 
-        int currentPosition = 0;
-
-        public void setPosition(int currentPosition) {
-            this.currentPosition = currentPosition;
-        }
-
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             ImageView bannerPoint = new ImageView(getContext());
@@ -355,7 +280,7 @@ public class BannerLayout extends FrameLayout {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             ImageView bannerPoint = (ImageView) holder.itemView;
-            bannerPoint.setImageDrawable(currentPosition == position ? mSelectedDrawable : mUnselectedDrawable);
+            bannerPoint.setImageDrawable(currentIndex % bannerSize == position ? mSelectedDrawable : mUnselectedDrawable);
 
         }
 
@@ -381,11 +306,38 @@ public class BannerLayout extends FrameLayout {
      */
     protected synchronized void refreshIndicator() {
         if (indicatorAdapter != null && showIndicator && bannerSize > 1) {
-            indicatorAdapter.setPosition(currentIndex % bannerSize);
             indicatorAdapter.notifyDataSetChanged();
 
         }
     }
+
+    /**
+     * 设置是否禁止滚动播放
+     */
+    public void setAutoPlaying(boolean isAutoPlaying) {
+        this.isAutoPlaying = isAutoPlaying;
+        setPlaying(this.isAutoPlaying);
+
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setShowIndicator(boolean showIndicator) {
+        this.showIndicator = showIndicator;
+        indicatorContainer.setVisibility(showIndicator ? VISIBLE : GONE);
+    }
+
+    /**
+     * 设置轮播间隔时间
+     *
+     * @param autoPlayDuration 时间毫秒
+     */
+    public void setAutoPlayDuration(int autoPlayDuration) {
+        this.autoPlayDuration = autoPlayDuration;
+    }
+
 
     public interface OnBannerItemClickListener {
         void onItemClick(int position);

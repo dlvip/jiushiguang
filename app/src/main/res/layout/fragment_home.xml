@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
     android:orientation="vertical">
 
-    <include layout="@layout/header_main" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeLayout"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.old.time.views.banner.BannerLayout
+                android:id="@+id/recycler_banner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/color_fff"
+                app:indicatorGravity="center"
+                app:indicatorMarginBottom="@dimen/layout_10"
+                app:layout_constraintDimensionRatio="7:3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:showIndicator="true" />
 
             <LinearLayout
+                android:id="@+id/linear_layout_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_banner" />
 
-                <com.old.time.views.banner.BannerLayout
-                    android:id="@+id/recycler_banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:background="@color/color_fff"
-                    app:indicatorGravity="center"
-                    app:indicatorMarginBottom="@dimen/layout_10"
-                    app:showIndicator="true" />
+        </android.support.constraint.ConstraintLayout>
 
-                <LinearLayout
-                    android:id="@+id/linear_layout_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

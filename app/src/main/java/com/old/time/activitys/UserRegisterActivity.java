@@ -15,7 +15,6 @@ import com.old.time.beans.UserInfoBean;
 import com.old.time.constants.Constant;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
-import com.old.time.postcard.PostCardActivity;
 import com.old.time.utils.ActivityUtils;
 import com.old.time.utils.StringUtils;
 import com.old.time.utils.UIHelper;
@@ -105,6 +104,8 @@ public class UserRegisterActivity extends BaseActivity {
             @Override
             public void onSuccess(ResultBean mResultBean) {
                 UIHelper.dissmissProgressDialog(pd);
+                input_code.setText(String.valueOf("1234"));
+                userRegister();
                 startTimer();
 
             }

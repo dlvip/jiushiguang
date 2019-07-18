@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -180,5 +181,17 @@
         android:layout_height="@dimen/line_height"
         android:background="@color/line_bg" />
 
+    <com.old.time.views.LBTextView
+        android:id="@+id/logout_user"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_40"
+        android:layout_margin="@dimen/layout_30"
+        android:gravity="center"
+        android:text="退出登录"
+        android:textColor="@color/color_fff"
+        android:textSize="@dimen/text_18"
+        app:fill_color="@color/color_ff4444"
+        app:round_radius="@dimen/layout_5"
+        app:stroke_color="@color/color_ff4444" />
 
 </LinearLayout>

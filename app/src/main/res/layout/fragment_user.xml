@@ -6,18 +6,28 @@
 
     <include layout="@layout/header_main" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/c_recycler_view"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <include layout="@layout/header_user_fragment" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/c_recycler_view"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

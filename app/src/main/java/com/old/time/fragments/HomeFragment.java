@@ -15,9 +15,7 @@ import com.lzy.okgo.model.HttpParams;
 import com.old.time.R;
 import com.old.time.adapters.RBookAdapter;
 import com.old.time.adapters.RBookListAdapter;
-import com.old.time.beans.BannerBean;
 import com.old.time.beans.BookEntity;
-import com.old.time.beans.RBookEntity;
 import com.old.time.beans.RItemBookEntity;
 import com.old.time.beans.ResultBean;
 import com.old.time.constants.Code;
@@ -31,7 +29,6 @@ import com.old.time.utils.MyLinearLayoutManager;
 import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.views.banner.BannerLayout;
-import com.old.time.views.banner.adapter.MzBannerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +38,11 @@ import java.util.List;
  */
 
 public class HomeFragment extends BaseFragment {
+
+    public static HomeFragment getInstance(){
+
+        return new HomeFragment();
+    }
 
     public SwipeRefreshLayout.OnRefreshListener onRefreshListener;
     public SwipeRefreshLayout mSwipeRefreshLayout;
@@ -64,10 +66,7 @@ public class HomeFragment extends BaseFragment {
         }
     };
 
-    private List<BannerBean> bannerBeans;
     private BannerLayout recycler_banner;
-    private MzBannerAdapter mzBannerAdapter;
-
     private LinearLayout linear_layout_item;
 
     @Override
@@ -77,17 +76,12 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void lazyLoad() {
-        findViewById(R.id.left_layout).setVisibility(View.GONE);
         mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light,
-                R.color.holo_orange_light, R.color.holo_red_light);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright, R.color.holo_green_light, R.color.holo_orange_light, R.color.holo_red_light);
 
         linear_layout_item = findViewById(R.id.linear_layout_content);
         linear_layout_item.removeAllViews();
         recycler_banner = findViewById(R.id.recycler_banner);
-        bannerBeans = new ArrayList<>();
-        mzBannerAdapter = new MzBannerAdapter(mContext, bannerBeans);
-        recycler_banner.setmBannerAdapter(mzBannerAdapter);
 
         onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -110,7 +104,12 @@ public class HomeFragment extends BaseFragment {
     /**
      * 创建类型
      */
-    private View createItemView(int indext, RItemBookEntity itemBookEntity) {
+    private View createItemView(int index, RItemBookEntity itemBookEntity) {
+        if (itemBookEntity == null || itemBookEntity.getBookEntities() == null//
+                || itemBookEntity.getBookEntities().size() == 0) {
+
+            return null;
+        }
         View itemView = View.inflate(mContext, R.layout.title_recycler_view, null);
         TextView tvTitle = itemView.findViewById(R.id.tv_recycler_title);
         RecyclerView rvContent = itemView.findViewById(R.id.recycler_content);
@@ -124,7 +123,7 @@ public class HomeFragment extends BaseFragment {
         rvContent.setPadding(UIHelper.dip2px(5), 0, UIHelper.dip2px(10), 0);
         tvTitle.setText(itemBookEntity.getTitle());
         BaseQuickAdapter<BookEntity, BaseViewHolder> adapter;
-        switch (indext) {
+        switch (index) {
             case 0:
                 adapter = new RBookAdapter(new ArrayList<BookEntity>());
                 List<BookEntity> bookEntities = itemBookEntity.getBookEntities();
@@ -193,8 +192,15 @@ public class HomeFragment extends BaseFragment {
                 }
                 linear_layout_item.removeAllViews();
                 for (int i = 0; i < rItemBookEntities.size(); i++) {
-                    linear_layout_item.addView(createItemView(i, rItemBookEntities.get(i)));
+                    if (i == 0) {
+                        recycler_banner.initBannerImageView(rItemBookEntities.get(i).getBookEntities());
 
+                    }
+                    View view = createItemView(i, rItemBookEntities.get(i));
+                    if (view != null) {
+                        linear_layout_item.addView(view);
+
+                    }
                 }
             }
 

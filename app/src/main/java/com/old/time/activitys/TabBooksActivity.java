@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lzy.okgo.model.HttpParams;
 import com.old.time.adapters.RBookListAdapter;
 import com.old.time.beans.BookEntity;
@@ -39,7 +40,7 @@ public class TabBooksActivity extends BaseCActivity {
     }
 
     private TabEntity tabEntity;
-    private RBookListAdapter rBookAdapter;
+    private RBookListAdapter adapter;
     private List<BookEntity> bookEntities = new ArrayList<>();
 
     @Override
@@ -47,20 +48,24 @@ public class TabBooksActivity extends BaseCActivity {
         tabEntity = (TabEntity) getIntent().getSerializableExtra("tabEntity");
         super.initView();
         setTitleText(tabEntity.getName());
-        rBookAdapter = new RBookListAdapter(bookEntities);
+        adapter = new RBookListAdapter(bookEntities);
         mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext));
-        mRecyclerView.setAdapter(rBookAdapter);
+        mRecyclerView.setAdapter(adapter);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                getDataFromNet(false);
+
+            }
+        }, mRecyclerView);
 
     }
 
+    private int startNum;
     @Override
     public void getDataFromNet(final boolean isRefresh) {
-        int startNum;
         if (isRefresh) {
             startNum = 0;
-
-        } else {
-            startNum = bookEntities.size();
 
         }
         HttpParams params = new HttpParams();
@@ -72,18 +77,23 @@ public class TabBooksActivity extends BaseCActivity {
             @Override
             public void onSuccess(ResultBean<List<BookEntity>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
+                startNum++;
                 if (isRefresh) {
                     bookEntities.clear();
-                    rBookAdapter.setNewData(bookEntities);
+                    adapter.setNewData(bookEntities);
 
                 }
-                if (mResultBean.data != null) {
-                    rBookAdapter.addData(mResultBean.data);
+                if (mResultBean.data.size() < Constant.PageSize) {
+                    adapter.loadMoreEnd();
+
+                } else {
+                    adapter.loadMoreComplete();
 
                 }
-                if (rBookAdapter.getData().size() == 0) {
+                adapter.addData(mResultBean.data);
+                if (adapter.getData().size() == 0) {
                     mCustomNetView.setDataForView(CustomNetView.NO_DATA);
-                    rBookAdapter.setEmptyView(mCustomNetView);
+                    adapter.setEmptyView(mCustomNetView);
 
                 }
             }
@@ -91,7 +101,11 @@ public class TabBooksActivity extends BaseCActivity {
             @Override
             public void onError(ResultBean<List<BookEntity>> mResultBean) {
                 mSwipeRefreshLayout.setRefreshing(false);
+                if (adapter.getData().size() == 0) {
+                    mCustomNetView.setDataForView(CustomNetView.NO_DATA);
+                    adapter.setEmptyView(mCustomNetView);
 
+                }
             }
         });
     }

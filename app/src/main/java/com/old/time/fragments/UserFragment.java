@@ -1,4 +1,6 @@
 package com.old.time.fragments;
+
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import com.old.time.glideUtils.GlideUtils;
 import com.old.time.okhttps.JsonCallBack;
 import com.old.time.okhttps.OkGoUtils;
 import com.old.time.utils.MyGridLayoutManager;
+import com.old.time.utils.RecyclerItemDecoration;
 import com.old.time.utils.UIHelper;
 import com.old.time.utils.UserLocalInfoUtils;
 
@@ -30,7 +33,7 @@ import java.util.List;
  * Created by wcliang on 2019/7/12.
  */
 
-public class UserFragment extends CBaseFragment implements View.OnClickListener {
+public class UserFragment extends BaseFragment implements View.OnClickListener {
 
     /**
      * 我的书架
@@ -51,46 +54,39 @@ public class UserFragment extends CBaseFragment implements View.OnClickListener 
     private List<BookEntity> bookEntities = new ArrayList<>();
 
     @Override
-    protected void lazyLoad() {
-        super.lazyLoad();
-        LinearLayout linear_layout_header = findViewById(R.id.linear_layout_header);
-        linear_layout_header.removeAllViews();
-        View view = View.inflate(mContext, R.layout.header_main, null);
-        view.findViewById(R.id.left_layout).setVisibility(View.GONE);
-        ((TextView) view.findViewById(R.id.top_title)).setText("我的");
-        linear_layout_header.addView(view);
-        linear_layout_header.setVisibility(View.VISIBLE);
+    protected int setContentView() {
+        return R.layout.fragment_user;
+    }
 
-        View headerView = View.inflate(mContext, R.layout.header_user_fragment, null);
-        linear_layout_login = headerView.findViewById(R.id.linear_layout_login);
-        relative_layout_header = headerView.findViewById(R.id.relative_layout_header);
-        img_user_header = headerView.findViewById(R.id.img_user_header);
-        tv_user_name = headerView.findViewById(R.id.tv_user_name);
-        tv_user_detail = headerView.findViewById(R.id.tv_user_detail);
+    @Override
+    protected void lazyLoad() {
+        findViewById(R.id.left_layout).setVisibility(View.GONE);
+        ((TextView) findViewById(R.id.top_title)).setText("我的");
+
+        linear_layout_login = findViewById(R.id.linear_layout_login);
+        relative_layout_header = findViewById(R.id.relative_layout_header);
+        img_user_header = findViewById(R.id.img_user_header);
+        tv_user_name = findViewById(R.id.tv_user_name);
+        tv_user_detail = findViewById(R.id.tv_user_detail);
 
         linear_layout_login.setOnClickListener(this);
         relative_layout_header.setOnClickListener(this);
+        RecyclerView mRecyclerView = findViewById(R.id.c_recycler_view);
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.VERTICAL_LIST, 10));
+        mRecyclerView.addItemDecoration(new RecyclerItemDecoration(mContext, RecyclerItemDecoration.HORIZONTAL_LIST, 10));
         mRecyclerView.setLayoutManager(new MyGridLayoutManager(mContext, 3));
-        mRecyclerView.setPadding(UIHelper.dip2px(5), 0, UIHelper.dip2px(10), 0);
+        mRecyclerView.setBackgroundResource(R.color.color_fff);
         rBookAdapter = new RBookAdapter(bookEntities);
         mRecyclerView.setAdapter(rBookAdapter);
-        rBookAdapter.addHeaderView(headerView);
-
     }
 
     @Override
     public void getDataFromNet(boolean isRefresh) {
-        if (!UserLocalInfoUtils.instance().isUserLogin()) {
-            mSwipeRefreshLayout.setRefreshing(false);
-
-            return;
-        }
         HttpParams params = new HttpParams();
         params.put("userId", UserLocalInfoUtils.instance().getUserId());
         OkGoUtils.getInstance().postNetForData(params, Constant.GET_USER_INFO, new JsonCallBack<ResultBean<UserInfoBean>>() {
             @Override
             public void onSuccess(ResultBean<UserInfoBean> mResultBean) {
-                mSwipeRefreshLayout.setRefreshing(false);
                 if (mResultBean == null || mResultBean.data == null) {
 
                     return;
@@ -103,7 +99,6 @@ public class UserFragment extends CBaseFragment implements View.OnClickListener 
 
             @Override
             public void onError(ResultBean<UserInfoBean> mResultBean) {
-                mSwipeRefreshLayout.setRefreshing(false);
                 UIHelper.ToastMessage(mContext, mResultBean.msg);
 
             }

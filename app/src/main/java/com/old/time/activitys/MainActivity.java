@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.old.time.R;
 import com.old.time.fragments.BookMallFragment;
+import com.old.time.fragments.DynamicsFragment;
 import com.old.time.fragments.HomeFragment;
+import com.old.time.fragments.MBookFragment;
 import com.old.time.fragments.UserFragment;
 import com.old.time.utils.ActivityUtils;
 
@@ -80,7 +82,7 @@ public class MainActivity extends BaseActivity {
             case 0:
                 if (mHomeFragment == null) {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    mHomeFragment = new HomeFragment();
+                    mHomeFragment = MBookFragment.getInstance();
                     fragmentTransaction.add(R.id.fl_content, mHomeFragment);
                     fragmentTransaction.commit();
 
@@ -91,7 +93,7 @@ public class MainActivity extends BaseActivity {
             case 1:
                 if (mFindFragment == null) {
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    mFindFragment = new BookMallFragment();
+                    mFindFragment = DynamicsFragment.getInstance();
                     fragmentTransaction.add(R.id.fl_content, mFindFragment);
                     fragmentTransaction.commit();
 
@@ -143,9 +145,9 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    private HomeFragment mHomeFragment;
+    private MBookFragment mHomeFragment;
     private UserFragment mMineFragment;
-    private BookMallFragment mFindFragment;
+    private DynamicsFragment mFindFragment;
     private FragmentTransaction fragmentTransaction;
 
     /**
